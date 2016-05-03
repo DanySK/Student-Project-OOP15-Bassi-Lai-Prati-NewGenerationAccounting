@@ -1,16 +1,18 @@
 package dataModel;
 
-import dataEnum.NaturaConti;
+import dataEnum.Nature;
 
 public class Conto {
 	private String nome;
-	private NaturaConti natura;
-	private long saldo;
+	private Nature natura;
+	private long avere;
+	private long dare;
 	
-	public Conto(String nome, NaturaConti natura, long saldo) {
+	public Conto(String nome, Nature natura, long dare, long avere) {
 		this.nome = nome;
 		this.natura = natura;
-		this.saldo = saldo;
+		this.dare = dare;
+		this.avere = avere;
 	}
 
 	public String getNome() {
@@ -21,21 +23,27 @@ public class Conto {
 		this.nome = nome;
 	}
 
-	public NaturaConti getNatura() {
+	public Nature getNatura() {
 		return natura;
 	}
 
-	public void setNatura(NaturaConti natura) {
+	public void setNatura(Nature natura) {
 		this.natura = natura;
 	}
 
-	public long getSaldo() {
-		return saldo;
+	public long getAvere() {
+		return avere;
 	}
 
-	public void setSaldo(long saldo) {
-		this.saldo = saldo;
+	public void setAvere(long avere) {
+		this.avere = avere;
 	}
-	
-	
+
+	public long getDare() {
+		return dare;
+	}
+
+	public void setDare(long dare) {
+		this.dare = dare;
+	}
 }

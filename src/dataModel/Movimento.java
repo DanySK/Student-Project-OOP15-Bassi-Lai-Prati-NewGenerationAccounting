@@ -1,18 +1,15 @@
 package dataModel;
 
 import java.util.Date;
+import java.util.List;
 
 public class Movimento {
-	private Date data;
-	private int codice;
-	private String conto; //(il conto attraverso cui si svolge il movimento)
-	private long saldo;
-	
-	public Movimento(Date data, int codice, String conto, long saldo) {
+	Date data;
+	List<Conto> listaConti;
+
+	public Movimento(List<Conto> listaConti,Date data) {
+		this.listaConti = listaConti;
 		this.data = data;
-		this.codice = codice;
-		this.conto = conto;
-		this.saldo = saldo;
 	}
 
 	public Date getData() {
@@ -23,28 +20,12 @@ public class Movimento {
 		this.data = data;
 	}
 
-	public int getCodice() {
-		return codice;
+	public List<Conto> getListaConti() {
+		return listaConti;
 	}
 
-	public void setCodice(int codice) {
-		this.codice = codice;
-	}
-
-	public String getConto() {
-		return conto;
-	}
-
-	public void setConto(String conto) {
-		this.conto = conto;
-	}
-
-	public long getSaldo() {
-		return saldo;
-	}
-
-	public void setSaldo(long saldo) {
-		this.saldo = saldo;
+	public void setListaConti(List<Conto> listaConti) {
+		this.listaConti = listaConti;
 	}
 	
 	
