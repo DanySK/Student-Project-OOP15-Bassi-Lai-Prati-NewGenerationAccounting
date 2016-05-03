@@ -1,19 +1,20 @@
-import view.anaAziende.AnaAziendeView;
+import controller.AnaAziende.AnaAziendeControllerImpl;
 
 /**
  * 
  */
 
 /**
+ * 
+ * 
  * @author Pentolo
- *
  */
 public class ApplicationStart {
 
 	/**
-	 * @param args
+	 * @param args hmm.. obbligatoriamente inutile.
 	 */
 	public static void main(String[] args) {
-		new AnaAziendeView();
+		new AnaAziendeControllerImpl();
 	}
 }
