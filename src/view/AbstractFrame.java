@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controller.AbstractViewObserver;
-import controller.Controller;
 
 public abstract class AbstractFrame extends JFrame {
 

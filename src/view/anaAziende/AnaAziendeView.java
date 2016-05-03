@@ -3,7 +3,7 @@
  */
 package view.anaAziende;
 
-import controller.AnaAziende.AnaAziendeViewControllerImpl;
+import controller.AnaAziende.AnaAziendeControllerImpl;
 import view.AbstractAnagraficaView;
 
 /**
@@ -19,7 +19,7 @@ public class AnaAziendeView extends AbstractAnagraficaView {
 
 	
 	public AnaAziendeView() {
-		super("Anagrafica Aziende", new AnaAziendeViewControllerImpl());
+		super("Anagrafica Aziende", new AnaAziendeControllerImpl());
 		
 	}
 }
