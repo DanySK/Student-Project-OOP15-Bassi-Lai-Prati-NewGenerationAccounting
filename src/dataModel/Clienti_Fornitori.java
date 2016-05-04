@@ -3,18 +3,18 @@ package dataModel;
 import dataEnum.Gender;
 
 public class Clienti_Fornitori {
-	private String nome;
-	private String cognome;
-	private String cf;
-	private String indirizzo;
-	private String citta;
 	private int cap;
-	private String telefono;
+	private String cf;
+	private String citta;
+	private String cognome;
+	private String indirizzo;
+	private String nome;
 	private Gender sesso;
-	
+	private String telefono;
+
 	public Clienti_Fornitori(String nome, String cognome, String cf, String indirizzo, String citta, int cap,
-					String telefono, Gender sesso) {
-		
+			String telefono, Gender sesso) {
+
 		this.nome = nome;
 		this.cognome = cognome;
 		this.cf = cf;
@@ -23,69 +23,69 @@ public class Clienti_Fornitori {
 		this.cap = cap;
 		this.telefono = telefono;
 		this.sesso = sesso;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCognome() {
-		return cognome;
-	}
-
-	public void setCognome(String cognome) {
-		this.cognome = cognome;
-	}
-
-	public String getCf() {
-		return cf;
-	}
-
-	public void setCf(String cf) {
-		this.cf = cf;
-	}
-
-	public String getIndirizzo() {
-		return indirizzo;
-	}
-
-	public void setIndirizzo(String indirizzo) {
-		this.indirizzo = indirizzo;
-	}
-
-	public String getCitta() {
-		return citta;
-	}
-
-	public void setCitta(String citta) {
-		this.citta = citta;
 	}
 
 	public int getCap() {
 		return cap;
 	}
 
-	public void setCap(int cap) {
-		this.cap = cap;
+	public String getCf() {
+		return cf;
 	}
 
-	public String getTelefono() {
-		return telefono;
+	public String getCitta() {
+		return citta;
 	}
 
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+	public String getCognome() {
+		return cognome;
+	}
+
+	public String getIndirizzo() {
+		return indirizzo;
+	}
+
+	public String getNome() {
+		return nome;
 	}
 
 	public Gender getSesso() {
 		return sesso;
 	}
 
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setCap(int cap) {
+		this.cap = cap;
+	}
+
+	public void setCf(String cf) {
+		this.cf = cf;
+	}
+
+	public void setCitta(String citta) {
+		this.citta = citta;
+	}
+
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+
+	public void setIndirizzo(String indirizzo) {
+		this.indirizzo = indirizzo;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public void setSesso(Gender sesso) {
 		this.sesso = sesso;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 }

@@ -4,17 +4,17 @@
 package controller.main;
 
 import controller.AbstractViewObserver;
+import view.main.MainView;
 
 public class MainControllerImpl extends AbstractViewObserver {
 
 	public MainControllerImpl() {
-		super();
+		super(new MainView());
 	}
 
 	@Override
 	public void Chiusura() {
-		// TODO Auto-generated method stub
-		
+		System.exit(0);
 	}
-	
+
 }

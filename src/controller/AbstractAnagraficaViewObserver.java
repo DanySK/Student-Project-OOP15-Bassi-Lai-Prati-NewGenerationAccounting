@@ -3,19 +3,28 @@ package controller;
 import view.AbstractAnagraficaView;
 
 /**
- * classe astratta per i controller delle view che rispettano il layout di anagrafica, con i 5 tasti nel footer.
+ * classe astratta per i controller delle view che rispettano il layout di
+ * anagrafica, con i 5 tasti nel footer.
+ * 
  * @author Pentolo
  *
  */
-public abstract class AbstractAnagraficaViewObserver extends AbstractViewObserver{
+public abstract class AbstractAnagraficaViewObserver extends AbstractViewObserver {
 
-	public AbstractAnagraficaViewObserver() {
-		super();
+	public AbstractAnagraficaViewObserver(AbstractAnagraficaView view) {
+		super(view);
 	}
-	
+
+	@Override
+	public abstract void Chiusura();
+
 	public abstract void tasto0();
+
 	public abstract void tasto1();
+
 	public abstract void tasto2();
+
 	public abstract void tasto3();
+
 	public abstract void tasto4();
 }

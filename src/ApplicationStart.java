@@ -12,7 +12,8 @@ import controller.AnaAziende.AnaAziendeControllerImpl;
 public class ApplicationStart {
 
 	/**
-	 * @param args hmm.. obbligatoriamente inutile.
+	 * @param args
+	 *            hmm.. obbligatoriamente inutile.
 	 */
 	public static void main(String[] args) {
 		new AnaAziendeControllerImpl();
