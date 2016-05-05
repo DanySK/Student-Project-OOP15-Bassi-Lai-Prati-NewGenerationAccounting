@@ -1,3 +1,0 @@
-.hgignore sapete cos'è e come usarlo.
-ho messo la slide del prof nella quale spiega come usare i pattern di programmazione
-pmd e style sapete cosa sono e come importarli in eclipse. sono gli stessi del prof, per "standardizzare"
