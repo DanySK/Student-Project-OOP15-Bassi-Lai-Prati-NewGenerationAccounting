@@ -1,50 +1,33 @@
 package dataModel;
 
 import java.util.Date;
+import java.util.List;
 
 public class Movimento {
-	private int codice;
-	private String conto; // (il conto attraverso cui si svolge il movimento)
-	private Date data;
-	private long saldo;
+    private Date data;
+    private List<String> infoMovimento;
 
-	public Movimento(Date data, int codice, String conto, long saldo) {
-		this.data = data;
-		this.codice = codice;
-		this.conto = conto;
-		this.saldo = saldo;
-	}
+    public Movimento(Date data, String nomeConto, String dare, String avere) {
+        this.data = data;
+        this.infoMovimento.add(nomeConto);
+        this.infoMovimento.add(dare);
+        this.infoMovimento.add(avere);
+    }
 
-	public int getCodice() {
-		return codice;
-	}
+    public Date getData() {
+        return data;
+    }
 
-	public String getConto() {
-		return conto;
-	}
+    public void setData(Date data) {
+        this.data = data;
+    }
 
-	public Date getData() {
-		return data;
-	}
+    public List<String> getInfoMovimento() {
+        return infoMovimento;
+    }
 
-	public long getSaldo() {
-		return saldo;
-	}
-
-	public void setCodice(int codice) {
-		this.codice = codice;
-	}
-
-	public void setConto(String conto) {
-		this.conto = conto;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
-	}
-
-	public void setSaldo(long saldo) {
-		this.saldo = saldo;
-	}
+    public void setInfoMovimento(List<String> infoMovimento) {
+        this.infoMovimento = infoMovimento;
+    }
 
 }
