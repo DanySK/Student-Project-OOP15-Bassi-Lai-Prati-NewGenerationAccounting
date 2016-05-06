@@ -1,20 +1,13 @@
 package model;
 
-import java.util.Set;
-
-import dataEnum.Nature;
 import dataModel.Conto;
 
 public interface IAnagraficaConti {
     
-    abstract void aggiungi();
-    abstract void rimuovi();
-    abstract Object cerca();
-    abstract void modifica();
+    abstract void aggiungi(Conto conto);
+    abstract void rimuovi(Conto conto);
+    abstract Object cerca(Conto conto);
+    abstract void modifica(Conto conto);
     abstract void chiudi();
-    
-    public Nature getNatura(Conto conto);
-    
-    public Set<Conto> getListaConti(Nature natura);
 
 }

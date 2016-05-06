@@ -3,7 +3,6 @@ package model;
 import java.util.HashSet;
 import java.util.Set;
 
-import dataEnum.Nature;
 import dataModel.Conto;
 
 public class AnagraficaContiImpl implements IAnagraficaConti{
@@ -15,25 +14,36 @@ public class AnagraficaContiImpl implements IAnagraficaConti{
     }
 
     @Override
-    public void aggiungi() {
-        // TODO Auto-generated method stub
+    public void aggiungi(Conto conto) {
         
+        for(Conto elem : listaConti){
+            if(elem.getNatura().equals(conto.getNatura())&&
+              (elem.getNome().equals(conto.getNome()))){
+                System.out.println("conto già inserito, per modificarlo premere su MODIFICA");
+            }
+        }
+        listaConti.add(conto);
     }
 
     @Override
-    public void rimuovi() {
-        // TODO Auto-generated method stub
-        
+    public void rimuovi(Conto conto) {
+        if (listaConti.contains(conto)){
+            listaConti.remove(conto);
+            System.out.println("conto" + conto.getNome() + "eliminato");
+        }
+        else
+            System.out.println("conto non trovato");
     }
-
+        
+  
     @Override
-    public Object cerca() {
+    public Object cerca(Conto conto) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public void modifica() {
+    public void modifica(Conto conto) {
         // TODO Auto-generated method stub
         
     }
@@ -43,17 +53,4 @@ public class AnagraficaContiImpl implements IAnagraficaConti{
         // TODO Auto-generated method stub
         
     }
-
-    @Override
-    public Nature getNatura(Conto conto) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Set<Conto> getListaConti(Nature natura) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }

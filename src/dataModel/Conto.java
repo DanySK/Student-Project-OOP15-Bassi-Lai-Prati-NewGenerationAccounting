@@ -11,6 +11,8 @@ public class Conto {
 	public Conto(String nome, Nature natura, long dare, long avere) {
 		this.nome = nome;
 		this.natura = natura;
+		this.avere = avere;
+		this.dare = dare;
 	}
 
 	public Nature getNatura() {

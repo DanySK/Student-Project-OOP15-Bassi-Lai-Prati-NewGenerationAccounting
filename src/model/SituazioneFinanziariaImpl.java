@@ -36,5 +36,19 @@ public class SituazioneFinanziariaImpl implements ISituazioneFinanziaria{
         // TODO Auto-generated method stub
         return null;
     }
+    
+    private Map<Nature,Set<Conto>> calcolaSP(){
+        return null;
+    }
+    
+    private Map<Nature,Set<Conto>> calcolaCE(){
+        return null;
+    }
+    
+    private String analisiFinanz(){
+        return null;
+    }
+    
+    
 
 }
