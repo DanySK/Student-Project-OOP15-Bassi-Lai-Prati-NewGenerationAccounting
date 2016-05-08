@@ -1,56 +1,44 @@
 package model;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Set;
 
 import dataModel.Movimento;
 
-public class MovimentiPartitaDoppiaImpl implements IMovimentiPartitaDoppia{
+public class MovimentiPartitaDoppiaImpl<L> implements IOperations{
 
-    private Map<Date,Set<Movimento>> mappaMovimenti;
+    private Set<Movimento> listaMovimenti;
     
     public MovimentiPartitaDoppiaImpl() {
-        mappaMovimenti = new HashMap<>();
+        listaMovimenti = new HashSet<>();
     }
 
     @Override
-    public void aggiungi() {
+    public void add() {
+        
+    }
+
+    @Override
+    public void remove() {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void rimuovi() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public Object cerca() {
+    public Object search() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public void modifica() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void chiudi() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public List<Arrays> getListaMovimenti(Date data) {
+    public Object load() {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
+    public void edit() {
+        // TODO Auto-generated method stub
+        
+    }
 }

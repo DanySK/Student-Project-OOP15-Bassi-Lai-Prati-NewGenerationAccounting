@@ -15,7 +15,7 @@ public class Conto {
 		this.dare = dare;
 	}
 
-	public Nature getNatura() {
+    public Nature getNatura() {
 		return natura;
 	}
 
