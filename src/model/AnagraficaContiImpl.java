@@ -4,10 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import dataModel.Conto;
+import dataModel.DataModelImpl;
 
-public class AnagraficaContiImpl implements IOperations{
+public class AnagraficaContiImpl extends DataModelImpl implements IOperations{
 
     private Set<Conto> listaConti;
+    private Conto nuovoConto;
     
     public AnagraficaContiImpl() {
         listaConti = new HashSet<Conto>();
@@ -15,7 +17,7 @@ public class AnagraficaContiImpl implements IOperations{
 
     @Override
     public void add() {
-        
+       
     }
 
     @Override
@@ -24,17 +26,19 @@ public class AnagraficaContiImpl implements IOperations{
         
     }
 
+
     @Override
     public Object search() {
         // TODO Auto-generated method stub
         return null;
     }
 
+
     @Override
     public Object load() {
-        // TODO Auto-generated method stub
-        return null;
+        return getContiRegistrati();
     }
+
 
     @Override
     public void edit() {
@@ -42,5 +46,10 @@ public class AnagraficaContiImpl implements IOperations{
         
     }
     
+    private Set<Conto> getContiRegistrati(){
+        return listaConti;
+        
+    }
+
     
 }

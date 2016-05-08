@@ -3,9 +3,10 @@ package model;
 import java.util.HashSet;
 import java.util.Set;
 
+import dataModel.DataModelImpl;
 import dataModel.Movimento;
 
-public class MovimentiPartitaDoppiaImpl<L> implements IOperations{
+public class MovimentiPartitaDoppiaImpl extends DataModelImpl implements IOperations{
 
     private Set<Movimento> listaMovimenti;
     
@@ -15,6 +16,7 @@ public class MovimentiPartitaDoppiaImpl<L> implements IOperations{
 
     @Override
     public void add() {
+        // TODO Auto-generated method stub
         
     }
 
@@ -41,4 +43,6 @@ public class MovimentiPartitaDoppiaImpl<L> implements IOperations{
         // TODO Auto-generated method stub
         
     }
+
+    
 }
