@@ -10,9 +10,9 @@ import java.util.List;
 public class Movement {
 
     private Date data;
-    private List<Bill> listaConti;
+    private List<Account> listaConti;
 
-    public Movement(Date data, Bill conto) {
+    public Movement(Date data, Account conto) {
         this.data = data;
         this.listaConti.add(conto);
     }
@@ -25,11 +25,11 @@ public class Movement {
         this.data = data;
     }
 
-    public List<Bill> getListaConti() {
+    public List<Account> getListaConti() {
         return listaConti;
     }
 
-    public void setListaConti(List<Bill> listaConti) {
+    public void setListaConti(List<Account> listaConti) {
         this.listaConti = listaConti;
     }
     

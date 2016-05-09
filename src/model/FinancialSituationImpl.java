@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import dataEnum.Natures;
-import dataModel.Bill;
+import dataModel.Account;
 /**
  * classe implementativa per la gestione di stato patrimoniale
  * conto economico e analisi per margini e indici
@@ -15,25 +15,25 @@ import dataModel.Bill;
  */
 public class FinancialSituationImpl implements IFinancialSituation{
 
-    private Map<Natures,Set<Bill>> StatoPatrimoniale;
-    private Map<Natures,Set<Bill>> BillEconomico;
+    private Map<Natures,Set<Account>> StatoPatrimoniale;
+    private Map<Natures,Set<Account>> AccountEconomico;
     
     public FinancialSituationImpl() {
         
         this.StatoPatrimoniale = new HashMap<>();
-        this.BillEconomico = new HashMap<>();
+        this.AccountEconomico = new HashMap<>();
     }
 
     @Override
-    public Map<Natures,Set<Bill>> getStatoPatrimoniale() {
+    public Map<Natures,Set<Account>> getStatoPatrimoniale() {
         return StatoPatrimoniale;
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public Map<Natures,Set<Bill>> getBillEconomico() {
-        return BillEconomico;
+    public Map<Natures,Set<Account>> getContoEconomico() {
+        return AccountEconomico;
         // TODO Auto-generated method stub 
     }
 
@@ -63,11 +63,11 @@ public class FinancialSituationImpl implements IFinancialSituation{
         return null;
     }
     
-    private Map<Natures,Set<Bill>> calcolaSP(){
+    private Map<Natures,Set<Account>> calcolaSP(){
         return null;
     }
     
-    private Map<Natures,Set<Bill>> calcolaCE(){
+    private Map<Natures,Set<Account>> calcolaCE(){
         return null;
     }
     

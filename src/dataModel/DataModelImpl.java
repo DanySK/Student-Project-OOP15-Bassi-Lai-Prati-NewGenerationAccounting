@@ -12,7 +12,7 @@ import dataEnum.Natures;
  */
 public class DataModelImpl implements IdataModel {
 
-    Bill newConto;
+    Account newConto;
     Movement newMovimento;
     Product newProdotto;
     Customers_Suppliers newCL_FO;
@@ -27,7 +27,7 @@ public class DataModelImpl implements IdataModel {
     }
 
     @Override
-    public void newMovimento(Date data, List<Bill> ListaContiUsati) {
+    public void newMovimento(Date data, List<Account> ListaContiUsati) {
        newMovimento.setData(data);
        newMovimento.setListaConti(ListaContiUsati);
     }

@@ -1,11 +1,13 @@
 package model;
 
+import java.util.List;
+
 public interface IOperations <L extends dataModel.IdataModel>{
     /**
      * Interfaccia delle operazioni comuni delle classi di anagrafica
      * @author niky
      */
-     void add();
+     void add(List<Object> info);
      /**
       * operazione di aggiunta di un nuovo oggetto al dataBase del programma
       * @author niky
