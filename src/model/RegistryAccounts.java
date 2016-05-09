@@ -3,7 +3,7 @@ package model;
 import java.util.HashSet;
 import java.util.Set;
 
-import dataModel.Bill;
+import dataModel.Account;
 import dataModel.DataModelImpl;
 /**
  * classe implementativa per la gestione dell'anagrafica dei conti
@@ -13,11 +13,10 @@ import dataModel.DataModelImpl;
  */
 public class RegistryAccounts extends DataModelImpl implements IOperations{
 
-    private Set<Bill> listaConti;
-    private Bill nuovoBill;
+    private Set<Account> listaConti;
     
     public RegistryAccounts() {
-        listaConti = new HashSet<Bill>();
+        listaConti = new HashSet<Account>();
     }
 
     @Override
@@ -51,7 +50,7 @@ public class RegistryAccounts extends DataModelImpl implements IOperations{
         
     }
     
-    private Set<Bill> getContiRegistrati(){
+    private Set<Account> getContiRegistrati(){
         return listaConti;
         
     }
