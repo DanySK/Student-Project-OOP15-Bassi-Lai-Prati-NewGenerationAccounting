@@ -1,6 +1,7 @@
 package model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import dataModel.DataModelImpl;
@@ -20,7 +21,7 @@ public class MovementsInDoubleEntry extends DataModelImpl implements IOperations
     }
 
     @Override
-    public void add() {
+    public void add(List info) {
         // TODO Auto-generated method stub
         
     }
@@ -47,7 +48,5 @@ public class MovementsInDoubleEntry extends DataModelImpl implements IOperations
     public void edit() {
         // TODO Auto-generated method stub
         
-    }
-
-    
+    } 
 }

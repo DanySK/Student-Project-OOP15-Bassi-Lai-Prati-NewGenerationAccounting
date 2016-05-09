@@ -13,7 +13,7 @@ import dataEnum.Natures;
  */
 public interface IdataModel {
     void newConto(String nome, Natures natura, long dare, long avere);
-    void newMovimento(Date data, List<Bill> ListaContiUsati);
+    void newMovimento(Date data, List<Account> ListaContiUsati);
     void newProdotto();
     void newCl_Fo();
     void newAzienda();
