@@ -4,13 +4,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 import dataModel.DataModelImpl;
-import dataModel.Movimento;
+import dataModel.Movement;
+/**
+ * classe implementativa per la gestione dell'anagrafica dei movimenti
+ * 
+ * @author niky
+ *
+ */
+public class MovementsInDoubleEntry extends DataModelImpl implements IOperations{
 
-public class MovimentiPartitaDoppiaImpl extends DataModelImpl implements IOperations{
-
-    private Set<Movimento> listaMovimenti;
+    private Set<Movement> listaMovimenti;
     
-    public MovimentiPartitaDoppiaImpl() {
+    public MovementsInDoubleEntry() {
         listaMovimenti = new HashSet<>();
     }
 

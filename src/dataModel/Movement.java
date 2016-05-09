@@ -1,14 +1,18 @@
 package dataModel;
-
+/**
+ * classe per gestire il singolo movimento in partita doppia
+ * 
+ * @author niky
+ */
 import java.util.Date;
 import java.util.List;
 
-public class Movimento {
+public class Movement {
 
     private Date data;
-    private List<Conto> listaConti;
+    private List<Bill> listaConti;
 
-    public Movimento(Date data, Conto conto) {
+    public Movement(Date data, Bill conto) {
         this.data = data;
         this.listaConti.add(conto);
     }
@@ -21,11 +25,11 @@ public class Movimento {
         this.data = data;
     }
 
-    public List<Conto> getListaConti() {
+    public List<Bill> getListaConti() {
         return listaConti;
     }
 
-    public void setListaConti(List<Conto> listaConti) {
+    public void setListaConti(List<Bill> listaConti) {
         this.listaConti = listaConti;
     }
     

@@ -1,8 +1,12 @@
 package dataModel;
-
+/**
+ * classe per la gestione del singolo cliente/fornitore
+ * 
+ * @author niky
+ */
 import dataEnum.Gender;
 
-public class Clienti_Fornitori {
+public class Customers_Suppliers {
 	private int cap;
 	private String cf;
 	private String citta;
@@ -12,7 +16,7 @@ public class Clienti_Fornitori {
 	private Gender sesso;
 	private String telefono;
 
-	public Clienti_Fornitori(String nome, String cognome, String cf, String indirizzo, String citta, int cap,
+	public Customers_Suppliers(String nome, String cognome, String cf, String indirizzo, String citta, int cap,
 			String telefono, Gender sesso) {
 
 		this.nome = nome;

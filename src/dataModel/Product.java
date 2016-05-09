@@ -1,6 +1,11 @@
 package dataModel;
-
-public class Prodotto {
+/**
+ * classe per la gestione del singolo prodotto e scorta associata
+ * 
+ * @author niky
+ *
+ */
+public class Product {
 	private int cod_acquisto;
 	private int cod_vendita;
 	private int codice_prodotto;
@@ -8,7 +13,7 @@ public class Prodotto {
 	private String nome;
 	private int scorta;
 
-	public Prodotto(String nome, int codice_prodotto, int cod_acquisto, int cod_vendita, int scorta,
+	public Product(String nome, int codice_prodotto, int cod_acquisto, int cod_vendita, int scorta,
 			String descrizione) {
 		this.nome = nome;
 		this.codice_prodotto = codice_prodotto;
@@ -26,7 +31,7 @@ public class Prodotto {
 		return cod_vendita;
 	}
 
-	public int getCodice_prodotto() {
+	public int getCodice_Product() {
 		return codice_prodotto;
 	}
 
@@ -50,7 +55,7 @@ public class Prodotto {
 		this.cod_vendita = cod_vendita;
 	}
 
-	public void setCodice_prodotto(int codice_prodotto) {
+	public void setCodice_Product(int codice_prodotto) {
 		this.codice_prodotto = codice_prodotto;
 	}
 

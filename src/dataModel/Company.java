@@ -1,6 +1,13 @@
 package dataModel;
 
-public class Azienda {
+/**
+ * classe per la gestione della singola azienda
+ * 
+ * @author niky
+ *
+ */
+
+public class Company {
 
 	private static final String[] intestazione = { "Rag. Soc", "P.iva" };
 
@@ -20,7 +27,7 @@ public class Azienda {
 
 	private String tel;
 
-	public Azienda(int codice_azienda, String password, String ragione_sociale, long partita_iva, String indirizzo,
+	public Company(int codice_azienda, String password, String ragione_sociale, long partita_iva, String indirizzo,
 			String citta, int cap, String provincia, String tel) {
 		this.codice_azienda = codice_azienda;
 		this.password = password;

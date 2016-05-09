@@ -3,16 +3,21 @@ package model;
 import java.util.HashSet;
 import java.util.Set;
 
-import dataModel.Conto;
+import dataModel.Bill;
 import dataModel.DataModelImpl;
+/**
+ * classe implementativa per la gestione dell'anagrafica dei conti
+ * 
+ * @author niky
+ *
+ */
+public class RegistryAccounts extends DataModelImpl implements IOperations{
 
-public class AnagraficaContiImpl extends DataModelImpl implements IOperations{
-
-    private Set<Conto> listaConti;
-    private Conto nuovoConto;
+    private Set<Bill> listaConti;
+    private Bill nuovoBill;
     
-    public AnagraficaContiImpl() {
-        listaConti = new HashSet<Conto>();
+    public RegistryAccounts() {
+        listaConti = new HashSet<Bill>();
     }
 
     @Override
@@ -46,7 +51,7 @@ public class AnagraficaContiImpl extends DataModelImpl implements IOperations{
         
     }
     
-    private Set<Conto> getContiRegistrati(){
+    private Set<Bill> getContiRegistrati(){
         return listaConti;
         
     }
