@@ -6,12 +6,15 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import controller.AbstractAnagraficaViewObserver;
+import dataModel.Company;
 
 /**
  * classe astratta per le view che rispettano il layout di anagrafica, con i 5
@@ -35,7 +38,11 @@ public abstract class AbstractAnagraficaView extends AbstractFrame {
 	private final JButton tasto2 = new JButton();
 	private final JButton tasto3 = new JButton();
 	private final JButton tasto4 = new JButton();
-
+	
+	ArrayList<Company> lista = new ArrayList<Company>();
+	private JTable table = new JTable();
+	private MyTableModel<Company> model = new MyTableModel<Company>(Company.getIntestazione(), lista);
+	
 	/**
 	 * @param title
 	 * @param lm
@@ -59,14 +66,24 @@ public abstract class AbstractAnagraficaView extends AbstractFrame {
 		footer.add(tasto2);
 		footer.add(tasto3);
 		footer.add(tasto4);
-		MyFrame.getContentPane().add(new JList<String>(), BorderLayout.CENTER);
+		
+		
+		lista.add(new Company(1, "a", "b", 123253456, "c", "d", 7777, "e", "f"));
+		lista.add(new Company(1, "abrtn", "asd", 122533456, "tnrc", "dntr", 7734577, "e234", "f3444"));
+		lista.add(new Company(1, "antr", "tnb", 123434556, "trnnc", "d", 7777, "efsfsee", "ef"));
+		
+	    JScrollPane scrollPane = new JScrollPane(table);
+	    table.setModel(model);
+		
+		MyFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 		MyFrame.getContentPane().add(footer, BorderLayout.SOUTH);
 		addListeners();
 	}
 
 	private void addListeners() {
 		tasto0.addActionListener(e -> {
-			((AbstractAnagraficaViewObserver) observer).tasto0();
+			lista.remove(model.getObjectAt(table.getSelectedRow()));
+			model.fireTableDataChanged();
 		});
 		tasto1.addActionListener(e -> {
 			((AbstractAnagraficaViewObserver) observer).tasto1();

@@ -7,7 +7,7 @@ package dataModel;
  *
  */
 
-public class Company {
+public class Company implements IDataTableModel{
 
 	private static final String[] intestazione = { "Rag. Soc", "P.iva" };
 
@@ -15,6 +15,17 @@ public class Company {
 		return intestazione;
 	}
 
+	public String getValueAt(int column) {
+		switch (column) {
+		case 0:
+			return getRagione_sociale();
+		case 1:
+			return Long.toString(getPartita_iva());
+		default:
+			return "";
+		}
+	}
+	
 	private int cap;
 	private String citta;
 	private int codice_azienda;
@@ -112,4 +123,6 @@ public class Company {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
+
+	
 }
