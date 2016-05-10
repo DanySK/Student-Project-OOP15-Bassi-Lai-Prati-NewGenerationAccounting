@@ -1,7 +1,6 @@
 package model;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import dataModel.Movement;
@@ -18,34 +17,4 @@ public class MovementsInDoubleEntry extends AbstractModel{
     public MovementsInDoubleEntry() {
         listaMovimenti = new HashSet<>();
     }
-
-    @Override
-    public void add(List info) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void remove() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public Object search() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Object load() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void edit() {
-        // TODO Auto-generated method stub
-        
-    } 
 }
