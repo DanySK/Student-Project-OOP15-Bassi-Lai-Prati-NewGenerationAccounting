@@ -1,4 +1,5 @@
 package dataModel;
+
 /**
  * classe per la gestione del singolo prodotto e scorta associata
  * 

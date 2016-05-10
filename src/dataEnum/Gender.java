@@ -1,7 +1,7 @@
 package dataEnum;
+
 /**
- * enumerazione che identifica
- * la persona secondo il genere
+ * enumerazione che identifica la persona secondo il genere
  * 
  * @author niky
  *

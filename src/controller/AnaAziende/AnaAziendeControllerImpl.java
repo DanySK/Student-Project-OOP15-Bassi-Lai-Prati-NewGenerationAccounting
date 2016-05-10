@@ -10,9 +10,9 @@ public class AnaAziendeControllerImpl extends AbstractAnagraficaViewObserver {
 		view.setObserver(this);
 		view.start();
 	}
-	
-	public void accedi(String password){
-		
+
+	public void accedi(String password) {
+
 	}
 
 	@Override

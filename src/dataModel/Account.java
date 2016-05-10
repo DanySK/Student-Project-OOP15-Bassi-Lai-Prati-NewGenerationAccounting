@@ -8,62 +8,66 @@ import dataEnum.Natures;
  * @author niky
  *
  */
-public class Account implements IDataTableModel{
-    private Natures natura;
-    private String nome;
-    private long avere;
-    private long dare;
+public class Account implements IDataTableModel {
+	private static final String[] intestazione = { "Natura", "Nome" };
+	public static String[] getIntestazione() {
+		return intestazione;
+	}
+	private Natures natura;
+	private String nome;
 
-    public Account(String nome, Natures natura, long dare, long avere) {
-        this.nome = nome;
-        this.natura = natura;
-        this.avere = avere;
-        this.dare = dare;
-    }
-    private static final String[] intestazione = { "Natura", "Nome" };
+	private long avere;
 
-    public static String[] getIntestazione() {
-            return intestazione;
-    }
-    @Override
-    public String getValueAt(int column) {
-        switch (column) {
-        case 0:
-                return getNatura().toString();
-        case 1:
-                return getName();
-        default:
-                return "";
-        }
-    }
-    
-    public String getName() {
-        return nome;
-    }
-    
-    public Natures getNatura() {
-        return natura;
-    }
-    public void setNatura(Natures natura) {
-        this.natura = natura;
-    }
-    public long getAvere() {
-        return avere;
-    }
+	private long dare;
 
-    public void setName(String nome) {
-        this.nome = nome;
-    }
+	public Account(String nome, Natures natura, long dare, long avere) {
+		this.nome = nome;
+		this.natura = natura;
+		this.avere = avere;
+		this.dare = dare;
+	}
 
-    public void setAvere(long avere) {
-        this.avere = avere;
-    }
+	public long getAvere() {
+		return avere;
+	}
 
-    public long getDare() {
-        return dare;
-    }
+	public long getDare() {
+		return dare;
+	}
 
-    public void setDare(long dare) {
-        this.dare = dare;
-    }
+	public String getName() {
+		return nome;
+	}
+
+	public Natures getNatura() {
+		return natura;
+	}
+
+	@Override
+	public String getValueAt(int column) {
+		switch (column) {
+		case 0:
+			return getNatura().toString();
+		case 1:
+			return getName();
+		default:
+			return "";
+		}
+	}
+
+	public void setAvere(long avere) {
+		this.avere = avere;
+	}
+
+	public void setDare(long dare) {
+		this.dare = dare;
+	}
+
+	public void setName(String nome) {
+		this.nome = nome;
+	}
+
+	public void setNatura(Natures natura) {
+		this.natura = natura;
+	}
 }

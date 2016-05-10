@@ -35,14 +35,18 @@ public class AnaAziendeView extends AbstractAnagraficaView<Company> {
 		topPanel.add(passwordField);
 		topPanel.add(accediButton);
 		MyFrame.getContentPane().add(topPanel, BorderLayout.NORTH);
-        //if (isPasswordCorrect(passwordField.getPassword())) {
-		
-		/*lista.add(new Company(1, "a", "bbbbbbbbbb", 253456, "c", "d", 7777, "e", "f"));
-		lista.add(new Company(1, "abghgrtn", "asd", 122533456, "tnrc", "dntr", 7734577, "e234", "f3444"));
-		lista.add(new Company(1, "mmmntr", "tnt", 1234567890, "trnnc", "d", 7777, "efsfsee", "ef"));*/
-		
+		// if (isPasswordCorrect(passwordField.getPassword())) {
+
+		/*
+		 * lista.add(new Company(1, "a", "bbbbbbbbbb", 253456, "c", "d", 7777,
+		 * "e", "f")); lista.add(new Company(1, "abghgrtn", "asd", 122533456,
+		 * "tnrc", "dntr", 7734577, "e234", "f3444")); lista.add(new Company(1,
+		 * "mmmntr", "tnt", 1234567890, "trnnc", "d", 7777, "efsfsee", "ef"));
+		 */
+
 		accediButton.addActionListener(e -> {
-			((AbstractAnagraficaViewObserver) observer).accedi(getModel().getObjectAt(getTable().getSelectedRow()), passwordField.getPassword());
+			((AbstractAnagraficaViewObserver) observer).accedi(getModel().getObjectAt(getTable().getSelectedRow()),
+					passwordField.getPassword());
 		});
 	}
 }

@@ -7,7 +7,7 @@ package dataModel;
  *
  */
 
-public class Company implements IDataTableModel{
+public class Company implements IDataTableModel {
 
 	private static final String[] intestazione = { "Rag. Soc", "P.iva" };
 
@@ -15,30 +15,18 @@ public class Company implements IDataTableModel{
 		return intestazione;
 	}
 
-	public String getValueAt(int column) {
-		switch (column) {
-		case 0:
-			return getRagione_sociale();
-		case 1:
-			return Long.toString(getPartita_iva());
-		default:
-			return "";
-		}
-	}
-	
 	private int cap;
+
 	private String citta;
 	private int codice_azienda;
 	private String indirizzo;
 	private long partita_iva;
 	private String password;
 	private String provincia;
-	
 	private String ragione_sociale;
 
 	private String tel;
-	
-	
+
 	public Company(int codice_azienda, String password, String ragione_sociale, long partita_iva, String indirizzo,
 			String citta, int cap, String provincia, String tel) {
 		this.codice_azienda = codice_azienda;
@@ -89,6 +77,33 @@ public class Company implements IDataTableModel{
 		return tel;
 	}
 
+	@Override
+	public String getValueAt(int column) {
+		switch (column) {
+		case 0:
+			return getRagione_sociale();
+		case 1:
+			return Long.toString(getPartita_iva());
+		default:
+			return "";
+		}
+	}
+
+	/**
+	 * Semplice controllo che confronta la password memorizzata nel database con
+	 * quella inserita volta per volta dall'utente.
+	 *
+	 * @param password
+	 * @return boolean
+	 */
+	public boolean ispasswordcorrect(String password) {
+		if (this.getPassword().equals(password)) {
+			return true;
+		} else
+			return false;
+
+	}
+
 	public void setCap(int cap) {
 		this.cap = cap;
 	}
@@ -124,18 +139,5 @@ public class Company implements IDataTableModel{
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	
-	/**
-	 * Semplice controllo che confronta la password memorizzata nel database con quella inserita volta per volta dall'utente.
-	 *
-	 * @param password 
-	 * @return boolean
-	 */
-	public boolean ispasswordcorrect(String password) {
-		if (this.getPassword().equals(password)){
-			return true;
-			} else return false;
-		
-	}
-	
+
 }

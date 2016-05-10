@@ -1,4 +1,5 @@
 package dataModel;
+
 /**
  * classe per la gestione del singolo cliente/fornitore
  * 
@@ -17,14 +18,6 @@ public class Customers_Suppliers {
 	private Gender sesso;
 	private String telefono;
 	private KindPerson ruolo;
-
-	public KindPerson getRuolo() {
-		return ruolo;
-	}
-
-	public void setRuolo(KindPerson ruolo) {
-		this.ruolo = ruolo;
-	}
 
 	public Customers_Suppliers(String nome, String cognome, String cf, String indirizzo, String citta, int cap,
 			String telefono, Gender sesso) {
@@ -63,6 +56,10 @@ public class Customers_Suppliers {
 		return nome;
 	}
 
+	public KindPerson getRuolo() {
+		return ruolo;
+	}
+
 	public Gender getSesso() {
 		return sesso;
 	}
@@ -93,6 +90,10 @@ public class Customers_Suppliers {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public void setRuolo(KindPerson ruolo) {
+		this.ruolo = ruolo;
 	}
 
 	public void setSesso(Gender sesso) {

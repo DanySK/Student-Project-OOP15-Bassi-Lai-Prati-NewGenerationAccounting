@@ -1,7 +1,8 @@
 package dataEnum;
+
 /**
- * enumerazione che identifica la persona in base
- * al ruolo nei comfronti dell'azienda
+ * enumerazione che identifica la persona in base al ruolo nei comfronti
+ * dell'azienda
  * 
  * @author niky
  *

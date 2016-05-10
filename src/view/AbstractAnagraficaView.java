@@ -38,11 +38,11 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 	private final JButton tasto2 = new JButton();
 	private final JButton tasto3 = new JButton();
 	private final JButton tasto4 = new JButton();
-	
-	private final LinkedList<dataModel> lista= new LinkedList<dataModel>();
+
+	private final LinkedList<dataModel> lista = new LinkedList<dataModel>();
 	private final JTable table = new JTable();
 	private MyTableModel<dataModel> dataModel;
-	
+
 	/**
 	 * @param title
 	 * @param lm
@@ -52,8 +52,8 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 		this(intestazione, title, DEFAULT_TASTO_0, DEFAULT_TASTO_1, DEFAULT_TASTO_2, DEFAULT_TASTO_3, DEFAULT_TASTO_4);
 	}
 
-	public AbstractAnagraficaView(String intestazione[], String title, String testo0, String testo1, String testo2, String testo3,
-			String testo4) {
+	public AbstractAnagraficaView(String intestazione[], String title, String testo0, String testo1, String testo2,
+			String testo3, String testo4) {
 		super(title, new Dimension(450, 550));
 		tasto0.setText(testo0);
 		tasto1.setText(testo1);
@@ -67,8 +67,8 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 		footer.add(tasto3);
 		footer.add(tasto4);
 		this.dataModel = new MyTableModel<dataModel>(intestazione, lista);
-	    JScrollPane scrollPane = new JScrollPane(getTable());
-	    getTable().setModel(getModel());
+		JScrollPane scrollPane = new JScrollPane(getTable());
+		getTable().setModel(getModel());
 		MyFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 		MyFrame.getContentPane().add(footer, BorderLayout.SOUTH);
 		addListeners();
