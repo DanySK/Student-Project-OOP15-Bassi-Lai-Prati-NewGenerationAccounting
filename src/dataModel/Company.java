@@ -33,11 +33,12 @@ public class Company implements IDataTableModel{
 	private long partita_iva;
 	private String password;
 	private String provincia;
-
+	
 	private String ragione_sociale;
 
 	private String tel;
-
+	
+	
 	public Company(int codice_azienda, String password, String ragione_sociale, long partita_iva, String indirizzo,
 			String citta, int cap, String provincia, String tel) {
 		this.codice_azienda = codice_azienda;
@@ -123,6 +124,18 @@ public class Company implements IDataTableModel{
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-
+	
+	/**
+	 * Semplice controllo che confronta la password memorizzata nel database con quella inserita volta per volta dall'utente.
+	 *
+	 * @param password 
+	 * @return boolean
+	 */
+	public boolean ispasswordcorrect(String password) {
+		if (this.getPassword().equals(password)){
+			return true;
+			} else return false;
+		
+	}
 	
 }
