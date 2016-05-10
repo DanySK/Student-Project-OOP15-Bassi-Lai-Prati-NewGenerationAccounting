@@ -1,9 +1,12 @@
 package model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
+import dataEnum.Natures;
 import dataModel.Account;
+import javafx.util.Pair;
 /**
  * classe implementativa per la gestione dell'anagrafica dei conti
  * 
@@ -12,10 +15,23 @@ import dataModel.Account;
  */
 public class RegistryAccounts extends AbstractModel{
 
-    private Set<Account> listaConti;
+    List<Account> lista = new LinkedList(datiDB);
+    Account nuovo;
     
     public RegistryAccounts() {
-        listaConti = new HashSet<Account>();
+    }
+
+    @Override
+    void comparisonAccount(Pair<String, Object> elemDaAggiungere) {
+        nuovo.setName(elemDaAggiungere.getKey());
+        nuovo.setNatura((Natures) elemDaAggiungere.getValue());
+        nuovo.setAvere(0);
+        nuovo.setDare(0);
+        if (lista.contains(nuovo)){
+            System.out.println("conto già inserito");
+        }
+        else
+            lista.add(nuovo);
     }
 
 }

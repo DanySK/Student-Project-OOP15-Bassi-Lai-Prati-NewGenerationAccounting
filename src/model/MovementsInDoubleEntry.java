@@ -1,6 +1,7 @@
 package model;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import dataModel.Movement;
@@ -17,4 +18,5 @@ public class MovementsInDoubleEntry extends AbstractModel{
     public MovementsInDoubleEntry() {
         listaMovimenti = new HashSet<>();
     }
+
 }

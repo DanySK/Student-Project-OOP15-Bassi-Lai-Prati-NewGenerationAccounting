@@ -1,34 +1,51 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-public abstract class AbstractModel{ //diventerà AbstractModel sarà classe astratta
+import javafx.util.Pair;
+
+public abstract class AbstractModel{
     /**
      * Interfaccia delle operazioni comuni delle classi di anagrafica
      * @author niky
      */
-     void add(Map<String,Object> contoDaAggiungere){}
+    
+    protected List<Object> datiDB = new LinkedList<>();
+    
+    void add(Object elemDaAggiungere){
+      if (elemDaAggiungere.getClass().equals(Pair.class)){
+                 comparisonAccount((Pair<String, Object>) elemDaAggiungere);
+         }
+      else if(elemDaAggiungere.getClass().equals(Map.class)){
+          //comparisonMovement((Map<String, Set<ArrayList<String>>>) elemDaAggiungere);
+      }
+    }
      /**
       * operazione di aggiunta di un nuovo oggetto al dataBase del programma
       * @author niky
       */
+    
      void remove(String nome, String natura){}
      /**
       * operazione per rimuovere un oggetto dal dataBase
       * @author niky
       */
+     
      List<Object> search(String nome, String natura){
-        int risultatoRicerca;
-        return null;}//modificare mettendo al posto dei paramentri i campi per la ricerca
-                                                     // il ritorno sarà una lista di oggetti
+        return null;
+     }
      /**
       * operazione per cercare un oggeto all'interno del dataBase
       * 
       * @return ritorna l'oggetto ricercato se presente nel dataBase
       */
      List<Object> load(){
-        return null;} // restituirà una lista di oggetti
+      return null;   
+     }
      /**
       * operazione per restituire alla view i dati del dataBase da mostrare all'utente
       * 
@@ -42,5 +59,5 @@ public abstract class AbstractModel{ //diventerà AbstractModel sarà classe ast
       * 
       * @author niky
       */
-     //nuova funzione filetr
+     abstract void comparisonAccount(Pair<String,Object> elemDaAggiungere);
 }       
