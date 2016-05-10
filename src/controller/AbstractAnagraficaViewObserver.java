@@ -1,5 +1,6 @@
 package controller;
 
+import dataModel.Company;
 import dataModel.IDataTableModel;
 import view.AbstractAnagraficaView;
 
@@ -28,4 +29,9 @@ public abstract class AbstractAnagraficaViewObserver extends AbstractViewObserve
 	public abstract void tasto3();
 
 	public abstract void tasto4();
+
+	public void accedi(Company azienda, char[] password) {
+		//if model.ispasswordcorrect(azienda, password)
+		
+	}
 }

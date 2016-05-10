@@ -39,9 +39,9 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 	private final JButton tasto3 = new JButton();
 	private final JButton tasto4 = new JButton();
 	
-	protected LinkedList<dataModel> lista= new LinkedList<dataModel>();
-	private JTable table = new JTable();
-	private MyTableModel<dataModel> model;
+	private final LinkedList<dataModel> lista= new LinkedList<dataModel>();
+	private final JTable table = new JTable();
+	private MyTableModel<dataModel> dataModel;
 	
 	/**
 	 * @param title
@@ -54,7 +54,7 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 
 	public AbstractAnagraficaView(String intestazione[], String title, String testo0, String testo1, String testo2, String testo3,
 			String testo4) {
-		super(title, new Dimension(430, 500));
+		super(title, new Dimension(450, 550));
 		tasto0.setText(testo0);
 		tasto1.setText(testo1);
 		tasto2.setText(testo2);
@@ -66,9 +66,9 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 		footer.add(tasto2);
 		footer.add(tasto3);
 		footer.add(tasto4);
-		this.model = new MyTableModel<dataModel>(intestazione, lista);
-	    JScrollPane scrollPane = new JScrollPane(table);
-	    table.setModel(model);
+		this.dataModel = new MyTableModel<dataModel>(intestazione, lista);
+	    JScrollPane scrollPane = new JScrollPane(getTable());
+	    getTable().setModel(getModel());
 		MyFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 		MyFrame.getContentPane().add(footer, BorderLayout.SOUTH);
 		addListeners();
@@ -76,8 +76,8 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 
 	private void addListeners() {
 		tasto0.addActionListener(e -> {
-			lista.remove(model.getObjectAt(table.getSelectedRow()));
-			model.fireTableDataChanged();
+			lista.remove(getModel().getObjectAt(getTable().getSelectedRow()));
+			getModel().fireTableDataChanged();
 		});
 		tasto1.addActionListener(e -> {
 			((AbstractAnagraficaViewObserver) observer).tasto1();
@@ -91,5 +91,13 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 		tasto4.addActionListener(e -> {
 			((AbstractAnagraficaViewObserver) observer).tasto4();
 		});
+	}
+
+	protected MyTableModel<dataModel> getModel() {
+		return dataModel;
+	}
+
+	protected JTable getTable() {
+		return table;
 	}
 }

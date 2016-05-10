@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import dataModel.Movement;
+import javafx.util.Pair;
 /**
  * classe implementativa per la gestione dell'anagrafica dei movimenti
  * 
@@ -18,5 +19,11 @@ public class MovementsInDoubleEntry extends AbstractModel{
     public MovementsInDoubleEntry() {
         listaMovimenti = new HashSet<>();
     }
+
+	@Override
+	void comparisonAccount(Pair<String, Object> elemDaAggiungere) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
