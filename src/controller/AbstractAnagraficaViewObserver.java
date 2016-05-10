@@ -1,5 +1,6 @@
 package controller;
 
+import dataModel.IDataTableModel;
 import view.AbstractAnagraficaView;
 
 /**

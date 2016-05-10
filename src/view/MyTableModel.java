@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import dataModel.Company;
 import dataModel.IDataTableModel;
 
 /**

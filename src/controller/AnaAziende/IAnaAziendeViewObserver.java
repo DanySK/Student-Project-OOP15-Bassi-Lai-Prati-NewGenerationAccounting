@@ -8,5 +8,5 @@ package controller.AnaAziende;
  *
  */
 public interface IAnaAziendeViewObserver {
-
+	
 }
