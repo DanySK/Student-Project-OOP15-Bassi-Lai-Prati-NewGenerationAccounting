@@ -8,7 +8,7 @@ import dataEnum.Natures;
  * @author niky
  *
  */
-public class Account {
+public class Account implements IDataTableModel{
     private Natures natura;
     private String nome;
     private long avere;
@@ -20,19 +20,33 @@ public class Account {
         this.avere = avere;
         this.dare = dare;
     }
+    private static final String[] intestazione = { "Natura", "Nome" };
 
-    public Natures getNature() {
-        return natura;
+    public static String[] getIntestazione() {
+            return intestazione;
     }
-
+    @Override
+    public String getValueAt(int column) {
+        switch (column) {
+        case 0:
+                return getNatura().toString();
+        case 1:
+                return getName();
+        default:
+                return "";
+        }
+    }
+    
     public String getName() {
         return nome;
     }
-
-    public void setNature(Natures natura) {
+    
+    public Natures getNatura() {
+        return natura;
+    }
+    public void setNatura(Natures natura) {
         this.natura = natura;
     }
-
     public long getAvere() {
         return avere;
     }

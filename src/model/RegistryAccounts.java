@@ -41,7 +41,7 @@ public class RegistryAccounts extends DataModelImpl implements IOperations{
             }
             else if(info.get(i).getClass().equals(Natures.class)){
                 Natures nat = (Natures) info.get(i);
-                nuovoConto.setNature(nat);
+                nuovoConto.setNatura(nat);
             }
         }  
     }

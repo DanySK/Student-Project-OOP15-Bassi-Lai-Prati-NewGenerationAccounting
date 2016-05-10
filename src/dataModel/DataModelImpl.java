@@ -21,7 +21,7 @@ public class DataModelImpl implements IdataModel {
     @Override
     public void newConto(String nome, Natures natura, long dare, long avere) {
         newConto.setName(nome);
-        newConto.setNature(natura);
+        newConto.setNatura(natura);
         newConto.setDare(dare);
         newConto.setAvere(avere);
     }
