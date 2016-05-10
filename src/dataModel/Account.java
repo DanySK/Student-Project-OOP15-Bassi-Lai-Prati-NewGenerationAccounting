@@ -8,13 +8,13 @@ import dataEnum.Natures;
  * @author niky
  *
  */
-public class Bill {
+public class Account {
     private Natures natura;
     private String nome;
     private long avere;
     private long dare;
 
-    public Bill(String nome, Natures natura, long dare, long avere) {
+    public Account(String nome, Natures natura, long dare, long avere) {
         this.nome = nome;
         this.natura = natura;
         this.avere = avere;
