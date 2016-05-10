@@ -5,6 +5,7 @@ package dataModel;
  * @author niky
  */
 import dataEnum.Gender;
+import dataEnum.KindPerson;
 
 public class Customers_Suppliers {
 	private int cap;
@@ -15,6 +16,15 @@ public class Customers_Suppliers {
 	private String nome;
 	private Gender sesso;
 	private String telefono;
+	private KindPerson ruolo;
+
+	public KindPerson getRuolo() {
+		return ruolo;
+	}
+
+	public void setRuolo(KindPerson ruolo) {
+		this.ruolo = ruolo;
+	}
 
 	public Customers_Suppliers(String nome, String cognome, String cf, String indirizzo, String citta, int cap,
 			String telefono, Gender sesso) {

@@ -6,7 +6,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -14,7 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import controller.AbstractAnagraficaViewObserver;
-import dataModel.Company;
+import dataModel.IDataTableModel;
 
 /**
  * classe astratta per le view che rispettano il layout di anagrafica, con i 5
@@ -23,7 +23,7 @@ import dataModel.Company;
  * @author Pentolo
  *
  */
-public abstract class AbstractAnagraficaView extends AbstractFrame {
+public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> extends AbstractFrame {
 
 	private final static String DEFAULT_TASTO_0 = "Cerca";
 	private final static String DEFAULT_TASTO_1 = "Aggiungi";
@@ -39,20 +39,20 @@ public abstract class AbstractAnagraficaView extends AbstractFrame {
 	private final JButton tasto3 = new JButton();
 	private final JButton tasto4 = new JButton();
 	
-	ArrayList<Company> lista = new ArrayList<Company>();
+	protected LinkedList<dataModel> lista= new LinkedList<dataModel>();
 	private JTable table = new JTable();
-	private MyTableModel<Company> model = new MyTableModel<Company>(Company.getIntestazione(), lista);
+	private MyTableModel<dataModel> model;
 	
 	/**
 	 * @param title
 	 * @param lm
 	 * @param dimension
 	 */
-	public AbstractAnagraficaView(String title) {
-		this(title, DEFAULT_TASTO_0, DEFAULT_TASTO_1, DEFAULT_TASTO_2, DEFAULT_TASTO_3, DEFAULT_TASTO_4);
+	public AbstractAnagraficaView(String intestazione[], String title) {
+		this(intestazione, title, DEFAULT_TASTO_0, DEFAULT_TASTO_1, DEFAULT_TASTO_2, DEFAULT_TASTO_3, DEFAULT_TASTO_4);
 	}
 
-	public AbstractAnagraficaView(String title, String testo0, String testo1, String testo2, String testo3,
+	public AbstractAnagraficaView(String intestazione[], String title, String testo0, String testo1, String testo2, String testo3,
 			String testo4) {
 		super(title, new Dimension(430, 500));
 		tasto0.setText(testo0);
@@ -66,15 +66,9 @@ public abstract class AbstractAnagraficaView extends AbstractFrame {
 		footer.add(tasto2);
 		footer.add(tasto3);
 		footer.add(tasto4);
-		
-		
-		lista.add(new Company(1, "a", "b", 123253456, "c", "d", 7777, "e", "f"));
-		lista.add(new Company(1, "abrtn", "asd", 122533456, "tnrc", "dntr", 7734577, "e234", "f3444"));
-		lista.add(new Company(1, "antr", "tnb", 123434556, "trnnc", "d", 7777, "efsfsee", "ef"));
-		
+		this.model = new MyTableModel<dataModel>(intestazione, lista);
 	    JScrollPane scrollPane = new JScrollPane(table);
 	    table.setModel(model);
-		
 		MyFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 		MyFrame.getContentPane().add(footer, BorderLayout.SOUTH);
 		addListeners();

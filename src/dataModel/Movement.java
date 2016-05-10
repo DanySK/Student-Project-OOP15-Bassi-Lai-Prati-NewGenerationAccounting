@@ -5,6 +5,7 @@ package dataModel;
  * @author niky
  */
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Movement {
@@ -12,9 +13,9 @@ public class Movement {
     private Date data;
     private List<Account> listaConti;
 
-    public Movement(Date data, Account conto) {
+    public Movement(Date data, List<Account> lista) {
         this.data = data;
-        this.listaConti.add(conto);
+        this.listaConti = new LinkedList<Account>(lista);
     }
 
     public Date getData() {

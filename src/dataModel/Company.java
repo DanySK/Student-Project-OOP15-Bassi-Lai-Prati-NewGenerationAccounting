@@ -3,7 +3,7 @@ package dataModel;
 /**
  * classe per la gestione della singola azienda
  * 
- * @author niky
+ * @author Pentolo
  *
  */
 
