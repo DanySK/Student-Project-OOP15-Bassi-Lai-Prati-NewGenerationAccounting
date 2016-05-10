@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import dataModel.DataModelImpl;
 import dataModel.Movement;
 /**
  * classe implementativa per la gestione dell'anagrafica dei movimenti
@@ -12,7 +11,7 @@ import dataModel.Movement;
  * @author niky
  *
  */
-public class MovementsInDoubleEntry extends DataModelImpl implements IOperations{
+public class MovementsInDoubleEntry extends AbstractModel{
 
     private Set<Movement> listaMovimenti;
     
