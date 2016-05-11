@@ -1,13 +1,14 @@
 package model;
 
-import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import dataModel.Account;
 import dataModel.Movement;
 import javafx.util.Pair;
 
@@ -28,6 +29,7 @@ public class MovementsInDoubleEntry extends AbstractModel {
 
     @Override
     void comparisonAccount(Pair<String, Object> elemDaAggiungere) {
+      //chiedere a fede come far si che questa funzione non venga chiamata
     }
 
     @Override
@@ -37,9 +39,14 @@ public class MovementsInDoubleEntry extends AbstractModel {
         nuovo.setData(data);
         nuovo.setListaConti(infoMovimento.getValue());
         listaMovimenti.add(nuovo);
+        
+        //updateAccounts(listaConti, infoMovimento);
+        
+        
     }
 
-
+    private void updateAccounts(List<Account> listaConti, Pair<String,List<ArrayList<String>>> infoMovimento) {
+    }
 
  }
 

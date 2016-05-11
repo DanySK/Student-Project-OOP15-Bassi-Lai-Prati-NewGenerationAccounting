@@ -16,11 +16,11 @@ import javafx.util.Pair;
  */
 public class RegistryAccounts extends AbstractModel {
 
-	List<Account> lista;
-	Account nuovo;
+	public List<Account> listaContiRegistrati;
+	private Account nuovo;
 
 	public RegistryAccounts() {
-	    lista = new LinkedList<Account>();
+	    listaContiRegistrati = new LinkedList<Account>();
 	}
 
 	@Override
@@ -29,15 +29,15 @@ public class RegistryAccounts extends AbstractModel {
 		nuovo.setNatura((Natures) elemDaAggiungere.getValue());
 		nuovo.setAvere(0);
 		nuovo.setDare(0);
-		if (lista.contains(nuovo)) {
+		if (listaContiRegistrati.contains(nuovo)) {
 			System.out.println("conto già inserito");
 		} else
-			lista.add(nuovo);
+			listaContiRegistrati.add(nuovo);
 	}
 
     @Override
     void comparisonMovement(Pair<String, List<ArrayList<String>>> infoMovimento) {
-        
+        //chiedere a fede come far si che questa funzione non venga chiamata
     }
-
+    
 }
