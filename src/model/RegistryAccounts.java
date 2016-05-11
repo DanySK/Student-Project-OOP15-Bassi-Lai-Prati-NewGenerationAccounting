@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,10 +16,11 @@ import javafx.util.Pair;
  */
 public class RegistryAccounts extends AbstractModel {
 
-	List<Account> lista = new LinkedList(datiDB);
+	List<Account> lista;
 	Account nuovo;
 
 	public RegistryAccounts() {
+	    lista = new LinkedList<Account>();
 	}
 
 	@Override
@@ -32,5 +34,10 @@ public class RegistryAccounts extends AbstractModel {
 		} else
 			lista.add(nuovo);
 	}
+
+    @Override
+    void comparisonMovement(Pair<String, List<ArrayList<String>>> infoMovimento) {
+        
+    }
 
 }
