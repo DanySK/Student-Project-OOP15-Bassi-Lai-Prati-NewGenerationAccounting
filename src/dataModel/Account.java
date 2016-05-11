@@ -15,9 +15,7 @@ public class Account implements IDataTableModel {
 	}
 	private Natures natura;
 	private String nome;
-
 	private long avere;
-
 	private long dare;
 
 	public Account(String nome, Natures natura, long dare, long avere) {

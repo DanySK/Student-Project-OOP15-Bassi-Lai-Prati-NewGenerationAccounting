@@ -1,12 +1,13 @@
 package model;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import javafx.util.Pair;
+import dataModel.Account;
+import dataModel.IDataTableModel;
 
 public abstract class AbstractModel {
     /**
@@ -15,26 +16,13 @@ public abstract class AbstractModel {
      * @author niky
      */
 
-    protected List<Object> datiDB = new LinkedList<>();
-
-    @SuppressWarnings("unchecked")
-    void add(Object elemDaAggiungere) throws ParseException {
-        if (elemDaAggiungere.getClass().equals(Pair.class)) {
-            comparisonAccount((Pair<String, Object>) elemDaAggiungere);
-        } else if (elemDaAggiungere.getClass().equals(Map.class)) {
-            comparisonMovement((Pair<String, List<ArrayList<String>>>) elemDaAggiungere);
-        }
-    }
-
+   void add(){}
     /**
      * operazione per cercare e modificare un oggetto all'interno del dataBase
      * 
      * @author niky
      */
-    abstract void comparisonAccount(Pair<String, Object> elemDaAggiungere);
-
-    abstract void comparisonMovement(Pair<String, List<ArrayList<String>>> infoMovimento) throws ParseException;
-
+   
     /**
      * operazione per restituire alla view i dati del dataBase da mostrare
      * all'utente
@@ -72,5 +60,17 @@ public abstract class AbstractModel {
 
     List<Object> search(String nome, String natura) {
         return null;
+    }
+    public Map<String,Object> getMap(IDataTableModel obj){
+        Map<String,Object> mappa = new HashMap<>();
+        if(obj==null){
+           mappa.put("Nome Conto", new String(""));
+           mappa.put("Natura Conto", new String (""));
+           mappa.put("Data Movimento", new Date(0, 0, 0));
+           mappa.put("lista conti usati nel movimento", new HashSet<Account>());
+           return mappa;
+        }
+        else
+            return mappa;
     }
 }
