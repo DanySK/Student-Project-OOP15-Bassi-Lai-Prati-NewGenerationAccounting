@@ -1,11 +1,9 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,6 +20,8 @@ public class MovementsInDoubleEntry extends AbstractModel {
 
     private Set<Movement> listaMovimenti;
     Movement nuovo;
+    Movement elem;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     public MovementsInDoubleEntry() {
         listaMovimenti = new HashSet<>();
@@ -29,7 +29,6 @@ public class MovementsInDoubleEntry extends AbstractModel {
     @Override
     void addElem(Map<String, Object> elem) throws ParseException {
         
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = dateFormat.parse(elem.get("data").toString());
         nuovo.setData(date);
         nuovo.setListaConti((Set<Account>) elem.get("lista conti usati nel movimento"));
@@ -37,6 +36,16 @@ public class MovementsInDoubleEntry extends AbstractModel {
             System.out.println("movimento già registrato");
         }
         else listaMovimenti.add(nuovo);
+      //qui si richiamerà la funzione per modificare i conti -> APPLICANDO gli effetti di questo movimento
+    }
+    @Override
+    void removeElem(Map<String, Object> elemDaEliminare) throws ParseException {
+        elem.setData(dateFormat.parse(elemDaEliminare.get("Data Movimento").toString()));
+        elem.setListaConti((Set<Account>) elemDaEliminare.get("lista conti usati nel movimento"));
+        if(listaMovimenti.contains(elem)){
+            listaMovimenti.remove(elem);
+            //qui si richiamerà la funzione per modificare i conti -> ANNULLANDO gli effetti di questo movimento
+        }
     }
  }
 

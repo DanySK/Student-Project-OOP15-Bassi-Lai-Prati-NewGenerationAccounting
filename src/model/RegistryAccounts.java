@@ -17,6 +17,7 @@ public class RegistryAccounts extends AbstractModel {
 
 	public List<Account> listaContiRegistrati;
 	private Account nuovo;
+	private Account elem;
 
 	public RegistryAccounts() {
 	    listaContiRegistrati = new LinkedList<Account>();
@@ -32,6 +33,17 @@ public class RegistryAccounts extends AbstractModel {
             System.out.println("conto già registrato");
         }
         else listaContiRegistrati.add(nuovo);
+    }
+
+    @Override
+    void removeElem(Map<String, Object> elemDaEliminare) {
+        elem.setName(elemDaEliminare.get("Nome Conto").toString());
+        elem.setNatura((Natures) elemDaEliminare.get("Natura Conto"));
+        for(Account a : listaContiRegistrati){
+            if(a.getNatura().equals(elem.getNatura())&&a.getName().equals(elem.getName())){
+                listaContiRegistrati.remove(a);
+            }
+        }
     }
 	
 }

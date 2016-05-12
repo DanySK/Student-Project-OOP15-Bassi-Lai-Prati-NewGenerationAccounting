@@ -1,6 +1,5 @@
 package model;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -52,9 +51,11 @@ public abstract class AbstractModel {
      * operazione di aggiunta di un nuovo oggetto al dataBase del programma
      * 
      * @author niky
+     * @throws ParseException 
      */
 
-    void remove(String nome, String natura) {
+    void remove() throws ParseException{
+       removeElem(mappa); 
     }
 
     /**
@@ -66,7 +67,7 @@ public abstract class AbstractModel {
     List<Object> search(String nome, String natura) {
         return null;
     }
-   
+    abstract void removeElem(Map<String,Object> elemDaEliminare) throws ParseException;
     abstract void addElem(Map<String,Object>elem) throws ParseException;
     
     public Map<String,Object> getMap(IDataTableModel obj){
