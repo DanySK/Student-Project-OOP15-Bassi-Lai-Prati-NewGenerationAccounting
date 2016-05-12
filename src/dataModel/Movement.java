@@ -1,14 +1,14 @@
 package dataModel;
 
-import java.util.ArrayList;
 /**
  * classe per gestire il singolo movimento in partita doppia
  * 
  * @author niky
  */
 import java.util.Date;
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Movement implements IDataTableModel {
 
@@ -19,18 +19,18 @@ public class Movement implements IDataTableModel {
 
 	private Date data;
 
-	private List<ArrayList<String>> listaConti;
+	private Set<Account> listaConti;
 
-	public Movement(Date data, List<ArrayList<String>> lista) {
+	public Movement(Date data, List<Account> lista) {
 		this.data = data;
-		this.listaConti = new LinkedList<ArrayList<String>>(lista);
+		this.listaConti = new HashSet<Account>(lista);
 	}
 
 	public Date getData() {
 		return data;
 	}
 
-	public List<ArrayList<String>> getListaConti() {
+	public Set<Account> getListaConti() {
 		return listaConti;
 	}
 
@@ -40,13 +40,9 @@ public class Movement implements IDataTableModel {
 		case 0:
 			return getData().toString();
 		case 1:
-			for (ArrayList<String> a : listaConti) {
-				for(String s : a){
-				    if(!s.equals("0")){
-				        return s;
-				    }
+			for (Account a : listaConti) {
+			        return a.getName() + a.getAvere() + a.getDare();
 				}
-			}
 		default:
 			return "";
 		}
@@ -56,8 +52,8 @@ public class Movement implements IDataTableModel {
 		this.data = data;
 	}
 
-	public void setListaConti(List<ArrayList<String>> listaConti) {
-		this.listaConti = listaConti;
+	public void setListaConti(Set<Account> listaContiUsati) {
+		this.listaConti = listaContiUsati;
 	}
 
 }

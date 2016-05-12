@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -14,9 +15,13 @@ public abstract class AbstractModel {
      * Interfaccia delle operazioni comuni delle classi di anagrafica
      * 
      * @author niky
+     * @throws ParseException 
      */
-
-   void add(){}
+   protected Map<String,Object> mappa = new HashMap<>();
+   
+   void add(Map<String,Object>elem) throws ParseException{
+       addElem(elem); 
+   }
     /**
      * operazione per cercare e modificare un oggetto all'interno del dataBase
      * 
@@ -61,12 +66,15 @@ public abstract class AbstractModel {
     List<Object> search(String nome, String natura) {
         return null;
     }
+   
+    abstract void addElem(Map<String,Object>elem) throws ParseException;
+    
     public Map<String,Object> getMap(IDataTableModel obj){
-        Map<String,Object> mappa = new HashMap<>();
+
         if(obj==null){
            mappa.put("Nome Conto", new String(""));
            mappa.put("Natura Conto", new String (""));
-           mappa.put("Data Movimento", new Date(0, 0, 0));
+           mappa.put("Data Movimento", new String(""));
            mappa.put("lista conti usati nel movimento", new HashSet<Account>());
            return mappa;
         }
