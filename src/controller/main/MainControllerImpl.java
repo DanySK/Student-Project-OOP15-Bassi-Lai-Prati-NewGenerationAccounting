@@ -19,7 +19,7 @@ public class MainControllerImpl extends AbstractViewObserver {
 	}
 
 	@Override
-	public void Chiusura() {
+	public void chiusura() {
 		System.exit(0);
 	}
 
@@ -28,4 +28,35 @@ public class MainControllerImpl extends AbstractViewObserver {
 		new AnaAziendeControllerImpl();
 	}
 	
+	public void btn0 (String title){
+		
+	}
+	
+	public void btn1 (String title){
+		
+	}
+
+	public void btn2 (String title){
+	
+	}
+
+	public void btn3 (String title){
+	
+	}
+	
+	public void btn4 (String title){
+		
+	}
+	
+	public void btn5 (String title){
+		
+	}
+
+	public void btn6 (String title){
+	
+	}
+
+	public void btn7 (String title){
+	
+	}
 }

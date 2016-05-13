@@ -20,7 +20,7 @@ public abstract class AbstractAnagraficaViewObserver extends AbstractViewObserve
 	}
 
 	@Override
-	public abstract void Chiusura();
+	public abstract void chiusura();
 
 	public abstract void tasto0();
 

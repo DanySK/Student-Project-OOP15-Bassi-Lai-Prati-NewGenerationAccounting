@@ -48,7 +48,6 @@ public class AnaAziendeView extends AbstractAnagraficaView<Company> {
 	}
 
 	@Override
-	protected void Chiusura() {
-		confirmDialog("", "");
+	protected void chiusura() {
 	}
 }

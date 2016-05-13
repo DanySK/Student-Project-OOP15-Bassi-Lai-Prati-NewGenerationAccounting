@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -32,40 +33,15 @@ public abstract class AbstractFrame extends JFrame {
 		MyFrame.setSize(dimension);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		getContentPane().add(new JPanel(new BorderLayout()));
-		MyFrame.addWindowListener(new WindowListener() {
-			@Override
-			public void windowActivated(final WindowEvent arg0) {
-			}
-
-			@Override
-			public void windowClosed(final WindowEvent arg0) {
-			}
-
-			@Override
-			public void windowClosing(final WindowEvent arg0) {
-				Chiusura();
-			}
-
-			@Override
-			public void windowDeactivated(final WindowEvent arg0) {
-			}
-
-			@Override
-			public void windowDeiconified(final WindowEvent arg0) {
-			}
-
-			@Override
-			public void windowIconified(final WindowEvent arg0) {
-			}
-
-			@Override
-			public void windowOpened(final WindowEvent arg0) {
+		MyFrame.addWindowListener(new WindowAdapter() {
+			public void windowClosing (WindowEvent e) {
+				chiusura();
 			}
 		});
 	}
 
-	protected abstract void Chiusura();
-	
+	protected abstract void chiusura();
+
 	public boolean confirmDialog(String question, String name) {
 		return JOptionPane.showConfirmDialog(MyFrame, question, name,
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
@@ -74,7 +50,7 @@ public abstract class AbstractFrame extends JFrame {
 	public void start() {
 		this.MyFrame.setVisible(true);
 	}
-	
+
 	public void close() {
 		this.MyFrame.setVisible(false);
 	}

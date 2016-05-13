@@ -14,7 +14,7 @@ public class AnaAziendeControllerImpl extends AbstractAnagraficaViewObserver {
 	}
 
 	@Override
-	public void Chiusura() {
+	public void chiusura() {
 		System.exit(0);
 	}
 

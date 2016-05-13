@@ -32,7 +32,7 @@ public abstract class AbstractWideView extends AbstractFrame {
 		footer.add(chiudi);
 		MyFrame.getContentPane().add(footer, BorderLayout.SOUTH);
 		chiudi.addActionListener(e -> {
-			Chiusura();
+			chiusura();
 		});
 	}
 }
