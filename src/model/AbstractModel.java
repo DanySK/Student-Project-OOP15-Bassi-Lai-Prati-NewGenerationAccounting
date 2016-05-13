@@ -1,6 +1,7 @@
 package model;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -76,12 +77,13 @@ public abstract class AbstractModel {
     abstract void addElem(Map<String, Object> elem) throws ParseException;
 
     public Map<String, Object> getMap(IDataTableModel obj) {
+        List<Object> lista = new LinkedList<>();
         mappa.clear();
         if (obj == null) {
             mappa.put("Nome Conto", new String());
             mappa.put("Natura Conto", new String());
             mappa.put("Data Movimento", new Date());
-           // mappa.put("lista conti usati nel movimento", new LinkedList<ArraysList<Object>(3)>);
+            mappa.put("lista conti usati nel movimento", lista.add(new ArrayList<Object>(3)));
             return mappa;
         } else
             mappa.putAll((Map<? extends String, ? extends Object>) obj);
