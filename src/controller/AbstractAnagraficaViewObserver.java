@@ -15,7 +15,7 @@ public abstract class AbstractAnagraficaViewObserver extends AbstractViewObserve
 
 	protected AbstractAnagraficaView view;
 	
-	public AbstractAnagraficaViewObserver(AbstractAnagraficaView view) {
+	public AbstractAnagraficaViewObserver(final AbstractAnagraficaView view) {
 		this.view = view;
 	}
 

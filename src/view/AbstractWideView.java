@@ -25,7 +25,7 @@ public abstract class AbstractWideView extends AbstractFrame {
 	 * @param title
 	 * @param dimension
 	 */
-	public AbstractWideView(String title, Dimension dimension) {
+	public AbstractWideView(final String title, final Dimension dimension) {
 		super(title, dimension);
 		JButton chiudi = new JButton("Chiudi");
 		JPanel footer = new JPanel(new FlowLayout());

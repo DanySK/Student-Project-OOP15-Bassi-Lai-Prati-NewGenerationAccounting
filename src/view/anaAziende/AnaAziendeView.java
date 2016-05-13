@@ -43,7 +43,12 @@ public class AnaAziendeView extends AbstractAnagraficaView<Company> {
 		
 
 		accediButton.addActionListener(e -> {
-			((AnaAziendeControllerImpl) observer).accedi(getModel().getObjectAt(getTable().getSelectedRow()),passwordField.getPassword());
+			int row = getTable().getSelectedRow();
+			if (row != -1) {
+				((AnaAziendeControllerImpl) observer).accedi(getModel().getObjectAt(row),passwordField.getPassword());
+			} else {
+				errorDialog("Attenzione, seleziona una riga per continuare!", "nessuna riga selezionata");
+			}
 		});
 	}
 

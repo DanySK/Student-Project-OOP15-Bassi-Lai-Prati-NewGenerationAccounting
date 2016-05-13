@@ -48,7 +48,7 @@ public class AnaAziendeControllerImpl extends AbstractAnagraficaViewObserver {
 
 	}
 
-	public void accedi(Company objectAt, char[] password) {
+	public void accedi(final Company objectAt, final char[] password) {
 		view.close();
 		new MainControllerImpl();
 	}

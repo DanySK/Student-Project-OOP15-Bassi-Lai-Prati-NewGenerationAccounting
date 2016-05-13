@@ -26,7 +26,7 @@ public class MainView extends AbstractWideView {
 	/**
 	 * @param observer the observer to set
 	 */
-	public void setObserver(MainControllerImpl observer) {
+	public void setObserver(final MainControllerImpl observer) {
 		this.observer = observer;
 	}
 
@@ -59,7 +59,7 @@ public class MainView extends AbstractWideView {
 				observer.btn0(action);
 			}
 			else if (action.equals(listaBtn[1])) {
-				observer.btn1(action);
+				observer.btn1();
 			}
 			else if (action.equals(listaBtn[2])) {
 				observer.btn2(action);

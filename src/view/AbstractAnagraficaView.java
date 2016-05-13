@@ -50,12 +50,12 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 	 * @param lm
 	 * @param dimension
 	 */
-	public AbstractAnagraficaView(String intestazione[], String title) {
+	public AbstractAnagraficaView(final String intestazione[], final String title) {
 		this(intestazione, title, DEFAULT_TASTO_0, DEFAULT_TASTO_1, DEFAULT_TASTO_2, DEFAULT_TASTO_3, DEFAULT_TASTO_4);
 	}
 
-	public AbstractAnagraficaView(String intestazione[], String title, String testo0, String testo1, String testo2,
-			String testo3, String testo4) {
+	public AbstractAnagraficaView(final String intestazione[], final String title, final String testo0, final String testo1, final String testo2,
+			final String testo3, final String testo4) {
 		super(title, new Dimension(450, 550));
 		tasto0.setText(testo0);
 		tasto1.setText(testo1);
@@ -95,7 +95,7 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 		});
 	}
 	
-	public void setObserver(AbstractAnagraficaViewObserver observer) {
+	public void setObserver(final AbstractAnagraficaViewObserver observer) {
 		this.observer = observer;
 	}
 

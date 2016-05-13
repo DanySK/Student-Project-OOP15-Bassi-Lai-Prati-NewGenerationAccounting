@@ -25,7 +25,7 @@ public class MyTableModel<dataModel extends IDataTableModel> extends AbstractTab
 	/**
 	 * 
 	 */
-	public MyTableModel(String headerList[], List<dataModel> list) {
+	public MyTableModel(final String headerList[], final List<dataModel> list) {
 		this.objectsList = list;
 		this.headerList = headerList;
 	}
@@ -41,11 +41,11 @@ public class MyTableModel<dataModel extends IDataTableModel> extends AbstractTab
 	}
 
 	@Override
-	public String getColumnName(int col) {
+	public String getColumnName(final int col) {
 		return headerList[col];
 	}
 
-	public dataModel getObjectAt(int row) {
+	public dataModel getObjectAt(final int row) {
 		return objectsList.get(row);
 	}
 

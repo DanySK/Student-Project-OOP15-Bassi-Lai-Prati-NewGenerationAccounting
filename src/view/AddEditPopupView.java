@@ -27,7 +27,7 @@ public class AddEditPopupView extends AbstractFrame {
 	 * @param title
 	 * @param dimension
 	 */
-	public AddEditPopupView(String title, Dimension dimension, Map<String, Object> mappa) {
+	public AddEditPopupView(final String title, final Dimension dimension, final Map<String, Object> mappa) {
 		super(title, dimension);
 		JPanel Panel = new JPanel(new FlowLayout());
 		for (String campo : mappa.keySet()) {

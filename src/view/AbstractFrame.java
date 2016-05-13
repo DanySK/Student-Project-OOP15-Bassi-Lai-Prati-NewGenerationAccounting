@@ -28,7 +28,7 @@ public abstract class AbstractFrame extends JFrame {
 	 * @param dimension
 	 *            dimensione finestra
 	 */
-	public AbstractFrame(String title, Dimension dimension) {
+	public AbstractFrame(final String title, final Dimension dimension) {
 		MyFrame = new JFrame("NGA - " + title);
 		MyFrame.setSize(dimension);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -42,9 +42,13 @@ public abstract class AbstractFrame extends JFrame {
 
 	protected abstract void chiusura();
 
-	public boolean confirmDialog(String question, String name) {
-		return JOptionPane.showConfirmDialog(MyFrame, question, name,
+	public boolean confirmDialog(final String question, final String title) {
+		return JOptionPane.showConfirmDialog(MyFrame, question, title,
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
+	}
+	
+	public void errorDialog(final String title, final String message){
+		JOptionPane.showMessageDialog(MyFrame, message, title, JOptionPane.ERROR_MESSAGE );
 	}
 
 	public void start() {
