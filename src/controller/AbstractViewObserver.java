@@ -10,10 +10,8 @@ import view.AbstractFrame;
  */
 public abstract class AbstractViewObserver {
 
-	protected AbstractFrame view;
 
-	public AbstractViewObserver(AbstractFrame view) {
-		this.view = view;
+	public AbstractViewObserver() {		
 	}
 
 	public abstract void Chiusura();

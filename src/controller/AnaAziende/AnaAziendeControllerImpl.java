@@ -1,18 +1,16 @@
 package controller.AnaAziende;
 
 import controller.AbstractAnagraficaViewObserver;
+import controller.main.MainControllerImpl;
+import dataModel.Company;
 import view.anaAziende.AnaAziendeView;
 
 public class AnaAziendeControllerImpl extends AbstractAnagraficaViewObserver {
-
+	
 	public AnaAziendeControllerImpl() {
 		super(new AnaAziendeView());
 		view.setObserver(this);
 		view.start();
-	}
-
-	public void accedi(String password) {
-
 	}
 
 	@Override
@@ -48,6 +46,11 @@ public class AnaAziendeControllerImpl extends AbstractAnagraficaViewObserver {
 	public void tasto4() {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void accedi(Company objectAt, char[] password) {
+		view.close();
+		new MainControllerImpl();
 	}
 
 }

@@ -16,7 +16,6 @@ public abstract class AbstractFrame extends JFrame {
 	private static final long serialVersionUID = 638596561545905264L;
 
 	protected JFrame MyFrame;
-	protected AbstractViewObserver observer;
 
 	/**
 	 * frame generico del progetto NGA
@@ -44,7 +43,7 @@ public abstract class AbstractFrame extends JFrame {
 
 			@Override
 			public void windowClosing(final WindowEvent arg0) {
-				observer.Chiusura();
+				Chiusura();
 			}
 
 			@Override
@@ -65,16 +64,18 @@ public abstract class AbstractFrame extends JFrame {
 		});
 	}
 
+	protected abstract void Chiusura();
+	
 	public boolean confirmDialog(String question, String name) {
 		return JOptionPane.showConfirmDialog(MyFrame, question, name,
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
 	}
 
-	public void setObserver(AbstractViewObserver observer) {
-		this.observer = observer;
-	}
-
 	public void start() {
 		this.MyFrame.setVisible(true);
+	}
+	
+	public void close() {
+		this.MyFrame.setVisible(false);
 	}
 }

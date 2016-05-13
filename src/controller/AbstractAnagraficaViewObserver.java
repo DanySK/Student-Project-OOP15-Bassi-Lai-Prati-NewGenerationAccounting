@@ -2,6 +2,7 @@ package controller;
 
 import dataModel.Company;
 import view.AbstractAnagraficaView;
+import view.AbstractFrame;
 
 /**
  * classe astratta per i controller delle view che rispettano il layout di
@@ -12,13 +13,10 @@ import view.AbstractAnagraficaView;
  */
 public abstract class AbstractAnagraficaViewObserver extends AbstractViewObserver {
 
+	protected AbstractAnagraficaView view;
+	
 	public AbstractAnagraficaViewObserver(AbstractAnagraficaView view) {
-		super(view);
-	}
-
-	public void accedi(Company azienda, char[] password) {
-		// if model.ispasswordcorrect(azienda, password)
-
+		this.view = view;
 	}
 
 	@Override

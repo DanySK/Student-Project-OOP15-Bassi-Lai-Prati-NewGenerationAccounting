@@ -40,4 +40,10 @@ public class AddEditPopupView extends AbstractFrame {
 		MyFrame.getContentPane().add(Panel, BorderLayout.CENTER);
 	}
 
+	@Override
+	protected void Chiusura() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

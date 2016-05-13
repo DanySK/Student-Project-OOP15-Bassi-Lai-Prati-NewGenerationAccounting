@@ -1,32 +1,59 @@
 package view.main;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.util.ArrayList;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
+import controller.main.MainControllerImpl;
 import view.AbstractFrame;
+import view.AbstractWideView;
 
-public class MainView extends AbstractFrame {
+public class MainView extends AbstractWideView {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8496684753244767160L;
+	private static final String CHIUDI = "Esci"; 
+	private final ArrayList<String> listaBtnStrings;
+	private final ArrayList<JButton> listaBtn;
+	private MainControllerImpl observer;
 	
-	private static final String ACQUISTO = Messages.getString("MainView.0"); //$NON-NLS-1$
-	private static final String ANA_AZIENDE = Messages.getString("MainView.1"); //$NON-NLS-1$
-	private static final String ANA_CLI_FOR = Messages.getString("MainView.2"); //$NON-NLS-1$
-	private static final String ANA_CONTI = Messages.getString("MainView.3"); //$NON-NLS-1$
-	private static final String ANA_MOVIMENTI = Messages.getString("MainView.4"); //$NON-NLS-1$
-	private static final String ANA_PROD_SCORTE = Messages.getString("MainView.5"); //$NON-NLS-1$
-	private static final String CHIUDI = Messages.getString("MainView.6"); //$NON-NLS-1$
-	private static final String DEBITI_CREDITI = Messages.getString("MainView.7"); //$NON-NLS-1$
-	private static final String SITUAZIONE_AZIENDALE = Messages.getString("MainView.8"); //$NON-NLS-1$
-
-	public MainView() {
-		super(Messages.getString("MainView.9"), new Dimension(250, 400)); //$NON-NLS-1$
-		this.getContentPane().add(new JButton(Messages.getString("MainView.10")), BorderLayout.CENTER); //$NON-NLS-1$
+	/**
+	 * @param observer the observer to set
+	 */
+	public void setObserver(MainControllerImpl observer) {
+		this.observer = observer;
 	}
 
+	public MainView() {
+		super(Messages.getString("MainView.8"), new Dimension(250, 350)); //$NON-NLS-1$
+		int maxBtn = Integer.parseInt(Messages.getString("MainView.500"));
+		listaBtnStrings = new ArrayList<String>(maxBtn);
+		listaBtn = new ArrayList<JButton>(maxBtn);
+		JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		for (int i=0; i<maxBtn; i++){
+			panel.add(Box.createRigidArea(new Dimension(0,5)));
+			String tmpStr = Messages.getString("MainView."+i);
+			listaBtnStrings.add(tmpStr);
+			JButton tmpBtn = new JButton(tmpStr);
+			tmpBtn.setName(tmpStr);
+			tmpBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+			panel.add(tmpBtn);
+		}
+		MyFrame.getContentPane().add(panel, BorderLayout.CENTER);
+	}
+	
+
+	@Override
+	protected void Chiusura() {
+		confirmDialog("a", "a");
+	}
 }
