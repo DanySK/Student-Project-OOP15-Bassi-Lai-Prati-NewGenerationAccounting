@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import dataModel.Account;
+import dataModel.IDataTableModel;
 import dataModel.Movement;
 
 /**
@@ -16,20 +17,20 @@ import dataModel.Movement;
  * @author niky
  *
  */
-public class MovementsInDoubleEntry extends AbstractModel {
+public class MovementsModel extends AbstractModel {
 
     private Set<Movement> listaMovimenti;
     Movement nuovo;
     Movement elem;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-    public MovementsInDoubleEntry() {
+    public MovementsModel() {
         listaMovimenti = new HashSet<>();
     }
     @Override
     void addElem(Map<String, Object> elem) throws ParseException {
         
-        Date date = dateFormat.parse(elem.get("data").toString());
+        Date date = dateFormat.parse(elem.get("Data Movimento").toString());
         nuovo.setData(date);
         nuovo.setListaConti((Set<Account>) elem.get("lista conti usati nel movimento"));
         if(listaMovimenti.contains(nuovo)){
@@ -46,6 +47,11 @@ public class MovementsInDoubleEntry extends AbstractModel {
             listaMovimenti.remove(elem);
             //qui si richiamerà la funzione per modificare i conti -> ANNULLANDO gli effetti di questo movimento
         }
+    }
+    @Override
+    void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare) {
+        // TODO Auto-generated method stub
+        
     }
  }
 

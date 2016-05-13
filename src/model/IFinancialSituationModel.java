@@ -13,7 +13,7 @@ import dataModel.Account;
  * @author niky
  *
  */
-public interface IFinancialSituation {
+public interface IFinancialSituationModel {
 	public String getAnalisiFinanziaria();
 
 	public Map<Natures, Set<Account>> getContoEconomico();

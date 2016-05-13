@@ -1,12 +1,13 @@
 package model;
 
 import java.text.ParseException;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import dataModel.Account;
 import dataModel.IDataTableModel;
 
 public abstract class AbstractModel {
@@ -35,7 +36,8 @@ public abstract class AbstractModel {
      * 
      * @author niky
      */
-    void edit(Map<String, Object> contoDaModificare) {
+    void edit(IDataTableModel obj,Map<String, Object> infoDaModificare) {
+        editElem(obj,infoDaModificare);
     }
 
     /**
@@ -68,19 +70,21 @@ public abstract class AbstractModel {
         return null;
     }
 
+    abstract void editElem(IDataTableModel obj,Map<String, Object> ifoDaModificare);
     abstract void removeElem(Map<String, Object> elemDaEliminare) throws ParseException;
 
     abstract void addElem(Map<String, Object> elem) throws ParseException;
 
     public Map<String, Object> getMap(IDataTableModel obj) {
-
+        mappa.clear();
         if (obj == null) {
-            mappa.put("Nome Conto", new String(""));
-            mappa.put("Natura Conto", new String(""));
-            mappa.put("Data Movimento", new String(""));
-            mappa.put("lista conti usati nel movimento", new HashSet<Account>());
+            mappa.put("Nome Conto", new String());
+            mappa.put("Natura Conto", new String());
+            mappa.put("Data Movimento", new Date());
+           // mappa.put("lista conti usati nel movimento", new LinkedList<ArraysList<Object>(3)>);
             return mappa;
         } else
+            mappa.putAll((Map<? extends String, ? extends Object>) obj);
             return mappa;
     }
 }
