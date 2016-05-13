@@ -6,6 +6,7 @@ import java.util.Map;
 
 import dataEnum.Natures;
 import dataModel.Account;
+import dataModel.IDataTableModel;
 
 /**
  * classe implementativa per la gestione dell'anagrafica dei conti
@@ -13,13 +14,13 @@ import dataModel.Account;
  * @author niky
  *
  */
-public class RegistryAccounts extends AbstractModel {
+public class AccountsModel extends AbstractModel {
 
 	public List<Account> listaContiRegistrati;
 	private Account nuovo;
 	private Account elem;
 
-	public RegistryAccounts() {
+	public AccountsModel() {
 	    listaContiRegistrati = new LinkedList<Account>();
 	}
 
@@ -44,6 +45,11 @@ public class RegistryAccounts extends AbstractModel {
                 listaContiRegistrati.remove(a);
             }
         }
+    }
+
+    @Override
+    void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare) {
+        
     }
 	
 }
