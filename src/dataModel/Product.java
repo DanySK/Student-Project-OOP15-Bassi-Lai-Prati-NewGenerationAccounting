@@ -1,12 +1,19 @@
 package dataModel;
 
 /**
- * classe per la gestione del singolo prodotto e scorta associata
+ * Classe per la gestione del singolo prodotto e scorta associata da parte dell'azienda.
  * 
- * @author niky
+ * @author niky & Diego
  *
  */
-public class Product {
+public class Product implements IDataTableModel {
+	
+	private static final String[] intestazione = { "Codice Prodotto", "Nome" , "Categoria", "Tipo Prodotto" };
+	
+	public static String[] getIntestazione() {
+		return intestazione;
+	}
+	
 	private int cod_acquisto;
 	private int cod_vendita;
 	private int codice_prodotto;
@@ -70,6 +77,12 @@ public class Product {
 
 	public void setScorta(int scorta) {
 		this.scorta = scorta;
+	}
+
+	@Override
+	public String getValueAt(int column) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
