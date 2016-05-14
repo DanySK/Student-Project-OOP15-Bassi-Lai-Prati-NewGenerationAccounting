@@ -23,11 +23,4 @@ public class MovimentiView extends AbstractAnagraficaView<Movement> {
 	public MovimentiView(String title) {
 		super(Movement.getIntestazione(),title);
 	}
-
-	@Override
-	protected void chiusura() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

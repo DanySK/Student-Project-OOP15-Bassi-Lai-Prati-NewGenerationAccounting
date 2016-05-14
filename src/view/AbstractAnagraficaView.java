@@ -91,7 +91,7 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 			((AbstractAnagraficaViewObserver) observer).tasto3();
 		});
 		tasto4.addActionListener(e -> {
-			((AbstractAnagraficaViewObserver) observer).tasto4();
+			((AbstractAnagraficaViewObserver) observer).chiusura();
 		});
 	}
 	
@@ -105,5 +105,10 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 
 	protected JTable getTable() {
 		return table;
+	}
+	
+	@Override
+	protected void chiusura() {
+		observer.chiusura();
 	}
 }

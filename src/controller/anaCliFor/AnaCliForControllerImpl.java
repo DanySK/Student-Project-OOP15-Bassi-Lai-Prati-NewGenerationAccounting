@@ -4,7 +4,9 @@
 package controller.anaCliFor;
 
 import controller.AbstractAnagraficaViewObserver;
+import controller.main.MainControllerImpl;
 import view.AbstractAnagraficaView;
+import view.anaAziende.AnaAziendeView;
 import view.anaCliFor.AnaCliForView;
 
 /**
@@ -18,7 +20,8 @@ public class AnaCliForControllerImpl extends AbstractAnagraficaViewObserver {
 	 */
 	public AnaCliForControllerImpl(String title) {
 		super(new AnaCliForView(title));
-		// TODO Auto-generated constructor stub
+		view.setObserver(this);
+		view.start();
 	}
 
 	/* (non-Javadoc)
@@ -26,8 +29,8 @@ public class AnaCliForControllerImpl extends AbstractAnagraficaViewObserver {
 	 */
 	@Override
 	public void chiusura() {
-		// TODO Auto-generated method stub
-
+		view.close();
+		new MainControllerImpl();
 	}
 
 	/* (non-Javadoc)
@@ -65,14 +68,4 @@ public class AnaCliForControllerImpl extends AbstractAnagraficaViewObserver {
 		// TODO Auto-generated method stub
 
 	}
-
-	/* (non-Javadoc)
-	 * @see controller.AbstractAnagraficaViewObserver#tasto4()
-	 */
-	@Override
-	public void tasto4() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

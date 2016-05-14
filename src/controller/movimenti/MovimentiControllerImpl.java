@@ -4,6 +4,7 @@
 package controller.movimenti;
 
 import controller.AbstractAnagraficaViewObserver;
+import controller.main.MainControllerImpl;
 import view.movimenti.MovimentiView;
 
 /**
@@ -17,7 +18,8 @@ public class MovimentiControllerImpl extends AbstractAnagraficaViewObserver {
 	 */
 	public MovimentiControllerImpl(String title) {
 		super(new MovimentiView(title));
-		// TODO Auto-generated constructor stub
+		view.setObserver(this);
+		view.start();
 	}
 
 	/* (non-Javadoc)
@@ -25,8 +27,8 @@ public class MovimentiControllerImpl extends AbstractAnagraficaViewObserver {
 	 */
 	@Override
 	public void chiusura() {
-		// TODO Auto-generated method stub
-
+		view.close();
+		new MainControllerImpl();
 	}
 
 	/* (non-Javadoc)
@@ -64,14 +66,4 @@ public class MovimentiControllerImpl extends AbstractAnagraficaViewObserver {
 		// TODO Auto-generated method stub
 
 	}
-
-	/* (non-Javadoc)
-	 * @see controller.AbstractAnagraficaViewObserver#tasto4()
-	 */
-	@Override
-	public void tasto4() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

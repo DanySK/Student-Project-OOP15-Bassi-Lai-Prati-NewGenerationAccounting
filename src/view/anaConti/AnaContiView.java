@@ -24,11 +24,4 @@ public class AnaContiView extends AbstractAnagraficaView<Account> {
 		super(Account.getIntestazione(), title);
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	protected void chiusura() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

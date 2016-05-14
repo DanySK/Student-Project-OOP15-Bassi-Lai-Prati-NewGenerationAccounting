@@ -9,7 +9,7 @@ import view.AbstractAnagraficaView;
  * @author Pentolo
  *
  */
-public class CreaFatturaView extends AbstractAnagraficaView<Product> {
+public class CreaFatturaView extends AbstractAnagraficaView {
 
 	/**
 	 * 
@@ -22,11 +22,4 @@ public class CreaFatturaView extends AbstractAnagraficaView<Product> {
 	public CreaFatturaView(String title) {
 		super(null, title);
 	}
-
-	@Override
-	protected void chiusura() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

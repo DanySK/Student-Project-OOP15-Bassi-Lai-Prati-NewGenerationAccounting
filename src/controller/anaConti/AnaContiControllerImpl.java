@@ -4,6 +4,7 @@
 package controller.anaConti;
 
 import controller.AbstractAnagraficaViewObserver;
+import controller.main.MainControllerImpl;
 import view.AbstractAnagraficaView;
 import view.anaConti.AnaContiView;
 
@@ -18,7 +19,8 @@ public class AnaContiControllerImpl extends AbstractAnagraficaViewObserver {
 	 */
 	public AnaContiControllerImpl(String title) {
 		super(new AnaContiView(title));
-		// TODO Auto-generated constructor stub
+		view.setObserver(this);
+		view.start();
 	}
 
 	/* (non-Javadoc)
@@ -26,8 +28,8 @@ public class AnaContiControllerImpl extends AbstractAnagraficaViewObserver {
 	 */
 	@Override
 	public void chiusura() {
-		// TODO Auto-generated method stub
-
+		view.close();
+		new MainControllerImpl();
 	}
 
 	/* (non-Javadoc)
@@ -65,14 +67,4 @@ public class AnaContiControllerImpl extends AbstractAnagraficaViewObserver {
 		// TODO Auto-generated method stub
 
 	}
-
-	/* (non-Javadoc)
-	 * @see controller.AbstractAnagraficaViewObserver#tasto4()
-	 */
-	@Override
-	public void tasto4() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

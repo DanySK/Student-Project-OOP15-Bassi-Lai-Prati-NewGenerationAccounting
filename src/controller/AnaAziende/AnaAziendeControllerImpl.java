@@ -1,5 +1,7 @@
 package controller.AnaAziende;
 
+import java.util.Optional;
+
 import controller.AbstractAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
 import dataModel.Company;
@@ -7,16 +9,32 @@ import view.anaAziende.AnaAziendeView;
 
 public class AnaAziendeControllerImpl extends AbstractAnagraficaViewObserver {
 	
-	public AnaAziendeControllerImpl() {
-		super(new AnaAziendeView());
+	private boolean noCompany = false;
+	
+	public AnaAziendeControllerImpl(){
+		this(new AnaAziendeView());
+		noCompany = true;
+	}
+	
+	public AnaAziendeControllerImpl(String title) {
+		this(new AnaAziendeView(title));
+	}
+	
+	private AnaAziendeControllerImpl(AnaAziendeView view){
+		super(view);
 		view.setObserver(this);
 		view.start();
 	}
 
 	@Override
 	public void chiusura() {
-		if (view.confirmDialog("Sei sicuro di voler uscire dal programma?", "Uscire")) {
-			System.exit(0);
+		if(noCompany){
+			if (view.confirmDialog("Sei sicuro di voler uscire dal programma?", "Uscire")) {
+				System.exit(0);
+			}
+		} else {
+			view.close();
+			new MainControllerImpl();
 		}
 	}
 
@@ -43,12 +61,7 @@ public class AnaAziendeControllerImpl extends AbstractAnagraficaViewObserver {
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public void tasto4() {
-		chiusura();
-	}
-
+	
 	public void accedi(final Company objectAt, final char[] password) {
 		view.close();
 		new MainControllerImpl();

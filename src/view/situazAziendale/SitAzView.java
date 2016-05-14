@@ -21,14 +21,4 @@ public class SitAzView extends AbstractWideView {
 		super(title, dimension);
 		// TODO Auto-generated constructor stub
 	}
-
-	/* (non-Javadoc)
-	 * @see view.AbstractFrame#chiusura()
-	 */
-	@Override
-	protected void chiusura() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

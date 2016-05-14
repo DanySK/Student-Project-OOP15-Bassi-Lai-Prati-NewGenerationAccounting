@@ -48,4 +48,9 @@ public abstract class AbstractWideView extends AbstractFrame {
 	public void setObserver(AbstractViewObserver observer) {
 		this.observer=observer;
 	}
+	
+	@Override
+	protected void chiusura() {
+		observer.chiusura();
+	}
 }

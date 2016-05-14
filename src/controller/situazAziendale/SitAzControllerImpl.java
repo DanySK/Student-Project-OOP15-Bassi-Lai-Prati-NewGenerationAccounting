@@ -6,6 +6,7 @@ package controller.situazAziendale;
 import java.awt.Dimension;
 
 import controller.AbstractViewObserver;
+import controller.main.MainControllerImpl;
 import view.situazAziendale.SitAzView;
 
 /**
@@ -31,8 +32,8 @@ public class SitAzControllerImpl extends AbstractViewObserver {
 	 */
 	@Override
 	public void chiusura() {
-		// TODO Auto-generated method stub
-
+		view.close();
+		new MainControllerImpl();
 	}
 
 }

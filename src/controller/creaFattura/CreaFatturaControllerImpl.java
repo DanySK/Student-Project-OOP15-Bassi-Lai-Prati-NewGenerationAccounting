@@ -4,7 +4,9 @@
 package controller.creaFattura;
 
 import controller.AbstractAnagraficaViewObserver;
+import controller.main.MainControllerImpl;
 import view.AbstractAnagraficaView;
+import view.creaFattura.CreaFatturaView;
 
 /**
  * @author Pentolo
@@ -15,9 +17,10 @@ public class CreaFatturaControllerImpl extends AbstractAnagraficaViewObserver {
 	/**
 	 * @param view
 	 */
-	public CreaFatturaControllerImpl(AbstractAnagraficaView view) {
-		super(view);
-		// TODO Auto-generated constructor stub
+	public CreaFatturaControllerImpl(String title) {
+		super(new CreaFatturaView(title));
+		view.setObserver(this);
+		view.start();
 	}
 
 	/* (non-Javadoc)
@@ -25,8 +28,8 @@ public class CreaFatturaControllerImpl extends AbstractAnagraficaViewObserver {
 	 */
 	@Override
 	public void chiusura() {
-		// TODO Auto-generated method stub
-
+		view.close();
+		new MainControllerImpl();
 	}
 
 	/* (non-Javadoc)
@@ -64,14 +67,4 @@ public class CreaFatturaControllerImpl extends AbstractAnagraficaViewObserver {
 		// TODO Auto-generated method stub
 
 	}
-
-	/* (non-Javadoc)
-	 * @see controller.AbstractAnagraficaViewObserver#tasto4()
-	 */
-	@Override
-	public void tasto4() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

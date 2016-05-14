@@ -24,11 +24,4 @@ public class AnaCliForView extends AbstractAnagraficaView<Customers_Suppliers> {
 		super(null, title);
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	protected void chiusura() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

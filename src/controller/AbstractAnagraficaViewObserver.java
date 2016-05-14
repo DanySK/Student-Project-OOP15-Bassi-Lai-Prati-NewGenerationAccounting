@@ -29,6 +29,4 @@ public abstract class AbstractAnagraficaViewObserver extends AbstractViewObserve
 	public abstract void tasto2();
 
 	public abstract void tasto3();
-
-	public abstract void tasto4();
 }

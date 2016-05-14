@@ -26,9 +26,13 @@ public class AnaAziendeView extends AbstractAnagraficaView<Company> {
 	 * 
 	 */
 	private static final long serialVersionUID = 5859979634610547926L;
-
-	public AnaAziendeView() {
-		super(Company.getIntestazione(), "Anagrafica Aziende");
+	
+	public AnaAziendeView(){
+		this("Benvenuto in NGA");
+	}
+	
+	public AnaAziendeView(String title) {
+		super(Company.getIntestazione(), title);
 		JPasswordField passwordField = new JPasswordField(15);
 		JButton accediButton = new JButton("Accedi");
 		JPanel topPanel = new JPanel(new FlowLayout());
@@ -50,10 +54,5 @@ public class AnaAziendeView extends AbstractAnagraficaView<Company> {
 				errorDialog("Attenzione, seleziona una riga per continuare!", "nessuna riga selezionata");
 			}
 		});
-	}
-
-	@Override
-	protected void chiusura() {
-		
 	}
 }

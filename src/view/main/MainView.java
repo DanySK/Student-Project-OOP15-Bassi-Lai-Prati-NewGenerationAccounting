@@ -51,7 +51,7 @@ public class MainView extends AbstractWideView {
 				((MainControllerImpl) observer).btn0(action);
 			}
 			else if (action.equals(listaBtn[1])) {
-				((MainControllerImpl) observer).btn1();
+				((MainControllerImpl) observer).btn1(action);
 			}
 			else if (action.equals(listaBtn[2])) {
 				((MainControllerImpl) observer).btn2(action);

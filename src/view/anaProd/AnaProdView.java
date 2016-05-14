@@ -3,7 +3,7 @@ package view.anaProd;
 import dataModel.Product;
 import view.AbstractAnagraficaView;
 
-public class AnaProdView extends AbstractAnagraficaView<Product> {
+public class AnaProdView extends AbstractAnagraficaView {
 
 	/**
 	 * 
@@ -13,11 +13,4 @@ public class AnaProdView extends AbstractAnagraficaView<Product> {
 	public AnaProdView(String title) {
 		super(null, title);
 	}
-
-	@Override
-	protected void chiusura() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
