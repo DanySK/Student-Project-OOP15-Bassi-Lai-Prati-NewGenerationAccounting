@@ -20,7 +20,7 @@ private final SitAzView view;
 	/**
 	 * 
 	 */
-	public SitCredDebControllerImpl(String title) {
+	public SitCredDebControllerImpl(final String title) {
 		super();
 		view = new SitAzView(title, new Dimension(400,500));
 		view.setObserver(this);

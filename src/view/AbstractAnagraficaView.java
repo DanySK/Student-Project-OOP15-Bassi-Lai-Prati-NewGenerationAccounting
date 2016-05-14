@@ -78,8 +78,7 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 
 	private void addListeners() {
 		tasto0.addActionListener(e -> {
-			lista.remove(getModel().getObjectAt(getTable().getSelectedRow()));
-			getModel().fireTableDataChanged();
+			((AbstractAnagraficaViewObserver) observer).tasto0();
 		});
 		tasto1.addActionListener(e -> {
 			((AbstractAnagraficaViewObserver) observer).tasto1();

@@ -31,7 +31,7 @@ public class AnaAziendeView extends AbstractAnagraficaView<Company> {
 		this("Benvenuto in NGA");
 	}
 	
-	public AnaAziendeView(String title) {
+	public AnaAziendeView(final String title) {
 		super(Company.getIntestazione(), title);
 		JPasswordField passwordField = new JPasswordField(15);
 		JButton accediButton = new JButton("Accedi");

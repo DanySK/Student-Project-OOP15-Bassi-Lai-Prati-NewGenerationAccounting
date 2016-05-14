@@ -17,7 +17,7 @@ public class SitCredDebView extends AbstractWideView {
 	 * @param title
 	 * @param dimension
 	 */
-	public SitCredDebView(String title, Dimension dimension) {
+	public SitCredDebView(final String title, final Dimension dimension) {
 		super(title, dimension);
 		// TODO Auto-generated constructor stub
 	}

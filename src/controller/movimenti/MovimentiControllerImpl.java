@@ -16,7 +16,7 @@ public class MovimentiControllerImpl extends AbstractAnagraficaViewObserver {
 	/**
 	 * @param view
 	 */
-	public MovimentiControllerImpl(String title) {
+	public MovimentiControllerImpl(final String title) {
 		super(new MovimentiView(title));
 		view.setObserver(this);
 		view.start();

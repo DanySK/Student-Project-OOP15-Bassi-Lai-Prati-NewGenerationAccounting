@@ -17,7 +17,7 @@ public class AnaProdControllerImpl extends AbstractAnagraficaViewObserver {
 	/**
 	 * @param view
 	 */
-	public AnaProdControllerImpl(String title) {
+	public AnaProdControllerImpl(final String title) {
 		super(new AnaProdView(title));
 		view.setObserver(this);
 		view.start();

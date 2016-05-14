@@ -17,7 +17,7 @@ public class CreaFatturaControllerImpl extends AbstractAnagraficaViewObserver {
 	/**
 	 * @param view
 	 */
-	public CreaFatturaControllerImpl(String title) {
+	public CreaFatturaControllerImpl(final String title) {
 		super(new CreaFatturaView(title));
 		view.setObserver(this);
 		view.start();

@@ -20,7 +20,7 @@ public class MovimentiView extends AbstractAnagraficaView<Movement> {
 	/**
 	 * 
 	 */
-	public MovimentiView(String title) {
+	public MovimentiView(final String title) {
 		super(Movement.getIntestazione(),title);
 	}
 }

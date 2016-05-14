@@ -20,7 +20,7 @@ public class AnaCliForView extends AbstractAnagraficaView<Customers_Suppliers> {
 	/**
 	 * 
 	 */
-	public AnaCliForView(String title) {
+	public AnaCliForView(final String title) {
 		super(null, title);
 		// TODO Auto-generated constructor stub
 	}

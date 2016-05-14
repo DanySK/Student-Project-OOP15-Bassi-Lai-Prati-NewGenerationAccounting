@@ -19,7 +19,7 @@ public class CreaFatturaView extends AbstractAnagraficaView {
 	/**
 	 * 
 	 */
-	public CreaFatturaView(String title) {
+	public CreaFatturaView(final String title) {
 		super(null, title);
 	}
 }

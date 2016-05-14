@@ -16,11 +16,11 @@ public class AnaAziendeControllerImpl extends AbstractAnagraficaViewObserver {
 		noCompany = true;
 	}
 	
-	public AnaAziendeControllerImpl(String title) {
+	public AnaAziendeControllerImpl(final String title) {
 		this(new AnaAziendeView(title));
 	}
 	
-	private AnaAziendeControllerImpl(AnaAziendeView view){
+	private AnaAziendeControllerImpl(final AnaAziendeView view){
 		super(view);
 		view.setObserver(this);
 		view.start();

@@ -20,7 +20,7 @@ public class SitAzControllerImpl extends AbstractViewObserver {
 	/**
 	 * 
 	 */
-	public SitAzControllerImpl(String title) {
+	public SitAzControllerImpl(final String title) {
 		super();
 		view = new SitAzView(title, new Dimension(400,500));
 		view.setObserver(this);

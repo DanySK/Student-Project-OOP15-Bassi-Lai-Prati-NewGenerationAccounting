@@ -31,8 +31,8 @@ public abstract class AbstractFrame extends JFrame {
 	public AbstractFrame(final String title, final Dimension dimension) {
 		MyFrame = new JFrame("NGA - " + title);
 		MyFrame.setSize(dimension);
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		getContentPane().add(new JPanel(new BorderLayout()));
+		MyFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		MyFrame.getContentPane().add(new JPanel(new BorderLayout()));
 		MyFrame.addWindowListener(new WindowAdapter() {
 			public void windowClosing (WindowEvent e) {
 				chiusura();

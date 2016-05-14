@@ -20,7 +20,7 @@ public class AnaContiView extends AbstractAnagraficaView<Account> {
 	/**
 	 * 
 	 */
-	public AnaContiView(String title) {
+	public AnaContiView(final String title) {
 		super(Account.getIntestazione(), title);
 		// TODO Auto-generated constructor stub
 	}

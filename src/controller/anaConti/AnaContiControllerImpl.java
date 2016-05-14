@@ -17,7 +17,7 @@ public class AnaContiControllerImpl extends AbstractAnagraficaViewObserver {
 	/**
 	 * @param view
 	 */
-	public AnaContiControllerImpl(String title) {
+	public AnaContiControllerImpl(final String title) {
 		super(new AnaContiView(title));
 		view.setObserver(this);
 		view.start();

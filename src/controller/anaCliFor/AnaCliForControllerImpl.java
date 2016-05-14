@@ -18,7 +18,7 @@ public class AnaCliForControllerImpl extends AbstractAnagraficaViewObserver {
 	/**
 	 * @param view
 	 */
-	public AnaCliForControllerImpl(String title) {
+	public AnaCliForControllerImpl(final String title) {
 		super(new AnaCliForView(title));
 		view.setObserver(this);
 		view.start();
