@@ -21,14 +21,6 @@ public class MainView extends AbstractWideView {
 	 */
 	private static final long serialVersionUID = 8496684753244767160L;
 	private String[] listaBtn;
-	private MainControllerImpl observer;
-
-	/**
-	 * @param observer the observer to set
-	 */
-	public void setObserver(final MainControllerImpl observer) {
-		this.observer = observer;
-	}
 
 	public MainView() {
 		super(Messages.getString("MainView.8"), new Dimension(250, 350));
@@ -56,28 +48,28 @@ public class MainView extends AbstractWideView {
 		public void actionPerformed(ActionEvent e) {
 			String action = e.getActionCommand();
 			if (action.equals(listaBtn[0])) {
-				observer.btn0(action);
+				((MainControllerImpl) observer).btn0(action);
 			}
 			else if (action.equals(listaBtn[1])) {
-				observer.btn1();
+				((MainControllerImpl) observer).btn1();
 			}
 			else if (action.equals(listaBtn[2])) {
-				observer.btn2(action);
+				((MainControllerImpl) observer).btn2(action);
 			}
 			else if (action.equals(listaBtn[3])) {
-				observer.btn3(action);
+				((MainControllerImpl) observer).btn3(action);
 			}
 			else if (action.equals(listaBtn[4])) {
-				observer.btn4(action);
+				((MainControllerImpl) observer).btn4(action);
 			}
 			else if (action.equals(listaBtn[5])) {
-				observer.btn5(action);
+				((MainControllerImpl) observer).btn5(action);
 			}
 			else if (action.equals(listaBtn[6])) {
-				observer.btn6(action);
+				((MainControllerImpl) observer).btn6(action);
 			}
 			else if (action.equals(listaBtn[7])) {
-				observer.btn7(action);
+				((MainControllerImpl) observer).btn7(action);
 			}
 			else {
 				chiusura();

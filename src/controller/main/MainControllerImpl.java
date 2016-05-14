@@ -19,7 +19,9 @@ public class MainControllerImpl extends AbstractViewObserver {
 
 	@Override
 	public void chiusura() {
-		System.exit(0);
+		if (view.confirmDialog("Sei sicuro di voler uscire dal programma?", "Uscire")) {
+			System.exit(0);
+		}
 	}
 
 	

@@ -54,5 +54,6 @@ public class AnaAziendeView extends AbstractAnagraficaView<Company> {
 
 	@Override
 	protected void chiusura() {
+		
 	}
 }

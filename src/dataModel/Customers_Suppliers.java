@@ -8,7 +8,7 @@ package dataModel;
 import dataEnum.Gender;
 import dataEnum.KindPerson;
 
-public class Customers_Suppliers {
+public class Customers_Suppliers implements IDataTableModel{
 	private int cap;
 	private String cf;
 	private String citta;
@@ -102,5 +102,11 @@ public class Customers_Suppliers {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	@Override
+	public String getValueAt(int column) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -15,7 +15,9 @@ public class AnaAziendeControllerImpl extends AbstractAnagraficaViewObserver {
 
 	@Override
 	public void chiusura() {
-		System.exit(0);
+		if (view.confirmDialog("Sei sicuro di voler uscire dal programma?", "Uscire")) {
+			System.exit(0);
+		}
 	}
 
 	@Override
@@ -44,8 +46,7 @@ public class AnaAziendeControllerImpl extends AbstractAnagraficaViewObserver {
 
 	@Override
 	public void tasto4() {
-		// TODO Auto-generated method stub
-
+		chiusura();
 	}
 
 	public void accedi(final Company objectAt, final char[] password) {

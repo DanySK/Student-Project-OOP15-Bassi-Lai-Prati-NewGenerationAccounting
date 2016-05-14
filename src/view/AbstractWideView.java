@@ -10,6 +10,9 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import controller.AbstractViewObserver;
+import controller.main.MainControllerImpl;
+
 /**
  * @author Pentolo
  *
@@ -21,6 +24,9 @@ public abstract class AbstractWideView extends AbstractFrame {
 	 */
 	private static final long serialVersionUID = -8661356282182241245L;
 
+
+	protected AbstractViewObserver observer;
+	
 	/**
 	 * @param title
 	 * @param dimension
@@ -34,5 +40,12 @@ public abstract class AbstractWideView extends AbstractFrame {
 		chiudi.addActionListener(e -> {
 			chiusura();
 		});
+	}
+
+	/**
+	 * @param observer the observer to set
+	 */
+	public void setObserver(AbstractViewObserver observer) {
+		this.observer=observer;
 	}
 }
