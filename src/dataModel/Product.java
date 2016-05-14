@@ -1,14 +1,14 @@
 package dataModel;
 
 /**
- * classe per la gestione del singolo prodotto e scorta associata
+ * Classe per la gestione del singolo prodotto e scorta associata da parte dell'azienda.
  * 
- * @author niky
+ * @author niky & Diego
  *
  */
 public class Product implements IDataTableModel {
 	
-	private static final String[] intestazione = { "Nome Prodotto", "Prezzo" };
+	private static final String[] intestazione = { "Codice Prodotto", "Nome" , "Categoria", "Tipo Prodotto" };
 	
 	public static String[] getIntestazione() {
 		return intestazione;
