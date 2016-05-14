@@ -6,7 +6,14 @@ package dataModel;
  * @author niky
  *
  */
-public class Product {
+public class Product implements IDataTableModel {
+	
+	private static final String[] intestazione = { "Nome Prodotto", "Prezzo" };
+	
+	public static String[] getIntestazione() {
+		return intestazione;
+	}
+	
 	private int cod_acquisto;
 	private int cod_vendita;
 	private int codice_prodotto;
@@ -70,6 +77,12 @@ public class Product {
 
 	public void setScorta(int scorta) {
 		this.scorta = scorta;
+	}
+
+	@Override
+	public String getValueAt(int column) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
