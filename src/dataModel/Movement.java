@@ -6,9 +6,8 @@ package dataModel;
  * @author niky
  */
 import java.util.Date;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 public class Movement implements IDataTableModel {
 
@@ -19,18 +18,18 @@ public class Movement implements IDataTableModel {
 
 	private Date data;
 
-	private Set<Account> listaConti;
+	private List<Account> listaConti;
 
 	public Movement(Date data, List<Account> lista) {
 		this.data = data;
-		this.listaConti = new HashSet<Account>(lista);
+		this.listaConti = new LinkedList<>(lista);
 	}
 
 	public Date getData() {
 		return data;
 	}
 
-	public Set<Account> getListaConti() {
+	public List<Account> getListaConti() {
 		return listaConti;
 	}
 
@@ -52,7 +51,7 @@ public class Movement implements IDataTableModel {
 		this.data = data;
 	}
 
-	public void setListaConti(Set<Account> listaContiUsati) {
+	public void setListaConti(List<Account> listaContiUsati) {
 		this.listaConti = listaContiUsati;
 	}
 

@@ -2,7 +2,6 @@ package model;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -12,6 +11,8 @@ import java.util.Map;
 import dataModel.IDataTableModel;
 
 public abstract class AbstractModel {
+    
+    
     /**
      * Interfaccia delle operazioni comuni delle classi di anagrafica
      * 
@@ -28,7 +29,7 @@ public abstract class AbstractModel {
      * @param elem
      *            mappa contenente le informazioni sull'elemento da aggiungere
      */
-    void add(Map<String, Object> elem) throws ParseException {
+    public void add(Map<String, Object> elem) throws ParseException {
         addElem(elem);
     }
 
@@ -37,7 +38,7 @@ public abstract class AbstractModel {
      * 
      * @author niky
      */
-    void edit(IDataTableModel obj,Map<String, Object> infoDaModificare) {
+    public void edit(IDataTableModel obj,Map<String, Object> infoDaModificare) {
         editElem(obj,infoDaModificare);
     }
 
@@ -49,32 +50,20 @@ public abstract class AbstractModel {
      * 
      * @author niky
      */
-    List<Object> load() {
-        return null;
-    }
+    public abstract List<Object> load();
 
     /**
      * operazione per rimuovere un oggetto dal dataBase
      * 
      * @author niky
      */
-    void remove() throws ParseException {
+    public void remove() throws ParseException {
         removeElem(mappa);
     }
-
-    /**
-     * operazione per cercare un oggeto all'interno del dataBase
-     * 
-     * @return ritorna l'oggetto ricercato se presente nel dataBase
-     */
-    List<Object> search() {
-        return null;
-    }
-
-    abstract void editElem(IDataTableModel obj,Map<String, Object> ifoDaModificare);
-    abstract void removeElem(Map<String, Object> elemDaEliminare) throws ParseException;
-
-    abstract void addElem(Map<String, Object> elem) throws ParseException;
+    
+    protected abstract void editElem(IDataTableModel obj,Map<String, Object> ifoDaModificare);
+    protected abstract void removeElem(Map<String, Object> elemDaEliminare) throws ParseException;
+    protected abstract void addElem(Map<String, Object> elem) throws ParseException;
 
     public Map<String, Object> getMap(IDataTableModel obj) {
         List<Object> lista = new LinkedList<>();
