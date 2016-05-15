@@ -39,31 +39,31 @@ public class DBDataModel {
 	 * @return the accounts
 	 */
 	public LinkedList<Account> getAccounts() {
-		return accounts;
+		return new LinkedList<Account>(accounts);
 	}
 	/**
 	 * @return the companys
 	 */
 	public LinkedList<Company> getCompanys() {
-		return companys;
+		return new LinkedList<Company>(companys);
 	}
 	/**
 	 * @return the customersSuppliers
 	 */
 	public LinkedList<Customers_Suppliers> getCustomersSuppliers() {
-		return customersSuppliers;
+		return new LinkedList<Customers_Suppliers>(customersSuppliers);
 	}
 	/**
 	 * @return the moviments
 	 */
 	public LinkedList<Movement> getMoviments() {
-		return moviments;
+		return new LinkedList<Movement>(moviments);
 	}
 	/**
 	 * @return the products
 	 */
 	public LinkedList<Product> getProducts() {
-		return products;
+		return new LinkedList<Product>(products);
 	}
 	
 	/**
