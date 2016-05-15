@@ -8,7 +8,7 @@ package dataModel;
  */
 public class Product implements IDataTableModel {
 	
-	private static final String[] intestazione = { "Codice Prodotto", "Nome" , "Categoria", "Tipo Prodotto" };
+	private static final String[] intestazione = { "Codice Prodotto", "Nome" , "Categoria", "Tipo Prodotto" , "Prezzo"};
 	
 	public static String[] getIntestazione() {
 		return intestazione;
@@ -17,18 +17,22 @@ public class Product implements IDataTableModel {
 	private int cod_acquisto;
 	private int cod_vendita;
 	private int codice_prodotto;
+	private String categoria;
 	private String descrizione;
 	private String nome;
 	private int scorta;
-
+	private int prezzovendita;
+	
 	public Product(String nome, int codice_prodotto, int cod_acquisto, int cod_vendita, int scorta,
-			String descrizione) {
+			String categoria, String descrizione, int prezzovendita) {
 		this.nome = nome;
 		this.codice_prodotto = codice_prodotto;
 		this.cod_acquisto = cod_acquisto;
 		this.cod_vendita = cod_vendita;
 		this.scorta = scorta;
+		this.categoria=categoria;
 		this.descrizione = descrizione;
+		this.prezzovendita=prezzovendita;
 	}
 
 	public int getCod_acquisto() {
@@ -43,6 +47,10 @@ public class Product implements IDataTableModel {
 		return codice_prodotto;
 	}
 
+	public String getCategoria() {
+		return categoria;
+	}
+	
 	public String getDescrizione() {
 		return descrizione;
 	}
@@ -55,6 +63,10 @@ public class Product implements IDataTableModel {
 		return scorta;
 	}
 
+	public int getPrezzovendita() {
+		return prezzovendita;
+	}
+	
 	public void setCod_acquisto(int cod_acquisto) {
 		this.cod_acquisto = cod_acquisto;
 	}
@@ -67,6 +79,10 @@ public class Product implements IDataTableModel {
 		this.codice_prodotto = codice_prodotto;
 	}
 
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+	
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
@@ -79,10 +95,28 @@ public class Product implements IDataTableModel {
 		this.scorta = scorta;
 	}
 
+	public void setPrezzovendita(int prezzovendita) {
+		this.prezzovendita = prezzovendita;
+	}
+	
 	@Override
 	public String getValueAt(int column) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		switch (column) {
+		case 0:
+			return Integer.toString(codice_prodotto);
+		case 1:
+			return getNome();
+		case 2:
+			return getCategoria();
+		case 3:
+			return getDescrizione();
+		case 4:
+			return Integer.toString(prezzovendita);
+		default:
+			return "";
+		}
+
 	}
 
 }
