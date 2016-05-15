@@ -50,7 +50,7 @@ public abstract class AbstractModel {
      * 
      * @author niky
      */
-    public abstract List<Object> load();
+    public abstract LinkedList<IDataTableModel> load();
 
     /**
      * operazione per rimuovere un oggetto dal dataBase

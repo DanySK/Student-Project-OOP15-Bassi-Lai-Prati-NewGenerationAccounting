@@ -14,7 +14,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import controller.AbstractAnagraficaViewObserver;
-import controller.AbstractViewObserver;
 import dataModel.IDataTableModel;
 
 /**
@@ -40,7 +39,7 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 	private final JButton tasto3 = new JButton();
 	private final JButton tasto4 = new JButton();
 
-	protected final LinkedList<dataModel> lista = new LinkedList<dataModel>();
+	private LinkedList<dataModel> lista;
 	private final JTable table = new JTable();
 	private MyTableModel<dataModel> dataModel;
 	protected AbstractAnagraficaViewObserver observer;
@@ -104,6 +103,11 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 
 	protected JTable getTable() {
 		return table;
+	}
+	
+	public void setList(final LinkedList<dataModel> lista){
+		this.lista = new LinkedList<dataModel>(lista);
+		dataModel.fireTableDataChanged();
 	}
 	
 	@Override

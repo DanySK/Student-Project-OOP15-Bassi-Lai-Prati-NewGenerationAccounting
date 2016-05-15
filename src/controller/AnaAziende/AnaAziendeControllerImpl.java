@@ -1,10 +1,9 @@
 package controller.AnaAziende;
 
-import java.util.Optional;
-
 import controller.AbstractAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
 import dataModel.Company;
+import model.CompanyModel;
 import view.anaAziende.AnaAziendeView;
 
 public class AnaAziendeControllerImpl extends AbstractAnagraficaViewObserver {
@@ -21,7 +20,7 @@ public class AnaAziendeControllerImpl extends AbstractAnagraficaViewObserver {
 	}
 	
 	private AnaAziendeControllerImpl(final AnaAziendeView view){
-		super(view);
+		super(view, new CompanyModel());
 		view.setObserver(this);
 		view.start();
 	}

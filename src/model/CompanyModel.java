@@ -1,7 +1,7 @@
 package model;
 
 import java.text.ParseException;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
 
 import dataModel.IDataTableModel;
@@ -9,7 +9,7 @@ import dataModel.IDataTableModel;
 public class CompanyModel extends AbstractModel{
 
     @Override
-    public List<Object> load() {
+    public LinkedList<IDataTableModel> load() {
         // TODO Auto-generated method stub
         return null;
     }

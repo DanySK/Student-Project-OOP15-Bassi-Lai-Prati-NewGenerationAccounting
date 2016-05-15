@@ -1,8 +1,7 @@
 package controller;
 
-import dataModel.Company;
+import model.AbstractModel;
 import view.AbstractAnagraficaView;
-import view.AbstractFrame;
 
 /**
  * classe astratta per i controller delle view che rispettano il layout di
@@ -13,10 +12,13 @@ import view.AbstractFrame;
  */
 public abstract class AbstractAnagraficaViewObserver extends AbstractViewObserver {
 
-	protected AbstractAnagraficaView view;
+	protected final AbstractAnagraficaView view;
+	protected final AbstractModel model;
 	
-	public AbstractAnagraficaViewObserver(final AbstractAnagraficaView view) {
+	public AbstractAnagraficaViewObserver(final AbstractAnagraficaView view, final AbstractModel model) {
 		this.view = view;
+		this.model = model;
+		view.setList(model.load());
 	}
 
 	@Override

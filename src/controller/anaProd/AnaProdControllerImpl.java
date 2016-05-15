@@ -5,7 +5,7 @@ package controller.anaProd;
 
 import controller.AbstractAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
-import view.AbstractAnagraficaView;
+import model.ProductsModel;
 import view.anaProd.AnaProdView;
 
 /**
@@ -18,7 +18,7 @@ public class AnaProdControllerImpl extends AbstractAnagraficaViewObserver {
 	 * @param view
 	 */
 	public AnaProdControllerImpl(final String title) {
-		super(new AnaProdView(title));
+		super(new AnaProdView(title), new ProductsModel());
 		view.setObserver(this);
 		view.start();
 	}

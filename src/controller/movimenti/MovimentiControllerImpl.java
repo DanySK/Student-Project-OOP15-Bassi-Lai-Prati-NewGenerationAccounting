@@ -5,6 +5,7 @@ package controller.movimenti;
 
 import controller.AbstractAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
+import model.MovementsModel;
 import view.movimenti.MovimentiView;
 
 /**
@@ -17,7 +18,7 @@ public class MovimentiControllerImpl extends AbstractAnagraficaViewObserver {
 	 * @param view
 	 */
 	public MovimentiControllerImpl(final String title) {
-		super(new MovimentiView(title));
+		super(new MovimentiView(title), new MovementsModel());
 		view.setObserver(this);
 		view.start();
 	}

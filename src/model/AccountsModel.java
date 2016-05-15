@@ -1,5 +1,6 @@
 package model;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +55,7 @@ public class AccountsModel extends AbstractModel {
     }
 
     @Override
-    public List<Object> load() {
+    public LinkedList<IDataTableModel> load() {
         // TODO Auto-generated method stub
         return null;
     }

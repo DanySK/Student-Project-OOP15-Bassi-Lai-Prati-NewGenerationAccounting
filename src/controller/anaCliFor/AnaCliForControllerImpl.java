@@ -5,8 +5,7 @@ package controller.anaCliFor;
 
 import controller.AbstractAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
-import view.AbstractAnagraficaView;
-import view.anaAziende.AnaAziendeView;
+import model.CustomersSuppliersModel;
 import view.anaCliFor.AnaCliForView;
 
 /**
@@ -19,7 +18,7 @@ public class AnaCliForControllerImpl extends AbstractAnagraficaViewObserver {
 	 * @param view
 	 */
 	public AnaCliForControllerImpl(final String title) {
-		super(new AnaCliForView(title));
+		super(new AnaCliForView(title), new CustomersSuppliersModel());
 		view.setObserver(this);
 		view.start();
 	}

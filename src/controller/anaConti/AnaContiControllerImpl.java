@@ -5,7 +5,7 @@ package controller.anaConti;
 
 import controller.AbstractAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
-import view.AbstractAnagraficaView;
+import model.AccountsModel;
 import view.anaConti.AnaContiView;
 
 /**
@@ -18,7 +18,7 @@ public class AnaContiControllerImpl extends AbstractAnagraficaViewObserver {
 	 * @param view
 	 */
 	public AnaContiControllerImpl(final String title) {
-		super(new AnaContiView(title));
+		super(new AnaContiView(title), new AccountsModel());
 		view.setObserver(this);
 		view.start();
 	}

@@ -42,6 +42,7 @@ public class DBSaver extends Thread {
 		save(DB.isCustomersSuppliersModified(), CUSTOMERSUPPLIER_FILENAME, DB.getCustomersSuppliers());
 		save(DB.isMovimentsModified(), MOVEMENT_FILENAME, DB.getMoviments());
 		save(DB.isProductsModified(), PRODUCT_FILENAME, DB.getProducts());
+		DB.resetBooleans();
 	}
 
 	private void save(final boolean mustbeSaved, final String fileName, final LinkedList linkedList){
@@ -65,7 +66,6 @@ public class DBSaver extends Thread {
 				return;
 			}			
 		}		
-		DB.resetBooleans();
 	}
 	
 	private void showError(String string){

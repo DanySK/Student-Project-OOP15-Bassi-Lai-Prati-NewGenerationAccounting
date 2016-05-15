@@ -5,7 +5,7 @@ package controller.creaFattura;
 
 import controller.AbstractAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
-import view.AbstractAnagraficaView;
+import model.CreaFattureModel;
 import view.creaFattura.CreaFatturaView;
 
 /**
@@ -18,7 +18,7 @@ public class CreaFatturaControllerImpl extends AbstractAnagraficaViewObserver {
 	 * @param view
 	 */
 	public CreaFatturaControllerImpl(final String title) {
-		super(new CreaFatturaView(title));
+		super(new CreaFatturaView(title), new CreaFattureModel());
 		view.setObserver(this);
 		view.start();
 	}

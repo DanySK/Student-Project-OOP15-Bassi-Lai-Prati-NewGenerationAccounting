@@ -3,6 +3,7 @@ package model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +55,7 @@ public class MovementsModel extends AbstractModel {
         
     }
     @Override
-    public List<Object> load() {
+    public LinkedList<IDataTableModel> load() {
         // TODO Auto-generated method stub
         return null;
     }

@@ -11,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import controller.AbstractViewObserver;
-import controller.main.MainControllerImpl;
 
 /**
  * @author Pentolo
