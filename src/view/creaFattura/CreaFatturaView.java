@@ -3,13 +3,14 @@
  */
 package view.creaFattura;
 
+import dataModel.Item;
 import view.AbstractAnagraficaView;
 
 /**
  * @author Pentolo
  *
  */
-public class CreaFatturaView extends AbstractAnagraficaView {
+public class CreaFatturaView extends AbstractAnagraficaView<Item> {
 
 	/**
 	 * 
@@ -20,6 +21,6 @@ public class CreaFatturaView extends AbstractAnagraficaView {
 	 * 
 	 */
 	public CreaFatturaView(final String title) {
-		super(null, title);
+		super(Item.getIntestazione(), title);
 	}
 }
