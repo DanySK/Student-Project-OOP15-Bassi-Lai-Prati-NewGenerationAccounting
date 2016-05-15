@@ -10,68 +10,50 @@ package dataModel;
 
 public class Item implements IDataTableModel {
 
-	private static final String[] intestazione = { "Prodotto", "Prezzo", "Quantità" };
+	private static final String[] intestazione = { "Prodotto", "Quantità" ,"Subtotale" };
 
 	public static String[] getIntestazione() {
 		return intestazione;
 	}
 
-	private int iditem;
-
-	private String nomeitem;
-	private int prezzo;
+	private final Product prodotto;
 	private int quantita;
+	
+	
+	public Item( Product prodotto, int quantita) {
+		
+		this.prodotto=prodotto;
+		this.quantita=quantita;
+		
+	}
 
 	
-	public Item(int iditem , String nomeitem, int prezzo, int quantita) {
-		
-		this.iditem=iditem;
-		this.nomeitem=nomeitem;
-		this.prezzo=prezzo;
-		this.quantita=quantita;
-
-	}
-
-	public int getIditem() {
-		return iditem;
-	}
-
-	public String getNome() {
-		return nomeitem;
-	}
-
-	public int getPrezzo() {
-		return prezzo;
+	public String getProdotto() {
+		return prodotto.getNome();
 	}
 
 	public int getQuantita() {
 		return quantita;
 	}
 
-	
-	
-
-
-	public void setIditem(int iditem) {
-		this.iditem = iditem;
-	}
-
-	public void setNomeitem(String nomeitem) {
-		this.nomeitem = nomeitem;
-	}
-
-	public void setPrezzo(int prezzo) {
-		this.prezzo = prezzo;
-	}
-
 	public void setQuantita(int quantita) {
 		this.quantita = quantita;
 	}
 
+	
+	
 	@Override
 	public String getValueAt(int column) {
-		// TODO Auto-generated method stub
-		return null;
+		switch (column) {
+		case 0:
+			return prodotto.getNome();
+		case 1:
+			return Integer.toString(quantita);
+		case 2: 
+			return Integer.toString(prodotto.getPrezzovendita()*quantita);
+		default:
+			return "";
+		}
 	}
 
 	
