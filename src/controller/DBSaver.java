@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 
 import dataModel.DBDataModel;
+import dataModel.IDataTableModel;
 import view.AbstractFrame;
 
 /**
@@ -45,7 +46,8 @@ public class DBSaver extends Thread {
 		DB.resetBooleans();
 	}
 
-	private void save(final boolean mustbeSaved, final String fileName, final LinkedList linkedList) {
+	private void save(final boolean mustbeSaved, final String fileName,
+			final LinkedList<? extends IDataTableModel> linkedList) {
 		boolean save = mustbeSaved;
 		File file = new File(path + fileName);
 		if (!file.exists()) {
