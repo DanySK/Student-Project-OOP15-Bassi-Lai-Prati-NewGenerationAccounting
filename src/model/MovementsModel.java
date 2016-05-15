@@ -55,13 +55,21 @@ public class MovementsModel extends AbstractModel {
         
     }
     @Override
-    public LinkedList<IDataTableModel> load() {
-        // TODO Auto-generated method stub
-        return null;
+    public LinkedList<? extends IDataTableModel> load() {
+        return new LinkedList<Movement>();
     }
     
-    List<Object>load(Date da, Date a){
-        return null;
+    LinkedList<? extends IDataTableModel> load(Date da, Date a) throws Exception{
+        LinkedList<Movement> filtroData = new LinkedList<>();
+        if(da == null && a == null){
+            throw new Exception("date non valide");
+            }
+        else for(Movement m : db.getMoviments()){
+            if(m.getData().equals(da)||m.getData().equals(a)||m.getData().after(da) && m.getData().before(a)){
+                filtroData.add(m);
+            }
+        }
+        return filtroData;
     }
 
  }

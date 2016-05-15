@@ -9,9 +9,9 @@ import dataModel.IDataTableModel;
 public class CustomersSuppliersModel extends AbstractModel{
 
     @Override
-    public LinkedList<IDataTableModel> load() {
-        // TODO Auto-generated method stub
-        return null;
+    public LinkedList<? extends IDataTableModel> load() {
+        
+        return new LinkedList<>();
     }
 
     @Override

@@ -10,8 +10,7 @@ public class CompanyModel extends AbstractModel{
 
     @Override
     public LinkedList<IDataTableModel> load() {
-        // TODO Auto-generated method stub
-        return null;
+        return new LinkedList<>();
     }
 
     @Override

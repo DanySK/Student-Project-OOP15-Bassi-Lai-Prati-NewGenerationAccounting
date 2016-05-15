@@ -55,19 +55,35 @@ public class AccountsModel extends AbstractModel {
     }
 
     @Override
-    public LinkedList<IDataTableModel> load() {
-        // TODO Auto-generated method stub
-        return null;
+    public LinkedList<? extends IDataTableModel> load() {
+        return new LinkedList<Account>(db.getAccounts());
     }
     
-    List<Object> load(String nome){
-        return null;
-        
+    List<? extends IDataTableModel> load(String nome) throws Exception{
+        LinkedList<Account> filtroNome = new LinkedList<Account>();
+        if(nome.isEmpty()){
+            load();
+            throw new Exception("nome non valido");
+        }
+        else for(Account a : db.getAccounts()){
+            if(a.getName().contains(nome)){
+                filtroNome.add(a);
+            }
+        }
+        return filtroNome;  
     }
     
-    List<Object> load(Natures natura){
-        return null;
-        
+    List<? extends IDataTableModel> load(Natures natura) throws Exception{
+        LinkedList<Account> filtroNatura = new LinkedList<Account>();
+        if(natura.equals(null)){
+            throw new Exception("natura non valida");
+        }
+        else for(Account a : db.getAccounts()){
+            if(a.getNatura().equals(natura)){
+                filtroNatura.add(a);
+            }
+        }
+        return filtroNatura;
     }
     
     

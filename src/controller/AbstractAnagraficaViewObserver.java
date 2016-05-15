@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.LinkedList;
+
 import model.AbstractModel;
 import view.AbstractAnagraficaView;
 
