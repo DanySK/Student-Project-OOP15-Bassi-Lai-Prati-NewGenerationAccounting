@@ -3,6 +3,8 @@
  */
 package view.anaConti;
 
+import java.util.LinkedList;
+
 import dataModel.Account;
 import view.AbstractAnagraficaView;
 
@@ -20,8 +22,8 @@ public class AnaContiView extends AbstractAnagraficaView<Account> {
 	/**
 	 * 
 	 */
-	public AnaContiView(final String title) {
-		super(Account.getIntestazione(), title);
+	public AnaContiView(final LinkedList<Account> lista, final String title) {
+		super(lista, Account.getIntestazione(), title);
 		// TODO Auto-generated constructor stub
 	}
 }

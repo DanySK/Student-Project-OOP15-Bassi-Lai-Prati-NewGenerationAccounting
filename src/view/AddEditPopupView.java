@@ -43,7 +43,7 @@ public class AddEditPopupView extends AbstractFrame {
 	@Override
 	protected void chiusura() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

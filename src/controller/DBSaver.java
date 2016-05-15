@@ -27,7 +27,7 @@ public class DBSaver extends Thread {
 	private final DBDataModel DB;
 	private final String path;
 	private final AbstractFrame view;
-	
+
 	public DBSaver(DBDataModel dB, String path, AbstractFrame view) {
 		super();
 		DB = dB;
@@ -45,10 +45,10 @@ public class DBSaver extends Thread {
 		DB.resetBooleans();
 	}
 
-	private void save(final boolean mustbeSaved, final String fileName, final LinkedList linkedList){
+	private void save(final boolean mustbeSaved, final String fileName, final LinkedList linkedList) {
 		boolean save = mustbeSaved;
 		File file = new File(path + fileName);
-		if (!file.exists()){
+		if (!file.exists()) {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
@@ -58,17 +58,18 @@ public class DBSaver extends Thread {
 			save = true;
 		}
 		if (save) {
-			try (ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));){
+			try (ObjectOutputStream out = new ObjectOutputStream(
+					new BufferedOutputStream(new FileOutputStream(file)));) {
 				out.writeObject(linkedList);
 				out.close();
 			} catch (IOException e) {
 				showError("Errore critico di scrittura.");
 				return;
-			}			
-		}		
+			}
+		}
 	}
-	
-	private void showError(String string){
+
+	private void showError(String string) {
 		view.errorDialog("Errore", string);
 	}
 }

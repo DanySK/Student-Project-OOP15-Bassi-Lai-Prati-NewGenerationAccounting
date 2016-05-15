@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import controller.AbstractAnagraficaViewObserver;
+import controller.IAnagraficaViewObserver;
 import dataModel.IDataTableModel;
 
 /**
@@ -42,20 +42,22 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 	private LinkedList<dataModel> lista;
 	private final JTable table = new JTable();
 	private MyTableModel<dataModel> dataModel;
-	protected AbstractAnagraficaViewObserver observer;
+	protected IAnagraficaViewObserver observer;
 
 	/**
 	 * @param title
 	 * @param lm
 	 * @param dimension
 	 */
-	public AbstractAnagraficaView(final String intestazione[], final String title) {
-		this(intestazione, title, DEFAULT_TASTO_0, DEFAULT_TASTO_1, DEFAULT_TASTO_2, DEFAULT_TASTO_3, DEFAULT_TASTO_4);
+	public AbstractAnagraficaView(final LinkedList<dataModel> lista, final String intestazione[], final String title) {
+		this(lista, intestazione, title, DEFAULT_TASTO_0, DEFAULT_TASTO_1, DEFAULT_TASTO_2, DEFAULT_TASTO_3,
+				DEFAULT_TASTO_4);
 	}
 
-	public AbstractAnagraficaView(final String intestazione[], final String title, final String testo0, final String testo1, final String testo2,
-			final String testo3, final String testo4) {
+	public AbstractAnagraficaView(LinkedList<dataModel> lista, final String intestazione[], final String title,
+			final String testo0, final String testo1, final String testo2, final String testo3, final String testo4) {
 		super(title, new Dimension(450, 550));
+		this.lista = lista;
 		tasto0.setText(testo0);
 		tasto1.setText(testo1);
 		tasto2.setText(testo2);
@@ -77,23 +79,23 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 
 	private void addListeners() {
 		tasto0.addActionListener(e -> {
-			((AbstractAnagraficaViewObserver) observer).tasto0();
+			((IAnagraficaViewObserver) observer).tasto0();
 		});
 		tasto1.addActionListener(e -> {
-			((AbstractAnagraficaViewObserver) observer).tasto1();
+			((IAnagraficaViewObserver) observer).tasto1();
 		});
 		tasto2.addActionListener(e -> {
-			((AbstractAnagraficaViewObserver) observer).tasto2();
+			((IAnagraficaViewObserver) observer).tasto2();
 		});
 		tasto3.addActionListener(e -> {
-			((AbstractAnagraficaViewObserver) observer).tasto3();
+			((IAnagraficaViewObserver) observer).tasto3();
 		});
 		tasto4.addActionListener(e -> {
-			((AbstractAnagraficaViewObserver) observer).chiusura();
+			((IAnagraficaViewObserver) observer).chiusura();
 		});
 	}
-	
-	public void setObserver(final AbstractAnagraficaViewObserver observer) {
+
+	public void setObserver(final IAnagraficaViewObserver observer) {
 		this.observer = observer;
 	}
 
@@ -104,12 +106,12 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 	protected JTable getTable() {
 		return table;
 	}
-	
-	public void setList(final LinkedList<dataModel> lista){
+
+	public void setList(final LinkedList<dataModel> lista) {
 		this.lista = new LinkedList<dataModel>(lista);
 		dataModel.fireTableDataChanged();
 	}
-	
+
 	@Override
 	protected void chiusura() {
 		observer.chiusura();

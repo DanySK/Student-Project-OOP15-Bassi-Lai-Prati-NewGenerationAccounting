@@ -7,6 +7,7 @@ import controller.AnaAziende.AnaAziendeControllerImpl;
 /**
  * 
  * classe per l'avvio del programma
+ * 
  * @author Pentolo
  */
 public class ApplicationStart {

@@ -12,6 +12,7 @@ import java.util.List;
 public class Movement implements IDataTableModel {
 
 	private static final String[] intestazione = { "Data", "Nome" };
+
 	public static String[] getIntestazione() {
 		return intestazione;
 	}
@@ -40,8 +41,8 @@ public class Movement implements IDataTableModel {
 			return getData().toString();
 		case 1:
 			for (Account a : listaConti) {
-			        return a.getName() + a.getAvere() + a.getDare();
-				}
+				return a.getName() + a.getAvere() + a.getDare();
+			}
 		default:
 			return "";
 		}

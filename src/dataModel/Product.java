@@ -1,19 +1,20 @@
 package dataModel;
 
 /**
- * Classe per la gestione del singolo prodotto e scorta associata da parte dell'azienda.
+ * Classe per la gestione del singolo prodotto e scorta associata da parte
+ * dell'azienda.
  * 
  * @author niky & Diego
  *
  */
 public class Product implements IDataTableModel {
-	
-	private static final String[] intestazione = { "Codice Prodotto", "Nome" , "Categoria", "Tipo Prodotto" , "Prezzo"};
-	
+
+	private static final String[] intestazione = { "Codice Prodotto", "Nome", "Categoria", "Tipo Prodotto", "Prezzo" };
+
 	public static String[] getIntestazione() {
 		return intestazione;
 	}
-	
+
 	private int cod_acquisto;
 	private int cod_vendita;
 	private int codice_prodotto;
@@ -22,17 +23,17 @@ public class Product implements IDataTableModel {
 	private String nome;
 	private int scorta;
 	private int prezzovendita;
-	
-	public Product(String nome, int codice_prodotto, int cod_acquisto, int cod_vendita, int scorta,
-			String categoria, String descrizione, int prezzovendita) {
+
+	public Product(String nome, int codice_prodotto, int cod_acquisto, int cod_vendita, int scorta, String categoria,
+			String descrizione, int prezzovendita) {
 		this.nome = nome;
 		this.codice_prodotto = codice_prodotto;
 		this.cod_acquisto = cod_acquisto;
 		this.cod_vendita = cod_vendita;
 		this.scorta = scorta;
-		this.categoria=categoria;
+		this.categoria = categoria;
 		this.descrizione = descrizione;
-		this.prezzovendita=prezzovendita;
+		this.prezzovendita = prezzovendita;
 	}
 
 	public int getCod_acquisto() {
@@ -50,7 +51,7 @@ public class Product implements IDataTableModel {
 	public String getCategoria() {
 		return categoria;
 	}
-	
+
 	public String getDescrizione() {
 		return descrizione;
 	}
@@ -66,7 +67,7 @@ public class Product implements IDataTableModel {
 	public int getPrezzovendita() {
 		return prezzovendita;
 	}
-	
+
 	public void setCod_acquisto(int cod_acquisto) {
 		this.cod_acquisto = cod_acquisto;
 	}
@@ -82,7 +83,7 @@ public class Product implements IDataTableModel {
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
-	
+
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
@@ -98,10 +99,10 @@ public class Product implements IDataTableModel {
 	public void setPrezzovendita(int prezzovendita) {
 		this.prezzovendita = prezzovendita;
 	}
-	
+
 	@Override
 	public String getValueAt(int column) {
-		
+
 		switch (column) {
 		case 0:
 			return Integer.toString(codice_prodotto);

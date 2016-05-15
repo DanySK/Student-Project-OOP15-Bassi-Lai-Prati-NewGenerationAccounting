@@ -14,6 +14,11 @@ import view.AbstractWideView;
 public class SitCredDebView extends AbstractWideView {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 618175074097974750L;
+
+	/**
 	 * @param title
 	 * @param dimension
 	 */

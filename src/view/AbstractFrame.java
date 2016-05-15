@@ -32,13 +32,13 @@ public abstract class AbstractFrame extends JFrame {
 		MyFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		MyFrame.getContentPane().add(new JPanel(new BorderLayout()));
 		MyFrame.addWindowListener(new WindowAdapter() {
-			public void windowClosing (WindowEvent e) {
+			public void windowClosing(WindowEvent e) {
 				chiusura();
 			}
 		});
-	    int x = (int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - dimension.getWidth()) / 2);
-	    int y = (int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - dimension.getHeight()) / 2);
-	    MyFrame.setLocation(x, y);
+		int x = (int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - dimension.getWidth()) / 2);
+		int y = (int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - dimension.getHeight()) / 2);
+		MyFrame.setLocation(x, y);
 	}
 
 	protected abstract void chiusura();
@@ -47,9 +47,9 @@ public abstract class AbstractFrame extends JFrame {
 		return JOptionPane.showConfirmDialog(MyFrame, question, title,
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
 	}
-	
-	public void errorDialog(final String title, final String message){
-		JOptionPane.showMessageDialog(MyFrame, message, title, JOptionPane.ERROR_MESSAGE );
+
+	public void errorDialog(final String title, final String message) {
+		JOptionPane.showMessageDialog(MyFrame, message, title, JOptionPane.ERROR_MESSAGE);
 	}
 
 	public void start() {

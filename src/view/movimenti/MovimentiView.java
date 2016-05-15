@@ -3,6 +3,8 @@
  */
 package view.movimenti;
 
+import java.util.LinkedList;
+
 import dataModel.Movement;
 import view.AbstractAnagraficaView;
 
@@ -20,7 +22,7 @@ public class MovimentiView extends AbstractAnagraficaView<Movement> {
 	/**
 	 * 
 	 */
-	public MovimentiView(final String title) {
-		super(Movement.getIntestazione(),title);
+	public MovimentiView(final LinkedList<Movement> lista, final String title) {
+		super(lista, Movement.getIntestazione(), title);
 	}
 }

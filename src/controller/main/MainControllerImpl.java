@@ -3,7 +3,7 @@
  */
 package controller.main;
 
-import controller.AbstractViewObserver;
+import controller.IViewObserver;
 import controller.AnaAziende.AnaAziendeControllerImpl;
 import controller.anaCliFor.AnaCliForControllerImpl;
 import controller.anaConti.AnaContiControllerImpl;
@@ -14,13 +14,13 @@ import controller.situazAziendale.SitAzControllerImpl;
 import controller.situazCreditiDebiti.SitCredDebControllerImpl;
 import view.main.MainView;
 
-public class MainControllerImpl extends AbstractViewObserver {
+public class MainControllerImpl implements IViewObserver {
 
-	private final MainView view = new MainView();
-	
+	private final MainView view;
+
 	public MainControllerImpl() {
-		super();
-		view.setObserver(this);
+		this.view = new MainView();
+		this.view.setObserver(this);
 		view.start();
 	}
 
@@ -31,43 +31,42 @@ public class MainControllerImpl extends AbstractViewObserver {
 		}
 	}
 
-	
-	public void btn0 (final String title){
+	public void btn0(final String title) {
 		view.close();
 		new CreaFatturaControllerImpl(title);
 	}
-	
-	public void btn1 (final String title){
+
+	public void btn1(final String title) {
 		view.close();
 		new AnaAziendeControllerImpl(title);
 	}
 
-	public void btn2 (final String title){
+	public void btn2(final String title) {
 		view.close();
 		new AnaCliForControllerImpl(title);
 	}
 
-	public void btn3 (final String title){
+	public void btn3(final String title) {
 		view.close();
 		new AnaContiControllerImpl(title);
 	}
-	
-	public void btn4 (final String title){
+
+	public void btn4(final String title) {
 		view.close();
 		new MovimentiControllerImpl(title);
 	}
-	
-	public void btn5 (final String title){
+
+	public void btn5(final String title) {
 		view.close();
 		new AnaProdControllerImpl(title);
 	}
 
-	public void btn6 (final String title){
+	public void btn6(final String title) {
 		view.close();
 		new SitCredDebControllerImpl(title);
 	}
 
-	public void btn7 (final String title){
+	public void btn7(final String title) {
 		view.close();
 		new SitAzControllerImpl(title);
 	}

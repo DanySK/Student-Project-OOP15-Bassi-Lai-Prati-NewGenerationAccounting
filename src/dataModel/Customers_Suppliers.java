@@ -8,7 +8,7 @@ package dataModel;
 import dataEnum.Gender;
 import dataEnum.KindPerson;
 
-public class Customers_Suppliers implements IDataTableModel{
+public class Customers_Suppliers implements IDataTableModel {
 	private int cap;
 	private String cf;
 	private String citta;

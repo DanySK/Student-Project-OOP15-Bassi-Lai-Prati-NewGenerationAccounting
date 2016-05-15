@@ -5,29 +5,33 @@ package controller.situazCreditiDebiti;
 
 import java.awt.Dimension;
 
-import controller.AbstractViewObserver;
+import controller.IViewObserver;
 import controller.main.MainControllerImpl;
-import view.situazAziendale.SitAzView;
+import model.AbstractModel;
+import view.situazCreditiDebiti.SitCredDebView;
 
 /**
  * @author Pentolo
  *
  */
-public class SitCredDebControllerImpl extends AbstractViewObserver {
+public class SitCredDebControllerImpl implements IViewObserver {
 
-private final SitAzView view; 
-		
+	private final AbstractModel model;
+	private final SitCredDebView view;
+
 	/**
 	 * 
 	 */
 	public SitCredDebControllerImpl(final String title) {
-		super();
-		view = new SitAzView(title, new Dimension(400,500));
+		this.model = null; // TODO!!
+		view = new SitCredDebView(title, new Dimension(400, 500));
 		view.setObserver(this);
 		view.start();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractViewObserver#chiusura()
 	 */
 	@Override

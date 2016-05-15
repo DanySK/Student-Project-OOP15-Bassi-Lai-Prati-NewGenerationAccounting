@@ -10,9 +10,11 @@ import dataEnum.Natures;
  */
 public class Account implements IDataTableModel {
 	private static final String[] intestazione = { "Natura", "Nome" };
+
 	public static String[] getIntestazione() {
 		return intestazione;
 	}
+
 	private Natures natura;
 	private String nome;
 	private long avere;

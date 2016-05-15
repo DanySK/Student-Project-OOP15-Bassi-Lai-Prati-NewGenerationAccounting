@@ -3,7 +3,7 @@
  */
 package controller.anaCliFor;
 
-import controller.AbstractAnagraficaViewObserver;
+import controller.IAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
 import model.CustomersSuppliersModel;
 import view.anaCliFor.AnaCliForView;
@@ -12,18 +12,24 @@ import view.anaCliFor.AnaCliForView;
  * @author Pentolo
  *
  */
-public class AnaCliForControllerImpl extends AbstractAnagraficaViewObserver {
+public class AnaCliForControllerImpl implements IAnagraficaViewObserver {
+
+	private final AnaCliForView view;
+	private final CustomersSuppliersModel model;
 
 	/**
 	 * @param view
 	 */
 	public AnaCliForControllerImpl(final String title) {
-		super(new AnaCliForView(title), new CustomersSuppliersModel());
-		view.setObserver(this);
+		this.model = new CustomersSuppliersModel();
+		this.view = new AnaCliForView(model.load(), title);
+		this.view.setObserver(this);
 		view.start();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#chiusura()
 	 */
 	@Override
@@ -32,7 +38,9 @@ public class AnaCliForControllerImpl extends AbstractAnagraficaViewObserver {
 		new MainControllerImpl();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#tasto0()
 	 */
 	@Override
@@ -41,7 +49,9 @@ public class AnaCliForControllerImpl extends AbstractAnagraficaViewObserver {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#tasto1()
 	 */
 	@Override
@@ -50,7 +60,9 @@ public class AnaCliForControllerImpl extends AbstractAnagraficaViewObserver {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#tasto2()
 	 */
 	@Override
@@ -59,7 +71,9 @@ public class AnaCliForControllerImpl extends AbstractAnagraficaViewObserver {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#tasto3()
 	 */
 	@Override

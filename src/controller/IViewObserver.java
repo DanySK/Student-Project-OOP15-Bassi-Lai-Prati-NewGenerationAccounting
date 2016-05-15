@@ -6,7 +6,6 @@ package controller;
  * @author Pentolo
  *
  */
-public abstract class AbstractViewObserver {
-
-	public abstract void chiusura();
+public interface IViewObserver {
+	void chiusura();
 }

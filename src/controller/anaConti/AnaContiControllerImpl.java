@@ -3,7 +3,7 @@
  */
 package controller.anaConti;
 
-import controller.AbstractAnagraficaViewObserver;
+import controller.IAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
 import model.AccountsModel;
 import view.anaConti.AnaContiView;
@@ -12,18 +12,24 @@ import view.anaConti.AnaContiView;
  * @author Pentolo
  *
  */
-public class AnaContiControllerImpl extends AbstractAnagraficaViewObserver {
+public class AnaContiControllerImpl implements IAnagraficaViewObserver {
+
+	private final AnaContiView view;
+	private final AccountsModel model;
 
 	/**
 	 * @param view
 	 */
 	public AnaContiControllerImpl(final String title) {
-		super(new AnaContiView(title), new AccountsModel());
-		view.setObserver(this);
+		this.model = new AccountsModel();
+		this.view = new AnaContiView(model.load(), title);
+		this.view.setObserver(this);
 		view.start();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#chiusura()
 	 */
 	@Override
@@ -32,7 +38,9 @@ public class AnaContiControllerImpl extends AbstractAnagraficaViewObserver {
 		new MainControllerImpl();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#tasto0()
 	 */
 	@Override
@@ -41,7 +49,9 @@ public class AnaContiControllerImpl extends AbstractAnagraficaViewObserver {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#tasto1()
 	 */
 	@Override
@@ -50,7 +60,9 @@ public class AnaContiControllerImpl extends AbstractAnagraficaViewObserver {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#tasto2()
 	 */
 	@Override
@@ -59,7 +71,9 @@ public class AnaContiControllerImpl extends AbstractAnagraficaViewObserver {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#tasto3()
 	 */
 	@Override

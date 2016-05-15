@@ -3,6 +3,8 @@
  */
 package view.anaCliFor;
 
+import java.util.LinkedList;
+
 import dataModel.Customers_Suppliers;
 import view.AbstractAnagraficaView;
 
@@ -20,8 +22,8 @@ public class AnaCliForView extends AbstractAnagraficaView<Customers_Suppliers> {
 	/**
 	 * 
 	 */
-	public AnaCliForView(final String title) {
-		super(null, title);
+	public AnaCliForView(final LinkedList<Customers_Suppliers> lista, final String title) {
+		super(lista, null, title);
 		// TODO Auto-generated constructor stub
 	}
 }

@@ -3,7 +3,7 @@
  */
 package controller.movimenti;
 
-import controller.AbstractAnagraficaViewObserver;
+import controller.IAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
 import model.MovementsModel;
 import view.movimenti.MovimentiView;
@@ -12,18 +12,24 @@ import view.movimenti.MovimentiView;
  * @author Pentolo
  *
  */
-public class MovimentiControllerImpl extends AbstractAnagraficaViewObserver {
+public class MovimentiControllerImpl implements IAnagraficaViewObserver {
+
+	private final MovimentiView view;
+	private final MovementsModel model;
 
 	/**
 	 * @param view
 	 */
 	public MovimentiControllerImpl(final String title) {
-		super(new MovimentiView(title), new MovementsModel());
-		view.setObserver(this);
+		this.model = new MovementsModel();
+		this.view = new MovimentiView(model.load(), title);
+		this.view.setObserver(this);
 		view.start();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#chiusura()
 	 */
 	@Override
@@ -32,7 +38,9 @@ public class MovimentiControllerImpl extends AbstractAnagraficaViewObserver {
 		new MainControllerImpl();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#tasto0()
 	 */
 	@Override
@@ -41,7 +49,9 @@ public class MovimentiControllerImpl extends AbstractAnagraficaViewObserver {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#tasto1()
 	 */
 	@Override
@@ -50,7 +60,9 @@ public class MovimentiControllerImpl extends AbstractAnagraficaViewObserver {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#tasto2()
 	 */
 	@Override
@@ -59,7 +71,9 @@ public class MovimentiControllerImpl extends AbstractAnagraficaViewObserver {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#tasto3()
 	 */
 	@Override

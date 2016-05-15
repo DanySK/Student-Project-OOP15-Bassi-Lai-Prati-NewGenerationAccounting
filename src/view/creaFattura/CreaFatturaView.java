@@ -3,6 +3,8 @@
  */
 package view.creaFattura;
 
+import java.util.LinkedList;
+
 import dataModel.Item;
 import view.AbstractAnagraficaView;
 
@@ -20,7 +22,7 @@ public class CreaFatturaView extends AbstractAnagraficaView<Item> {
 	/**
 	 * 
 	 */
-	public CreaFatturaView(final String title) {
-		super(Item.getIntestazione(), title);
+	public CreaFatturaView(final LinkedList<Item> lista, final String title) {
+		super(lista, Item.getIntestazione(), title);
 	}
 }

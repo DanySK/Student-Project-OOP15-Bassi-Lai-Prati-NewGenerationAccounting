@@ -5,6 +5,7 @@ package view.anaAziende;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.util.LinkedList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -25,13 +26,13 @@ public class AnaAziendeView extends AbstractAnagraficaView<Company> {
 	 * 
 	 */
 	private static final long serialVersionUID = 5859979634610547926L;
-	
-	public AnaAziendeView(){
-		this("Benvenuto in NGA");
+
+	public AnaAziendeView(final LinkedList<Company> lista) {
+		this(lista, "Benvenuto in NGA");
 	}
-	
-	public AnaAziendeView(final String title) {
-		super(Company.getIntestazione(), title);
+
+	public AnaAziendeView(final LinkedList<Company> lista, final String title) {
+		super(lista, Company.getIntestazione(), title);
 		JPasswordField passwordField = new JPasswordField(15);
 		JButton accediButton = new JButton("Accedi");
 		JPanel topPanel = new JPanel(new FlowLayout());
@@ -42,7 +43,7 @@ public class AnaAziendeView extends AbstractAnagraficaView<Company> {
 		accediButton.addActionListener(e -> {
 			int row = getTable().getSelectedRow();
 			if (row != -1) {
-				((AnaAziendeControllerImpl) observer).accedi(getModel().getObjectAt(row),passwordField.getPassword());
+				((AnaAziendeControllerImpl) observer).accedi(getModel().getObjectAt(row), passwordField.getPassword());
 			} else {
 				errorDialog("Attenzione, seleziona una riga per continuare!", "nessuna riga selezionata");
 			}

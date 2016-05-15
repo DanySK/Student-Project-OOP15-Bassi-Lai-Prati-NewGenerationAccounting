@@ -1,33 +1,37 @@
 package controller.AnaAziende;
 
-import controller.AbstractAnagraficaViewObserver;
+import java.util.LinkedList;
+
+import controller.IAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
 import dataModel.Company;
 import model.CompanyModel;
 import view.anaAziende.AnaAziendeView;
 
-public class AnaAziendeControllerImpl extends AbstractAnagraficaViewObserver {
-	
+public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
+	private final AnaAziendeView view;
+	private final CompanyModel model;
 	private boolean noCompany = false;
-	
-	public AnaAziendeControllerImpl(){
-		this(new AnaAziendeView());
+
+	public AnaAziendeControllerImpl() {
+		this.model = new CompanyModel();
+		this.view = new AnaAziendeView(model.load());
+		this.view.setObserver(this);
 		noCompany = true;
+		view.start();
 	}
-	
+
 	public AnaAziendeControllerImpl(final String title) {
-		this(new AnaAziendeView(title));
-	}
-	
-	private AnaAziendeControllerImpl(final AnaAziendeView view){
-		super(view, new CompanyModel());
-		view.setObserver(this);
+		this.model = new CompanyModel();
+		this.view = new AnaAziendeView((LinkedList<Company>) model.load(), title);
+		this.view.setObserver(this);
+		noCompany = true;
 		view.start();
 	}
 
 	@Override
 	public void chiusura() {
-		if(noCompany){
+		if (noCompany) {
 			if (view.confirmDialog("Sei sicuro di voler uscire dal programma?", "Uscire")) {
 				System.exit(0);
 			}
@@ -60,7 +64,7 @@ public class AnaAziendeControllerImpl extends AbstractAnagraficaViewObserver {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	public void accedi(final Company objectAt, final char[] password) {
 		view.close();
 		new MainControllerImpl();

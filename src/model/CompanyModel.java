@@ -4,31 +4,32 @@ import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.Map;
 
+import dataModel.Company;
 import dataModel.IDataTableModel;
 
-public class CompanyModel extends AbstractModel{
+public class CompanyModel extends AbstractModel {
 
-    @Override
-    public LinkedList<IDataTableModel> load() {
-        return new LinkedList<>();
-    }
+	@Override
+	public LinkedList<Company> load() {
+		return new LinkedList<>();
+	}
 
-    @Override
-    protected void editElem(IDataTableModel obj, Map<String, Object> ifoDaModificare) {
-        // TODO Auto-generated method stub
-        
-    }
+	@Override
+	protected void editElem(IDataTableModel obj, Map<String, Object> ifoDaModificare) {
+		// TODO Auto-generated method stub
 
-    @Override
-    protected void removeElem(Map<String, Object> elemDaEliminare) throws ParseException {
-        // TODO Auto-generated method stub
-        
-    }
+	}
 
-    @Override
-    protected void addElem(Map<String, Object> elem) throws ParseException {
-        // TODO Auto-generated method stub
-        
-    }
+	@Override
+	protected void removeElem(Map<String, Object> elemDaEliminare) throws ParseException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void addElem(Map<String, Object> elem) throws ParseException {
+		// TODO Auto-generated method stub
+
+	}
 
 }

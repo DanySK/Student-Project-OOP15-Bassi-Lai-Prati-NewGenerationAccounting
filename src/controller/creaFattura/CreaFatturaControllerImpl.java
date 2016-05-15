@@ -3,7 +3,7 @@
  */
 package controller.creaFattura;
 
-import controller.AbstractAnagraficaViewObserver;
+import controller.IAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
 import model.CreaFattureModel;
 import view.creaFattura.CreaFatturaView;
@@ -12,18 +12,24 @@ import view.creaFattura.CreaFatturaView;
  * @author Pentolo
  *
  */
-public class CreaFatturaControllerImpl extends AbstractAnagraficaViewObserver {
+public class CreaFatturaControllerImpl implements IAnagraficaViewObserver {
+
+	private final CreaFatturaView view;
+	private final CreaFattureModel model;
 
 	/**
 	 * @param view
 	 */
 	public CreaFatturaControllerImpl(final String title) {
-		super(new CreaFatturaView(title), new CreaFattureModel());
-		view.setObserver(this);
+		this.model = new CreaFattureModel();
+		this.view = new CreaFatturaView(model.load(), title);
+		this.view.setObserver(this);
 		view.start();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#chiusura()
 	 */
 	@Override
@@ -32,7 +38,9 @@ public class CreaFatturaControllerImpl extends AbstractAnagraficaViewObserver {
 		new MainControllerImpl();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#tasto0()
 	 */
 	@Override
@@ -41,7 +49,9 @@ public class CreaFatturaControllerImpl extends AbstractAnagraficaViewObserver {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#tasto1()
 	 */
 	@Override
@@ -50,7 +60,9 @@ public class CreaFatturaControllerImpl extends AbstractAnagraficaViewObserver {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#tasto2()
 	 */
 	@Override
@@ -59,7 +71,9 @@ public class CreaFatturaControllerImpl extends AbstractAnagraficaViewObserver {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controller.AbstractAnagraficaViewObserver#tasto3()
 	 */
 	@Override
