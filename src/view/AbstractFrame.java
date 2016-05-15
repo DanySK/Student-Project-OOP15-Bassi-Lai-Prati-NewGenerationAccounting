@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -38,6 +39,9 @@ public abstract class AbstractFrame extends JFrame {
 				chiusura();
 			}
 		});
+	    int x = (int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - dimension.getWidth()) / 2);
+	    int y = (int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - dimension.getHeight()) / 2);
+	    MyFrame.setLocation(x, y);
 	}
 
 	protected abstract void chiusura();
