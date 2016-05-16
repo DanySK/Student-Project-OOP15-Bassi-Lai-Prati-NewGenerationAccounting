@@ -3,14 +3,29 @@ package model;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
+import dataEnum.Gender;
+import dataEnum.KindPerson;
 import dataModel.Company;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 
-public class CompanyModel extends AbstractModel {
+/**
+ * Classe implementativa per la gestione dell'anagrafica aziende
+ * 
+ * @author Diego
+ *
+ */
 
+public class CompanyModel extends AbstractModel {
+	
+	public List<Company> listaaziende;
+	
+	private Company nuovo;
+	private Company elem;
+	
     DBDataModel db;
     public CompanyModel(DBDataModel db) {
         this.db = db;
@@ -35,8 +50,22 @@ public class CompanyModel extends AbstractModel {
 
 	@Override
 	protected void addElem(Map<String, Object> elem) throws ParseException {
-		// TODO Auto-generated method stub
-
+	
+		nuovo.setCap((int) elem.get("Cap"));
+		nuovo.setCitta(elem.get("Città").toString());
+		nuovo.setCodice_azienda((int) elem.get("Città"));
+		nuovo.setIndirizzo(elem.get("Indirizzo").toString());
+		nuovo.setPartita_iva((int) elem.get("P.IVA"));
+		nuovo.setPassword(elem.get("Password").toString());
+		nuovo.setProvincia(elem.get("Provincia").toString());
+		nuovo.setRagione_sociale(elem.get("Ragione Sociale").toString());
+		nuovo.setTel(elem.get("Telefono").toString());
+		 if(listaaziende.contains(nuovo)){
+	            System.out.println("Azienda gia' registrata");
+	        }
+	        else listaaziende.add(nuovo);
+		
+		
 	}
 
 }

@@ -89,20 +89,7 @@ public class Company implements IDataTableModel {
 		}
 	}
 
-	/**
-	 * Semplice controllo che confronta la password memorizzata nel database con
-	 * quella inserita volta per volta dall'utente.
-	 *
-	 * @param password
-	 * @return boolean
-	 */
-	public boolean ispasswordcorrect(String password) {
-		if (this.getPassword().equals(password)) {
-			return true;
-		} else
-			return false;
 
-	}
 
 	public void setCap(int cap) {
 		this.cap = cap;
