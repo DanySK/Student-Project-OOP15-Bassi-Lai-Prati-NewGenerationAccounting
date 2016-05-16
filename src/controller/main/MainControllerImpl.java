@@ -5,6 +5,7 @@ package controller.main;
 
 import controller.IViewObserver;
 import controller.AnaAziende.AnaAziendeControllerImpl;
+import controller.DBController.DBLoader;
 import controller.anaCliFor.AnaCliForControllerImpl;
 import controller.anaConti.AnaContiControllerImpl;
 import controller.anaProd.AnaProdControllerImpl;
@@ -12,14 +13,17 @@ import controller.creaFattura.CreaFatturaControllerImpl;
 import controller.movimenti.MovimentiControllerImpl;
 import controller.situazAziendale.SitAzControllerImpl;
 import controller.situazCreditiDebiti.SitCredDebControllerImpl;
+import dataModel.DBDataModel;
 import view.main.MainView;
 
 public class MainControllerImpl implements IViewObserver {
 
 	private final MainView view;
-
+	private final DBDataModel db;
+	
 	public MainControllerImpl() {
 		this.view = new MainView();
+		this.db = DBLoader.LoadDB("", view);
 		this.view.setObserver(this);
 		view.start();
 	}
@@ -33,41 +37,41 @@ public class MainControllerImpl implements IViewObserver {
 
 	public void btn0(final String title) {
 		view.close();
-		new CreaFatturaControllerImpl(title);
+		new CreaFatturaControllerImpl(db, title);
 	}
 
 	public void btn1(final String title) {
 		view.close();
-		new AnaAziendeControllerImpl(title);
+		new AnaAziendeControllerImpl(db, title);
 	}
 
 	public void btn2(final String title) {
 		view.close();
-		new AnaCliForControllerImpl(title);
+		new AnaCliForControllerImpl(db, title);
 	}
 
 	public void btn3(final String title) {
 		view.close();
-		new AnaContiControllerImpl(title);
+		new AnaContiControllerImpl(db, title);
 	}
 
 	public void btn4(final String title) {
 		view.close();
-		new MovimentiControllerImpl(title);
+		new MovimentiControllerImpl(db, title);
 	}
 
 	public void btn5(final String title) {
 		view.close();
-		new AnaProdControllerImpl(title);
+		new AnaProdControllerImpl(db, title);
 	}
 
 	public void btn6(final String title) {
 		view.close();
-		new SitCredDebControllerImpl(title);
+		new SitCredDebControllerImpl(db, title);
 	}
 
 	public void btn7(final String title) {
 		view.close();
-		new SitAzControllerImpl(title);
+		new SitAzControllerImpl(db, title);
 	}
 }

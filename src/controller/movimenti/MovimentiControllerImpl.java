@@ -5,6 +5,7 @@ package controller.movimenti;
 
 import controller.IAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
+import dataModel.DBDataModel;
 import model.MovementsModel;
 import view.movimenti.MovimentiView;
 
@@ -20,8 +21,8 @@ public class MovimentiControllerImpl implements IAnagraficaViewObserver {
 	/**
 	 * @param view
 	 */
-	public MovimentiControllerImpl(final String title) {
-		this.model = new MovementsModel(null);
+	public MovimentiControllerImpl(final DBDataModel db, final String title) {
+		this.model = new MovementsModel(db);
 		this.view = new MovimentiView(model.load(), title);
 		this.view.setObserver(this);
 		view.start();

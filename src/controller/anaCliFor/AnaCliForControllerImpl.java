@@ -5,6 +5,7 @@ package controller.anaCliFor;
 
 import controller.IAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
+import dataModel.DBDataModel;
 import model.CustomersSuppliersModel;
 import view.anaCliFor.AnaCliForView;
 
@@ -20,8 +21,8 @@ public class AnaCliForControllerImpl implements IAnagraficaViewObserver {
 	/**
 	 * @param view
 	 */
-	public AnaCliForControllerImpl(final String title) {
-		this.model = new CustomersSuppliersModel(null);
+	public AnaCliForControllerImpl(final DBDataModel db, final String title) {
+		this.model = new CustomersSuppliersModel(db);
 		this.view = new AnaCliForView(model.load(), title);
 		this.view.setObserver(this);
 		view.start();

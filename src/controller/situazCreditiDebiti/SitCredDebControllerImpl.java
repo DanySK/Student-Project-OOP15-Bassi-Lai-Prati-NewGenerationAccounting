@@ -7,7 +7,9 @@ import java.awt.Dimension;
 
 import controller.IViewObserver;
 import controller.main.MainControllerImpl;
+import dataModel.DBDataModel;
 import model.AbstractModel;
+import model.ReceivablesPayablesModel;
 import view.situazCreditiDebiti.SitCredDebView;
 
 /**
@@ -16,14 +18,14 @@ import view.situazCreditiDebiti.SitCredDebView;
  */
 public class SitCredDebControllerImpl implements IViewObserver {
 
-	private final AbstractModel model;
+	private final ReceivablesPayablesModel model;
 	private final SitCredDebView view;
 
 	/**
 	 * 
 	 */
-	public SitCredDebControllerImpl(final String title) {
-		this.model = null; // TODO!!
+	public SitCredDebControllerImpl(final DBDataModel db, final String title) {
+		this.model = new ReceivablesPayablesModel(db);
 		view = new SitCredDebView(title, new Dimension(400, 500));
 		view.setObserver(this);
 		view.start();
