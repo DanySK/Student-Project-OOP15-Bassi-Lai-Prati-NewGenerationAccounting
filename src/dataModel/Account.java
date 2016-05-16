@@ -17,22 +17,16 @@ public class Account implements IDataTableModel {
 
 	private Natures natura;
 	private String nome;
-	private long avere;
-	private long dare;
+	private long saldo;
 
-	public Account(String nome, Natures natura, long dare, long avere) {
+	public Account(String nome, Natures natura, long saldo) {
 		this.nome = nome;
 		this.natura = natura;
-		this.avere = avere;
-		this.dare = dare;
+		this.saldo=saldo;
 	}
 
-	public long getAvere() {
-		return avere;
-	}
-
-	public long getDare() {
-		return dare;
+	public long getSaldo() {
+		return saldo;
 	}
 
 	public String getName() {
@@ -55,12 +49,8 @@ public class Account implements IDataTableModel {
 		}
 	}
 
-	public void setAvere(long avere) {
-		this.avere = avere;
-	}
-
-	public void setDare(long dare) {
-		this.dare = dare;
+	public void setSaldo(long saldo) {
+		this.saldo = saldo;
 	}
 
 	public void setName(String nome) {

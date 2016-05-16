@@ -21,7 +21,7 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	 * @param view
 	 */
 	public AnaContiControllerImpl(final String title) {
-		this.model = new AccountsModel();
+		this.model = new AccountsModel(null);
 		this.view = new AnaContiView(model.load(), title);
 		this.view.setObserver(this);
 		view.start();

@@ -41,7 +41,7 @@ public class Movement implements IDataTableModel {
 			return getData().toString();
 		case 1:
 			for (Account a : listaConti) {
-				return a.getName() + a.getAvere() + a.getDare();
+				return a.getName() + a.getSaldo();
 			}
 		default:
 			return "";

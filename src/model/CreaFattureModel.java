@@ -4,11 +4,16 @@ import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.Map;
 
+import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 import dataModel.Item;
 
 public class CreaFattureModel extends AbstractModel {
-
+    
+        DBDataModel db;
+        public CreaFattureModel(DBDataModel db) {
+            this.db = db;
+        }
 	@Override
 	public LinkedList<Item> load() {
 		// TODO Auto-generated method stub

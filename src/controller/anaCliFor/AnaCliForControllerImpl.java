@@ -21,7 +21,7 @@ public class AnaCliForControllerImpl implements IAnagraficaViewObserver {
 	 * @param view
 	 */
 	public AnaCliForControllerImpl(final String title) {
-		this.model = new CustomersSuppliersModel();
+		this.model = new CustomersSuppliersModel(null);
 		this.view = new AnaCliForView(model.load(), title);
 		this.view.setObserver(this);
 		view.start();

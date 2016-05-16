@@ -21,7 +21,7 @@ public class CreaFatturaControllerImpl implements IAnagraficaViewObserver {
 	 * @param view
 	 */
 	public CreaFatturaControllerImpl(final String title) {
-		this.model = new CreaFattureModel();
+		this.model = new CreaFattureModel(null);
 		this.view = new CreaFatturaView(model.load(), title);
 		this.view.setObserver(this);
 		view.start();

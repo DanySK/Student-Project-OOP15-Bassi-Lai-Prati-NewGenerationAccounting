@@ -21,7 +21,7 @@ public class AnaProdControllerImpl implements IAnagraficaViewObserver {
 	 * @param view
 	 */
 	public AnaProdControllerImpl(final String title) {
-		this.model = new ProductsModel();
+		this.model = new ProductsModel(null);
 		this.view = new AnaProdView(model.load(), title);
 		this.view.setObserver(this);
 		view.start();

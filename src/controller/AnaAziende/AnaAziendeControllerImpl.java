@@ -14,7 +14,7 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	private boolean noCompany = false;
 
 	public AnaAziendeControllerImpl() {
-		this.model = new CompanyModel();
+		this.model = new CompanyModel(null);
 		this.view = new AnaAziendeView(model.load());
 		this.view.setObserver(this);
 		noCompany = true;
@@ -22,7 +22,7 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	}
 
 	public AnaAziendeControllerImpl(final String title) {
-		this.model = new CompanyModel();
+		this.model = new CompanyModel(null);
 		this.view = new AnaAziendeView((LinkedList<Company>) model.load(), title);
 		this.view.setObserver(this);
 		noCompany = true;

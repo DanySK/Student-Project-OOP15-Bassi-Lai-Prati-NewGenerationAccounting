@@ -6,13 +6,18 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import dataModel.Company;
+import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 
 public class CompanyModel extends AbstractModel {
 
+    DBDataModel db;
+    public CompanyModel(DBDataModel db) {
+        this.db = db;
+    }
 	@Override
 	public LinkedList<Company> load() {
-		return new LinkedList<>(Arrays.asList(new Company(1, "password", "società 1", 123456789, "via dalle palle, 3",
+		return new LinkedList<>(Arrays.asList(new Company(1, "password", "societï¿½ 1", 123456789, "via dalle palle, 3",
 				"cittadimmerda", 11111, "Levati (dal cazzo)", "1100110011")));
 	}
 

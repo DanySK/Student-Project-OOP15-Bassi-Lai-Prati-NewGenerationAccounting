@@ -4,10 +4,17 @@ import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.Map;
 
+import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 import dataModel.Product;
 
 public class ProductsModel extends AbstractModel {
+    
+        DBDataModel db;
+    
+        public ProductsModel(DBDataModel db) {
+            this.db = db;
+        }
 
 	@Override
 	public LinkedList<Product> load() {

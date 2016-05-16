@@ -21,16 +21,15 @@ public class AccountsModel extends AbstractModel {
 	private Account nuovo;
 	private Account elem;
 
-	public AccountsModel() {
-		db.getAccounts();
+	public AccountsModel(DBDataModel db) {
+	    this.db = db;
 	}
 
 	@Override
 	public void addElem(Map<String, Object> elem) {
 		nuovo.setName(elem.get("Nome Conto").toString());
 		nuovo.setNatura((Natures) elem.get("Natura Conto"));
-		nuovo.setDare(0);
-		nuovo.setAvere(0);
+                nuovo.setSaldo(0);
 		if (db.getAccounts().contains(nuovo)) {
 			System.out.println("conto già registrato");
 		} else

@@ -25,8 +25,8 @@ public class MovementsModel extends AbstractModel {
 	Movement elem;
 	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-	public MovementsModel() {
-		db.getMoviments();
+	public MovementsModel(DBDataModel db) {
+		this.db = db;
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class MovementsModel extends AbstractModel {
 
 	@Override
 	public LinkedList<Movement> load() {
-		return new LinkedList<Movement>();
+		return new LinkedList<Movement>(db.getMoviments());
 	}
 
 	LinkedList<? extends IDataTableModel> load(Date da, Date a) throws Exception {

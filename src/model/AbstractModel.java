@@ -20,6 +20,17 @@ public abstract class AbstractModel {
 	 */
 	protected Map<String, Object> mappa = new HashMap<>();
 
+    /**
+     * operazione per cercare e modificare un oggetto all'interno del dataBase
+     * 
+     * @author niky
+     * 
+     * @param obj, infoDaModificare
+     *        l'oggetto da modificare e le nuove informazioni
+     */
+    public void edit(IDataTableModel obj,Map<String, Object> infoDaModificare) {
+        editElem(obj,infoDaModificare);
+    }
 	/**
 	 * operazione di aggiunta di un nuovo oggetto al dataBase del programma
 	 * 
@@ -31,16 +42,17 @@ public abstract class AbstractModel {
 	public void add(Map<String, Object> elem) throws ParseException {
 		addElem(elem);
 	}
-
-	/**
-	 * operazione per cercare e modificare un oggetto all'interno del dataBase
-	 * 
-	 * @author niky
-	 */
-	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare) {
-		editElem(obj, infoDaModificare);
-	}
-
+    /**
+     * operazione per rimuovere un oggetto dal dataBase
+     * 
+     * @author niky
+     * 
+     * @param elem
+     *          elemento da modificare
+     */
+    public void remove(Map<String,Object>elem) throws ParseException {
+        removeElem(elem);
+    }
 	/**
 	 * operazione per restituire alla view i dati del dataBase da mostrare
 	 * all'utente

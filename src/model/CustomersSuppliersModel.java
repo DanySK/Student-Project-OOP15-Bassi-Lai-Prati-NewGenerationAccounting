@@ -5,10 +5,15 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import dataModel.Customers_Suppliers;
+import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 
 public class CustomersSuppliersModel extends AbstractModel {
-
+    
+    DBDataModel db;
+    public CustomersSuppliersModel(DBDataModel db) {
+        this.db = db;
+    }
 	@Override
 	public LinkedList<Customers_Suppliers> load() {
 

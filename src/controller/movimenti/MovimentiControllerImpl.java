@@ -21,7 +21,7 @@ public class MovimentiControllerImpl implements IAnagraficaViewObserver {
 	 * @param view
 	 */
 	public MovimentiControllerImpl(final String title) {
-		this.model = new MovementsModel();
+		this.model = new MovementsModel(null);
 		this.view = new MovimentiView(model.load(), title);
 		this.view.setObserver(this);
 		view.start();
