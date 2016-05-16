@@ -6,6 +6,7 @@ import java.util.Set;
 
 import dataEnum.Natures;
 import dataModel.Account;
+import dataModel.DBDataModel;
 
 /**
  * classe implementativa per la gestione di stato patrimoniale conto economico e
@@ -19,7 +20,7 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 	private Map<Natures, Set<Account>> StatoPatrimoniale;
 	private Map<Natures, Set<Account>> AccountEconomico;
 
-	public FinancialSituationModelImpl() {
+	public FinancialSituationModelImpl(DBDataModel db) {
 
 		this.StatoPatrimoniale = new HashMap<>();
 		this.AccountEconomico = new HashMap<>();

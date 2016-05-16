@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import controller.IAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
 import dataModel.Company;
+import dataModel.DBDataModel;
 import model.CompanyModel;
 import view.anaAziende.AnaAziendeView;
 
@@ -14,15 +15,15 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	private boolean noCompany = false;
 
 	public AnaAziendeControllerImpl() {
-		this.model = new CompanyModel(null);
+		this.model = new CompanyModel(null); //TODO first start
 		this.view = new AnaAziendeView(model.load());
 		this.view.setObserver(this);
 		noCompany = true;
 		view.start();
 	}
 
-	public AnaAziendeControllerImpl(final String title) {
-		this.model = new CompanyModel(null);
+	public AnaAziendeControllerImpl(final DBDataModel db, final String title) {
+		this.model = new CompanyModel(db);
 		this.view = new AnaAziendeView((LinkedList<Company>) model.load(), title);
 		this.view.setObserver(this);
 		noCompany = true;

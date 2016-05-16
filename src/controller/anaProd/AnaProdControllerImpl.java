@@ -5,6 +5,7 @@ package controller.anaProd;
 
 import controller.IAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
+import dataModel.DBDataModel;
 import model.ProductsModel;
 import view.anaProd.AnaProdView;
 
@@ -20,8 +21,8 @@ public class AnaProdControllerImpl implements IAnagraficaViewObserver {
 	/**
 	 * @param view
 	 */
-	public AnaProdControllerImpl(final String title) {
-		this.model = new ProductsModel(null);
+	public AnaProdControllerImpl(final DBDataModel db, final String title) {
+		this.model = new ProductsModel(db);
 		this.view = new AnaProdView(model.load(), title);
 		this.view.setObserver(this);
 		view.start();

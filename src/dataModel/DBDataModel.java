@@ -5,6 +5,8 @@ package dataModel;
 
 import java.util.LinkedList;
 
+import controller.DBController.DBLoader;
+
 /**
  * il database che conterrà tutte le informazioni del programma.
  * 
@@ -34,6 +36,8 @@ public class DBDataModel {
 		this.moviments = moviments;
 		this.products = products;
 	}
+	
+	public DBDataModel() {}
 
 	/**
 	 * @return the accounts

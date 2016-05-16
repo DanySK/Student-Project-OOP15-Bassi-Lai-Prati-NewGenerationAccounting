@@ -5,6 +5,7 @@ package controller.creaFattura;
 
 import controller.IAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
+import dataModel.DBDataModel;
 import model.CreaFattureModel;
 import view.creaFattura.CreaFatturaView;
 
@@ -20,8 +21,8 @@ public class CreaFatturaControllerImpl implements IAnagraficaViewObserver {
 	/**
 	 * @param view
 	 */
-	public CreaFatturaControllerImpl(final String title) {
-		this.model = new CreaFattureModel(null);
+	public CreaFatturaControllerImpl(final DBDataModel db, final String title) {
+		this.model = new CreaFattureModel(db);
 		this.view = new CreaFatturaView(model.load(), title);
 		this.view.setObserver(this);
 		view.start();

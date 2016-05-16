@@ -7,6 +7,7 @@ import java.awt.Dimension;
 
 import controller.IViewObserver;
 import controller.main.MainControllerImpl;
+import dataModel.DBDataModel;
 import model.FinancialSituationModelImpl;
 import view.situazAziendale.SitAzView;
 
@@ -22,9 +23,9 @@ public class SitAzControllerImpl implements IViewObserver {
 	/**
 	 * 
 	 */
-	public SitAzControllerImpl(final String title) {
+	public SitAzControllerImpl(final DBDataModel db, final String title) {
 		this.view = new SitAzView(title, new Dimension(400, 500));
-		this.model = new FinancialSituationModelImpl();
+		this.model = new FinancialSituationModelImpl(db);
 		this.view.setObserver(this);
 		view.start();
 	}

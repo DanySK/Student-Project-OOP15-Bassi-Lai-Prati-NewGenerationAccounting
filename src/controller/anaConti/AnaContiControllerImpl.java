@@ -5,6 +5,7 @@ package controller.anaConti;
 
 import controller.IAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
+import dataModel.DBDataModel;
 import model.AccountsModel;
 import view.anaConti.AnaContiView;
 
@@ -20,8 +21,8 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	/**
 	 * @param view
 	 */
-	public AnaContiControllerImpl(final String title) {
-		this.model = new AccountsModel(null);
+	public AnaContiControllerImpl(final DBDataModel db, final String title) {
+		this.model = new AccountsModel(db);
 		this.view = new AnaContiView(model.load(), title);
 		this.view.setObserver(this);
 		view.start();

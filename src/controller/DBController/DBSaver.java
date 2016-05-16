@@ -1,7 +1,7 @@
 /**
  * 
  */
-package controller;
+package controller.DBController;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -18,32 +18,22 @@ import view.AbstractFrame;
  * @author Pentolo
  *
  */
-public class DBSaver extends Thread {
+public class DBSaver extends AbstractDB  {
 
-	private static final String ACCOUNT_FILENAME = "accounts.nga";
-	private static final String COMPANY_FILENAME = "companys.nga";
-	private static final String CUSTOMERSUPPLIER_FILENAME = "customersuppliers.nga";
-	private static final String MOVEMENT_FILENAME = "movements.nga";
-	private static final String PRODUCT_FILENAME = "products.nga";
-	private final DBDataModel DB;
-	private final String path;
-	private final AbstractFrame view;
-
-	public DBSaver(DBDataModel dB, String path, AbstractFrame view) {
-		super();
-		DB = dB;
-		this.path = path;
-		this.view = view;
+	public DBSaver(final String path, final AbstractFrame view, final DBDataModel db) {
+		super(path, view, db);
+		
 	}
 
 	@Override
 	public void run() {
-		save(DB.isAccountsModified(), ACCOUNT_FILENAME, DB.getAccounts());
-		save(DB.isCompanysModified(), COMPANY_FILENAME, DB.getCompanys());
-		save(DB.isCustomersSuppliersModified(), CUSTOMERSUPPLIER_FILENAME, DB.getCustomersSuppliers());
-		save(DB.isMovimentsModified(), MOVEMENT_FILENAME, DB.getMoviments());
-		save(DB.isProductsModified(), PRODUCT_FILENAME, DB.getProducts());
-		DB.resetBooleans();
+		final DBDataModel db = getDb();
+		save(db.isAccountsModified(), getAccountFilename(), db.getAccounts());
+		save(db.isCompanysModified(), getCompanyFilename(), db.getCompanys());
+		save(db.isCustomersSuppliersModified(), getCustomersupplierFilename(), db.getCustomersSuppliers());
+		save(db.isMovimentsModified(), getMovementFilename(), db.getMoviments());
+		save(db.isProductsModified(), getProductFilename(), db.getProducts());
+		db.resetBooleans();
 	}
 
 	private void save(final boolean mustbeSaved, final String fileName,
@@ -72,6 +62,6 @@ public class DBSaver extends Thread {
 	}
 
 	private void showError(String string) {
-		view.errorDialog("Errore", string);
+		getView().errorDialog("Errore", string);
 	}
 }
