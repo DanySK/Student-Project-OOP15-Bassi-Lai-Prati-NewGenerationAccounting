@@ -1,6 +1,5 @@
 package model;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Map;
@@ -19,7 +18,12 @@ public class MovementsModel extends AbstractModel {
 
 	private DBDataModel db;
 	LinkedList<Movement> listaMovimenti;
+<<<<<<< local
+	private final static String data = "Data Movimento";
+	private final static String lista = "Lista Conti Mossi";
+=======
 	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+>>>>>>> other
 
 	public MovementsModel(DBDataModel db) {
 		this.db = db;
@@ -46,7 +50,7 @@ public class MovementsModel extends AbstractModel {
 		return new LinkedList<Movement>(db.getMoviments());
 	}
 
-	LinkedList<? extends IDataTableModel> load(Date da, Date a) throws Exception {
+	LinkedList<Movement> load(Date da, Date a) throws Exception {
 		LinkedList<Movement> filtroData = new LinkedList<>();
 		if (da == null && a == null) {
 			throw new Exception("date non valide");
@@ -59,10 +63,18 @@ public class MovementsModel extends AbstractModel {
 		return filtroData;
 	}
 
+<<<<<<< local
+    @Override
+    protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
+        // TODO Auto-generated method stub
+        
+    }
+=======
 	@Override
 	protected void addElem(Map<String, Object> elem) {
 		// TODO Auto-generated method stub
 
 	}
+>>>>>>> other
 
 }

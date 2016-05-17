@@ -16,6 +16,7 @@ import dataModel.IDataTableModel;
 
 public class CompanyModel extends AbstractModel {
 
+        private final String az = "azienda";
 	LinkedList<Company> listaAziende;
 
 	public CompanyModel() {
@@ -30,7 +31,11 @@ public class CompanyModel extends AbstractModel {
 	}
 
 	@Override
+<<<<<<< local
+	protected void addElem(Map<String,Object> mappa){
+=======
 	protected void addElem(Map<String, Object> mappa) {
+>>>>>>> other
 		Company azienda = null; // TODO
 		listaAziende.add(azienda);
 	}

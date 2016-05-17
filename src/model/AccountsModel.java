@@ -18,16 +18,17 @@ import dataModel.IDataTableModel;
 public class AccountsModel extends AbstractModel {
 
 	LinkedList<Account> listaaccount;
+	private final static String nome = "Nome Conto";
+	private final static String natura = "Natura Conto";
+	private final static String saldo = "Natura Conto";
+	
 	private DBDataModel db;
-	private Account nuovo;
-	private Account elem;
-
 	public AccountsModel(DBDataModel db) {
 		this.db = db;
 	}
 
-	protected void addElem(Map<String, Object> mappa) {
-		Account account = null; // TODO
+	protected void addElem(Map<String,Object> elem) {
+		Account account = new Account(null, null, 0);
 		listaaccount.add(account);
 		db.setAccounts(listaaccount);
 	}
@@ -79,5 +80,4 @@ public class AccountsModel extends AbstractModel {
 			}
 		return filtroNatura;
 	}
-
 }

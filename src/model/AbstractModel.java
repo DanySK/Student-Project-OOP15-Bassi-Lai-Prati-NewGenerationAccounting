@@ -35,7 +35,7 @@ public abstract class AbstractModel {
 	 * @param elem
 	 *            mappa contenente le informazioni sull'elemento da aggiungere
 	 */
-	public void add(Map<String, Object> elem) throws IllegalArgumentException {
+	public void add(Map<String,Object> elem) throws IllegalArgumentException {
 		addElem(elem);
 	}
 
@@ -61,6 +61,6 @@ public abstract class AbstractModel {
 
 	protected abstract void editElem(IDataTableModel obj, Map<String, Object> ifoDaModificare);
 
-	protected abstract void addElem(Map<String, Object> elem) throws IllegalArgumentException;
+	protected abstract void addElem(Map<String,Object> elem) throws IllegalArgumentException;
 
 }

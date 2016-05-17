@@ -14,11 +14,18 @@ import java.util.LinkedList;
  */
 public class DBDataModel implements Serializable {
 
+<<<<<<< local
+    
+    
+    private LinkedList<Account> accounts;
+	private LinkedList<Company> companys;
+=======
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7561096726236641612L;
 	private LinkedList<Account> accounts;
+>>>>>>> other
 	private LinkedList<Customers_Suppliers> customersSuppliers;
 	private LinkedList<Movement> moviments;
 	private LinkedList<Product> products;
