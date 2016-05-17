@@ -89,8 +89,6 @@ public class Company implements IDataTableModel {
 		}
 	}
 
-
-
 	public void setCap(int cap) {
 		this.cap = cap;
 	}

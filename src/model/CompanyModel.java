@@ -1,13 +1,9 @@
 package model;
 
-import java.text.ParseException;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
-import dataEnum.Gender;
-import dataEnum.KindPerson;
 import dataModel.Company;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
@@ -20,16 +16,15 @@ import dataModel.IDataTableModel;
  */
 
 public class CompanyModel extends AbstractModel {
-	
-	public List<Company> listaaziende;
-	
-	private Company nuovo;
-	private Company elem;
-	
-    DBDataModel db;
-    public CompanyModel(DBDataModel db) {
-        this.db = db;
-    }
+
+	LinkedList<Company> listaAziende;
+	private DBDataModel db;
+
+	public CompanyModel(DBDataModel db) {
+		this.db = db;
+		listaAziende = db.getCompanys();
+	}
+
 	@Override
 	public LinkedList<Company> load() {
 		return new LinkedList<>(Arrays.asList(new Company(1, "password", "societï¿½ 1", 123456789, "via dalle palle, 3",
@@ -37,35 +32,33 @@ public class CompanyModel extends AbstractModel {
 	}
 
 	@Override
-	protected void editElem(IDataTableModel obj, Map<String, Object> ifoDaModificare) {
-		// TODO Auto-generated method stub
-
+	protected void addElem(Map<String, Object> mappa){
+		Company azienda = null; // TODO
+		listaAziende.add(azienda);
+		db.setCompanys(listaAziende);
 	}
 
 	@Override
-	protected void removeElem(Map<String, Object> elemDaEliminare) throws ParseException {
-		// TODO Auto-generated method stub
+	public void remove(IDataTableModel elem) {
+		if (listaAziende.contains(elem)) {
+			listaAziende.remove(elem);
+			db.setCompanys(listaAziende);
+		} else {
+			throw new IllegalArgumentException("sto elemento non esiste.");
+		}
+	}
 
+	public boolean isPasswordCorrect(final char[] password, Company company) {
+		return company.getPassword().equals(password);
 	}
 
 	@Override
-	protected void addElem(Map<String, Object> elem) throws ParseException {
+	public void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare) {
+		listaAziende.remove(obj);
+		
+		addElem(infoDaModificare);
+		
+	}
+
 	
-		nuovo.setCap((int) elem.get("Cap"));
-		nuovo.setCitta(elem.get("Città").toString());
-		nuovo.setCodice_azienda((int) elem.get("Città"));
-		nuovo.setIndirizzo(elem.get("Indirizzo").toString());
-		nuovo.setPartita_iva((int) elem.get("P.IVA"));
-		nuovo.setPassword(elem.get("Password").toString());
-		nuovo.setProvincia(elem.get("Provincia").toString());
-		nuovo.setRagione_sociale(elem.get("Ragione Sociale").toString());
-		nuovo.setTel(elem.get("Telefono").toString());
-		 if(listaaziende.contains(nuovo)){
-	            System.out.println("Azienda gia' registrata");
-	        }
-	        else listaaziende.add(nuovo);
-		
-		
-	}
-
 }

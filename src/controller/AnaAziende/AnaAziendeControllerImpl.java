@@ -15,7 +15,7 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	private boolean noCompany = false;
 
 	public AnaAziendeControllerImpl() {
-		this.model = new CompanyModel(null); //TODO first start
+		this.model = new CompanyModel(null); // TODO first start
 		this.view = new AnaAziendeView(model.load());
 		this.view.setObserver(this);
 		noCompany = true;
@@ -67,8 +67,12 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	}
 
 	public void accedi(final Company objectAt, final char[] password) {
-		view.close();
-		new MainControllerImpl();
+		if (model.isPasswordCorrect(password, objectAt)) {
+			view.close();
+			new MainControllerImpl();
+		} else {
+			view.errorDialog("Password errata", "Password Errata, riprovare.");
+		}
 	}
 
 }

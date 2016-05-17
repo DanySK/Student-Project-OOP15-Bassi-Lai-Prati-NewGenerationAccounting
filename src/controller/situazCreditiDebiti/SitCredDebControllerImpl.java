@@ -8,7 +8,6 @@ import java.awt.Dimension;
 import controller.IViewObserver;
 import controller.main.MainControllerImpl;
 import dataModel.DBDataModel;
-import model.AbstractModel;
 import model.ReceivablesPayablesModel;
 import view.situazCreditiDebiti.SitCredDebView;
 

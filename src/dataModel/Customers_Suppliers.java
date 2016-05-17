@@ -1,5 +1,7 @@
 package dataModel;
 
+import java.io.Serializable;
+
 /**
  * classe per la gestione del singolo cliente/fornitore
  * 
@@ -8,7 +10,11 @@ package dataModel;
 import dataEnum.Gender;
 import dataEnum.KindPerson;
 
-public class Customers_Suppliers implements IDataTableModel {
+public class Customers_Suppliers implements IDataTableModel, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9254381L;
 	private int cap;
 	private String cf;
 	private String citta;

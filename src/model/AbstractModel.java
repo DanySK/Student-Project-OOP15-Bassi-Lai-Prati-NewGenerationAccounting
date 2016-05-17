@@ -1,36 +1,32 @@
 package model;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import dataModel.IDataTableModel;
 
+/**
+ * Interfaccia delle operazioni comuni delle classi di anagrafica
+ * 
+ * @author niky
+ * @throws ParseException
+ */
 public abstract class AbstractModel {
 
 	/**
-	 * Interfaccia delle operazioni comuni delle classi di anagrafica
+	 * operazione per cercare e modificare un oggetto all'interno del dataBase
 	 * 
 	 * @author niky
-	 * @throws ParseException
+	 * 
+	 * @param obj,
+	 *            infoDaModificare l'oggetto da modificare e le nuove
+	 *            informazioni
 	 */
-	protected Map<String, Object> mappa = new HashMap<>();
+	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare) {
+		editElem(obj, infoDaModificare);
+	}
 
-    /**
-     * operazione per cercare e modificare un oggetto all'interno del dataBase
-     * 
-     * @author niky
-     * 
-     * @param obj, infoDaModificare
-     *        l'oggetto da modificare e le nuove informazioni
-     */
-    public void edit(IDataTableModel obj,Map<String, Object> infoDaModificare) {
-        editElem(obj,infoDaModificare);
-    }
 	/**
 	 * operazione di aggiunta di un nuovo oggetto al dataBase del programma
 	 * 
@@ -39,10 +35,11 @@ public abstract class AbstractModel {
 	 * @param elem
 	 *            mappa contenente le informazioni sull'elemento da aggiungere
 	 */
-	public void add(Map<String, Object> elem) throws ParseException {
+	public void add(Map<String, Object> elem) throws IllegalArgumentException {
 		addElem(elem);
 	}
-    /**
+
+	/**
      * operazione per rimuovere un oggetto dal dataBase
      * 
      * @author niky
@@ -50,9 +47,8 @@ public abstract class AbstractModel {
      * @param elem
      *          elemento da modificare
      */
-    public void remove(Map<String,Object>elem) throws ParseException {
-        removeElem(elem);
-    }
+    public abstract void remove(IDataTableModel elem);
+
 	/**
 	 * operazione per restituire alla view i dati del dataBase da mostrare
 	 * all'utente
@@ -63,32 +59,9 @@ public abstract class AbstractModel {
 	 */
 	public abstract LinkedList<? extends IDataTableModel> load();
 
-	/**
-	 * operazione per rimuovere un oggetto dal dataBase
-	 * 
-	 * @author niky
-	 */
-	public void remove() throws ParseException {
-		removeElem(mappa);
-	}
-
 	protected abstract void editElem(IDataTableModel obj, Map<String, Object> ifoDaModificare);
 
-	protected abstract void removeElem(Map<String, Object> elemDaEliminare) throws ParseException;
+	protected abstract void addElem(Map<String, Object> elem) throws IllegalArgumentException;
 
-	protected abstract void addElem(Map<String, Object> elem) throws ParseException;
-
-	public Map<String, Object> getMap(IDataTableModel obj) {
-		List<Object> lista = new LinkedList<>();
-		mappa.clear();
-		if (obj == null) {
-			mappa.put("Nome Conto", new String());
-			mappa.put("Natura Conto", new String());
-			mappa.put("Data Movimento", new Date());
-			mappa.put("lista conti usati nel movimento", lista.add(new ArrayList<Object>(3)));
-			return mappa;
-		} else
-			mappa.putAll((Map<? extends String, ? extends Object>) obj);
-		return mappa;
 	}
-}
+

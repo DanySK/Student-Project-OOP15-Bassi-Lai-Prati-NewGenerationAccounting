@@ -17,34 +17,31 @@ import dataModel.IDataTableModel;
  */
 public class AccountsModel extends AbstractModel {
 
-	public DBDataModel db;
+	
+	LinkedList<Account> listaaccount;
+	private DBDataModel db;
 	private Account nuovo;
 	private Account elem;
 
 	public AccountsModel(DBDataModel db) {
-	    this.db = db;
+		this.db = db;
+	}
+
+	protected void addElem(Map<String, Object> mappa) {
+		Account account = null; // TODO
+		listaaccount.add(account);
+		db.setAccounts(listaaccount);
 	}
 
 	@Override
-	public void addElem(Map<String, Object> elem) {
-		nuovo.setName(elem.get("Nome Conto").toString());
-		nuovo.setNatura((Natures) elem.get("Natura Conto"));
-                nuovo.setSaldo(0);
-		if (db.getAccounts().contains(nuovo)) {
-			System.out.println("conto già registrato");
-		} else
-			db.getAccounts().add(nuovo);
-	}
-
-	@Override
-	public void removeElem(Map<String, Object> elemDaEliminare) {
-		elem.setName(elemDaEliminare.get("Nome Conto").toString());
-		elem.setNatura((Natures) elemDaEliminare.get("Natura Conto"));
-		for (Account a : db.getAccounts()) {
-			if (a.getNatura().equals(elem.getNatura()) && a.getName().equals(elem.getName())) {
-				db.getAccounts().remove(a);
-			}
+	public void remove(IDataTableModel elemDaEliminare) {
+		if (listaaccount.contains(elemDaEliminare)) {
+			listaaccount.remove(elemDaEliminare);
+			db.setAccounts(listaaccount);
+		} else {
+			throw new IllegalArgumentException("sto elemento non esiste.");
 		}
+
 	}
 
 	@Override

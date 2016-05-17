@@ -3,17 +3,16 @@
  */
 package dataModel;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-import controller.DBController.DBLoader;
-
 /**
- * il database che conterrà tutte le informazioni del programma.
+ * il database che conterrï¿½ tutte le informazioni del programma.
  * 
  * @author Pentolo
  *
  */
-public class DBDataModel {
+public class DBDataModel implements Serializable {
 
 	private LinkedList<Account> accounts;
 	private LinkedList<Company> companys;
@@ -36,8 +35,9 @@ public class DBDataModel {
 		this.moviments = moviments;
 		this.products = products;
 	}
-	
-	public DBDataModel() {}
+
+	public DBDataModel() {
+	}
 
 	/**
 	 * @return the accounts

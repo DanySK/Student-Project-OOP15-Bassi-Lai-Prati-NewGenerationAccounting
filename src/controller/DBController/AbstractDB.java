@@ -20,7 +20,7 @@ public abstract class AbstractDB extends Thread {
 	private final String path;
 	private final AbstractFrame view;
 	private final DBDataModel db;
-	
+
 	/**
 	 * @return the path
 	 */

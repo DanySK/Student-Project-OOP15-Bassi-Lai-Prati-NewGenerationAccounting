@@ -9,12 +9,12 @@ import dataModel.IDataTableModel;
 import dataModel.Product;
 
 public class ProductsModel extends AbstractModel {
-    
-        DBDataModel db;
-    
-        public ProductsModel(DBDataModel db) {
-            this.db = db;
-        }
+
+	DBDataModel db;
+
+	public ProductsModel(DBDataModel db) {
+		this.db = db;
+	}
 
 	@Override
 	public LinkedList<Product> load() {
@@ -22,21 +22,23 @@ public class ProductsModel extends AbstractModel {
 	}
 
 	@Override
+	public void remove(IDataTableModel elem) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	protected void editElem(IDataTableModel obj, Map<String, Object> ifoDaModificare) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
-	protected void removeElem(Map<String, Object> elemDaEliminare) throws ParseException {
+	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
-
+		
 	}
 
-	@Override
-	protected void addElem(Map<String, Object> elem) throws ParseException {
-		// TODO Auto-generated method stub
 
-	}
 
 }

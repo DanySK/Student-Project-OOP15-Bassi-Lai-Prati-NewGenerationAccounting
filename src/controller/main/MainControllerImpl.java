@@ -20,7 +20,7 @@ public class MainControllerImpl implements IViewObserver {
 
 	private final MainView view;
 	private final DBDataModel db;
-	
+
 	public MainControllerImpl() {
 		this.view = new MainView();
 		this.db = DBLoader.LoadDB("", view);

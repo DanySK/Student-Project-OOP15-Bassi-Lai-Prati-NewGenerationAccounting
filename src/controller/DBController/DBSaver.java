@@ -18,11 +18,10 @@ import view.AbstractFrame;
  * @author Pentolo
  *
  */
-public class DBSaver extends AbstractDB  {
+public class DBSaver extends AbstractDB {
 
 	public DBSaver(final String path, final AbstractFrame view, final DBDataModel db) {
 		super(path, view, db);
-		
 	}
 
 	@Override
@@ -39,7 +38,7 @@ public class DBSaver extends AbstractDB  {
 	private void save(final boolean mustbeSaved, final String fileName,
 			final LinkedList<? extends IDataTableModel> linkedList) {
 		boolean save = mustbeSaved;
-		File file = new File(path + fileName);
+		File file = new File(getPath() + fileName);
 		if (!file.exists()) {
 			try {
 				file.createNewFile();

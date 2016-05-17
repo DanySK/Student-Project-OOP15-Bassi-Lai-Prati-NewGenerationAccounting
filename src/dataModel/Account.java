@@ -1,5 +1,7 @@
 package dataModel;
 
+import java.io.Serializable;
+
 import dataEnum.Natures;
 
 /**
@@ -8,7 +10,36 @@ import dataEnum.Natures;
  * @author niky
  *
  */
-public class Account implements IDataTableModel {
+public class Account implements IDataTableModel, Serializable {
+
+	@Override
+	public String toString() {
+		return "Account [natura=" + natura + ", nome=" + nome + ", saldo=" + saldo + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Account other = (Account) obj;
+		if (natura != other.natura)
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		return true;
+	}
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 14756423876583L;
 	private static final String[] intestazione = { "Natura", "Nome" };
 
 	public static String[] getIntestazione() {
@@ -22,7 +53,7 @@ public class Account implements IDataTableModel {
 	public Account(String nome, Natures natura, long saldo) {
 		this.nome = nome;
 		this.natura = natura;
-		this.saldo=saldo;
+		this.saldo = saldo;
 	}
 
 	public long getSaldo() {

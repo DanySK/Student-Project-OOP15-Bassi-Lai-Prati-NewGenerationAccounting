@@ -16,7 +16,7 @@
 <module name="Checker">
 
 	<module name="SuppressionCommentFilter" />
-	
+
 	<property name="severity" value="warning" />
 
 	<!-- Checks that a package.html file exists for each package. -->
@@ -66,7 +66,8 @@
 		<property name="severity" value="warning" />
 		<property name="format" value="\t" />
 		<property name="fileExtensions" value="java xtend" />
-		<property name="message" value="Line is tab-indented (see Java Code Conventions, Section 4.2)." />
+		<property name="message"
+			value="Line is tab-indented (see Java Code Conventions, Section 4.2)." />
 	</module>
 
 	<module name="TreeWalker">

@@ -1,6 +1,5 @@
 package model;
 
-import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -9,11 +8,19 @@ import dataModel.IDataTableModel;
 import dataModel.Item;
 
 public class CreaFattureModel extends AbstractModel {
-    
-        DBDataModel db;
-        public CreaFattureModel(DBDataModel db) {
-            this.db = db;
-        }
+
+	DBDataModel db;
+
+	public CreaFattureModel(DBDataModel db) {
+		this.db = db;
+	}
+
+	@Override
+	public void remove(IDataTableModel elem) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	@Override
 	public LinkedList<Item> load() {
 		// TODO Auto-generated method stub
@@ -23,19 +30,14 @@ public class CreaFattureModel extends AbstractModel {
 	@Override
 	protected void editElem(IDataTableModel obj, Map<String, Object> ifoDaModificare) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
-	protected void removeElem(Map<String, Object> elemDaEliminare) throws ParseException {
+	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
-
+		
 	}
 
-	@Override
-	protected void addElem(Map<String, Object> elem) throws ParseException {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 }
