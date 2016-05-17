@@ -1,7 +1,5 @@
 package dataModel;
 
-import java.io.Serializable;
-
 /**
  * classe per la gestione del singolo cliente/fornitore
  * 
@@ -10,7 +8,7 @@ import java.io.Serializable;
 import dataEnum.Gender;
 import dataEnum.KindPerson;
 
-public class Customers_Suppliers implements IDataTableModel, Serializable {
+public class Customers_Suppliers implements IDataTableModel {
 	/**
 	 * 
 	 */

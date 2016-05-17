@@ -19,15 +19,15 @@ public class MovementsModel extends AbstractModel {
 
 	private DBDataModel db;
 	LinkedList<Movement> listaMovimenti;
- 	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
 	public MovementsModel(DBDataModel db) {
 		this.db = db;
 	}
 
 	@Override
-	 public void remove(IDataTableModel elemDaEliminare){
-		 
+	public void remove(IDataTableModel elemDaEliminare) {
+
 		if (listaMovimenti.contains(elemDaEliminare)) {
 			listaMovimenti.remove(elemDaEliminare);
 			// qui si richiamerà la funzione per modificare i conti ->
@@ -60,9 +60,9 @@ public class MovementsModel extends AbstractModel {
 	}
 
 	@Override
-	protected void addElem(Map<String, Object> elem){
+	protected void addElem(Map<String, Object> elem) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

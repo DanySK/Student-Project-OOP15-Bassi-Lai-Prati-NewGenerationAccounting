@@ -1,7 +1,5 @@
 package dataModel;
 
-import java.io.Serializable;
-
 import dataEnum.Natures;
 
 /**
@@ -10,7 +8,7 @@ import dataEnum.Natures;
  * @author niky
  *
  */
-public class Account implements IDataTableModel, Serializable {
+public class Account implements IDataTableModel {
 
 	@Override
 	public String toString() {

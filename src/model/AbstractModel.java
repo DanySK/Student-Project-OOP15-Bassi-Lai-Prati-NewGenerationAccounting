@@ -40,14 +40,14 @@ public abstract class AbstractModel {
 	}
 
 	/**
-     * operazione per rimuovere un oggetto dal dataBase
-     * 
-     * @author niky
-     * 
-     * @param elem
-     *          elemento da modificare
-     */
-    public abstract void remove(IDataTableModel elem);
+	 * operazione per rimuovere un oggetto dal dataBase
+	 * 
+	 * @author niky
+	 * 
+	 * @param elem
+	 *            elemento da modificare
+	 */
+	public abstract void remove(IDataTableModel elem);
 
 	/**
 	 * operazione per restituire alla view i dati del dataBase da mostrare
@@ -63,5 +63,4 @@ public abstract class AbstractModel {
 
 	protected abstract void addElem(Map<String, Object> elem) throws IllegalArgumentException;
 
-	}
-
+}

@@ -9,6 +9,11 @@ package dataModel;
 
 public class Company implements IDataTableModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2480822272123138506L;
+
 	private static final String[] intestazione = { "Rag. Soc", "P.iva" };
 
 	public static String[] getIntestazione() {
@@ -21,13 +26,13 @@ public class Company implements IDataTableModel {
 	private int codice_azienda;
 	private String indirizzo;
 	private long partita_iva;
-	private String password;
+	private char[] password;
 	private String provincia;
 	private String ragione_sociale;
 
 	private String tel;
 
-	public Company(int codice_azienda, String password, String ragione_sociale, long partita_iva, String indirizzo,
+	public Company(int codice_azienda, char[] password, String ragione_sociale, long partita_iva, String indirizzo,
 			String citta, int cap, String provincia, String tel) {
 		this.codice_azienda = codice_azienda;
 		this.password = password;
@@ -61,7 +66,7 @@ public class Company implements IDataTableModel {
 		return partita_iva;
 	}
 
-	public String getPassword() {
+	public char[] getPassword() {
 		return password;
 	}
 
@@ -109,7 +114,7 @@ public class Company implements IDataTableModel {
 		this.partita_iva = partita_iva;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(char[] password) {
 		this.password = password;
 	}
 

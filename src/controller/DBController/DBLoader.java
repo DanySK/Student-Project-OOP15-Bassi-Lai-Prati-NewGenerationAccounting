@@ -15,7 +15,7 @@ public class DBLoader extends AbstractDB {
 	/**
 	 * 
 	 */
-	public DBLoader(final String path, final AbstractFrame view, final DBDataModel db) {
+	private DBLoader(final String path, final AbstractFrame view, final DBDataModel db) {
 		super(path, view, db);
 	}
 

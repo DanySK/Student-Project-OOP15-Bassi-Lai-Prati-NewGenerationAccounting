@@ -17,7 +17,6 @@ import dataModel.IDataTableModel;
  */
 public class AccountsModel extends AbstractModel {
 
-	
 	LinkedList<Account> listaaccount;
 	private DBDataModel db;
 	private Account nuovo;

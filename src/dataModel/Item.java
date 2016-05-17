@@ -1,7 +1,7 @@
 package dataModel;
 
 /**
- * Classe per la gestione di un singolo tipo oggetto, verrà usata per il
+ * Classe per la gestione di un singolo tipo oggetto, verrï¿½ usata per il
  * carrello dell'utente
  * 
  * @author Diego
@@ -10,7 +10,11 @@ package dataModel;
 
 public class Item implements IDataTableModel {
 
-	private static final String[] intestazione = { "Prodotto", "Quantità", "Subtotale" };
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2052019487211753549L;
+	private static final String[] intestazione = { "Prodotto", "Quantitï¿½", "Subtotale" };
 
 	public static String[] getIntestazione() {
 		return intestazione;

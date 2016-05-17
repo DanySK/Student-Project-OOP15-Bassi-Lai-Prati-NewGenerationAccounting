@@ -1,6 +1,5 @@
 package model;
 
-import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -24,21 +23,19 @@ public class ProductsModel extends AbstractModel {
 	@Override
 	public void remove(IDataTableModel elem) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void editElem(IDataTableModel obj, Map<String, Object> ifoDaModificare) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
 
 }

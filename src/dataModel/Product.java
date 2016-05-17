@@ -9,6 +9,10 @@ package dataModel;
  */
 public class Product implements IDataTableModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1618173209813961747L;
 	private static final String[] intestazione = { "Codice Prodotto", "Nome", "Categoria", "Tipo Prodotto", "Prezzo" };
 
 	public static String[] getIntestazione() {
