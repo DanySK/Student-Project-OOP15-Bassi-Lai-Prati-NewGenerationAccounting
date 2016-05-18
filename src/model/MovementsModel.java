@@ -1,7 +1,11 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import dataModel.DBDataModel;
@@ -18,12 +22,8 @@ public class MovementsModel extends AbstractModel {
 
 	private DBDataModel db;
 	LinkedList<Movement> listaMovimenti;
-<<<<<<< local
 	private final static String data = "Data Movimento";
 	private final static String lista = "Lista Conti Mossi";
-=======
-	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
->>>>>>> other
 
 	public MovementsModel(DBDataModel db) {
 		this.db = db;
@@ -53,7 +53,7 @@ public class MovementsModel extends AbstractModel {
 	LinkedList<Movement> load(Date da, Date a) throws Exception {
 		LinkedList<Movement> filtroData = new LinkedList<>();
 		if (da == null && a == null) {
-			throw new Exception("date non valide");
+			throw new IllegalArgumentException("date non valide");
 		} else
 			for (Movement m : db.getMoviments()) {
 				if (m.getData().equals(da) || m.getData().equals(a) || m.getData().after(da) && m.getData().before(a)) {
@@ -63,18 +63,26 @@ public class MovementsModel extends AbstractModel {
 		return filtroData;
 	}
 
-<<<<<<< local
     @Override
     protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
         // TODO Auto-generated method stub
         
     }
-=======
-	@Override
-	protected void addElem(Map<String, Object> elem) {
-		// TODO Auto-generated method stub
 
-	}
->>>>>>> other
+    @Override
+    protected Map<String, Object> getMap() {
+        Map<String, Object> mappa  = new HashMap<>();
+        List<String> listaInfo = new ArrayList<>(3);
+        mappa.put(data, new Date());
+        mappa.put(lista, new LinkedList<>(Arrays.asList(listaInfo)));
+        return mappa;
+    }
+    
+    Map<String, Object> getMap(Movement obj){
+        Map<String,Object> mappa = new HashMap<>();
+        mappa.put(data, obj.getData());
+        mappa.put(lista, obj.getListaConti()); // pensarci bene e correggere
+        return mappa;
+    }
 
 }

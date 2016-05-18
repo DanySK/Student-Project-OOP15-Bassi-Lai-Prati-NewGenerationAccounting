@@ -31,11 +31,7 @@ public class CompanyModel extends AbstractModel {
 	}
 
 	@Override
-<<<<<<< local
 	protected void addElem(Map<String,Object> mappa){
-=======
-	protected void addElem(Map<String, Object> mappa) {
->>>>>>> other
 		Company azienda = null; // TODO
 		listaAziende.add(azienda);
 	}
@@ -60,5 +56,11 @@ public class CompanyModel extends AbstractModel {
 		addElem(infoDaModificare);
 
 	}
+
+    @Override
+    protected Map<String, Object> getMap() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

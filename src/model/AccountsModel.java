@@ -1,5 +1,6 @@
 package model;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -80,4 +81,28 @@ public class AccountsModel extends AbstractModel {
 			}
 		return filtroNatura;
 	}
+
+    @Override
+    protected Map<String, Object> getMap() {
+        Map<String,Object> mappa = new HashMap<>();
+        Natures nat = null;
+        mappa.put(nome, new String());
+        mappa.put(natura, nat);
+        return null;
+    }
+    
+    Map<String, Object> getMap(Account obj) {
+        Map<String,Object> mappa = new HashMap<>();
+        mappa.put(nome, obj.getName());
+        mappa.put(natura, obj.getNatura());
+        mappa.put(saldo, obj.getSaldo());
+        return mappa;
+    }
+    
+    
+    
+    
+    
+    
+    
 }

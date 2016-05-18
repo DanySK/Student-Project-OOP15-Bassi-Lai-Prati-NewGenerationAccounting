@@ -33,18 +33,16 @@ public class CreaFattureModel extends AbstractModel {
 
 	}
 
-<<<<<<< local
     @Override
     protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
         // TODO Auto-generated method stub
         
     }
-=======
-	@Override
-	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
 
-	}
->>>>>>> other
+    @Override
+    protected Map<String, Object> getMap() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

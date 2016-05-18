@@ -62,5 +62,7 @@ public abstract class AbstractModel {
 	protected abstract void editElem(IDataTableModel obj, Map<String, Object> ifoDaModificare);
 
 	protected abstract void addElem(Map<String,Object> elem) throws IllegalArgumentException;
+	
+	protected abstract Map<String,Object> getMap();
 
 }
