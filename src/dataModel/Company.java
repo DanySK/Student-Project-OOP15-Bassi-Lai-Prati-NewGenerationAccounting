@@ -20,6 +20,7 @@ public class Company implements IDataTableModel {
 		return intestazione;
 	}
 
+	
 	private int cap;
 
 	private String citta;

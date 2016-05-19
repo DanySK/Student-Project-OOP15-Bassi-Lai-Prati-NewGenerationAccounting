@@ -17,7 +17,7 @@ import dataModel.IDataTableModel;
  *
  */
 public class AccountsModel extends AbstractModel {
-
+	
 	LinkedList<Account> listaaccount;
 	private final static String nome = "Nome Conto";
 	private final static String natura = "Natura Conto";

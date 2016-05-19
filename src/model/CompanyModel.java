@@ -16,7 +16,7 @@ import dataModel.IDataTableModel;
 
 public class CompanyModel extends AbstractModel {
 
-        private final String az = "azienda";
+    private final String az = "azienda";
 	LinkedList<Company> listaAziende;
 
 	public CompanyModel() {
@@ -41,7 +41,7 @@ public class CompanyModel extends AbstractModel {
 		if (listaAziende.contains(elem)) {
 			listaAziende.remove(elem);
 		} else {
-			throw new IllegalArgumentException("sto elemento non esiste.");
+			throw new IllegalArgumentException("Elemento non trovato.");
 		}
 	}
 
