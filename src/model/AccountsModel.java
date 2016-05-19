@@ -21,7 +21,7 @@ public class AccountsModel extends AbstractModel {
 	LinkedList<Account> listaaccount;
 	private final static String nome = "Nome Conto";
 	private final static String natura = "Natura Conto";
-	private final static String saldo = "Natura Conto";
+	private final static String saldo = "Saldo Conto";
 	
 	private DBDataModel db;
 	public AccountsModel(DBDataModel db) {
@@ -29,8 +29,11 @@ public class AccountsModel extends AbstractModel {
 	}
 
 	protected void addElem(Map<String,Object> elem) {
-		Account account = new Account(null, null, 0);
-		listaaccount.add(account);
+	    Account a = new Account(elem.get(nome).toString(), (Natures) elem.get(natura), 0);
+	    if (listaaccount.contains(a)){
+	        //throw new Exception("elemento già inserito"); ragionarci bene con fede
+	    }
+	        listaaccount.add(a);
 		db.setAccounts(listaaccount);
 	}
 
