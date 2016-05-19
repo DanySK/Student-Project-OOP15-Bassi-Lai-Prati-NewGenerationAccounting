@@ -14,6 +14,12 @@ import javax.swing.JPanel;
 import controller.main.MainControllerImpl;
 import view.AbstractWideView;
 
+/**
+ * la view del menu principale
+ * 
+ * @author Pentolo
+ *
+ */
 public class MainView extends AbstractWideView {
 
 	class myAction implements ActionListener {

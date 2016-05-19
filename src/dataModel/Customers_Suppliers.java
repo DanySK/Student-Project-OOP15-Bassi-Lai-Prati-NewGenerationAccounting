@@ -8,13 +8,13 @@ import dataEnum.KindPerson;
 
 public class Customers_Suppliers implements IDataTableModel {
 
-	private static final String[] intestazione = { "CAP", "Credito", "Debito" };
+	private static final String[] INTESTAZIONE = { "CAP", "Credito", "Debito" };
 	// Nota personale : GUARDA BOOKMARK.
 
 	private static final long serialVersionUID = 9254381L;
 
 	public static String[] getIntestazione() {
-		return intestazione;
+		return INTESTAZIONE;
 	}
 
 	private int cap;

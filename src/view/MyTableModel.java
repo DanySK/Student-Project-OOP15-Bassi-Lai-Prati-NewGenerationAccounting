@@ -10,6 +10,9 @@ import javax.swing.table.AbstractTableModel;
 import dataModel.IDataTableModel;
 
 /**
+ * classe che estende AbstractTableModel e che permette di gestire una tabella popolata tramite lista di oggetti.
+ * CONSIGLIATO uso tramite AbstractAnagraficaView.
+ * 
  * @author Pentolo
  *
  */

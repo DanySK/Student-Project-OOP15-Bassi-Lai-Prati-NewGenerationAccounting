@@ -10,6 +10,8 @@ import model.CreaFattureModel;
 import view.creaFattura.CreaFatturaView;
 
 /**
+ * implementazione controller finestra creazione fattura di acquisto
+ * 
  * @author Pentolo
  *
  */

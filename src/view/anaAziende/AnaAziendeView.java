@@ -17,14 +17,13 @@ import dataModel.Company;
 import view.AbstractAnagraficaView;
 
 /**
+ * view per la anagrafica aziende
+ * 
  * @author Pentolo
  *
  */
 public class AnaAziendeView extends AbstractAnagraficaView<Company> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5859979634610547926L;
 
 	public AnaAziendeView(final LinkedList<Company> lista) {

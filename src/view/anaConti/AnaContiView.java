@@ -9,15 +9,13 @@ import dataModel.Account;
 import view.AbstractAnagraficaView;
 
 /**
+ * view per l'anagrafica conti
+ * 
  * @author Pentolo
  *
  */
 public class AnaContiView extends AbstractAnagraficaView<Account> {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5072597009355844451L;
+ static final long serialVersionUID = 5072597009355844451L;
 
 	/**
 	 * 

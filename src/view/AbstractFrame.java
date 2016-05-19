@@ -10,6 +10,12 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+/**
+ * classe astratta che contiene tutti i comportamenti di base dei frame del progetto
+ * 
+ * @author Pentolo
+ *
+ */
 public abstract class AbstractFrame extends JFrame {
 
 	private static final long serialVersionUID = 638596561545905264L;

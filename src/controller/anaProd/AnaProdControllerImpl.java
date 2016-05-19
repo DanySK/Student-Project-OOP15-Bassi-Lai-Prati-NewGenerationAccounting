@@ -10,6 +10,8 @@ import model.ProductsModel;
 import view.anaProd.AnaProdView;
 
 /**
+ * implementazione controller anagrafica prodotti
+ * 
  * @author Pentolo
  *
  */

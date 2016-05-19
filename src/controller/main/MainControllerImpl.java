@@ -16,6 +16,12 @@ import controller.situazCreditiDebiti.SitCredDebControllerImpl;
 import dataModel.DBDataModel;
 import view.main.MainView;
 
+/**
+ * implementazione del controller del menu principale
+ * 
+ * @author Pentolo
+ *
+ */
 public class MainControllerImpl implements IViewObserver {
 
 	private final DBDataModel db;
@@ -23,7 +29,7 @@ public class MainControllerImpl implements IViewObserver {
 
 	public MainControllerImpl() {
 		this.view = new MainView();
-		this.db = DBLoader.LoadDB("", view);
+		this.db = DBLoader.loadDB("", view);
 		this.view.setObserver(this);
 		view.start();
 	}

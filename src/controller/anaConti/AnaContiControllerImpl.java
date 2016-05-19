@@ -10,6 +10,8 @@ import model.AccountsModel;
 import view.anaConti.AnaContiView;
 
 /**
+ * implementazione controller anagrafica conti
+ * 
  * @author Pentolo
  *
  */

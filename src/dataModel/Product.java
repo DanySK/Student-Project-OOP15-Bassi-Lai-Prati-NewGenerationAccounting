@@ -9,14 +9,14 @@ package dataModel;
  */
 public class Product implements IDataTableModel {
 
-	private static final String[] intestazione = { "Codice Prodotto", "Nome", "Categoria", "Tipo Prodotto", "Prezzo" };
+	private static final String[] INTESTAZIONE = { "Codice Prodotto", "Nome", "Categoria", "Tipo Prodotto", "Prezzo" };
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1618173209813961747L;
 
 	public static String[] getIntestazione() {
-		return intestazione;
+		return INTESTAZIONE;
 	}
 
 	private String categoria;

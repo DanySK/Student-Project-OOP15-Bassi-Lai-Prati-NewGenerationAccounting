@@ -10,6 +10,8 @@ import model.CustomersSuppliersModel;
 import view.anaCliFor.AnaCliForView;
 
 /**
+ * implementazione controller anagrafica clienti e fornitori
+ * 
  * @author Pentolo
  *
  */

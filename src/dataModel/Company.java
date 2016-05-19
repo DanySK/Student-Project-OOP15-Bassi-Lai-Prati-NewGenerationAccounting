@@ -9,7 +9,7 @@ package dataModel;
 
 public class Company implements IDataTableModel {
 
-	private static final String[] intestazione = { "Rag. Soc", "P.iva" };
+	private static final String[] INTESTAZIONE = { "Rag. Soc", "P.iva" };
 
 	/**
 	 * 
@@ -17,7 +17,7 @@ public class Company implements IDataTableModel {
 	private static final long serialVersionUID = 2480822272123138506L;
 
 	public static String[] getIntestazione() {
-		return intestazione;
+		return INTESTAZIONE;
 	}
 
 	private int cap;

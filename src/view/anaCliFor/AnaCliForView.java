@@ -9,14 +9,13 @@ import dataModel.Customers_Suppliers;
 import view.AbstractAnagraficaView;
 
 /**
+ * view per la anagrafica clienti e fornitori
+ * 
  * @author Pentolo
  *
  */
 public class AnaCliForView extends AbstractAnagraficaView<Customers_Suppliers> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5328942722749584954L;
 
 	/**

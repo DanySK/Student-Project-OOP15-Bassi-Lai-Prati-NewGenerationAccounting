@@ -9,14 +9,13 @@ import dataModel.Item;
 import view.AbstractAnagraficaView;
 
 /**
+ * la schermata di acquisto prodotti per la creazione di fattura
+ * 
  * @author Pentolo
  *
  */
 public class CreaFatturaView extends AbstractAnagraficaView<Item> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1573273884755541097L;
 
 	/**

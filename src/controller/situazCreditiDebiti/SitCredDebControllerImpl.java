@@ -12,6 +12,8 @@ import model.ReceivablesPayablesModel;
 import view.situazCreditiDebiti.SitCredDebView;
 
 /**
+ * implementazione del controller della situazione crediti e debiti dell'azienda
+ * 
  * @author Pentolo
  *
  */

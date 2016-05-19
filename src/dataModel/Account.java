@@ -10,7 +10,7 @@ import dataEnum.Natures;
  */
 public class Account implements IDataTableModel {
 
-	private static final String[] intestazione = { "Natura", "Nome" };
+	private static final String[] INTESTAZIONE = { "Natura", "Nome" };
 
 	/**
 	 * 
@@ -18,7 +18,7 @@ public class Account implements IDataTableModel {
 	private static final long serialVersionUID = 14756423876583L;
 
 	public static String[] getIntestazione() {
-		return intestazione;
+		return INTESTAZIONE;
 	}
 
 	private Natures natura;

@@ -10,6 +10,8 @@ import model.MovementsModel;
 import view.movimenti.MovimentiView;
 
 /**
+ * implementazione del controller della sezione movimenti
+ * 
  * @author Pentolo
  *
  */
