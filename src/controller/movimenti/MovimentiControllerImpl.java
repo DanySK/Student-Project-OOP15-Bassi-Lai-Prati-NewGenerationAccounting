@@ -15,8 +15,8 @@ import view.movimenti.MovimentiView;
  */
 public class MovimentiControllerImpl implements IAnagraficaViewObserver {
 
-	private final MovimentiView view;
 	private final MovementsModel model;
+	private final MovimentiView view;
 
 	/**
 	 * @param view

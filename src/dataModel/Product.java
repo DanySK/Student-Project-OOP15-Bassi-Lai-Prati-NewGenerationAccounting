@@ -9,24 +9,24 @@ package dataModel;
  */
 public class Product implements IDataTableModel {
 
+	private static final String[] intestazione = { "Codice Prodotto", "Nome", "Categoria", "Tipo Prodotto", "Prezzo" };
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1618173209813961747L;
-	private static final String[] intestazione = { "Codice Prodotto", "Nome", "Categoria", "Tipo Prodotto", "Prezzo" };
 
 	public static String[] getIntestazione() {
 		return intestazione;
 	}
 
+	private String categoria;
 	private int cod_acquisto;
 	private int cod_vendita;
 	private int codice_prodotto;
-	private String categoria;
 	private String descrizione;
 	private String nome;
-	private int scorta;
 	private int prezzovendita;
+	private int scorta;
 
 	public Product(String nome, int codice_prodotto, int cod_acquisto, int cod_vendita, int scorta, String categoria,
 			String descrizione, int prezzovendita) {
@@ -38,6 +38,10 @@ public class Product implements IDataTableModel {
 		this.categoria = categoria;
 		this.descrizione = descrizione;
 		this.prezzovendita = prezzovendita;
+	}
+
+	public String getCategoria() {
+		return categoria;
 	}
 
 	public int getCod_acquisto() {
@@ -52,10 +56,6 @@ public class Product implements IDataTableModel {
 		return codice_prodotto;
 	}
 
-	public String getCategoria() {
-		return categoria;
-	}
-
 	public String getDescrizione() {
 		return descrizione;
 	}
@@ -64,44 +64,12 @@ public class Product implements IDataTableModel {
 		return nome;
 	}
 
-	public int getScorta() {
-		return scorta;
-	}
-
 	public int getPrezzovendita() {
 		return prezzovendita;
 	}
 
-	public void setCod_acquisto(int cod_acquisto) {
-		this.cod_acquisto = cod_acquisto;
-	}
-
-	public void setCod_vendita(int cod_vendita) {
-		this.cod_vendita = cod_vendita;
-	}
-
-	public void setCodice_Product(int codice_prodotto) {
-		this.codice_prodotto = codice_prodotto;
-	}
-
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
-
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public void setScorta(int scorta) {
-		this.scorta = scorta;
-	}
-
-	public void setPrezzovendita(int prezzovendita) {
-		this.prezzovendita = prezzovendita;
+	public int getScorta() {
+		return scorta;
 	}
 
 	@Override
@@ -122,6 +90,38 @@ public class Product implements IDataTableModel {
 			return "";
 		}
 
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public void setCod_acquisto(int cod_acquisto) {
+		this.cod_acquisto = cod_acquisto;
+	}
+
+	public void setCod_vendita(int cod_vendita) {
+		this.cod_vendita = cod_vendita;
+	}
+
+	public void setCodice_Product(int codice_prodotto) {
+		this.codice_prodotto = codice_prodotto;
+	}
+
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setPrezzovendita(int prezzovendita) {
+		this.prezzovendita = prezzovendita;
+	}
+
+	public void setScorta(int scorta) {
+		this.scorta = scorta;
 	}
 
 }

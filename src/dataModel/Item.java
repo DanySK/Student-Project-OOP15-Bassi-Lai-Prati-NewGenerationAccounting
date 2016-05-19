@@ -10,14 +10,14 @@ package dataModel;
 
 public class Item implements IDataTableModel {
 
+	private static final String[] INTESTAZIONE = { "Prodotto", "Quantit�", "Subtotale" };
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2052019487211753549L;
-	private static final String[] intestazione = { "Prodotto", "Quantit�", "Subtotale" };
 
 	public static String[] getIntestazione() {
-		return intestazione;
+		return INTESTAZIONE;
 	}
 
 	private final Product prodotto;
@@ -38,10 +38,6 @@ public class Item implements IDataTableModel {
 		return quantita;
 	}
 
-	public void setQuantita(int quantita) {
-		this.quantita = quantita;
-	}
-
 	@Override
 	public String getValueAt(int column) {
 		switch (column) {
@@ -54,6 +50,10 @@ public class Item implements IDataTableModel {
 		default:
 			return "";
 		}
+	}
+
+	public void setQuantita(int quantita) {
+		this.quantita = quantita;
 	}
 
 }

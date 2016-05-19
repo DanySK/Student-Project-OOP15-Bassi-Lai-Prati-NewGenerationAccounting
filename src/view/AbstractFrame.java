@@ -32,6 +32,7 @@ public abstract class AbstractFrame extends JFrame {
 		MyFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		MyFrame.getContentPane().add(new JPanel(new BorderLayout()));
 		MyFrame.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				chiusura();
 			}
@@ -42,6 +43,10 @@ public abstract class AbstractFrame extends JFrame {
 	}
 
 	protected abstract void chiusura();
+
+	public void close() {
+		this.MyFrame.setVisible(false);
+	}
 
 	public boolean confirmDialog(final String question, final String title) {
 		return JOptionPane.showConfirmDialog(MyFrame, question, title,
@@ -54,9 +59,5 @@ public abstract class AbstractFrame extends JFrame {
 
 	public void start() {
 		this.MyFrame.setVisible(true);
-	}
-
-	public void close() {
-		this.MyFrame.setVisible(false);
 	}
 }

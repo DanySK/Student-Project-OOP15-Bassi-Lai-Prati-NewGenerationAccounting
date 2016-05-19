@@ -16,9 +16,21 @@ public class CreaFattureModel extends AbstractModel {
 	}
 
 	@Override
-	public void remove(IDataTableModel elem) {
+	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	protected void editElem(IDataTableModel obj, Map<String, Object> ifoDaModificare) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected Map<String, Object> getMap() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -28,21 +40,9 @@ public class CreaFattureModel extends AbstractModel {
 	}
 
 	@Override
-	protected void editElem(IDataTableModel obj, Map<String, Object> ifoDaModificare) {
+	public void remove(IDataTableModel elem) {
 		// TODO Auto-generated method stub
 
 	}
-
-    @Override
-    protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    protected Map<String, Object> getMap() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
 }

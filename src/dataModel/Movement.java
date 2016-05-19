@@ -11,12 +11,12 @@ import java.util.List;
 
 public class Movement implements IDataTableModel {
 
+	private static final String[] intestazione = { "Data", "Nome" };
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -65774517331356915L;
-
-	private static final String[] intestazione = { "Data", "Nome" };
 
 	public static String[] getIntestazione() {
 		return intestazione;

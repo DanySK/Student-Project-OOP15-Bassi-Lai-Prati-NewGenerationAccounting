@@ -15,8 +15,8 @@ import view.anaProd.AnaProdView;
  */
 public class AnaProdControllerImpl implements IAnagraficaViewObserver {
 
-	private final AnaProdView view;
 	private final ProductsModel model;
+	private final AnaProdView view;
 
 	/**
 	 * @param view

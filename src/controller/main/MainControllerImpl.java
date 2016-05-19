@@ -4,12 +4,12 @@
 package controller.main;
 
 import controller.IViewObserver;
-import controller.AnaAziende.AnaAziendeControllerImpl;
-import controller.DBController.DBLoader;
+import controller.anaAziende.AnaAziendeControllerImpl;
 import controller.anaCliFor.AnaCliForControllerImpl;
 import controller.anaConti.AnaContiControllerImpl;
 import controller.anaProd.AnaProdControllerImpl;
 import controller.creaFattura.CreaFatturaControllerImpl;
+import controller.dbController.DBLoader;
 import controller.movimenti.MovimentiControllerImpl;
 import controller.situazAziendale.SitAzControllerImpl;
 import controller.situazCreditiDebiti.SitCredDebControllerImpl;
@@ -18,21 +18,14 @@ import view.main.MainView;
 
 public class MainControllerImpl implements IViewObserver {
 
-	private final MainView view;
 	private final DBDataModel db;
+	private final MainView view;
 
 	public MainControllerImpl() {
 		this.view = new MainView();
 		this.db = DBLoader.LoadDB("", view);
 		this.view.setObserver(this);
 		view.start();
-	}
-
-	@Override
-	public void chiusura() {
-		if (view.confirmDialog("Sei sicuro di voler uscire dal programma?", "Uscire")) {
-			System.exit(0);
-		}
 	}
 
 	public void btn0(final String title) {
@@ -73,5 +66,12 @@ public class MainControllerImpl implements IViewObserver {
 	public void btn7(final String title) {
 		view.close();
 		new SitAzControllerImpl(db, title);
+	}
+
+	@Override
+	public void chiusura() {
+		if (view.confirmDialog("Sei sicuro di voler uscire dal programma?", "Uscire")) {
+			System.exit(0);
+		}
 	}
 }

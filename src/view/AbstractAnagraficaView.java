@@ -33,16 +33,17 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 
 	private static final long serialVersionUID = -1706093338606827050L;
 
+	private MyTableModel<dataModel> dataModel;
+	@SuppressWarnings("unused")
+	private LinkedList<dataModel> list;
+	protected IAnagraficaViewObserver observer;
+	private final JTable table = new JTable();
 	private final JButton tasto0 = new JButton();
+
 	private final JButton tasto1 = new JButton();
 	private final JButton tasto2 = new JButton();
 	private final JButton tasto3 = new JButton();
 	private final JButton tasto4 = new JButton();
-
-	private LinkedList<dataModel> lista;
-	private final JTable table = new JTable();
-	private MyTableModel<dataModel> dataModel;
-	protected IAnagraficaViewObserver observer;
 
 	/**
 	 * @param title
@@ -57,7 +58,7 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 	public AbstractAnagraficaView(final LinkedList<dataModel> lista, final String intestazione[], final String title,
 			final String testo0, final String testo1, final String testo2, final String testo3, final String testo4) {
 		super(title, new Dimension(450, 550));
-		this.lista = lista;
+		this.list = lista;
 		tasto0.setText(testo0);
 		tasto1.setText(testo1);
 		tasto2.setText(testo2);
@@ -79,24 +80,25 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 
 	private void addListeners() {
 		tasto0.addActionListener(e -> {
-			((IAnagraficaViewObserver) observer).tasto0();
+			observer.tasto0();
 		});
 		tasto1.addActionListener(e -> {
-			((IAnagraficaViewObserver) observer).tasto1();
+			observer.tasto1();
 		});
 		tasto2.addActionListener(e -> {
-			((IAnagraficaViewObserver) observer).tasto2();
+			observer.tasto2();
 		});
 		tasto3.addActionListener(e -> {
-			((IAnagraficaViewObserver) observer).tasto3();
+			observer.tasto3();
 		});
 		tasto4.addActionListener(e -> {
-			((IAnagraficaViewObserver) observer).chiusura();
+			observer.chiusura();
 		});
 	}
 
-	public void setObserver(final IAnagraficaViewObserver observer) {
-		this.observer = observer;
+	@Override
+	protected void chiusura() {
+		observer.chiusura();
 	}
 
 	protected MyTableModel<dataModel> getModel() {
@@ -108,12 +110,11 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 	}
 
 	public void setList(final LinkedList<dataModel> lista) {
-		this.lista = new LinkedList<dataModel>(lista);
+		this.list = new LinkedList<dataModel>(lista);
 		dataModel.fireTableDataChanged();
 	}
 
-	@Override
-	protected void chiusura() {
-		observer.chiusura();
+	public void setObserver(final IAnagraficaViewObserver observer) {
+		this.observer = observer;
 	}
 }

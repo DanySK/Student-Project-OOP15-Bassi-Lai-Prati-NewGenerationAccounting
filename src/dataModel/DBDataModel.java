@@ -13,23 +13,21 @@ import java.util.LinkedList;
  *
  */
 public class DBDataModel implements Serializable {
-    
-    
-   
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7561096726236641612L;
 	private LinkedList<Account> accounts;
-	private LinkedList<Company> companys;
-	private LinkedList<Customers_Suppliers> customersSuppliers;
-	private LinkedList<Movement> moviments;
-	private LinkedList<Product> products;
 	private transient boolean accountsModified = false;
+	private LinkedList<Customers_Suppliers> customersSuppliers;
 	private transient boolean customersSuppliersModified = false;
+	private LinkedList<Movement> moviments;
 	private transient boolean movimentsModified = false;
+	private LinkedList<Product> products;
 	private transient boolean productsModified = false;
+
+	public DBDataModel() {
+	}
 
 	public DBDataModel(final LinkedList<Account> accounts, final LinkedList<Company> companys,
 			final LinkedList<Customers_Suppliers> customersSuppliers, final LinkedList<Movement> moviments,
@@ -39,9 +37,6 @@ public class DBDataModel implements Serializable {
 		this.customersSuppliers = customersSuppliers;
 		this.moviments = moviments;
 		this.products = products;
-	}
-
-	public DBDataModel() {
 	}
 
 	/**
@@ -101,6 +96,16 @@ public class DBDataModel implements Serializable {
 	}
 
 	/**
+	 * reset all the booleans of modified
+	 */
+	public void resetBooleans() {
+		accountsModified = false;
+		customersSuppliersModified = false;
+		movimentsModified = false;
+		productsModified = false;
+	}
+
+	/**
 	 * @param accounts
 	 *            the accounts to set
 	 */
@@ -134,15 +139,5 @@ public class DBDataModel implements Serializable {
 	public void setProducts(LinkedList<Product> products) {
 		this.products = products;
 		customersSuppliersModified = true;
-	}
-
-	/**
-	 * reset all the booleans of modified
-	 */
-	public void resetBooleans() {
-		accountsModified = false;
-		customersSuppliersModified = false;
-		movimentsModified = false;
-		productsModified = false;
 	}
 }

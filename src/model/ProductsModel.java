@@ -16,12 +16,7 @@ public class ProductsModel extends AbstractModel {
 	}
 
 	@Override
-	public LinkedList<Product> load() {
-		return new LinkedList<>();
-	}
-
-	@Override
-	public void remove(IDataTableModel elem) {
+	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 
 	}
@@ -33,15 +28,20 @@ public class ProductsModel extends AbstractModel {
 	}
 
 	@Override
-	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
+	protected Map<String, Object> getMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public LinkedList<Product> load() {
+		return new LinkedList<>();
+	}
+
+	@Override
+	public void remove(IDataTableModel elem) {
 		// TODO Auto-generated method stub
 
 	}
-
-    @Override
-    protected Map<String, Object> getMap() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
 }

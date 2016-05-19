@@ -19,8 +19,8 @@ public class MyTableModel<dataModel extends IDataTableModel> extends AbstractTab
 	 * 
 	 */
 	private static final long serialVersionUID = -9056625553908580890L;
-	private final List<dataModel> objectsList;
 	private String headerList[];
+	private final List<dataModel> objectsList;
 
 	/**
 	 * 

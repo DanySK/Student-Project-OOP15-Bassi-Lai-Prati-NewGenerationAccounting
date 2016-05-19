@@ -16,32 +16,6 @@ import view.AbstractWideView;
 
 public class MainView extends AbstractWideView {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8496684753244767160L;
-	private String[] listaBtn;
-
-	public MainView() {
-		super(Messages.getString("MainView.8"), new Dimension(250, 350));
-		int maxBtn = Integer.parseInt(Messages.getString("MainView.500"));
-		listaBtn = new String[maxBtn];
-		JPanel panel = new JPanel();
-		myAction actionEvent = new myAction();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		for (int i = 0; i < maxBtn; i++) {
-			panel.add(Box.createRigidArea(new Dimension(0, 5)));
-			String tmpStr = Messages.getString("MainView." + i);
-			listaBtn[i] = tmpStr;
-			final JButton tmpBtn = new JButton(tmpStr);
-			tmpBtn.setActionCommand(tmpStr);
-			tmpBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-			tmpBtn.addActionListener(actionEvent);
-			panel.add(tmpBtn);
-		}
-		MyFrame.getContentPane().add(panel, BorderLayout.CENTER);
-	}
-
 	class myAction implements ActionListener {
 
 		@Override
@@ -67,6 +41,33 @@ public class MainView extends AbstractWideView {
 				chiusura();
 			}
 		}
+	}
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8496684753244767160L;
+
+	private String[] listaBtn;
+
+	public MainView() {
+		super(Messages.getString("MainView.8"), new Dimension(250, 350));
+		int maxBtn = Integer.parseInt(Messages.getString("MainView.500"));
+		listaBtn = new String[maxBtn];
+		JPanel panel = new JPanel();
+		myAction actionEvent = new myAction();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		for (int i = 0; i < maxBtn; i++) {
+			panel.add(Box.createRigidArea(new Dimension(0, 5)));
+			String tmpStr = Messages.getString("MainView." + i);
+			listaBtn[i] = tmpStr;
+			final JButton tmpBtn = new JButton(tmpStr);
+			tmpBtn.setActionCommand(tmpStr);
+			tmpBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+			tmpBtn.addActionListener(actionEvent);
+			panel.add(tmpBtn);
+		}
+		MyFrame.getContentPane().add(panel, BorderLayout.CENTER);
 	}
 
 	@Override

@@ -15,6 +15,20 @@ import dataModel.IDataTableModel;
 public abstract class AbstractModel {
 
 	/**
+	 * operazione di aggiunta di un nuovo oggetto al dataBase del programma
+	 * 
+	 * @author niky
+	 * @throws ParseException
+	 * @param elem
+	 *            mappa contenente le informazioni sull'elemento da aggiungere
+	 */
+	public void add(Map<String, Object> elem) throws IllegalArgumentException {
+		addElem(elem);
+	}
+
+	protected abstract void addElem(Map<String, Object> elem) throws IllegalArgumentException;
+
+	/**
 	 * operazione per cercare e modificare un oggetto all'interno del dataBase
 	 * 
 	 * @author niky
@@ -27,27 +41,9 @@ public abstract class AbstractModel {
 		editElem(obj, infoDaModificare);
 	}
 
-	/**
-	 * operazione di aggiunta di un nuovo oggetto al dataBase del programma
-	 * 
-	 * @author niky
-	 * @throws ParseException
-	 * @param elem
-	 *            mappa contenente le informazioni sull'elemento da aggiungere
-	 */
-	public void add(Map<String,Object> elem) throws IllegalArgumentException {
-		addElem(elem);
-	}
+	protected abstract void editElem(IDataTableModel obj, Map<String, Object> ifoDaModificare);
 
-	/**
-	 * operazione per rimuovere un oggetto dal dataBase
-	 * 
-	 * @author niky
-	 * 
-	 * @param elem
-	 *            elemento da modificare
-	 */
-	public abstract void remove(IDataTableModel elem);
+	protected abstract Map<String, Object> getMap();
 
 	/**
 	 * operazione per restituire alla view i dati del dataBase da mostrare
@@ -59,10 +55,14 @@ public abstract class AbstractModel {
 	 */
 	public abstract LinkedList<? extends IDataTableModel> load();
 
-	protected abstract void editElem(IDataTableModel obj, Map<String, Object> ifoDaModificare);
-
-	protected abstract void addElem(Map<String,Object> elem) throws IllegalArgumentException;
-	
-	protected abstract Map<String,Object> getMap();
+	/**
+	 * operazione per rimuovere un oggetto dal dataBase
+	 * 
+	 * @author niky
+	 * 
+	 * @param elem
+	 *            elemento da modificare
+	 */
+	public abstract void remove(IDataTableModel elem);
 
 }

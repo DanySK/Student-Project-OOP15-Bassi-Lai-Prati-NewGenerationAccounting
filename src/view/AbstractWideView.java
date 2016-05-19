@@ -40,16 +40,16 @@ public abstract class AbstractWideView extends AbstractFrame {
 		});
 	}
 
+	@Override
+	protected void chiusura() {
+		observer.chiusura();
+	}
+
 	/**
 	 * @param observer
 	 *            the observer to set
 	 */
 	public void setObserver(IViewObserver observer) {
 		this.observer = observer;
-	}
-
-	@Override
-	protected void chiusura() {
-		observer.chiusura();
 	}
 }

@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
-import controller.AnaAziende.AnaAziendeControllerImpl;
+import controller.anaAziende.AnaAziendeControllerImpl;
 import dataModel.Company;
 import view.AbstractAnagraficaView;
 

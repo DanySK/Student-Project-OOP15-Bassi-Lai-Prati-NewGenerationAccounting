@@ -8,30 +8,29 @@ import dataEnum.KindPerson;
 
 public class Customers_Suppliers implements IDataTableModel {
 
-	private static final long serialVersionUID = 9254381L;
-	
 	private static final String[] intestazione = { "CAP", "Credito", "Debito" };
-	//Nota personale : GUARDA BOOKMARK.
-	
+	// Nota personale : GUARDA BOOKMARK.
+
+	private static final long serialVersionUID = 9254381L;
+
 	public static String[] getIntestazione() {
 		return intestazione;
 	}
 
-	
 	private int cap;
 	private String cf;
 	private String citta;
 	private String cognome;
-	private String indirizzo;
-	private String nome;
-	private Gender sesso;
-	private String telefono;
 	private int credito;
 	private int debito;
+	private String indirizzo;
+	private String nome;
 	private KindPerson ruolo;
+	private Gender sesso;
+	private String telefono;
 
 	public Customers_Suppliers(String nome, String cognome, String cf, String indirizzo, String citta, int cap,
-			String telefono, Gender sesso, KindPerson ruolo, int debito, int credito ) {
+			String telefono, Gender sesso, KindPerson ruolo, int debito, int credito) {
 
 		this.nome = nome;
 		this.cognome = cognome;
@@ -41,19 +40,11 @@ public class Customers_Suppliers implements IDataTableModel {
 		this.cap = cap;
 		this.telefono = telefono;
 		this.sesso = sesso;
-		this.ruolo=ruolo;
-		this.debito=debito;
-		this.credito=credito;
-}
+		this.ruolo = ruolo;
+		this.debito = debito;
+		this.credito = credito;
+	}
 
-	public int getCredito() {
-		return credito;
-	}
-	
-	public int getDebito() {
-		return debito;
-	}
-	
 	public int getCap() {
 		return cap;
 	}
@@ -68,6 +59,14 @@ public class Customers_Suppliers implements IDataTableModel {
 
 	public String getCognome() {
 		return cognome;
+	}
+
+	public int getCredito() {
+		return credito;
+	}
+
+	public int getDebito() {
+		return debito;
 	}
 
 	public String getIndirizzo() {
@@ -90,6 +89,20 @@ public class Customers_Suppliers implements IDataTableModel {
 		return telefono;
 	}
 
+	@Override
+	public String getValueAt(int column) {
+		switch (column) {
+		case 0:
+			return Integer.toString(cap);
+		case 1:
+			return Integer.toString(credito);
+		case 2:
+			return Integer.toString(debito);
+		default:
+			return "";
+		}
+	}
+
 	public void setCap(int cap) {
 		this.cap = cap;
 	}
@@ -104,6 +117,14 @@ public class Customers_Suppliers implements IDataTableModel {
 
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
+	}
+
+	public void setCredito(int credito) {
+		this.credito = credito;
+	}
+
+	public void setDebito(int debito) {
+		this.debito = debito;
 	}
 
 	public void setIndirizzo(String indirizzo) {
@@ -124,30 +145,5 @@ public class Customers_Suppliers implements IDataTableModel {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
-	}
-	
-	public void setCredito(int credito) {
-		this.credito = credito;
-	}
-
-	public void setDebito(int debito) {
-		this.debito = debito;
-	}
-	
-
-	@Override
-	public String getValueAt(int column) {
-		switch (column) {
-		case 0:
-			return  Integer.toString(cap);
-		case 1:
-			return 
-					Integer.toString(credito);
-		case 2:
-			return 
-					Integer.toString(debito);
-		default:	
-			return "";
-		}
 	}
 }

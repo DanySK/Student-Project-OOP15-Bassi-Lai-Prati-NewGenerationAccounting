@@ -15,8 +15,8 @@ import view.creaFattura.CreaFatturaView;
  */
 public class CreaFatturaControllerImpl implements IAnagraficaViewObserver {
 
-	private final CreaFatturaView view;
 	private final CreaFattureModel model;
+	private final CreaFatturaView view;
 
 	/**
 	 * @param view

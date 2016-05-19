@@ -10,9 +10,27 @@ import dataEnum.Natures;
  */
 public class Account implements IDataTableModel {
 
-	@Override
-	public String toString() {
-		return "Account [natura=" + natura + ", nome=" + nome + ", saldo=" + saldo + "]";
+	private static final String[] intestazione = { "Natura", "Nome" };
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 14756423876583L;
+
+	public static String[] getIntestazione() {
+		return intestazione;
+	}
+
+	private Natures natura;
+
+	private String nome;
+
+	private long saldo;
+
+	public Account(String nome, Natures natura, long saldo) {
+		this.nome = nome;
+		this.natura = natura;
+		this.saldo = saldo;
 	}
 
 	@Override
@@ -34,36 +52,16 @@ public class Account implements IDataTableModel {
 		return true;
 	}
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 14756423876583L;
-	private static final String[] intestazione = { "Natura", "Nome" };
-
-	public static String[] getIntestazione() {
-		return intestazione;
-	}
-
-	private Natures natura;
-	private String nome;
-	private long saldo;
-
-	public Account(String nome, Natures natura, long saldo) {
-		this.nome = nome;
-		this.natura = natura;
-		this.saldo = saldo;
-	}
-
-	public long getSaldo() {
-		return saldo;
-	}
-
 	public String getName() {
 		return nome;
 	}
 
 	public Natures getNatura() {
 		return natura;
+	}
+
+	public long getSaldo() {
+		return saldo;
 	}
 
 	@Override
@@ -78,15 +76,20 @@ public class Account implements IDataTableModel {
 		}
 	}
 
-	public void setSaldo(long saldo) {
-		this.saldo = saldo;
-	}
-
 	public void setName(String nome) {
 		this.nome = nome;
 	}
 
 	public void setNatura(Natures natura) {
 		this.natura = natura;
+	}
+
+	public void setSaldo(long saldo) {
+		this.saldo = saldo;
+	}
+
+	@Override
+	public String toString() {
+		return "Account [natura=" + natura + ", nome=" + nome + ", saldo=" + saldo + "]";
 	}
 }

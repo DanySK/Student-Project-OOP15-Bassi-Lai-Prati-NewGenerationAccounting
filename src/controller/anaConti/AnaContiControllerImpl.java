@@ -15,8 +15,8 @@ import view.anaConti.AnaContiView;
  */
 public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 
-	private final AnaContiView view;
 	private final AccountsModel model;
+	private final AnaContiView view;
 
 	/**
 	 * @param view
