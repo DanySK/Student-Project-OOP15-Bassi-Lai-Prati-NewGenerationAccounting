@@ -49,15 +49,12 @@ public class MainView extends AbstractWideView {
 		}
 	}
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8496684753244767160L;
 
 	private String[] listaBtn;
 
 	public MainView() {
-		super(Messages.getString("MainView.8"), new Dimension(250, 350));
+		super(Messages.getString("MainView.8"), new Dimension(275, 350));
 		int maxBtn = Integer.parseInt(Messages.getString("MainView.500"));
 		listaBtn = new String[maxBtn];
 		JPanel panel = new JPanel();

@@ -57,7 +57,7 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 
 	public AbstractAnagraficaView(final LinkedList<dataModel> lista, final String intestazione[], final String title,
 			final String testo0, final String testo1, final String testo2, final String testo3, final String testo4) {
-		super(title, new Dimension(450, 550));
+		super(title, new Dimension(500, 625));
 		this.list = lista;
 		tasto0.setText(testo0);
 		tasto1.setText(testo1);
