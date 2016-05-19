@@ -59,7 +59,7 @@ public class DBSaver extends AbstractDB {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
-				throw new IOException("Errore critico di creazione database.");
+				throw new IOException("Errore critico di creazione database. " + e.getMessage());
 			}
 			save = true;
 		}
@@ -68,7 +68,7 @@ public class DBSaver extends AbstractDB {
 					new BufferedOutputStream(new FileOutputStream(file)))) {
 				out.writeObject(linkedList);
 			} catch (IOException e) {
-				throw new IOException("Errore critico di scrittura.");
+				throw new IOException("Errore critico di scrittura. " + e.getMessage());
 			}
 		}
 	}
