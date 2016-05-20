@@ -64,5 +64,4 @@ public abstract class AbstractModel {
 	 *            elemento da modificare
 	 */
 	public abstract void remove(IDataTableModel elem);
-
 }
