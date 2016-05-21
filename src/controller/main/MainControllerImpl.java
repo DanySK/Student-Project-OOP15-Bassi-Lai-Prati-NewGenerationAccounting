@@ -29,7 +29,7 @@ public class MainControllerImpl implements IViewObserver {
 
 	public MainControllerImpl() {
 		this.view = new MainView();
-		this.db = DBLoader.loadDB("", view);
+		this.db = DBLoader.LoadDB("", view);
 		this.view.setObserver(this);
 		view.start();
 	}

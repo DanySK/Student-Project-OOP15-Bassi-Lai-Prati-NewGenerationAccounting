@@ -1,7 +1,7 @@
 /**
  * 
  */
-package controller.DBController;
+package controller.dbController;
 
 import dataModel.DBDataModel;
 import view.AbstractFrame;

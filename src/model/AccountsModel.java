@@ -100,7 +100,7 @@ public class AccountsModel extends AbstractModel {
 
     @Override
     public void remove(IDataTableModel elemDaEliminare) {
-        if (elemDaEliminare.getClass().equals(Account.class)) {
+        if (elemDaEliminare.getClass().equals(Account.class)) { //aggiungere eccezione per elemento non trovato
             Account a = (Account) elemDaEliminare;
             for (Account elem : listaaccount) {
                 if (elem.getName().equals(a.getName())) {

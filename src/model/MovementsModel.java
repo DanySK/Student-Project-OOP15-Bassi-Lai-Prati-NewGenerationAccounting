@@ -21,8 +21,8 @@ import dataModel.Movement;
  */
 public class MovementsModel extends AbstractModel {
 
-    private final static String data = "Data Movimento";
-    private final static String lista = "Lista Conti Mossi";
+    private final static String DATA = "Data Movimento";
+    private final static String LISTA = "Lista Conti Mossi";
     private DBDataModel db;
     LinkedList<Movement> listaMovimenti;
 
@@ -32,7 +32,7 @@ public class MovementsModel extends AbstractModel {
 
     @Override
     protected void addElem(Map<String, Object> elem) {
-        Movement m = new Movement((Date) elem.get(data), (List<Account>) elem.get(lista));
+        Movement m = new Movement((Date) elem.get(DATA), (List<Account>) elem.get(LISTA));
         // chiedere a fede se va bene il cast
         if (listaMovimenti.contains(m) || m.equals(null)) {
             // throw new Exception("elemento già esistente"); ragionarci e
@@ -55,15 +55,15 @@ public class MovementsModel extends AbstractModel {
     protected Map<String, Object> getMap() {
         Map<String, Object> mappa = new HashMap<>();
         List<String> listaInfo = new ArrayList<>(3);
-        mappa.put(data, new Date());
-        mappa.put(lista, new LinkedList<>(Arrays.asList(listaInfo)));
+        mappa.put(DATA, new Date());
+        mappa.put(LISTA, new LinkedList<>(Arrays.asList(listaInfo)));
         return mappa;
     }
 
     Map<String, Object> getMap(Movement obj) {
         Map<String, Object> mappa = new HashMap<>();
-        mappa.put(data, obj.getData());
-        mappa.put(lista, obj.getListaConti()); // pensarci bene e correggere
+        mappa.put(DATA, obj.getData());
+        mappa.put(LISTA, obj.getListaConti()); // pensarci bene e correggere
         return mappa;
     }
 
@@ -86,7 +86,7 @@ public class MovementsModel extends AbstractModel {
     }
 
     @Override
-    public void remove(IDataTableModel elemDaEliminare) {
+    public void remove(IDataTableModel elemDaEliminare) { // aggiungere eccezione per elemento non trovato
         if (elemDaEliminare.getClass().equals(Movement.class)) {
             Movement m = (Movement) elemDaEliminare;
             if (m.getData() == null || m.getListaConti().isEmpty()) {
@@ -98,12 +98,6 @@ public class MovementsModel extends AbstractModel {
                     db.setMoviments(listaMovimenti);
                 }
             }
-            /*
-             * if (listaMovimenti.contains(elemDaEliminare)) {
-             * listaMovimenti.remove(elemDaEliminare); // qui si richiamerà la
-             * funzione per modificare i conti -> // ANNULLANDO gli effetti di
-             * questo movimento }
-             */
         }
     }
 }

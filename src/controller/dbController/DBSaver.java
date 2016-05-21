@@ -1,7 +1,7 @@
 /**
  * 
  */
-package controller.DBController;
+package controller.dbController;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

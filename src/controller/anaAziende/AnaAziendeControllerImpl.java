@@ -1,4 +1,4 @@
-package controller.AnaAziende;
+package controller.anaAziende;
 
 import java.util.LinkedList;
 
