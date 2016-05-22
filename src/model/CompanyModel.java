@@ -24,7 +24,10 @@ public class CompanyModel extends AbstractModel {
 
 	@Override
 	protected void addElem(Map<String, Object> mappa) {
-		Company azienda = null; // TODO
+		// SOLO PER TEST, DA CANCELLARE
+		char[] password = { 'p', 'w', 'd' };
+		Company azienda = new Company(1, password, "societa 1", 123456789, "via di qua, 3", "citta", 1111, "Levati",
+				"1100");
 		listaAziende.add(azienda);
 	}
 
@@ -48,9 +51,7 @@ public class CompanyModel extends AbstractModel {
 
 	@Override
 	public LinkedList<Company> load() {
-		char[] password = { 'p', 'w', 'd' };
-		return new LinkedList<>(Arrays.asList(
-				new Company(1, password, "societa 1", 123456789, "via di qua, 3", "citta", 1111, "Levati", "1100")));
+		return this.listaAziende;
 	}
 
 	@Override
@@ -62,9 +63,15 @@ public class CompanyModel extends AbstractModel {
 		}
 	}
 
+	public LinkedList<Company> saveCompanysAndClose() {
+		return listaAziende;
+	}
+
+	/**
+	 * metodo inutilizzabile. usare saveCompanysAndClose()
+	 */
 	@Override
 	public DBDataModel saveDBAndClose() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

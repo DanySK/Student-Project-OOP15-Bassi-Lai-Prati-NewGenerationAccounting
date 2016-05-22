@@ -6,7 +6,8 @@ package dataModel;
 import java.io.Serializable;
 
 /**
- * interfaccia per tutte le classi del dataModel che possono essere visualizzate dentro un MyTableModel
+ * interfaccia per tutte le classi del dataModel che possono essere visualizzate
+ * dentro un MyTableModel
  * 
  * @author Pentolo
  *
