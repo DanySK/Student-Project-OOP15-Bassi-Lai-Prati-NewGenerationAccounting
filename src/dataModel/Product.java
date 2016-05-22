@@ -3,10 +3,9 @@ package dataModel;
 /**
  * @author Diego
  *
- * Classe per la gestione del singolo prodotto e scorta associata da parte
- * dell'azienda.
- * Usata da ProductModel per tutte le sue funzioni principali 
- * e la successiva iscrizione nel DB in caso di modifiche.
+ *         Classe per la gestione del singolo prodotto e scorta associata da
+ *         parte dell'azienda. Usata da ProductModel per tutte le sue funzioni
+ *         principali e la successiva iscrizione nel DB in caso di modifiche.
  *
  *
  */
@@ -33,7 +32,7 @@ public class Product implements IDataTableModel {
 
 	public Product(String nome, int codice_prodotto, int cod_acquisto, int cod_vendita, int scorta, String categoria,
 			String descrizione, int prezzovendita) {
-		
+
 		this.nome = nome;
 		this.codice_prodotto = codice_prodotto;
 		this.cod_acquisto = cod_acquisto;

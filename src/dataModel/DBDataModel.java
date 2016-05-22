@@ -13,21 +13,11 @@ import java.util.LinkedList;
  *
  */
 public class DBDataModel implements Serializable {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "DBDataModel [accounts=" + accounts + ", customersSuppliers=" + customersSuppliers + ", moviments="
-				+ moviments + ", products=" + products + ", path=" + path + "]";
-	}
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7561096726236641612L;
+
 	private LinkedList<Account> accounts;
 	private transient boolean accountsModified = false;
 	private LinkedList<Customers_Suppliers> customersSuppliers;
@@ -37,18 +27,6 @@ public class DBDataModel implements Serializable {
 	private LinkedList<Product> products;
 	private transient boolean productsModified = false;
 	private transient String path;
-
-	public DBDataModel(final String path) {
-		this.path = path;
-	}
-
-	/**
-	 * @return the path
-	 */
-	public final String getPath() {
-		return path;
-	}
-
 	public DBDataModel(final LinkedList<Account> accounts, final LinkedList<Company> companys,
 			final LinkedList<Customers_Suppliers> customersSuppliers, final LinkedList<Movement> moviments,
 			final LinkedList<Product> products, final String path) {
@@ -58,6 +36,10 @@ public class DBDataModel implements Serializable {
 		this.customersSuppliers = customersSuppliers;
 		this.moviments = moviments;
 		this.products = products;
+	}
+
+	public DBDataModel(final String path) {
+		this.path = path;
 	}
 
 	/**
@@ -79,6 +61,13 @@ public class DBDataModel implements Serializable {
 	 */
 	public LinkedList<Movement> getMoviments() {
 		return new LinkedList<Movement>(moviments);
+	}
+
+	/**
+	 * @return the path
+	 */
+	public final String getPath() {
+		return path;
 	}
 
 	/**
@@ -160,5 +149,16 @@ public class DBDataModel implements Serializable {
 	public void setProducts(LinkedList<Product> products) {
 		this.products = products;
 		productsModified = true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "DBDataModel [accounts=" + accounts + ", customersSuppliers=" + customersSuppliers + ", moviments="
+				+ moviments + ", products=" + products + ", path=" + path + "]";
 	}
 }

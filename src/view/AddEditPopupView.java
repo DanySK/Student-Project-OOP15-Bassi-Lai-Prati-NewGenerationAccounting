@@ -8,19 +8,26 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
 
+import dataEnum.Gender;
+import dataEnum.KindPerson;
+import dataEnum.Natures;
 import dataModel.IDataTableModel;
 import model.AbstractModel;
 
@@ -35,46 +42,83 @@ public class AddEditPopupView extends AbstractWideView {
 	 */
 	private static final long serialVersionUID = -2412389895309056834L;
 	private final AbstractModel model;
+	private final IDataTableModel obj;
+	private final HashMap<String, JComponent> compoMap;
 
 	/**
 	 * @param title
 	 * @param dimension
 	 */
-	public AddEditPopupView(final IDataTableModel obj, final String title, final Dimension dimension, final AbstractModel model) {
+	public AddEditPopupView(final IDataTableModel obj, final String title, final Dimension dimension,
+			final AbstractModel model) {
 		super(title, dimension);
+		this.obj = obj;
 		this.model = model;
 		Map<String, Object> mappa = model.getMap();
-		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		JComponent field;
+		compoMap = new HashMap<String, JComponent>();
+		JPanel mainPanel = new JPanel();
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+		JPanel itemPanel;
 		for (String campo : mappa.keySet()) {
-			panel.add(Box.createRigidArea(new Dimension(0, 5)));
+			itemPanel = new JPanel(new FlowLayout());
+			itemPanel.add(new JLabel(campo + ":"));
 			Object item = mappa.get(campo);
-			if (item instanceof String) {
-				field = new JTextField(25);
-				((JTextField) field).setText((String) item);
-			} else if (item instanceof Date) {
-				field = new javax.swing.JSpinner(new SpinnerDateModel());
-			} else if (item instanceof Long) {
-				SpinnerNumberModel sm = new SpinnerNumberModel();
-				field = new javax.swing.JSpinner(sm);
-			} else {
-				field = new JTextField();
-				((JTextField) field).setText((String) item);
-			}
-			field.setName(campo);
-			field.setAlignmentX(Component.CENTER_ALIGNMENT);
-			panel.add(new JLabel(campo + ": "));
-			panel.add(field);
-		}
 
+			if (item instanceof String) {
+				JTextField jtf = new JTextField(50);
+				if (item != null) {
+					jtf.setText((String) item);
+				}
+				compoMap.put(campo, jtf);
+				itemPanel.add(jtf);
+			} else if (item instanceof Date) {
+				JSpinner js = new javax.swing.JSpinner(new SpinnerDateModel());
+				if (item != null) {
+					js.setValue(item);
+				}
+				compoMap.put(campo, js);
+				itemPanel.add(js);
+			} else if (item instanceof Long) {
+				JSpinner js = new javax.swing.JSpinner(new SpinnerNumberModel());
+				if (item != null) {
+					js.setValue(item);
+				}
+				compoMap.put(campo, js);
+				itemPanel.add(js);
+			} else if (item instanceof Gender) {
+				JComboBox<Gender> jcb = new JComboBox<Gender>();
+				if (item != null) {
+					jcb.setSelectedItem(item);
+				}
+				compoMap.put(campo, jcb);
+				itemPanel.add(jcb);
+			} else if (item instanceof KindPerson) {
+				JComboBox<KindPerson> jcb = new JComboBox<KindPerson>();
+				if (item != null) {
+					jcb.setSelectedItem(item);
+				}
+				compoMap.put(campo, jcb);
+				itemPanel.add(jcb);
+			} else if (item instanceof Natures) {
+				JComboBox<Natures> jcb = new JComboBox<Natures>();
+				if (item != null) {
+					jcb.setSelectedItem(item);
+				}
+				compoMap.put(campo, jcb);
+				itemPanel.add(jcb);
+			}
+
+			mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+			mainPanel.add(itemPanel);
+			itemPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		}
 		JPanel footer = new JPanel(new FlowLayout());
 		JButton chiudi = new JButton("Chiudi");
 		JButton btn = new JButton();
 		chiudi.addActionListener(e -> {
 			chiusura();
 		});
-		if (obj.equals(null)) {
+		if (obj == null) {
 			btn.setText("Aggiungi");
 			btn.addActionListener(e -> {
 				add();
@@ -88,12 +132,7 @@ public class AddEditPopupView extends AbstractWideView {
 		footer.add(btn);
 		footer.add(chiudi);
 		MyFrame.getContentPane().add(footer, BorderLayout.SOUTH);
-		MyFrame.getContentPane().add(panel, BorderLayout.CENTER);
-	}
-
-	@Override
-	protected void chiusura() {
-		this.close();
+		MyFrame.getContentPane().add(mainPanel, BorderLayout.CENTER);
 	}
 
 	private void add() {
@@ -108,13 +147,15 @@ public class AddEditPopupView extends AbstractWideView {
 		}
 	}
 
+	@Override
+	protected void chiusura() {
+		this.close();
+	}
+
 	private void edit() {
 		try {
-			model.add(null);
-		} catch (InstanceAlreadyExistsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
+			model.edit(obj, null);
+		} catch (InstanceNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

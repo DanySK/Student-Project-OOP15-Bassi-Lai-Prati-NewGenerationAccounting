@@ -31,6 +31,10 @@ public class Account implements IDataTableModel {
 		this.saldo = saldo;
 	}
 
+	public float decrSaldo(float variazione) {
+		return this.saldo -= variazione;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -76,10 +80,6 @@ public class Account implements IDataTableModel {
 
 	public float incrSaldo(float variazione) {
 		return this.saldo += variazione;
-	}
-
-	public float decrSaldo(float variazione) {
-		return this.saldo -= variazione;
 	}
 
 	public void setName(String nome) {

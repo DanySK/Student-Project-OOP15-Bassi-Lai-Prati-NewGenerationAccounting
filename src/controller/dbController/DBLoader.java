@@ -59,15 +59,6 @@ public class DBLoader extends AbstractDB {
 		super(path, view, db);
 	}
 
-	@Override
-	public void run() {
-		DBDataModel db = getDb();
-		db.setAccounts(load(getAccountFile(), AccountsModel.chartOfAccounts()));
-		db.setCustomersSuppliers(load(getCustomersupplierFile(), new LinkedList<Customers_Suppliers>()));
-		db.setMoviments(load(getMovementFile(), new LinkedList<Movement>()));
-		db.setProducts(load(getProductFile(), new LinkedList<Product>()));
-	}
-
 	private LinkedList load(File file, LinkedList defaultList) {
 		file.getParentFile().mkdir();
 		if (!file.exists()) {
@@ -90,5 +81,14 @@ public class DBLoader extends AbstractDB {
 			return defaultList;
 		}
 		return defaultList;
+	}
+
+	@Override
+	public void run() {
+		DBDataModel db = getDb();
+		db.setAccounts(load(getAccountFile(), AccountsModel.chartOfAccounts()));
+		db.setCustomersSuppliers(load(getCustomersupplierFile(), new LinkedList<Customers_Suppliers>()));
+		db.setMoviments(load(getMovementFile(), new LinkedList<Movement>()));
+		db.setProducts(load(getProductFile(), new LinkedList<Product>()));
 	}
 }
