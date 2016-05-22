@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
+import dataModel.Account;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 import dataModel.Movement;
@@ -42,14 +43,13 @@ public class MovementsModel extends AbstractModel {
 		}
 		listaMovimenti.add(m);
 		for (Operation op : m.getListaConti()) {
-
+		   AccountsModel.updateAccounts(op);
 		}
-
 	}
 
 	@Override
 	public void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare) {
-		// TODO Auto-generated method stub
+		// implementare
 
 	}
 
@@ -95,7 +95,9 @@ public class MovementsModel extends AbstractModel {
 			} else {
 				if (listaMovimenti.contains(m)) {
 					listaMovimenti.remove(m);
-					// devo chiamare la funzione che aggiornerà i conti
+					for(Operation op : m.getListaConti()){
+					    //concludere
+					}
 				} else {
 					throw new InstanceNotFoundException("elemento da eliminare non trovato");
 				}

@@ -35,7 +35,7 @@ public class AccountsModel extends AbstractModel {
 
 	private DBDataModel db;
 
-	LinkedList<Account> listaaccount;
+	static LinkedList<Account> listaaccount;
 
 	public AccountsModel(DBDataModel db) {
 		this.db = db;
@@ -104,13 +104,7 @@ public class AccountsModel extends AbstractModel {
 		return new LinkedList<Account>(db.getAccounts());
 	}
 
-	List<? extends IDataTableModel> load(Natures natura) throws Exception { // carica
-																			// i
-																			// dati
-																			// secondo
-																			// la
-																			// natura
-
+	List<? extends IDataTableModel> load(Natures natura) throws Exception { // carica i dati secondo la natura
 		LinkedList<Account> filtroNatura = new LinkedList<Account>();
 		if (natura.equals(null)) {
 			throw new Exception("natura non valida");
@@ -123,12 +117,7 @@ public class AccountsModel extends AbstractModel {
 		return filtroNatura;
 	}
 
-	List<? extends IDataTableModel> load(String nome) throws Exception { // carica
-																			// i
-																			// dati
-																			// secondo
-																			// il
-																			// nome
+	List<? extends IDataTableModel> load(String nome) throws Exception { // carica i dati secondo il nome																	// nome
 		LinkedList<Account> filtroNome = new LinkedList<Account>();
 		if (nome.isEmpty()) {
 			throw new Exception("nome non valido");
@@ -142,10 +131,8 @@ public class AccountsModel extends AbstractModel {
 	}
 
 	@Override
-	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException { // elimina
-																							// i
-																							// dati
-		if (elemDaEliminare.getClass().equals(Account.class)) {
+	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException { // elimina i dati
+	    if (elemDaEliminare.getClass().equals(Account.class)) {
 			Account a = (Account) elemDaEliminare;
 			for (Account elem : listaaccount) {
 				if (elem.getName().equals(a.getName())) {
@@ -160,12 +147,11 @@ public class AccountsModel extends AbstractModel {
 			}
 			if (trovato == false) {
 				throw new InstanceNotFoundException("elemento da eliminare non trovato");
-			}
-
-		} else {
+			}	
+		}
+		else {
 			throw new IllegalArgumentException("elemento non valido");
 		}
-
 	}
 
 	@Override
@@ -173,30 +159,26 @@ public class AccountsModel extends AbstractModel {
 		db.setAccounts(listaaccount);
 		return db;
 	}
-
-	public void updateAccounts(Operation op) { // aggiorna i conti dopo
-												// l'aggiunta/modifica/eliminazione
-												// di un movimento
-		if (listaaccount.contains(op.getConto())) {
-			for (Account elem : listaaccount) {
-				if (elem.equals(op.getConto())) {
-					if (elem.getNatura().equals(Natures.COSTO) || elem.getNatura().equals(Natures.ATTIVITA)) {
-						if (op.getDare() > 0)
-							elem.incrSaldo(op.getDare());// Costo e Attività
-															// aumentano in dare
-						else if (op.getAvere() > 0)
-							elem.decrSaldo(op.getAvere());// e calano in avere
-					} else {
-						if (op.getAvere() > 0)
-							elem.incrSaldo(op.getAvere()); // Ricavo e
-															// Passività
-															// aumentano in
-															// avere
-						else if (op.getDare() > 0)
-							elem.decrSaldo(op.getDare());// e calano in dare
-					}
+	
+	public static void updateAccounts(Operation op) { // aggiorna i conti dopo l'aggiunta/modifica/eliminazione di un movimento
+	    if (listaaccount.contains(op.getConto())) {
+	        for (Account elem : listaaccount) {
+	            if (elem.equals(op.getConto())) {
+			if (elem.getNatura().equals(Natures.COSTO) || elem.getNatura().equals(Natures.ATTIVITA)) {
+				if (op.getDare() > 0)
+					elem.incrSaldo(op.getDare());// Costo e Attività aumentano in dare
+				else if (op.getAvere() > 0)
+					elem.decrSaldo(op.getAvere());// e calano in avere
+			} else {
+				if (op.getAvere() > 0)
+					elem.incrSaldo(op.getAvere()); // Ricavo e Passività aumentano in avere
+				else if (op.getDare() > 0)
+					elem.decrSaldo(op.getDare());// e calano in dare
 				}
 			}
 		}
 	}
+}
+
+
 }

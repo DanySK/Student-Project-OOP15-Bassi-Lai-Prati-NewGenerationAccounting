@@ -36,7 +36,7 @@ public class ProductsModel extends AbstractModel {
 	@Override
 	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
 		if (listaProdotti.contains(elem)) {
-			throw new IllegalArgumentException("Elemento già esistente!");
+			throw new IllegalArgumentException("Elemento giï¿½ esistente!");
 		} else {
 			Product nuovoprodotto = new Product(elem.get(nome).toString(), (Integer) elem.get(codiceA),
 					(Integer) elem.get(codiceV), (Integer) elem.get(scorta), 0, elem.get(descrizione).toString(),

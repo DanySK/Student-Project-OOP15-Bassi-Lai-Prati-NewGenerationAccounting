@@ -18,7 +18,7 @@ public class CustomersSuppliersModel extends AbstractModel {
 
 	private final String CF = "CF";
 
-	private final String CITTA = "Città";
+	private final String CITTA = "Cittï¿½";
 	private final String COGNOME = "Cognome";
 	DBDataModel db;
 	private final String INDIRIZZO = "Indirizzo";
