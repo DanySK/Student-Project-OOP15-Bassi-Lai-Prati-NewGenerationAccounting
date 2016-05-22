@@ -60,7 +60,6 @@ public abstract class AbstractModel {
 	 * operazione di aggiunta di un nuovo oggetto al dataBase del programma
 	 * 
 	 * @author niky
-	 * @throws ParseException
 	 * @param elem
 	 *            mappa contenente le informazioni sull'elemento da aggiungere
 	 */

@@ -61,7 +61,7 @@ public class DBSaver extends AbstractDB {
 			save(db.isCustomersSuppliersModified(), getCustomersupplierFile(), db.getCustomersSuppliers());
 			save(db.isMovimentsModified(), getMovementFile(), db.getMoviments());
 			save(db.isProductsModified(), getProductFile(), db.getProducts());
-		} catch (IOException e) {
+		} catch (Exception e) {
 			getView().errorDialog("Errore di Scrittura", e.getMessage());
 		}
 		db.resetBooleans();

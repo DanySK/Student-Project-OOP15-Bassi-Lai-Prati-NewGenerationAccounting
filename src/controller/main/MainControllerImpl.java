@@ -4,6 +4,7 @@
 package controller.main;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 import controller.IViewObserver;
 import controller.anaAziende.AnaAziendeControllerImpl;
@@ -12,9 +13,11 @@ import controller.anaConti.AnaContiControllerImpl;
 import controller.anaProd.AnaProdControllerImpl;
 import controller.creaFattura.CreaFatturaControllerImpl;
 import controller.dbController.DBLoader;
+import controller.dbController.DBSaver;
 import controller.movimenti.MovimentiControllerImpl;
 import controller.situazAziendale.SitAzControllerImpl;
 import controller.situazCreditiDebiti.SitCredDebControllerImpl;
+import dataModel.Account;
 import dataModel.DBDataModel;
 import view.main.MainView;
 
@@ -82,6 +85,9 @@ public class MainControllerImpl implements IViewObserver {
 
 	@Override
 	public void chiusura() {
+		db.setAccounts(new LinkedList<Account>());
+		System.out.println(db.toString());
+		new DBSaver(db.getPath(), view, db).start();
 		if (view.confirmDialog("Sei sicuro di voler uscire dal programma?", "Uscire")) {
 			System.exit(0);
 		}
