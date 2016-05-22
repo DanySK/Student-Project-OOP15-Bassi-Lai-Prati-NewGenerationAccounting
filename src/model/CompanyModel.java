@@ -18,7 +18,7 @@ import dataModel.IDataTableModel;
 
 public class CompanyModel extends AbstractModel {
 	LinkedList<Company> listaAziende;
-
+	
 	private static int count = 0;
 	private int codice_azienda=0;
 	private final static String ragione_sociale="Ragione Sociale";
@@ -38,7 +38,9 @@ public class CompanyModel extends AbstractModel {
 		listaAziende.add(nuovaazienda);
 	}
 
-	
+public CompanyModel(LinkedList<Company> linkedList) {	
+	listaAziende = linkedList;
+	}
 
 	private void setCodice_azienda(int codice_azienda) {
 		this.codice_azienda=codice_azienda;	
