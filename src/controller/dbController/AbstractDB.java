@@ -21,27 +21,16 @@ public abstract class AbstractDB extends Thread {
 	private static final String CUSTOMERSUPPLIER_FILENAME = "customersuppliers.nga";
 	private static final String MOVEMENT_FILENAME = "movements.nga";
 	private static final String PRODUCT_FILENAME = "products.nga";
+	/**
+	 * @return the companyFile
+	 */
+	protected static File getCompanyFile() {
+		return new File(DB_PATH + SEPARATOR + COMPANY_FILENAME);
+	}
 	private final String path;
 	private final AbstractFrame view;
+
 	private final DBDataModel db;
-
-	/**
-	 * @return the view
-	 */
-	protected final AbstractFrame getView() {
-		return view;
-	}
-
-	/**
-	 * @return the db
-	 */
-	protected final DBDataModel getDb() {
-		return db;
-	}
-
-	private File getFile(String fileName) {
-		return new File(DB_PATH + SEPARATOR + path + SEPARATOR + fileName);
-	}
 
 	/**
 	 * 
@@ -60,17 +49,21 @@ public abstract class AbstractDB extends Thread {
 	}
 
 	/**
-	 * @return the companyFile
-	 */
-	protected static File getCompanyFile() {
-		return new File(DB_PATH + SEPARATOR + COMPANY_FILENAME);
-	}
-
-	/**
 	 * @return the customersupplierFile
 	 */
 	protected File getCustomersupplierFile() {
 		return getFile(CUSTOMERSUPPLIER_FILENAME);
+	}
+
+	/**
+	 * @return the db
+	 */
+	protected final DBDataModel getDb() {
+		return db;
+	}
+
+	private File getFile(String fileName) {
+		return new File(DB_PATH + SEPARATOR + path + SEPARATOR + fileName);
 	}
 
 	/**
@@ -85,5 +78,12 @@ public abstract class AbstractDB extends Thread {
 	 */
 	protected File getProductFile() {
 		return getFile(PRODUCT_FILENAME);
+	}
+
+	/**
+	 * @return the view
+	 */
+	protected final AbstractFrame getView() {
+		return view;
 	}
 }

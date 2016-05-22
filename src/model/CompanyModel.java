@@ -74,10 +74,4 @@ public class CompanyModel extends AbstractModel {
 	public DBDataModel saveDBAndClose() {
 		return null;
 	}
-
-	public LinkedList<Company> saveCompanysAndClose() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

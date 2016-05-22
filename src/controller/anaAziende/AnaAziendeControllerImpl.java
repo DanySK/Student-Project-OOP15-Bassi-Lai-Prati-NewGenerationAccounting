@@ -24,11 +24,30 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 		view.start();
 	}
 
+	public void accedi(final char[] password) {
+		Company item = (Company) view.getSelectedItem();
+		if (item != null && model.isPasswordCorrect(password, item)) {
+			saveCompanysList();
+			view.close();
+			new MainControllerImpl(DBLoader.loadDB(Integer.toString(item.getCodice_azienda()), view));
+		} else {
+			view.errorDialog("Password errata", "Password Errata, riprovare.");
+		}
+	}
+
 	@Override
 	public void chiusura() {
 		if (view.confirmDialog("Sei sicuro di voler uscire dal programma?", "Uscire")) {
 			saveCompanysList();
 			System.exit(0);
+		}
+	}
+
+	private void saveCompanysList() {
+		try {
+			DBSaver.saveCompanys(model.saveCompanysAndClose());
+		} catch (IOException e) {
+			view.errorDialog("errore", e.getMessage());
 		}
 	}
 
@@ -61,24 +80,5 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	public void tasto3() {
 		model.remove(view.getSelectedItem());
 		view.setList(model.load());
-	}
-
-	public void accedi(final char[] password) {
-		Company item = (Company) view.getSelectedItem();
-		if (item != null && model.isPasswordCorrect(password, item)) {
-			saveCompanysList();
-			view.close();
-			new MainControllerImpl(DBLoader.loadDB(Integer.toString(item.getCodice_azienda()), view));
-		} else {
-			view.errorDialog("Password errata", "Password Errata, riprovare.");
-		}
-	}
-
-	private void saveCompanysList() {
-		try {
-			DBSaver.saveCompanys(model.saveCompanysAndClose());
-		} catch (IOException e) {
-			view.errorDialog("errore", e.getMessage());
-		}
 	}
 }

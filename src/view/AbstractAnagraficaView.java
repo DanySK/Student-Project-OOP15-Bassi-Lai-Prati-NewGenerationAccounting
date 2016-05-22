@@ -94,15 +94,6 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 		});
 	}
 
-	public IDataTableModel getSelectedItem() {
-		int row = getTable().getSelectedRow();
-		if (row != -1) {
-			return getModel().getObjectAt(row);
-		} else {
-			return null;
-		}
-	}
-
 	@Override
 	protected void chiusura() {
 		observer.chiusura();
@@ -110,6 +101,15 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 
 	protected MyTableModel<dataModel> getModel() {
 		return dataModel;
+	}
+
+	public IDataTableModel getSelectedItem() {
+		int row = getTable().getSelectedRow();
+		if (row != -1) {
+			return getModel().getObjectAt(row);
+		} else {
+			return null;
+		}
 	}
 
 	protected JTable getTable() {

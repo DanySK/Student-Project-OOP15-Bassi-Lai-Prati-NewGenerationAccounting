@@ -20,24 +20,6 @@ import view.AbstractFrame;
  */
 public class DBLoader extends AbstractDB {
 
-	/**
-	 * 
-	 */
-	private DBLoader(final String path, final AbstractFrame view, final DBDataModel db) {
-		super(path, view, db);
-	}
-
-	@Override
-	public void run() {
-
-	}
-
-	public static DBDataModel loadDB(final String path, final AbstractFrame view) {
-		DBDataModel db = new DBDataModel();
-		new DBLoader(path, view, db).start();
-		return db;
-	}
-
 	public static LinkedList<Company> loadCompanys() throws IOException {
 		File file = getCompanyFile();
 		file.getParentFile().mkdir();
@@ -58,5 +40,23 @@ public class DBLoader extends AbstractDB {
 			throw new IOException("Errore di lettura. " + e.getMessage());
 		}
 		return new LinkedList<Company>();
+	}
+
+	public static DBDataModel loadDB(final String path, final AbstractFrame view) {
+		DBDataModel db = new DBDataModel();
+		new DBLoader(path, view, db).start();
+		return db;
+	}
+
+	/**
+	 * 
+	 */
+	private DBLoader(final String path, final AbstractFrame view, final DBDataModel db) {
+		super(path, view, db);
+	}
+
+	@Override
+	public void run() {
+
 	}
 }
