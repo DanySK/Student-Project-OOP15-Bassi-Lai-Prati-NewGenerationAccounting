@@ -28,7 +28,7 @@ public class CreaFattureModel extends AbstractModel {
 	}
 
 	@Override
-	protected Map<String, Object> getMap() {
+	public Map<String, Object> getMap() {
 		// TODO Auto-generated method stub
 		return null;
 	}
