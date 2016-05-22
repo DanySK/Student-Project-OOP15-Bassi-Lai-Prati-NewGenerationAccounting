@@ -1,9 +1,11 @@
 package controller.anaAziende;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
 import controller.IAnagraficaViewObserver;
 import controller.dbController.DBLoader;
+import controller.dbController.DBSaver;
 import controller.main.MainControllerImpl;
 import dataModel.Company;
 import model.CompanyModel;
@@ -23,13 +25,14 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	@Override
 	public void chiusura() {
 		if (view.confirmDialog("Sei sicuro di voler uscire dal programma?", "Uscire")) {
+			saveCompanysList();
 			System.exit(0);
 		}
 	}
 
 	@Override
 	public void tasto0() {
-				
+
 	}
 
 	@Override
@@ -53,6 +56,7 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	public void accedi(final char[] password) {
 		Company item = (Company) view.getSelectedItem();
 		if (item != null && model.isPasswordCorrect(password, item)) {
+			saveCompanysList();
 			view.close();
 			new MainControllerImpl(DBLoader.loadDB(Integer.toString(item.getCodice_azienda()), view));
 		} else {
@@ -60,4 +64,11 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 		}
 	}
 
+	private void saveCompanysList() {
+		try {
+			DBSaver.saveCompanys(model.saveCompanysAndClose());
+		} catch (IOException e) {
+			view.errorDialog("errore", e.getMessage());
+		}
+	}
 }

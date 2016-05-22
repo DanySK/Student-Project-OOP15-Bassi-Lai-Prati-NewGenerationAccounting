@@ -40,6 +40,7 @@ public class DBLoader extends AbstractDB {
 
 	public static LinkedList<Company> loadCompanys() throws IOException {
 		File file = getCompanyFile();
+		file.getParentFile().mkdir();
 		if (!file.exists()) {
 			try {
 				file.createNewFile();

@@ -14,7 +14,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import controller.IAnagraficaViewObserver;
-import controller.anaAziende.AnaAziendeControllerImpl;
 import dataModel.IDataTableModel;
 
 /**
@@ -94,8 +93,8 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 			observer.chiusura();
 		});
 	}
-	
-	public IDataTableModel getSelectedItem(){
+
+	public IDataTableModel getSelectedItem() {
 		int row = getTable().getSelectedRow();
 		if (row != -1) {
 			return getModel().getObjectAt(row);
