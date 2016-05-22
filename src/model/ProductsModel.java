@@ -40,8 +40,11 @@ public class ProductsModel extends AbstractModel {
 		 	{throw new IllegalArgumentException("Elemento già esistente!");
 		}else 	{
 			Product nuovoprodotto= new Product(elem.get(nome).toString(), (Integer) elem.get(codiceA), (Integer) elem.get(codiceV), (Integer) elem.get(scorta), 0, elem.get(descrizione).toString(), elem.get(categoria).toString(), 0);
+			
 			listaProdotti.add(nuovoprodotto);
+			
 			db.setProducts(listaProdotti);
+			
 		 		}
 	}
 
@@ -75,8 +78,8 @@ public class ProductsModel extends AbstractModel {
 
 	@Override
 	public DBDataModel saveDBAndClose() { // Sposto i dati dalla lista interna al database e restituisco quest'ultimo
-		// TODO Auto-generated method stub
-		return null;
+		db.setProducts(listaProdotti);
+		return db;
 	}
 
 }
