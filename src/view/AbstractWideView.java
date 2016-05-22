@@ -13,7 +13,8 @@ import javax.swing.JPanel;
 import controller.IViewObserver;
 
 /**
- * classe astratta che estende da AbstractFrame creata per il menu principale e le due situazioni aziendali
+ * classe astratta che estende da AbstractFrame creata per il menu principale e
+ * le due situazioni aziendali
  * 
  * @author Pentolo
  *

@@ -40,9 +40,9 @@ public class AnaAziendeView extends AbstractAnagraficaView<Company> {
 		topPanel.add(accediButton);
 		MyFrame.getContentPane().add(topPanel, BorderLayout.NORTH);
 		accediButton.addActionListener(e -> {
-			int row = getTable().getSelectedRow();
-			if (row != -1) {
-				((AnaAziendeControllerImpl) observer).accedi(getModel().getObjectAt(row), passwordField.getPassword());
+			Company item = (Company) getSelectedItem();
+			if (item != null) {
+				((AnaAziendeControllerImpl) observer).accedi(passwordField.getPassword());
 			} else {
 				errorDialog("Attenzione, seleziona una riga per continuare!", "nessuna riga selezionata");
 			}

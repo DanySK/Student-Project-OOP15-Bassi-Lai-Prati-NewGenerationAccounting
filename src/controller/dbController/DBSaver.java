@@ -39,20 +39,12 @@ public class DBSaver extends AbstractDB {
 		db.resetBooleans();
 	}
 
-	/**
-	 * saves the linked list.
-	 * 
-	 * @param mustbeSaved
-	 *            show if must be saved or must check existance
-	 * @param fileName
-	 *            the file name
-	 * @param linkedList
-	 *            the linked list that must be saved
-	 * @throws IOException
-	 */
 	private static void save(final boolean mustbeSaved, final File file,
 			final LinkedList<? extends IDataTableModel> linkedList) throws IOException {
 		boolean save = mustbeSaved;
+		if (file.getParentFile().mkdir()) {
+			save = true;
+		}
 		if (!file.exists()) {
 			try {
 				file.createNewFile();

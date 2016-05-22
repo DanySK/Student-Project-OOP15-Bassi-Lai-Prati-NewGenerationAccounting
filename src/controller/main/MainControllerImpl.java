@@ -3,6 +3,8 @@
  */
 package controller.main;
 
+import java.io.IOException;
+
 import controller.IViewObserver;
 import controller.anaAziende.AnaAziendeControllerImpl;
 import controller.anaCliFor.AnaCliForControllerImpl;
@@ -41,7 +43,11 @@ public class MainControllerImpl implements IViewObserver {
 
 	public void btn1(final String title) {
 		view.close();
-		new AnaAziendeControllerImpl(db, title);
+		try {
+			new AnaAziendeControllerImpl(DBLoader.loadCompanys());
+		} catch (IOException e) {
+			view.errorDialog("errore", e.getMessage());
+		}
 	}
 
 	public void btn2(final String title) {

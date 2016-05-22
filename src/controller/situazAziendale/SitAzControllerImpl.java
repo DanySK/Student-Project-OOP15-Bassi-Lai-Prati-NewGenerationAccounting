@@ -12,7 +12,8 @@ import model.FinancialSituationModelImpl;
 import view.situazAziendale.SitAzView;
 
 /**
- * implementazione del controller della situazione aziendale con stato patrimoniale, conto economico e commento.
+ * implementazione del controller della situazione aziendale con stato
+ * patrimoniale, conto economico e commento.
  * 
  * @author Pentolo
  *

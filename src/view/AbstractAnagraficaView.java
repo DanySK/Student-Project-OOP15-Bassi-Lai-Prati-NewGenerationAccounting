@@ -34,12 +34,10 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 	private static final long serialVersionUID = -1706093338606827050L;
 
 	private MyTableModel<dataModel> dataModel;
-	@SuppressWarnings("unused")
 	private LinkedList<dataModel> list;
 	protected IAnagraficaViewObserver observer;
 	private final JTable table = new JTable();
 	private final JButton tasto0 = new JButton();
-
 	private final JButton tasto1 = new JButton();
 	private final JButton tasto2 = new JButton();
 	private final JButton tasto3 = new JButton();
@@ -94,6 +92,15 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 		tasto4.addActionListener(e -> {
 			observer.chiusura();
 		});
+	}
+
+	public IDataTableModel getSelectedItem() {
+		int row = getTable().getSelectedRow();
+		if (row != -1) {
+			return getModel().getObjectAt(row);
+		} else {
+			return null;
+		}
 	}
 
 	@Override

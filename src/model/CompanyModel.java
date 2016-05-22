@@ -18,8 +18,8 @@ import dataModel.IDataTableModel;
 public class CompanyModel extends AbstractModel {
 	LinkedList<Company> listaAziende;
 
-	public CompanyModel() {
-		listaAziende = null;
+	public CompanyModel(LinkedList<Company> linkedList) {
+		listaAziende = linkedList;
 	}
 
 	@Override
@@ -64,6 +64,11 @@ public class CompanyModel extends AbstractModel {
 
 	@Override
 	public DBDataModel saveDBAndClose() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public LinkedList<Company> saveCompanysAndClose() {
 		// TODO Auto-generated method stub
 		return null;
 	}
