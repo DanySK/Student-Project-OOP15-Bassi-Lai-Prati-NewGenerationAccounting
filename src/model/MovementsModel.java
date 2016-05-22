@@ -1,17 +1,20 @@
 package model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import dataModel.Account;
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
+
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 import dataModel.Movement;
+import dataModel.Operation;
 
 /**
  * classe implementativa per la gestione dell'anagrafica dei movimenti
@@ -31,17 +34,18 @@ public class MovementsModel extends AbstractModel {
     }
 
     @Override
-    protected void addElem(Map<String, Object> elem) {
-        Movement m = new Movement((Date) elem.get(DATA), (List<Account>) elem.get(LISTA));
-        // chiedere a fede se va bene il cast
-        if (listaMovimenti.contains(m) || m.equals(null)) {
-            // throw new Exception("elemento già esistente"); ragionarci e
-            // correggere
+    protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
+        Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
+            // chiedere a fede se va bene il cast
+        if(listaMovimenti.contains(m)){
+            throw new InstanceAlreadyExistsException("elemento già esistente");
+        }
+        if (m.getData().equals(null) || m.getListaConti().isEmpty()) {
+            throw new IllegalArgumentException("elemento da inserire non valido");
         }
         listaMovimenti.add(m);
         // qui si richiamerà la funzione per modificare i conti ->
         // APPLICANDO gli effetti di questo movimento
-        db.setMoviments(listaMovimenti);
 
     }
 
@@ -54,16 +58,15 @@ public class MovementsModel extends AbstractModel {
     @Override
     protected Map<String, Object> getMap() {
         Map<String, Object> mappa = new HashMap<>();
-        List<String> listaInfo = new ArrayList<>(3);
         mappa.put(DATA, new Date());
-        mappa.put(LISTA, new LinkedList<>(Arrays.asList(listaInfo)));
+        mappa.put(LISTA, new LinkedList<Operation>());
         return mappa;
     }
 
     Map<String, Object> getMap(Movement obj) {
         Map<String, Object> mappa = new HashMap<>();
         mappa.put(DATA, obj.getData());
-        mappa.put(LISTA, obj.getListaConti()); // pensarci bene e correggere
+        mappa.put(LISTA, obj.getListaConti());
         return mappa;
     }
 
@@ -72,7 +75,7 @@ public class MovementsModel extends AbstractModel {
         return new LinkedList<Movement>(db.getMoviments());
     }
 
-    LinkedList<Movement> load(Date da, Date a) throws Exception {
+    LinkedList<Movement> load(Date da, Date a) throws IllegalArgumentException {
         LinkedList<Movement> filtroData = new LinkedList<>();
         if (da == null && a == null) {
             throw new IllegalArgumentException("date non valide");
@@ -86,7 +89,7 @@ public class MovementsModel extends AbstractModel {
     }
 
     @Override
-    public void remove(IDataTableModel elemDaEliminare) { // aggiungere eccezione per elemento non trovato
+    public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException {
         if (elemDaEliminare.getClass().equals(Movement.class)) {
             Movement m = (Movement) elemDaEliminare;
             if (m.getData() == null || m.getListaConti().isEmpty()) {
@@ -95,15 +98,16 @@ public class MovementsModel extends AbstractModel {
                 if (listaMovimenti.contains(m)) {
                     listaMovimenti.remove(m);
                     // devo chiamare la funzione che aggiornerà i conti
-                    db.setMoviments(listaMovimenti);
+                } else {
+                    throw new InstanceNotFoundException("elemento da eliminare non trovato");
                 }
             }
         }
     }
 
-	@Override
-	public DBDataModel saveDBAndClose() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public DBDataModel saveDBAndClose() {
+        db.setMoviments(listaMovimenti);
+        return db;
+    }
 }

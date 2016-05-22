@@ -22,9 +22,7 @@ public class Account implements IDataTableModel {
 	}
 
 	private Natures natura;
-
 	private String nome;
-
 	private long saldo;
 
 	public Account(String nome, Natures natura, long saldo) {
@@ -92,4 +90,12 @@ public class Account implements IDataTableModel {
 	public String toString() {
 		return "Account [natura=" + natura + ", nome=" + nome + ", saldo=" + saldo + "]";
 	}
+	
+	private float incrSaldo(float variazione){
+        return variazione;
+        }
+	private float decrSaldo(float variazione){
+	        return variazione;
+	}
+	
 }
