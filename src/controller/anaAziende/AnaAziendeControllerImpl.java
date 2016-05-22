@@ -6,28 +6,17 @@ import controller.IAnagraficaViewObserver;
 import controller.dbController.DBLoader;
 import controller.main.MainControllerImpl;
 import dataModel.Company;
-import dataModel.DBDataModel;
 import model.CompanyModel;
 import view.anaAziende.AnaAziendeView;
 
 public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	private final AnaAziendeView view;
 	private final CompanyModel model;
-	private boolean noCompany = false;
 
-	public AnaAziendeControllerImpl() {
-		this.model = new CompanyModel(); // TODO first start
+	public AnaAziendeControllerImpl(LinkedList<Company> linkedList) {
+		this.model = new CompanyModel(linkedList);
 		this.view = new AnaAziendeView(model.load());
 		this.view.setObserver(this);
-		noCompany = true;
-		view.start();
-	}
-
-	public AnaAziendeControllerImpl(final DBDataModel db, final String title) {
-		this.model = new CompanyModel();
-		this.view = new AnaAziendeView((LinkedList<Company>) model.load(), title);
-		this.view.setObserver(this);
-		noCompany = true;
 		view.start();
 	}
 
@@ -40,14 +29,13 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void tasto0() {
-		// TODO Auto-generated method stub
-
+				
 	}
 
 	@Override
 	public void tasto1() {
-		// TODO Auto-generated method stub
-
+		model.add(null);
+		view.setList(model.load());
 	}
 
 	@Override
@@ -58,14 +46,15 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void tasto3() {
-		// TODO Auto-generated method stub
-
+		model.remove(view.getSelectedItem());
+		view.setList(model.load());
 	}
 
-	public void accedi(final Company objectAt, final char[] password) {
-		if (model.isPasswordCorrect(password, objectAt)) {
+	public void accedi(final char[] password) {
+		Company item = (Company) view.getSelectedItem();
+		if (item != null && model.isPasswordCorrect(password, item)) {
 			view.close();
-			new MainControllerImpl(DBLoader.loadDB(Integer.toString(objectAt.getCodice_azienda()), view));
+			new MainControllerImpl(DBLoader.loadDB(Integer.toString(item.getCodice_azienda()), view));
 		} else {
 			view.errorDialog("Password errata", "Password Errata, riprovare.");
 		}

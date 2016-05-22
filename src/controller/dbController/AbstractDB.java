@@ -14,8 +14,8 @@ import view.AbstractFrame;
  */
 public abstract class AbstractDB extends Thread {
 
-	private static final String SEPARATOR = "path.separator";
-	private static final String DB_PATH = "user.home" + SEPARATOR + "NewGenerationAccounting";
+	private static final String SEPARATOR = System.getProperty("file.separator");
+	private static final String DB_PATH = System.getProperty("user.dir") + SEPARATOR + "NewGenerationAccounting";
 	private static final String ACCOUNT_FILENAME = "accounts.nga";
 	private static final String COMPANY_FILENAME = "companys.nga";
 	private static final String CUSTOMERSUPPLIER_FILENAME = "customersuppliers.nga";
@@ -38,8 +38,8 @@ public abstract class AbstractDB extends Thread {
 	protected final DBDataModel getDb() {
 		return db;
 	}
-	
-	private File getFile(String fileName){
+
+	private File getFile(String fileName) {
 		return new File(DB_PATH + SEPARATOR + path + SEPARATOR + fileName);
 	}
 

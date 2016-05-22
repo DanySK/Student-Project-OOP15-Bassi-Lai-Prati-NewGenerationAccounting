@@ -11,7 +11,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- * classe astratta che contiene tutti i comportamenti di base dei frame del progetto
+ * classe astratta che contiene tutti i comportamenti di base dei frame del
+ * progetto
  * 
  * @author Pentolo
  *

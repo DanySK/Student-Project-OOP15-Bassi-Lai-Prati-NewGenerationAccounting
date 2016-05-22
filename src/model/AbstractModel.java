@@ -14,7 +14,7 @@ import dataModel.IDataTableModel;
  * @throws ParseException
  */
 public abstract class AbstractModel {
-	
+
 	public abstract DBDataModel saveDBAndClose();
 
 	/**

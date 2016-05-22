@@ -1,4 +1,7 @@
+import java.io.IOException;
+
 import controller.anaAziende.AnaAziendeControllerImpl;
+import controller.dbController.DBLoader;
 
 /**
  * 
@@ -13,9 +16,14 @@ import controller.anaAziende.AnaAziendeControllerImpl;
 public class ApplicationStart {
 
 	/**
-	 * @param args argomento necessario
+	 * @param args
+	 *            argomento necessario
 	 */
 	public static void main(final String[] args) {
-		new AnaAziendeControllerImpl();
+		try {
+			new AnaAziendeControllerImpl(DBLoader.loadCompanys());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }

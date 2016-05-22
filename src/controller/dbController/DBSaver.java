@@ -53,6 +53,9 @@ public class DBSaver extends AbstractDB {
 	private static void save(final boolean mustbeSaved, final File file,
 			final LinkedList<? extends IDataTableModel> linkedList) throws IOException {
 		boolean save = mustbeSaved;
+		if (file.getParentFile().mkdir()) {
+			save = true;
+		}
 		if (!file.exists()) {
 			try {
 				file.createNewFile();

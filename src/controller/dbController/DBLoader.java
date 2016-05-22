@@ -38,22 +38,20 @@ public class DBLoader extends AbstractDB {
 		return db;
 	}
 
-	@SuppressWarnings("unchecked")
 	public static LinkedList<Company> loadCompanys() throws IOException {
 		File file = getCompanyFile();
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
+				DBSaver.saveCompanys(new LinkedList<Company>());
 			} catch (IOException e) {
 				throw new IOException("Errore critico di lettura del database. " + e.getMessage());
 			}
 		}
-		try (ObjectInputStream ois = new ObjectInputStream(
-					new BufferedInputStream(
-							new FileInputStream(file)))) {
+		try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
 			Object readElem = ois.readObject();
-			if(readElem instanceof java.util.LinkedList) {
-				 return (LinkedList<Company>) readElem;
+			if (readElem instanceof java.util.LinkedList) {
+				return (LinkedList<Company>) readElem;
 			}
 		} catch (Exception e) {
 			throw new IOException("Errore di lettura. " + e.getMessage());

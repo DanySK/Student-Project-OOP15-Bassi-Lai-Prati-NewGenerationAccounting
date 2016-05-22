@@ -18,114 +18,118 @@ import dataModel.IDataTableModel;
  */
 public class AccountsModel extends AbstractModel {
 
-    private final static String natura = "Natura Conto";
-    private final static String nome = "Nome Conto";
-    private final static String saldo = "Saldo Conto";
-    private DBDataModel db;
+	private final static String natura = "Natura Conto";
+	private final static String nome = "Nome Conto";
+	private final static String saldo = "Saldo Conto";
+	private DBDataModel db;
 
-    LinkedList<Account> listaaccount;
+	LinkedList<Account> listaaccount;
 
-    public AccountsModel(DBDataModel db) {
-        this.db = db;
-    }
+	public AccountsModel(DBDataModel db) {
+		this.db = db;
+	}
 
-    @Override
-    protected void addElem(Map<String, Object> elem) {
-        if (elem.get(nome) == "" || elem.get(natura) == null || (Long) elem.get(saldo) != 0) {
-            throw new IllegalArgumentException("valori non validi");
-        }
-        Account a = new Account(elem.get(nome).toString(), (Natures) elem.get(natura), 0);
-        if (listaaccount.contains(a)) {
-            // throw new Exception("elemento già inserito"); ragionarci bene con
-            // fede
-        }
-        listaaccount.add(a);
-        db.setAccounts(listaaccount);
-    }
+	@Override
+	protected void addElem(Map<String, Object> elem) {
+		if (elem.get(nome) == "" || elem.get(natura) == null || (Long) elem.get(saldo) != 0) {
+			throw new IllegalArgumentException("valori non validi");
+		}
+		Account a = new Account(elem.get(nome).toString(), (Natures) elem.get(natura), 0);
+		if (listaaccount.contains(a)) {
+			// throw new Exception("elemento già inserito"); ragionarci bene
+			// con
+			// fede
+		}
+		listaaccount.add(a);
+		db.setAccounts(listaaccount);
+	}
 
-    @Override
-    protected void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare) {
+	@Override
+	protected void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare) {
 
-    }
+	}
 
-    @Override
-    protected Map<String, Object> getMap() {
-        Map<String, Object> mappa = new HashMap<>();
-        Natures nat = null;
-        mappa.put(nome, new String());
-        mappa.put(natura, nat);
-        mappa.put(saldo, new Long(0));
-        return null;
-    }
+	@Override
+	protected Map<String, Object> getMap() {
+		Map<String, Object> mappa = new HashMap<>();
+		Natures nat = null;
+		mappa.put(nome, new String());
+		mappa.put(natura, nat);
+		mappa.put(saldo, new Long(0));
+		return null;
+	}
 
-    Map<String, Object> getMap(Account obj) {
-        Map<String, Object> mappa = new HashMap<>();
-        mappa.put(nome, obj.getName());
-        mappa.put(natura, obj.getNatura());
-        mappa.put(saldo, obj.getSaldo());
-        return mappa;
-    }
+	Map<String, Object> getMap(Account obj) {
+		Map<String, Object> mappa = new HashMap<>();
+		mappa.put(nome, obj.getName());
+		mappa.put(natura, obj.getNatura());
+		mappa.put(saldo, obj.getSaldo());
+		return mappa;
+	}
 
-    @Override
-    public LinkedList<Account> load() {
-        return new LinkedList<Account>(db.getAccounts());
-    }
+	@Override
+	public LinkedList<Account> load() {
+		return new LinkedList<Account>(db.getAccounts());
+	}
 
-    List<? extends IDataTableModel> load(Natures natura) throws Exception {
-        LinkedList<Account> filtroNatura = new LinkedList<Account>();
-        if (natura.equals(null)) {
-            throw new Exception("natura non valida");
-        } else
-            for (Account a : db.getAccounts()) {
-                if (a.getNatura().equals(natura)) {
-                    filtroNatura.add(a);
-                }
-            }
-        return filtroNatura;
-    }
+	List<? extends IDataTableModel> load(Natures natura) throws Exception {
+		LinkedList<Account> filtroNatura = new LinkedList<Account>();
+		if (natura.equals(null)) {
+			throw new Exception("natura non valida");
+		} else
+			for (Account a : db.getAccounts()) {
+				if (a.getNatura().equals(natura)) {
+					filtroNatura.add(a);
+				}
+			}
+		return filtroNatura;
+	}
 
-    List<? extends IDataTableModel> load(String nome) throws Exception {
-        LinkedList<Account> filtroNome = new LinkedList<Account>();
-        if (nome.isEmpty()) {
-            load();
-            throw new Exception("nome non valido");
-        } else
-            for (Account a : db.getAccounts()) {
-                if (a.getName().contains(nome)) {
-                    filtroNome.add(a);
-                }
-            }
-        return filtroNome;
-    }
+	List<? extends IDataTableModel> load(String nome) throws Exception {
+		LinkedList<Account> filtroNome = new LinkedList<Account>();
+		if (nome.isEmpty()) {
+			load();
+			throw new Exception("nome non valido");
+		} else
+			for (Account a : db.getAccounts()) {
+				if (a.getName().contains(nome)) {
+					filtroNome.add(a);
+				}
+			}
+		return filtroNome;
+	}
 
-    @Override
-    public void remove(IDataTableModel elemDaEliminare) {
-        if (elemDaEliminare.getClass().equals(Account.class)) { //aggiungere eccezione per elemento non trovato
-            Account a = (Account) elemDaEliminare;
-            for (Account elem : listaaccount) {
-                if (elem.getName().equals(a.getName())) {
-                    if (elem.getSaldo() == 0) {
-                        listaaccount.remove(elem);
-                        db.setAccounts(listaaccount);
-                    } else {
-                        // throw new Exception("non posso eliminare l'elemento
-                        // perchè ha saldo != 0");
-                    }
-                }
-            }
-        } else {
-            throw new IllegalArgumentException("elemento non valido");
-        }
+	@Override
+	public void remove(IDataTableModel elemDaEliminare) {
+		if (elemDaEliminare.getClass().equals(Account.class)) { // aggiungere
+																// eccezione per
+																// elemento non
+																// trovato
+			Account a = (Account) elemDaEliminare;
+			for (Account elem : listaaccount) {
+				if (elem.getName().equals(a.getName())) {
+					if (elem.getSaldo() == 0) {
+						listaaccount.remove(elem);
+						db.setAccounts(listaaccount);
+					} else {
+						// throw new Exception("non posso eliminare l'elemento
+						// perchè ha saldo != 0");
+					}
+				}
+			}
+		} else {
+			throw new IllegalArgumentException("elemento non valido");
+		}
 
-        /*
-         * if (listaaccount.contains(elemDaEliminare)) { Account a = new
-         * Account(elemDaEliminare.getClass().);
-         * listaaccount.remove(elemDaEliminare); db.setAccounts(listaaccount); }
-         * else { throw new IllegalArgumentException("sto elemento non esiste."
-         * ); }
-         */
+		/*
+		 * if (listaaccount.contains(elemDaEliminare)) { Account a = new
+		 * Account(elemDaEliminare.getClass().);
+		 * listaaccount.remove(elemDaEliminare); db.setAccounts(listaaccount); }
+		 * else { throw new IllegalArgumentException("sto elemento non esiste."
+		 * ); }
+		 */
 
-    }
+	}
 
 	@Override
 	public DBDataModel saveDBAndClose() {

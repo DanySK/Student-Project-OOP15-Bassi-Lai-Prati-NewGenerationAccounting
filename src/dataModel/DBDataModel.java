@@ -26,7 +26,8 @@ public class DBDataModel implements Serializable {
 	private LinkedList<Product> products;
 	private transient boolean productsModified = false;
 
-	public DBDataModel() {}
+	public DBDataModel() {
+	}
 
 	public DBDataModel(final LinkedList<Account> accounts, final LinkedList<Company> companys,
 			final LinkedList<Customers_Suppliers> customersSuppliers, final LinkedList<Movement> moviments,

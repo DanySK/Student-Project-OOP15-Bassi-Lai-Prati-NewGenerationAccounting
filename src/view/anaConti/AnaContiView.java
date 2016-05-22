@@ -15,7 +15,7 @@ import view.AbstractAnagraficaView;
  *
  */
 public class AnaContiView extends AbstractAnagraficaView<Account> {
- static final long serialVersionUID = 5072597009355844451L;
+	static final long serialVersionUID = 5072597009355844451L;
 
 	/**
 	 * 
