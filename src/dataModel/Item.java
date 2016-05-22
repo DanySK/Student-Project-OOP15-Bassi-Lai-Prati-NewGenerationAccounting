@@ -1,8 +1,10 @@
 package dataModel;
 
 /**
- * Classe per la gestione di un singolo tipo oggetto, verr� usata per il
- * carrello dell'utente
+ * Classe per la gestione di un singolo tipo oggetto, verra' usata per il
+ * carrello dell'utente.
+ * 
+ * Usata da CreaFattureModel per la lista degli "Oggetti" all'interno.
  * 
  * @author Diego
  *
