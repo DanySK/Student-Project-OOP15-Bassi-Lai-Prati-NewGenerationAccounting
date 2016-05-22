@@ -11,7 +11,12 @@ import java.io.ObjectInputStream;
 import java.util.LinkedList;
 
 import dataModel.Company;
+import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
+import dataModel.IDataTableModel;
+import dataModel.Movement;
+import dataModel.Product;
+import model.AccountsModel;
 import view.AbstractFrame;
 
 /**
@@ -57,6 +62,31 @@ public class DBLoader extends AbstractDB {
 
 	@Override
 	public void run() {
+		load(getAccountFile(), AccountsModel.chartOfAccounts());
+		load(getCustomersupplierFile(), new LinkedList<Customers_Suppliers>());
+		load(getMovementFile(), new LinkedList<Movement>());
+		load(getProductFile(), new LinkedList<Product>());
+	}
 
+	private LinkedList<IDataTableModel> load(File file, LinkedList defaultList) {
+		file.getParentFile().mkdir();
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				getView().errorDialog("Errore di IO", "Errore critico di lettura del database. " + e.getMessage());
+				return defaultList;
+			}
+		}
+		try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
+			Object readElem = ois.readObject();
+			if (readElem instanceof java.util.LinkedList) {
+				return (LinkedList<IDataTableModel>) readElem;
+			}
+		} catch (Exception e) {
+			getView().errorDialog("Errore di IO", "Errore critico di lettura del database. " + e.getMessage());
+			return defaultList;
+		}
+		return defaultList;
 	}
 }

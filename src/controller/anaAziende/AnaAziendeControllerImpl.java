@@ -72,7 +72,6 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void tasto2() {
-		// TODO Auto-generated method stub
 
 	}
 

@@ -21,12 +21,14 @@ public abstract class AbstractDB extends Thread {
 	private static final String CUSTOMERSUPPLIER_FILENAME = "customersuppliers.nga";
 	private static final String MOVEMENT_FILENAME = "movements.nga";
 	private static final String PRODUCT_FILENAME = "products.nga";
+
 	/**
 	 * @return the companyFile
 	 */
 	protected static File getCompanyFile() {
 		return new File(DB_PATH + SEPARATOR + COMPANY_FILENAME);
 	}
+
 	private final String path;
 	private final AbstractFrame view;
 
