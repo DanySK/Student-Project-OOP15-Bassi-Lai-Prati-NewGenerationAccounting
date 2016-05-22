@@ -23,16 +23,12 @@ public class Account implements IDataTableModel {
 
 	private Natures natura;
 	private String nome;
-	private long saldo;
+	private float saldo;
 
-	public Account(String nome, Natures natura, long saldo) {
+	public Account(String nome, Natures natura, float saldo) {
 		this.nome = nome;
 		this.natura = natura;
 		this.saldo = saldo;
-	}
-
-	private float decrSaldo(float variazione) {
-		return variazione;
 	}
 
 	@Override
@@ -62,7 +58,7 @@ public class Account implements IDataTableModel {
 		return natura;
 	}
 
-	public long getSaldo() {
+	public float getSaldo() {
 		return saldo;
 	}
 
@@ -78,8 +74,12 @@ public class Account implements IDataTableModel {
 		}
 	}
 
-	private float incrSaldo(float variazione) {
-		return variazione;
+	public float incrSaldo(float variazione) {
+		return this.saldo += variazione;
+	}
+
+	public float decrSaldo(float variazione) {
+		return this.saldo -= variazione;
 	}
 
 	public void setName(String nome) {

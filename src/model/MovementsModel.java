@@ -41,8 +41,9 @@ public class MovementsModel extends AbstractModel {
 			throw new IllegalArgumentException("elemento da inserire non valido");
 		}
 		listaMovimenti.add(m);
-		// qui si richiamerà la funzione per modificare i conti ->
-		// APPLICANDO gli effetti di questo movimento
+		for (Operation op : m.getListaConti()) {
+
+		}
 
 	}
 
@@ -53,14 +54,14 @@ public class MovementsModel extends AbstractModel {
 	}
 
 	@Override
-	protected Map<String, Object> getMap() {
+	public Map<String, Object> getMap() {
 		Map<String, Object> mappa = new HashMap<>();
 		mappa.put(DATA, new Date());
 		mappa.put(LISTA, new LinkedList<Operation>());
 		return mappa;
 	}
 
-	Map<String, Object> getMap(Movement obj) {
+	public Map<String, Object> getMap(Movement obj) {
 		Map<String, Object> mappa = new HashMap<>();
 		mappa.put(DATA, obj.getData());
 		mappa.put(LISTA, obj.getListaConti());

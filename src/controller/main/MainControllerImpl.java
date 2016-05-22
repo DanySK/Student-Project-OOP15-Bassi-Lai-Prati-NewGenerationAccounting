@@ -86,7 +86,6 @@ public class MainControllerImpl implements IViewObserver {
 	@Override
 	public void chiusura() {
 		db.setAccounts(new LinkedList<Account>());
-		System.out.println(db.toString());
 		new DBSaver(db.getPath(), view, db).start();
 		if (view.confirmDialog("Sei sicuro di voler uscire dal programma?", "Uscire")) {
 			System.exit(0);
