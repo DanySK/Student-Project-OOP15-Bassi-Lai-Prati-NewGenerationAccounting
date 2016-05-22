@@ -13,6 +13,17 @@ import java.util.LinkedList;
  *
  */
 public class DBDataModel implements Serializable {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "DBDataModel [accounts=" + accounts + ", customersSuppliers=" + customersSuppliers + ", moviments="
+				+ moviments + ", products=" + products + ", path=" + path + "]";
+	}
+
 	/**
 	 * 
 	 */
@@ -25,14 +36,24 @@ public class DBDataModel implements Serializable {
 	private transient boolean movimentsModified = false;
 	private LinkedList<Product> products;
 	private transient boolean productsModified = false;
+	private transient String path;
 
-	public DBDataModel() {
+	public DBDataModel(final String path) {
+		this.path = path;
+	}
+
+	/**
+	 * @return the path
+	 */
+	public final String getPath() {
+		return path;
 	}
 
 	public DBDataModel(final LinkedList<Account> accounts, final LinkedList<Company> companys,
 			final LinkedList<Customers_Suppliers> customersSuppliers, final LinkedList<Movement> moviments,
-			final LinkedList<Product> products) {
+			final LinkedList<Product> products, final String path) {
 		super();
+		this.path = path;
 		this.accounts = accounts;
 		this.customersSuppliers = customersSuppliers;
 		this.moviments = moviments;
@@ -129,7 +150,7 @@ public class DBDataModel implements Serializable {
 	 */
 	public void setMoviments(LinkedList<Movement> moviments) {
 		this.moviments = moviments;
-		customersSuppliersModified = true;
+		movimentsModified = true;
 	}
 
 	/**
@@ -138,6 +159,6 @@ public class DBDataModel implements Serializable {
 	 */
 	public void setProducts(LinkedList<Product> products) {
 		this.products = products;
-		customersSuppliersModified = true;
+		productsModified = true;
 	}
 }
