@@ -27,9 +27,9 @@ public class MainControllerImpl implements IViewObserver {
 	private final DBDataModel db;
 	private final MainView view;
 
-	public MainControllerImpl() {
+	public MainControllerImpl(DBDataModel db) {
 		this.view = new MainView();
-		this.db = DBLoader.LoadDB("", view);
+		this.db = db;
 		this.view.setObserver(this);
 		view.start();
 	}

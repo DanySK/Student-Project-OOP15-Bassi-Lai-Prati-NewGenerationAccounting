@@ -10,4 +10,9 @@ public class ReceivablesPayablesModel {
 		super();
 		this.db = db;
 	}
+
+	public DBDataModel saveDBAndClose() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

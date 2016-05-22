@@ -69,4 +69,10 @@ public class CustomersSuppliersModel extends AbstractModel {
 			throw new IllegalArgumentException("Elemento non trovato.");
 		}
 	}
+
+	@Override
+	public DBDataModel saveDBAndClose() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

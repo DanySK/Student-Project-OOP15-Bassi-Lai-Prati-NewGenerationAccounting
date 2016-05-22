@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import dataModel.Company;
+import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 
 /**
@@ -59,6 +60,12 @@ public class CompanyModel extends AbstractModel {
 		} else {
 			throw new IllegalArgumentException("Elemento non trovato.");
 		}
+	}
+
+	@Override
+	public DBDataModel saveDBAndClose() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

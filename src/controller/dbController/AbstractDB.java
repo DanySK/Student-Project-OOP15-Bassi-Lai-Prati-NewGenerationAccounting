@@ -3,6 +3,8 @@
  */
 package controller.dbController;
 
+import java.io.File;
+
 import dataModel.DBDataModel;
 import view.AbstractFrame;
 
@@ -13,7 +15,7 @@ import view.AbstractFrame;
 public abstract class AbstractDB extends Thread {
 
 	private static final String SEPARATOR = "path.separator";
-	private static final String DB_PATH = "user.home" + SEPARATOR + "NewGenerationAccounting" + SEPARATOR;
+	private static final String DB_PATH = "user.home" + SEPARATOR + "NewGenerationAccounting";
 	private static final String ACCOUNT_FILENAME = "accounts.nga";
 	private static final String COMPANY_FILENAME = "companys.nga";
 	private static final String CUSTOMERSUPPLIER_FILENAME = "customersuppliers.nga";
@@ -22,13 +24,6 @@ public abstract class AbstractDB extends Thread {
 	private final String path;
 	private final AbstractFrame view;
 	private final DBDataModel db;
-
-	/**
-	 * @return the path
-	 */
-	protected final String getPath() {
-		return path;
-	}
 
 	/**
 	 * @return the view
@@ -43,62 +38,52 @@ public abstract class AbstractDB extends Thread {
 	protected final DBDataModel getDb() {
 		return db;
 	}
+	
+	private File getFile(String fileName){
+		return new File(DB_PATH + SEPARATOR + path + SEPARATOR + fileName);
+	}
 
 	/**
 	 * 
 	 */
-	public AbstractDB(final String path, final AbstractFrame view, final DBDataModel db) {
+	protected AbstractDB(final String path, final AbstractFrame view, final DBDataModel db) {
 		this.path = path;
 		this.view = view;
 		this.db = db;
 	}
 
 	/**
-	 * @return the accountFilename
+	 * @return the accountFile
 	 */
-	protected static String getAccountFilename() {
-		return ACCOUNT_FILENAME;
+	protected File getAccountFile() {
+		return getFile(ACCOUNT_FILENAME);
 	}
 
 	/**
-	 * @return the companyFilename
+	 * @return the companyFile
 	 */
-	protected static final String getCompanyFilename() {
-		return COMPANY_FILENAME;
+	protected static File getCompanyFile() {
+		return new File(DB_PATH + SEPARATOR + COMPANY_FILENAME);
 	}
 
 	/**
-	 * @return the customersupplierFilename
+	 * @return the customersupplierFile
 	 */
-	protected static final String getCustomersupplierFilename() {
-		return CUSTOMERSUPPLIER_FILENAME;
+	protected File getCustomersupplierFile() {
+		return getFile(CUSTOMERSUPPLIER_FILENAME);
 	}
 
 	/**
-	 * @return the movementFilename
+	 * @return the movementFile
 	 */
-	protected static final String getMovementFilename() {
-		return MOVEMENT_FILENAME;
+	protected File getMovementFile() {
+		return getFile(MOVEMENT_FILENAME);
 	}
 
 	/**
-	 * @return the productFilename
+	 * @return the productFile
 	 */
-	protected static final String getProductFilename() {
-		return PRODUCT_FILENAME;
-	}
-
-	/**
-	 * @return the separator
-	 */
-	protected static String getSeparator() {
-		return SEPARATOR;
-	}
-
-	/**
-	 * @return the dbPath
-	 */
-	protected static String getDbPath() {
-		return DB_PATH;
+	protected File getProductFile() {
+		return getFile(PRODUCT_FILENAME);
 	}
 }

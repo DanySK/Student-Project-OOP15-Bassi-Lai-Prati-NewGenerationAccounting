@@ -3,6 +3,7 @@ package controller.anaAziende;
 import java.util.LinkedList;
 
 import controller.IAnagraficaViewObserver;
+import controller.dbController.DBLoader;
 import controller.main.MainControllerImpl;
 import dataModel.Company;
 import dataModel.DBDataModel;
@@ -32,13 +33,8 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void chiusura() {
-		if (noCompany) {
-			if (view.confirmDialog("Sei sicuro di voler uscire dal programma?", "Uscire")) {
-				System.exit(0);
-			}
-		} else {
-			view.close();
-			new MainControllerImpl();
+		if (view.confirmDialog("Sei sicuro di voler uscire dal programma?", "Uscire")) {
+			System.exit(0);
 		}
 	}
 
@@ -69,7 +65,7 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	public void accedi(final Company objectAt, final char[] password) {
 		if (model.isPasswordCorrect(password, objectAt)) {
 			view.close();
-			new MainControllerImpl();
+			new MainControllerImpl(DBLoader.loadDB(Integer.toString(objectAt.getCodice_azienda()), view));
 		} else {
 			view.errorDialog("Password errata", "Password Errata, riprovare.");
 		}

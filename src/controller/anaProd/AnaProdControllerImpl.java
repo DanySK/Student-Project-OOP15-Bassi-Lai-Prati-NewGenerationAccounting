@@ -16,7 +16,6 @@ import view.anaProd.AnaProdView;
  *
  */
 public class AnaProdControllerImpl implements IAnagraficaViewObserver {
-
 	private final ProductsModel model;
 	private final AnaProdView view;
 
@@ -38,7 +37,7 @@ public class AnaProdControllerImpl implements IAnagraficaViewObserver {
 	@Override
 	public void chiusura() {
 		view.close();
-		new MainControllerImpl();
+		new MainControllerImpl(model.saveDBAndClose());
 
 	}
 

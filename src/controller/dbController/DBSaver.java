@@ -29,11 +29,10 @@ public class DBSaver extends AbstractDB {
 	public void run() {
 		final DBDataModel db = getDb();
 		try {
-			save(db.isAccountsModified(), getPath() + getSeparator() + getAccountFilename(), db.getAccounts());
-			save(db.isCustomersSuppliersModified(), getPath() + getSeparator() + getCustomersupplierFilename(),
-					db.getCustomersSuppliers());
-			save(db.isMovimentsModified(), getPath() + getSeparator() + getMovementFilename(), db.getMoviments());
-			save(db.isProductsModified(), getPath() + getSeparator() + getProductFilename(), db.getProducts());
+			save(db.isAccountsModified(), getAccountFile(), db.getAccounts());
+			save(db.isCustomersSuppliersModified(), getCustomersupplierFile(), db.getCustomersSuppliers());
+			save(db.isMovimentsModified(), getMovementFile(), db.getMoviments());
+			save(db.isProductsModified(), getProductFile(), db.getProducts());
 		} catch (IOException e) {
 			getView().errorDialog("Errore di Scrittura", e.getMessage());
 		}
@@ -51,10 +50,9 @@ public class DBSaver extends AbstractDB {
 	 *            the linked list that must be saved
 	 * @throws IOException
 	 */
-	private static void save(final boolean mustbeSaved, final String filePath,
+	private static void save(final boolean mustbeSaved, final File file,
 			final LinkedList<? extends IDataTableModel> linkedList) throws IOException {
 		boolean save = mustbeSaved;
-		File file = new File(filePath);
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
@@ -74,6 +72,6 @@ public class DBSaver extends AbstractDB {
 	}
 
 	public static void saveCompanys(final LinkedList<Company> companys) throws IOException {
-		save(true, getDbPath() + getCompanyFilename(), companys);
+		save(true, getCompanyFile(), companys);
 	}
 }

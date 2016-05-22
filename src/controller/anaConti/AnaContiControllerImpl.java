@@ -16,7 +16,6 @@ import view.anaConti.AnaContiView;
  *
  */
 public class AnaContiControllerImpl implements IAnagraficaViewObserver {
-
 	private final AccountsModel model;
 	private final AnaContiView view;
 
@@ -38,7 +37,7 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	@Override
 	public void chiusura() {
 		view.close();
-		new MainControllerImpl();
+		new MainControllerImpl(model.saveDBAndClose());
 	}
 
 	/*

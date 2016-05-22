@@ -100,4 +100,10 @@ public class MovementsModel extends AbstractModel {
             }
         }
     }
+
+	@Override
+	public DBDataModel saveDBAndClose() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

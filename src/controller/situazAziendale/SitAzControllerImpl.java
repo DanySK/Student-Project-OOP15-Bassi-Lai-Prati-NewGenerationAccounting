@@ -40,7 +40,7 @@ public class SitAzControllerImpl implements IViewObserver {
 	@Override
 	public void chiusura() {
 		view.close();
-		new MainControllerImpl();
+		new MainControllerImpl(model.saveDBAndClose());
 	}
 
 }

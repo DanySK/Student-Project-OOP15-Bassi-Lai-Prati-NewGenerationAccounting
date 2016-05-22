@@ -3,6 +3,14 @@
  */
 package controller.dbController;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.LinkedList;
+
+import dataModel.Company;
 import dataModel.DBDataModel;
 import view.AbstractFrame;
 
@@ -24,10 +32,32 @@ public class DBLoader extends AbstractDB {
 
 	}
 
-	public static DBDataModel LoadDB(final String path, final AbstractFrame view) {
+	public static DBDataModel loadDB(final String path, final AbstractFrame view) {
 		DBDataModel db = new DBDataModel();
-		DBLoader dlb = new DBLoader(path, view, db);
-		dlb.start();
+		new DBLoader(path, view, db).start();
 		return db;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static LinkedList<Company> loadCompanys() throws IOException {
+		File file = getCompanyFile();
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				throw new IOException("Errore critico di lettura del database. " + e.getMessage());
+			}
+		}
+		try (ObjectInputStream ois = new ObjectInputStream(
+					new BufferedInputStream(
+							new FileInputStream(file)))) {
+			Object readElem = ois.readObject();
+			if(readElem instanceof java.util.LinkedList) {
+				 return (LinkedList<Company>) readElem;
+			}
+		} catch (Exception e) {
+			throw new IOException("Errore di lettura. " + e.getMessage());
+		}
+		return new LinkedList<Company>();
 	}
 }

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.Map;
 
+import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 
 /**
@@ -13,6 +14,8 @@ import dataModel.IDataTableModel;
  * @throws ParseException
  */
 public abstract class AbstractModel {
+	
+	public abstract DBDataModel saveDBAndClose();
 
 	/**
 	 * operazione di aggiunta di un nuovo oggetto al dataBase del programma

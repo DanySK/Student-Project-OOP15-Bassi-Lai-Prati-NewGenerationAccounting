@@ -88,4 +88,9 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 
 	}
 
+	public DBDataModel saveDBAndClose() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
