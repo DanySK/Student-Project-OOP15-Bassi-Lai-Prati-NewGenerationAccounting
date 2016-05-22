@@ -10,6 +10,7 @@ import java.awt.FlowLayout;
 import java.util.Date;
 import java.util.Map;
 
+import javax.management.InstanceAlreadyExistsException;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -39,11 +40,10 @@ public class AddEditPopupView extends AbstractWideView {
 	 * @param title
 	 * @param dimension
 	 */
-	public AddEditPopupView(final IDataTableModel obj, final String title, final Dimension dimension,
-			final AbstractModel model) {
+	public AddEditPopupView(final IDataTableModel obj, final String title, final Dimension dimension, final AbstractModel model) {
 		super(title, dimension);
 		this.model = model;
-		Map<String, Object> mappa = model.g;
+		Map<String, Object> mappa = model.getMap();
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		JComponent field;
@@ -97,9 +97,27 @@ public class AddEditPopupView extends AbstractWideView {
 	}
 
 	private void add() {
+		try {
+			model.add(null);
+		} catch (InstanceAlreadyExistsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void edit() {
+		try {
+			model.add(null);
+		} catch (InstanceAlreadyExistsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

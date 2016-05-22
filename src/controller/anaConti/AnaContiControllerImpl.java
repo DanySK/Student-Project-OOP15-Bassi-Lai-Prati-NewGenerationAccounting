@@ -3,10 +3,13 @@
  */
 package controller.anaConti;
 
+import java.awt.Dimension;
+
 import controller.IAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
 import dataModel.DBDataModel;
 import model.AccountsModel;
+import view.AddEditPopupView;
 import view.anaConti.AnaContiView;
 
 /**
@@ -58,8 +61,7 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	 */
 	@Override
 	public void tasto1() {
-		// TODO Auto-generated method stub
-
+		new AddEditPopupView(null, view.getTitle(), new Dimension(300, 400), model).start();
 	}
 
 	/*
@@ -69,8 +71,7 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	 */
 	@Override
 	public void tasto2() {
-		// TODO Auto-generated method stub
-
+		new AddEditPopupView(view.getSelectedItem(), view.getTitle(), new Dimension(300, 400), model).start();
 	}
 
 	/*
