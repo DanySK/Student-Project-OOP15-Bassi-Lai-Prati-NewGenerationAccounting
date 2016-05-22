@@ -8,7 +8,8 @@ import java.awt.Dimension;
 import view.AbstractWideView;
 
 /**
- * view per visualizzare la situazione aziendale con stato patrimoniale, conto economico e commento.
+ * view per visualizzare la situazione aziendale con stato patrimoniale, conto
+ * economico e commento.
  * 
  * @author Pentolo
  *

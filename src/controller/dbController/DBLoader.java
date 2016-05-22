@@ -20,6 +20,34 @@ import view.AbstractFrame;
  */
 public class DBLoader extends AbstractDB {
 
+	public static LinkedList<Company> loadCompanys() throws IOException {
+		File file = getCompanyFile();
+		file.getParentFile().mkdir();
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+				DBSaver.saveCompanys(new LinkedList<Company>());
+			} catch (IOException e) {
+				throw new IOException("Errore critico di lettura del database. " + e.getMessage());
+			}
+		}
+		try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
+			Object readElem = ois.readObject();
+			if (readElem instanceof java.util.LinkedList) {
+				return (LinkedList<Company>) readElem;
+			}
+		} catch (Exception e) {
+			throw new IOException("Errore di lettura. " + e.getMessage());
+		}
+		return new LinkedList<Company>();
+	}
+
+	public static DBDataModel loadDB(final String path, final AbstractFrame view) {
+		DBDataModel db = new DBDataModel();
+		new DBLoader(path, view, db).start();
+		return db;
+	}
+
 	/**
 	 * 
 	 */
@@ -30,34 +58,5 @@ public class DBLoader extends AbstractDB {
 	@Override
 	public void run() {
 
-	}
-
-	public static DBDataModel loadDB(final String path, final AbstractFrame view) {
-		DBDataModel db = new DBDataModel();
-		new DBLoader(path, view, db).start();
-		return db;
-	}
-
-	@SuppressWarnings("unchecked")
-	public static LinkedList<Company> loadCompanys() throws IOException {
-		File file = getCompanyFile();
-		if (!file.exists()) {
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				throw new IOException("Errore critico di lettura del database. " + e.getMessage());
-			}
-		}
-		try (ObjectInputStream ois = new ObjectInputStream(
-					new BufferedInputStream(
-							new FileInputStream(file)))) {
-			Object readElem = ois.readObject();
-			if(readElem instanceof java.util.LinkedList) {
-				 return (LinkedList<Company>) readElem;
-			}
-		} catch (Exception e) {
-			throw new IOException("Errore di lettura. " + e.getMessage());
-		}
-		return new LinkedList<Company>();
 	}
 }

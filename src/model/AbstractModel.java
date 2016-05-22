@@ -11,70 +11,72 @@ import dataModel.IDataTableModel;
 
 public abstract class AbstractModel {
 
-    public abstract DBDataModel saveDBAndClose();
+	/**
+	 * funzione di salvataggio dei dati del database
+	 * 
+	 * @author niky
+	 * @throws InstanceAlreadyExistsException
+	 */
 
-    /**
-     * funzione di salvataggio dei dati del database
-     * 
-     * @author niky 
-     * @throws InstanceAlreadyExistsException 
-     */
+	public void add(Map<String, Object> elem) throws IllegalArgumentException, InstanceAlreadyExistsException {
+		addElem(elem);
+	}
 
-    public void add(Map<String, Object> elem) throws IllegalArgumentException, InstanceAlreadyExistsException{
-        addElem(elem);
-    }
+	/**
+	 * operazione per cercare e modificare un oggetto all'interno del dataBase
+	 * 
+	 * @author niky
+	 * 
+	 * @param obj,
+	 *            infoDaModificare l'oggetto da modificare e le nuove
+	 *            informazioni
+	 * @throws InstanceAlreadyExistsException
+	 * @throws InstanceNotFoundException
+	 */
 
-    /**
-     * operazione di aggiunta di un nuovo oggetto al dataBase del programma
-     * 
-     * @author niky
-     * @throws ParseException
-     * @param elem
-     *            mappa contenente le informazioni sull'elemento da aggiungere
-     */
-    public abstract LinkedList<? extends IDataTableModel> load();
+	protected abstract void addElem(Map<String, Object> elem)
+			throws IllegalArgumentException, InstanceAlreadyExistsException;
 
-    /**
-     * operazione per restituire alla view i dati del dataBase da mostrare
-     * all'utente
-     * 
-     * @return ritorna i dati richiesti
-     * 
-     * @author niky
-     */
+	/**
+	 * operazione per rimuovere un oggetto dal dataBase
+	 * 
+	 * @author niky
+	 * 
+	 * @param elem
+	 *            elemento da modificare
+	 * @throws InstanceNotFoundException
+	 */
 
-    public abstract void remove(IDataTableModel elem) throws InstanceNotFoundException;
+	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare) throws InstanceNotFoundException {
+		editElem(obj, infoDaModificare);
+	}
 
-    /**
-     * operazione per rimuovere un oggetto dal dataBase
-     * 
-     * @author niky
-     * 
-     * @param elem
-     *            elemento da modificare
-     * @throws InstanceNotFoundException
-     */
+	protected abstract void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare)
+			throws InstanceNotFoundException;
 
-    public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare) throws InstanceNotFoundException {
-        editElem(obj, infoDaModificare);
-    }
+	protected abstract Map<String, Object> getMap();
 
-    /**
-     * operazione per cercare e modificare un oggetto all'interno del dataBase
-     * 
-     * @author niky
-     * 
-     * @param obj,
-     *            infoDaModificare l'oggetto da modificare e le nuove
-     *            informazioni
-     * @throws InstanceAlreadyExistsException 
-     * @throws InstanceNotFoundException 
-     */
+	/**
+	 * operazione di aggiunta di un nuovo oggetto al dataBase del programma
+	 * 
+	 * @author niky
+	 * @throws ParseException
+	 * @param elem
+	 *            mappa contenente le informazioni sull'elemento da aggiungere
+	 */
+	public abstract LinkedList<? extends IDataTableModel> load();
 
-    protected abstract void addElem(Map<String, Object> elem) throws IllegalArgumentException, InstanceAlreadyExistsException;
+	/**
+	 * operazione per restituire alla view i dati del dataBase da mostrare
+	 * all'utente
+	 * 
+	 * @return ritorna i dati richiesti
+	 * 
+	 * @author niky
+	 */
 
-    protected abstract void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare) throws InstanceNotFoundException;
+	public abstract void remove(IDataTableModel elem) throws InstanceNotFoundException;
 
-    protected abstract Map<String, Object> getMap();
+	public abstract DBDataModel saveDBAndClose();
 
 }

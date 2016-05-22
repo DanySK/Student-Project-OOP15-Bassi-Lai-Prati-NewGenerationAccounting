@@ -24,8 +24,8 @@ public class Movement implements IDataTableModel {
 
 	private Date data;
 	private List<Operation> listaConti;
-	
-	public Movement(Date data, LinkedList<Operation> object){
+
+	public Movement(Date data, LinkedList<Operation> object) {
 		this.data = data;
 		this.listaConti = new LinkedList<>(object);
 	}

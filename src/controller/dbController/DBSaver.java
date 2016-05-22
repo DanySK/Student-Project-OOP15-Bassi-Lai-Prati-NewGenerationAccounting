@@ -21,38 +21,12 @@ import view.AbstractFrame;
  */
 public class DBSaver extends AbstractDB {
 
-	public DBSaver(final String path, final AbstractFrame view, final DBDataModel db) {
-		super(path, view, db);
-	}
-
-	@Override
-	public void run() {
-		final DBDataModel db = getDb();
-		try {
-			save(db.isAccountsModified(), getAccountFile(), db.getAccounts());
-			save(db.isCustomersSuppliersModified(), getCustomersupplierFile(), db.getCustomersSuppliers());
-			save(db.isMovimentsModified(), getMovementFile(), db.getMoviments());
-			save(db.isProductsModified(), getProductFile(), db.getProducts());
-		} catch (IOException e) {
-			getView().errorDialog("Errore di Scrittura", e.getMessage());
-		}
-		db.resetBooleans();
-	}
-
-	/**
-	 * saves the linked list.
-	 * 
-	 * @param mustbeSaved
-	 *            show if must be saved or must check existance
-	 * @param fileName
-	 *            the file name
-	 * @param linkedList
-	 *            the linked list that must be saved
-	 * @throws IOException
-	 */
 	private static void save(final boolean mustbeSaved, final File file,
 			final LinkedList<? extends IDataTableModel> linkedList) throws IOException {
 		boolean save = mustbeSaved;
+		if (file.getParentFile().mkdir()) {
+			save = true;
+		}
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
@@ -73,5 +47,23 @@ public class DBSaver extends AbstractDB {
 
 	public static void saveCompanys(final LinkedList<Company> companys) throws IOException {
 		save(true, getCompanyFile(), companys);
+	}
+
+	public DBSaver(final String path, final AbstractFrame view, final DBDataModel db) {
+		super(path, view, db);
+	}
+
+	@Override
+	public void run() {
+		final DBDataModel db = getDb();
+		try {
+			save(db.isAccountsModified(), getAccountFile(), db.getAccounts());
+			save(db.isCustomersSuppliersModified(), getCustomersupplierFile(), db.getCustomersSuppliers());
+			save(db.isMovimentsModified(), getMovementFile(), db.getMoviments());
+			save(db.isProductsModified(), getProductFile(), db.getProducts());
+		} catch (IOException e) {
+			getView().errorDialog("Errore di Scrittura", e.getMessage());
+		}
+		db.resetBooleans();
 	}
 }
