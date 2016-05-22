@@ -9,7 +9,7 @@ import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 
 /**
- * Classe implementativa per la gestione dell'anagrafica aziende
+ * Classe implementativa per la gestione dell'anagrafica aziende e la creazione di quest'ultime.
  * 
  * @author Diego
  *
@@ -18,6 +18,12 @@ import dataModel.IDataTableModel;
 public class CompanyModel extends AbstractModel {
 	LinkedList<Company> listaAziende;
 
+	private DBDataModel db;
+
+	public CompanyModel(DBDataModel db) {
+		this.db = db;
+	}
+	
 	public CompanyModel(LinkedList<Company> linkedList) {
 		listaAziende = linkedList;
 	}
@@ -70,8 +76,13 @@ public class CompanyModel extends AbstractModel {
 	/**
 	 * metodo inutilizzabile. usare saveCompanysAndClose()
 	 */
+	
+
 	@Override
 	public DBDataModel saveDBAndClose() {
+		// TODO Auto-generated method stub
 		return null;
 	}
+	
+
 }
