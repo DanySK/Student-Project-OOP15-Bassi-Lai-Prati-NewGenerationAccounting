@@ -1,7 +1,7 @@
-import java.io.IOException;
+import java.awt.Dimension;
 
-import controller.anaAziende.AnaAziendeControllerImpl;
-import controller.dbController.DBLoader;
+import model.AccountsModel;
+import view.AddEditPopupView;
 
 /**
  * 
@@ -21,13 +21,11 @@ public class ApplicationStart {
 	 */
 	public static void main(final String[] args) {
 
-		try {
-			new AnaAziendeControllerImpl(DBLoader.loadCompanys());
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
+		/*
+		 * try { new AnaAziendeControllerImpl(DBLoader.loadCompanys()); } catch
+		 * (IOException e) { System.out.println(e.getMessage()); }
+		 */
 
-		// new AddEditPopupView("modifica", new Dimension(500, 400), new
-		// AccountsModel(null).getMap()).start();
+		new AddEditPopupView("modifica", new Dimension(500, 400), new AccountsModel(null).getMap()).start();
 	}
 }
