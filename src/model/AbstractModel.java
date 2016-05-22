@@ -54,7 +54,7 @@ public abstract class AbstractModel {
 	protected abstract void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare)
 			throws InstanceNotFoundException;
 
-	abstract Map<String, Object> getMap();
+	public abstract Map<String, Object> getMap();
 
 	/**
 	 * operazione di aggiunta di un nuovo oggetto al dataBase del programma

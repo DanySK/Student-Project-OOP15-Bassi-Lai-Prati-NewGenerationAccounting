@@ -54,14 +54,14 @@ public class MovementsModel extends AbstractModel {
 	}
 
 	@Override
-	Map<String, Object> getMap() {
+	public Map<String, Object> getMap() {
 		Map<String, Object> mappa = new HashMap<>();
 		mappa.put(DATA, new Date());
 		mappa.put(LISTA, new LinkedList<Operation>());
 		return mappa;
 	}
 
-	Map<String, Object> getMap(Movement obj) {
+	public Map<String, Object> getMap(Movement obj) {
 		Map<String, Object> mappa = new HashMap<>();
 		mappa.put(DATA, obj.getData());
 		mappa.put(LISTA, obj.getListaConti());
