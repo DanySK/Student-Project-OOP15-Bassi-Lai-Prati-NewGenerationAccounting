@@ -24,10 +24,12 @@ public class AccountsModel extends AbstractModel {
 	private final static String NATURA = "Natura Conto";
 	private final static String NOME = "Nome Conto";
 	private final static String SALDO = "Saldo Conto";
+
 	public static LinkedList<Account> chartOfAccounts() {
 		return null;
 
 	}
+
 	private boolean trovato = false;
 
 	private DBDataModel db;
@@ -79,16 +81,16 @@ public class AccountsModel extends AbstractModel {
 	}
 
 	@Override
-	protected Map<String, Object> getMap() {
+	public Map<String, Object> getMap() {
 		Map<String, Object> mappa = new HashMap<>();
 		Natures nat = null;
 		mappa.put(NOME, new String());
 		mappa.put(NATURA, nat);
 		mappa.put(SALDO, new Long(0));
-		return null;
+		return mappa;
 	}
 
-	Map<String, Object> getMap(Account obj) {
+	public Map<String, Object> getMap(Account obj) {
 		Map<String, Object> mappa = new HashMap<>();
 		mappa.put(NOME, obj.getName());
 		mappa.put(NATURA, obj.getNatura());

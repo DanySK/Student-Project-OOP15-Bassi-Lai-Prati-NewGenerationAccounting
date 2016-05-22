@@ -54,7 +54,7 @@ public class MainView extends AbstractWideView {
 	private String[] listaBtn;
 
 	public MainView() {
-		super(Messages.getString("MainView.8"), new Dimension(275, 350));
+		super(Messages.getString("MainView.8"), new Dimension(300, 350));
 		int maxBtn = Integer.parseInt(Messages.getString("MainView.500"));
 		listaBtn = new String[maxBtn];
 		JPanel panel = new JPanel();
