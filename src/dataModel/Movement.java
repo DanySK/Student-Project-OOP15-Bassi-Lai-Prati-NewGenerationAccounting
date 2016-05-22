@@ -23,19 +23,18 @@ public class Movement implements IDataTableModel {
 	}
 
 	private Date data;
-
-	private List<Account> listaConti;
-
-	public Movement(Date data, List<Account> lista) {
+	private List<Operation> listaConti;
+	
+	public Movement(Date data, LinkedList<Operation> object){
 		this.data = data;
-		this.listaConti = new LinkedList<>(lista);
+		this.listaConti = new LinkedList<>(object);
 	}
 
 	public Date getData() {
 		return data;
 	}
 
-	public List<Account> getListaConti() {
+	public List<Operation> getListaConti() {
 		return listaConti;
 	}
 
@@ -45,8 +44,8 @@ public class Movement implements IDataTableModel {
 		case 0:
 			return getData().toString();
 		case 1:
-			for (Account a : listaConti) {
-				return a.getName() + a.getSaldo();
+			for (Operation o : listaConti) {
+				return o.getConto().getName() + o.getDare() + o.getAvere();
 			}
 		default:
 			return "";
@@ -57,7 +56,7 @@ public class Movement implements IDataTableModel {
 		this.data = data;
 	}
 
-	public void setListaConti(List<Account> listaContiUsati) {
+	public void setListaConti(List<Operation> listaContiUsati) {
 		this.listaConti = listaContiUsati;
 	}
 
