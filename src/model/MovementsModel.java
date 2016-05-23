@@ -48,15 +48,16 @@ public class MovementsModel extends AbstractModel {
 	}
 
 	@Override
-	public void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare) throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException {
+	public void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare)
+			throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException {
 		if (obj.getClass().equals(Movement.class)) {
 			Movement m = new Movement(null, null);
 			m.setData((Date) elemDaModificare.get(DATA));
 			m.setListaConti((List<Operation>) elemDaModificare.get(LISTA));
 			for (Movement mov : listaMovimenti) {
 				if (mov.equals(obj)) {
-				    remove(mov);
-				    add(elemDaModificare);
+					remove(mov);
+					add(elemDaModificare);
 				}
 			}
 		}
@@ -64,21 +65,19 @@ public class MovementsModel extends AbstractModel {
 
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
-		if(obj.equals(null)){
-		    Map<String, Object> mappaVuota = new HashMap<>();
-		    mappaVuota.put(DATA, new Date());
-		    mappaVuota.put(LISTA, new LinkedList<Operation>());
-		    return mappaVuota;
-		}else
-		    {
-		    if(obj.getClass().equals(Movement.class)){
-		        Map<String, Object> mappaPiena = new HashMap<>();
-		        mappaPiena.put(DATA, ((Movement) obj).getData());
-		        mappaPiena.put(LISTA, ((Movement) obj).getListaConti());
-		        return mappaPiena;
-		    }
-		    else
-		        throw new IllegalArgumentException("valori non validi");
+		if (obj.equals(null)) {
+			Map<String, Object> mappaVuota = new HashMap<>();
+			mappaVuota.put(DATA, new Date());
+			mappaVuota.put(LISTA, new LinkedList<Operation>());
+			return mappaVuota;
+		} else {
+			if (obj.getClass().equals(Movement.class)) {
+				Map<String, Object> mappaPiena = new HashMap<>();
+				mappaPiena.put(DATA, ((Movement) obj).getData());
+				mappaPiena.put(LISTA, ((Movement) obj).getListaConti());
+				return mappaPiena;
+			} else
+				throw new IllegalArgumentException("valori non validi");
 		}
 	}
 

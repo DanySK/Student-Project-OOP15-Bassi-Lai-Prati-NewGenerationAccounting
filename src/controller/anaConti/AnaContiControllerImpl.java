@@ -58,7 +58,11 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void edit(Map<String, Object> mappa) throws InstanceNotFoundException {
-		model.edit(view.getSelectedItem(), mappa);
+		try {
+			model.edit(view.getSelectedItem(), mappa);
+		} catch (InstanceAlreadyExistsException | IllegalArgumentException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
 	}
 
 	@Override
@@ -99,7 +103,11 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	 */
 	@Override
 	public void tasto2() {
-		new AddEditPopupView(view.getSelectedItem(), view.getTitle(), new Dimension(300, 400), this, view).start();
+		try {
+			new AddEditPopupView(view.getSelectedItem(), view.getTitle(), new Dimension(300, 400), this, view).start();
+		} catch (InstanceNotFoundException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
 	}
 
 	/*
@@ -109,7 +117,11 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	 */
 	@Override
 	public void tasto3() {
-		// TODO Auto-generated method stub
-
+		try {
+			model.remove(view.getSelectedItem());
+		} catch (InstanceNotFoundException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
+		refresh();
 	}
 }

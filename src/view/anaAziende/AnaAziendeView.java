@@ -40,7 +40,12 @@ public class AnaAziendeView extends AbstractAnagraficaView<Company> {
 		topPanel.add(accediButton);
 		MyFrame.getContentPane().add(topPanel, BorderLayout.NORTH);
 		accediButton.addActionListener(e -> {
-			Company item = (Company) getSelectedItem();
+			Company item = null;
+			try {
+				item = (Company) getSelectedItem();
+			} catch (Exception ex) {
+				errorDialog("Errore", ex.getMessage());
+			}
 			if (item != null) {
 				((AnaAziendeControllerImpl) observer).accedi(passwordField.getPassword());
 			} else {

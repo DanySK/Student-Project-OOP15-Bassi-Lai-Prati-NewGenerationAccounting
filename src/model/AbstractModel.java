@@ -45,11 +45,12 @@ public abstract class AbstractModel {
 	 * @param elem
 	 *            elemento da modificare
 	 * @throws InstanceNotFoundException
-	 * @throws IllegalArgumentException 
-	 * @throws InstanceAlreadyExistsException 
+	 * @throws IllegalArgumentException
+	 * @throws InstanceAlreadyExistsException
 	 */
 
-	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare) throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException {
+	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare)
+			throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException {
 		editElem(obj, infoDaModificare);
 	}
 

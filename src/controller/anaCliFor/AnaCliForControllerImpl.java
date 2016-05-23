@@ -3,6 +3,7 @@
  */
 package controller.anaCliFor;
 
+import java.awt.Dimension;
 import java.util.Map;
 
 import javax.management.InstanceAlreadyExistsException;
@@ -13,6 +14,7 @@ import controller.main.MainControllerImpl;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 import model.CustomersSuppliersModel;
+import view.AddEditPopupView;
 import view.anaCliFor.AnaCliForView;
 
 /**
@@ -55,20 +57,21 @@ public class AnaCliForControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void edit(Map<String, Object> mappa) throws InstanceNotFoundException {
-		// TODO Auto-generated method stub
-
+		try {
+			model.edit(view.getSelectedItem(), mappa);
+		} catch (Exception e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
 	}
 
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
-		// TODO Auto-generated method stub
-		return null;
+		return model.getMap(obj);
 	}
 
 	@Override
 	public void refresh() {
-		// TODO Auto-generated method stub
-
+		view.setList(model.load());
 	}
 
 	/*
@@ -89,8 +92,7 @@ public class AnaCliForControllerImpl implements IAnagraficaViewObserver {
 	 */
 	@Override
 	public void tasto1() {
-		// TODO Auto-generated method stub
-
+		new AddEditPopupView(null, view.getTitle(), new Dimension(300, 400), this, view).start();
 	}
 
 	/*
@@ -100,8 +102,11 @@ public class AnaCliForControllerImpl implements IAnagraficaViewObserver {
 	 */
 	@Override
 	public void tasto2() {
-		// TODO Auto-generated method stub
-
+		try {
+			new AddEditPopupView(view.getSelectedItem(), view.getTitle(), new Dimension(300, 400), this, view).start();
+		} catch (InstanceNotFoundException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
 	}
 
 	/*
@@ -111,7 +116,11 @@ public class AnaCliForControllerImpl implements IAnagraficaViewObserver {
 	 */
 	@Override
 	public void tasto3() {
-		// TODO Auto-generated method stub
-
+		try {
+			model.remove(view.getSelectedItem());
+		} catch (InstanceNotFoundException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
+		refresh();
 	}
 }

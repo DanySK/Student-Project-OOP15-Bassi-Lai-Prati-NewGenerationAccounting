@@ -26,14 +26,14 @@ public class AccountsModel extends AbstractModel {
 	private final static String NOME = "Nome Conto";
 	private final static String SALDO = "Saldo Conto";
 	private boolean trovato = false;
-        private DBDataModel db;
+	private DBDataModel db;
 
-        public LinkedList<Account> listaaccount;
-	
+	public LinkedList<Account> listaaccount;
+
 	public static LinkedList<Account> chartOfAccounts() {
 		return null;
 	}
-	
+
 	public AccountsModel(DBDataModel db) {
 		this.db = db;
 		listaaccount = new LinkedList<Account>();
@@ -80,24 +80,22 @@ public class AccountsModel extends AbstractModel {
 
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
-		if(obj.equals(null)){
-		    Map<String, Object> mappaVuota = new HashMap<>();
-		    mappaVuota.put(NOME, new String());
-		    mappaVuota.put(NATURA,Natures.DEFAULT);
-		    mappaVuota.put(SALDO, new Float(0));
-		    return mappaVuota;
-		}
-		else {
-		    if (obj.getClass().equals(Account.class)){
-		        Map<String,Object> mappaPiena = new HashMap<>();
-		        mappaPiena.put(NOME, ((Account) obj).getName());
-		        mappaPiena.put(NATURA, ((Account) obj).getNatura());
-		        mappaPiena.put(SALDO, ((Account) obj).getSaldo());
-		        return mappaPiena;
-		    }
-		    else{ 
-		        throw new IllegalArgumentException("valori non validi");
-		    }
+		if (obj.equals(null)) {
+			Map<String, Object> mappaVuota = new HashMap<>();
+			mappaVuota.put(NOME, new String());
+			mappaVuota.put(NATURA, Natures.DEFAULT);
+			mappaVuota.put(SALDO, new Float(0));
+			return mappaVuota;
+		} else {
+			if (obj.getClass().equals(Account.class)) {
+				Map<String, Object> mappaPiena = new HashMap<>();
+				mappaPiena.put(NOME, ((Account) obj).getName());
+				mappaPiena.put(NATURA, ((Account) obj).getNatura());
+				mappaPiena.put(SALDO, ((Account) obj).getSaldo());
+				return mappaPiena;
+			} else {
+				throw new IllegalArgumentException("valori non validi");
+			}
 		}
 	}
 

@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.LinkedList;
 
+import javax.management.InstanceNotFoundException;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -105,12 +106,12 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 		return dataModel;
 	}
 
-	public IDataTableModel getSelectedItem() {
+	public IDataTableModel getSelectedItem() throws InstanceNotFoundException {
 		int row = getTable().getSelectedRow();
 		if (row != -1) {
 			return getModel().getObjectAt(row);
 		} else {
-			return null;
+			throw new InstanceNotFoundException("Nessuna riga selezionata.");
 		}
 	}
 

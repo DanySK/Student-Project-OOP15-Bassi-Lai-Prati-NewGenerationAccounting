@@ -1,5 +1,6 @@
 package controller.anaAziende;
 
+import java.awt.Dimension;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Map;
@@ -14,6 +15,7 @@ import controller.main.MainControllerImpl;
 import dataModel.Company;
 import dataModel.IDataTableModel;
 import model.CompanyModel;
+import view.AddEditPopupView;
 import view.anaAziende.AnaAziendeView;
 
 public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
@@ -28,7 +30,12 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	}
 
 	public void accedi(final char[] password) {
-		Company item = (Company) view.getSelectedItem();
+		Company item = null;
+		try {
+			item = (Company) view.getSelectedItem();
+		} catch (InstanceNotFoundException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
 		if (item != null && model.isPasswordCorrect(password, item)) {
 			saveCompanysList();
 			view.close();
@@ -53,7 +60,13 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void edit(Map<String, Object> mappa) throws InstanceNotFoundException {
-		model.edit(view.getSelectedItem(), mappa);
+		try {
+			model.edit(view.getSelectedItem(), mappa);
+		} catch (InstanceAlreadyExistsException e) {
+			view.errorDialog("Errore", e.getMessage());
+		} catch (IllegalArgumentException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
 	}
 
 	@Override
@@ -94,13 +107,21 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void tasto2() {
-
+		try {
+			new AddEditPopupView(view.getSelectedItem(), view.getTitle(), new Dimension(300, 400), this, view).start();
+		} catch (InstanceNotFoundException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
 	}
 
 	@Override
 	public void tasto3() {
-		model.remove(view.getSelectedItem());
-		view.setList(model.load());
+		try {
+			model.remove(view.getSelectedItem());
+		} catch (InstanceNotFoundException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
+		refresh();
 	}
 
 }
