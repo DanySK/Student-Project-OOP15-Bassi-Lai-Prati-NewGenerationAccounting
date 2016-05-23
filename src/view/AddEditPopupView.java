@@ -25,10 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
 
-import dataEnum.Gender;
 import dataEnum.IDataEnum;
-import dataEnum.KindPerson;
-import dataEnum.Natures;
 import dataModel.IDataTableModel;
 import model.AbstractModel;
 
@@ -87,7 +84,7 @@ public class AddEditPopupView extends AbstractWideView {
 				compoMap.put(campo, js);
 				itemPanel.add(js);
 			} else if (item instanceof Enum && item instanceof IDataEnum) {
-				JComboBox<String> jcb = new JComboBox<String>(((IDataEnum) item).getStrings());
+				JComboBox<Enum<?>> jcb = new JComboBox<Enum<?>>(((IDataEnum) item).getEnumValues());
 				if (item != null) {
 					jcb.setSelectedItem(item);
 				}

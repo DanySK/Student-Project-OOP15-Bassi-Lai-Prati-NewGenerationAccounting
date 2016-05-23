@@ -8,6 +8,5 @@ package dataEnum;
  *
  */
 public interface IDataEnum {
-	String toString(Enum<? extends IDataEnum> value);
-	String[] getStrings();
+	Enum<?>[] getEnumValues();
 }
