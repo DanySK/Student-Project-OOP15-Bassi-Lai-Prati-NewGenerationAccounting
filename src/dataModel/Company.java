@@ -25,7 +25,7 @@ public class Company implements IDataTableModel {
 	private int cap;
 
 	private String citta;
-	private int codice_azienda;
+	private UUID codice_azienda;
 	private String indirizzo;
 	private long partita_iva;
 	private char[] password;
@@ -34,8 +34,8 @@ public class Company implements IDataTableModel {
 
 	private String tel;
 
-	public Company(UUID codice_azienda, char[] password, String ragione_sociale, long partita_iva, String indirizzo,
-			String citta, int cap, String provincia, String tel) {
+	public Company(final UUID codice_azienda, final char[] password, final String ragione_sociale, final long partita_iva, final String indirizzo,
+			final String citta, final int cap, final String provincia, final String tel) {
 		this.password = password;
 		this.ragione_sociale = ragione_sociale;
 		this.partita_iva = partita_iva;
@@ -55,7 +55,7 @@ public class Company implements IDataTableModel {
 		return citta;
 	}
 
-	public int getCodice_azienda() {
+	public UUID getCodice_azienda() {
 		return codice_azienda;
 	}
 
@@ -84,7 +84,7 @@ public class Company implements IDataTableModel {
 	}
 
 	@Override
-	public String getValueAt(int column) {
+	public String getValueAt(final int column) {
 		switch (column) {
 		case 0:
 			return getRagione_sociale();
@@ -95,39 +95,39 @@ public class Company implements IDataTableModel {
 		}
 	}
 
-	public void setCap(int cap) {
+	public void setCap(final int cap) {
 		this.cap = cap;
 	}
 
-	public void setCitta(String citta) {
+	public void setCitta(final String citta) {
 		this.citta = citta;
 	}
 
-	public void setCodice_azienda(int codice_azienda) {
+	public void setCodice_azienda(final UUID codice_azienda) {
 		this.codice_azienda = codice_azienda;
 	}
 
-	public void setIndirizzo(String indirizzo) {
+	public void setIndirizzo(final String indirizzo) {
 		this.indirizzo = indirizzo;
 	}
 
-	public void setPartita_iva(long partita_iva) {
+	public void setPartita_iva(final long partita_iva) {
 		this.partita_iva = partita_iva;
 	}
 
-	public void setPassword(char[] password) {
+	public void setPassword(final char[] password) {
 		this.password = password;
 	}
 
-	public void setProvincia(String provincia) {
+	public void setProvincia(final String provincia) {
 		this.provincia = provincia;
 	}
 
-	public void setRagione_sociale(String ragione_sociale) {
+	public void setRagione_sociale(final String ragione_sociale) {
 		this.ragione_sociale = ragione_sociale;
 	}
 
-	public void setTel(String tel) {
+	public void setTel(final String tel) {
 		this.tel = tel;
 	}
 

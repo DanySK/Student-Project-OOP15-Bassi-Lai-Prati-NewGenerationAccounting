@@ -27,12 +27,10 @@ public class CompanyModel extends AbstractModel {
 	private final static String indirizzo = "Indirizzo";
 	private final static String telefono = "Telefono";
 	private final long partitaIVA = 0; // ricordarsi controlli sulla lunghezza
-	
-	LinkedList<Company> listaAziende;
-	UUID codice_azienda = UUID.randomUUID(); //Ho usato UUID, così non sono necessari controlli, semplicemente genera un numero random univoco.
+	private final LinkedList<Company> listaAziende;
 	
 
-	public CompanyModel(LinkedList<Company> linkedList) {
+	public CompanyModel(final LinkedList<Company> linkedList) {
 		listaAziende = linkedList;
 	}
 
@@ -40,8 +38,7 @@ public class CompanyModel extends AbstractModel {
 	protected void addElem(Map<String, Object> elem) {
 		// SOLO PER TEST, DA CANCELLARE
 		char[] password = { 'p', 'w', 'd' };
-		
-		Company nuovaazienda = new Company(codice_azienda, password, ragione_sociale, partitaIVA, indirizzo, citta, 0,
+		Company nuovaazienda = new Company(UUID.randomUUID(), password, ragione_sociale, partitaIVA, indirizzo, citta, 0,
 				provincia, telefono);
 		listaAziende.add(nuovaazienda);
 	}

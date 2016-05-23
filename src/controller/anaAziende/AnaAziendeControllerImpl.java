@@ -29,7 +29,7 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 		if (item != null && model.isPasswordCorrect(password, item)) {
 			saveCompanysList();
 			view.close();
-			new MainControllerImpl(DBLoader.loadDB(Integer.toString(item.getCodice_azienda()), view));
+			new MainControllerImpl(DBLoader.loadDB(item.getCodice_azienda().toString(), view));
 		} else {
 			view.errorDialog("Password errata", "Password Errata, riprovare.");
 		}
