@@ -1,8 +1,11 @@
 package model;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import dataEnum.Gender;
+import dataEnum.KindPerson;
 import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
@@ -17,26 +20,32 @@ import dataModel.IDataTableModel;
 public class CustomersSuppliersModel extends AbstractModel {
 
 	private final String CF = "CF";
-
-	private final String CITTA = "Citt�";
-	private final String COGNOME = "Cognome";
-	DBDataModel db;
-	private final String INDIRIZZO = "Indirizzo";
-	LinkedList<Customers_Suppliers> listaRapportiC;
-	private final String NOME = "Nome";
-
+	private final String Citta = "Citta'";
+	private final String Cognome = "Cognome";
+	private final String Nome = "Nome";
+	private final String Indirizzo = "Indirizzo";
+	private final String CAP="Cap";
+	private final String Credito="Credito";
+	private final String Debito="Debito";
+	private final String Telefono="Telefono";
+	private KindPerson ruolo;
+	private Gender sesso;
+	
+	private DBDataModel db;
+	
+	
 	/* listaRapportiC = lista rapporti commerciali */
-
-	private final String TELEFONO = "Telefono";
+	LinkedList<Customers_Suppliers> listaRapportiC;
+	
 
 	public CustomersSuppliersModel(DBDataModel db) {
 		this.db = db;
 	}
-
+	
 	@Override
-	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
-		Customers_Suppliers rapporto = null; // TODO
-		listaRapportiC.add(rapporto);
+	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException { //controllare il CF?
+		Customers_Suppliers rapportoC = new Customers_Suppliers(elem.get(Nome).toString(),elem.get(Cognome).toString(),elem.get(CF).toString(),elem.get(Indirizzo).toString(),elem.get(Citta).toString(),(Integer)elem.get(CAP) ,elem.get(Telefono).toString(),(Gender)elem.get(sesso),(KindPerson)elem.get(ruolo),(Integer)elem.get(Credito),(Integer)elem.get(Debito));
+		listaRapportiC.add(rapportoC);
 	}
 
 	@Override
@@ -47,18 +56,26 @@ public class CustomersSuppliersModel extends AbstractModel {
 
 	}
 
-	@Override
-	public Map<String, Object> getMap() {
-		// TODO Auto-generated method stub
-		return null;
+public Map<String, Object> getMap() {
+		
+		Map<String, Object> mappaRapportiC = new HashMap<>();
+		
+		
+		mappaRapportiC.put(CF, new Integer(0));
+		mappaRapportiC.put(Nome, new String());
+		mappaRapportiC.put(Cognome, new String());
+		mappaRapportiC.put(Indirizzo, new String());
+		mappaRapportiC.put(CAP, new Integer(0));
+		mappaRapportiC.put(Credito, new Integer(0));
+		mappaRapportiC.put(Debito, new Integer(0));
+		mappaRapportiC.put(Telefono, new String());
+		return mappaRapportiC;
 	}
 
 	@Override
 	public LinkedList<Customers_Suppliers> load() {
 
 		return new LinkedList<Customers_Suppliers>();
-		// new Customers_Suppliers(01, "lol1lolaa" ,"Faenza", "X", "casatua",
-		// "boh", "?", "0546 660546", "CLIENTE", 0, 1000)));
 	}
 
 	@Override
@@ -72,7 +89,7 @@ public class CustomersSuppliersModel extends AbstractModel {
 
 	@Override
 	public DBDataModel saveDBAndClose() {
-		// TODO Auto-generated method stub
-		return null;
+		db.setCustomersSuppliers(listaRapportiC); // Sposto i dati dalla lista interna al DB
+		return db;// e restituisco			
 	}
 }
