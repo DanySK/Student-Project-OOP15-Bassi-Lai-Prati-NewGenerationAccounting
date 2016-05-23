@@ -4,11 +4,16 @@
 package controller.anaConti;
 
 import java.awt.Dimension;
+import java.util.Map;
+
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
 
 import controller.IAnagraficaViewObserver;
 import controller.dbController.DBSaver;
 import controller.main.MainControllerImpl;
 import dataModel.DBDataModel;
+import dataModel.IDataTableModel;
 import model.AccountsModel;
 import view.AddEditPopupView;
 import view.anaConti.AnaContiView;
@@ -64,7 +69,7 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	 */
 	@Override
 	public void tasto1() {
-		new AddEditPopupView(null, view.getTitle(), new Dimension(300, 400), model, view).start();
+		new AddEditPopupView(null, view.getTitle(), new Dimension(300, 400), this, view).start();
 	}
 
 	/*
@@ -74,7 +79,7 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	 */
 	@Override
 	public void tasto2() {
-		new AddEditPopupView(view.getSelectedItem(), view.getTitle(), new Dimension(300, 400), model, view).start();
+		new AddEditPopupView(view.getSelectedItem(), view.getTitle(), new Dimension(300, 400), this, view).start();
 	}
 
 	/*
@@ -86,5 +91,25 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	public void tasto3() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Map<String, Object> getMap(IDataTableModel obj) {
+		return model.getMap(obj);
+	}
+
+	@Override
+	public void add(Map<String, Object> mappa) throws InstanceAlreadyExistsException, IllegalArgumentException {
+		model.add(mappa);
+	}
+
+	@Override
+	public void edit(Map<String, Object> mappa) throws InstanceNotFoundException {
+		model.edit(view.getSelectedItem(), mappa);
+	}
+
+	@Override
+	public void refresh() {
+		view.setList(model.load());
 	}
 }

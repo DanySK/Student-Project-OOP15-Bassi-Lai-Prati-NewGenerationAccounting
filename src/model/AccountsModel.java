@@ -106,7 +106,7 @@ public class AccountsModel extends AbstractModel {
 				throw new IllegalArgumentException("paramentro non valido");
 		}
 	}
-
+/*
 	@Override
 	public Map<String, Object> getMap() {
 		Map<String, Object> mappa = new HashMap<>();
@@ -116,6 +116,7 @@ public class AccountsModel extends AbstractModel {
 		return mappa;
 	}
 
+	@Override
 	public Map<String, Object> getMap(Account obj) {
 		Map<String, Object> mappa = new HashMap<>();
 		mappa.put(NOME, obj.getName());
@@ -123,7 +124,7 @@ public class AccountsModel extends AbstractModel {
 		mappa.put(SALDO, obj.getSaldo());
 		return mappa;
 	}
-
+*/
 	@Override
 	public LinkedList<Account> load() { // carica tutti i dati
 		return new LinkedList<Account>(db.getAccounts());
@@ -196,6 +197,12 @@ public class AccountsModel extends AbstractModel {
 	public DBDataModel saveDBAndClose() { // salva i dati sul database
 		db.setAccounts(listaaccount);
 		return db;
+	}
+
+	@Override
+	public Map<String, Object> getMap(IDataTableModel obj) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

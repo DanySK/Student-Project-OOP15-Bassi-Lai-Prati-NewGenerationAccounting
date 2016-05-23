@@ -50,7 +50,7 @@ public class MovementsModel extends AbstractModel {
 	public void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare) {
 		// implementare
 
-	}
+	}/*
 
 	@Override
 	public Map<String, Object> getMap() {
@@ -66,7 +66,7 @@ public class MovementsModel extends AbstractModel {
 		mappa.put(LISTA, obj.getListaConti());
 		return mappa;
 	}
-
+*/
 	@Override
 	public LinkedList<Movement> load() {
 		return new LinkedList<Movement>(db.getMoviments());
@@ -108,5 +108,11 @@ public class MovementsModel extends AbstractModel {
 	public DBDataModel saveDBAndClose() {
 		db.setMoviments(listaMovimenti);
 		return db;
+	}
+
+	@Override
+	public Map<String, Object> getMap(IDataTableModel obj) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

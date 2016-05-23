@@ -3,9 +3,15 @@
  */
 package controller.anaProd;
 
+import java.util.Map;
+
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
+
 import controller.IAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
 import dataModel.DBDataModel;
+import dataModel.IDataTableModel;
 import model.ProductsModel;
 import view.anaProd.AnaProdView;
 
@@ -83,5 +89,29 @@ public class AnaProdControllerImpl implements IAnagraficaViewObserver {
 	public void tasto3() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Map<String, Object> getMap(IDataTableModel obj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void add(Map<String, Object> mappa) throws InstanceAlreadyExistsException, IllegalArgumentException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void edit(Map<String, Object> mappa) throws InstanceNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void refresh() {
+		// TODO Auto-generated method stub
+		
 	}
 }

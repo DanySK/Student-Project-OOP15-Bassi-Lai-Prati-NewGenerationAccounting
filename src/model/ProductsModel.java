@@ -54,21 +54,6 @@ public class ProductsModel extends AbstractModel {
 	}
 
 	@Override
-	public Map<String, Object> getMap() {
-
-		Map<String, Object> mappaProdotti = new HashMap<>();
-
-		mappaProdotti.put(nome, new String());
-		mappaProdotti.put(codiceA, new Integer(0));
-		mappaProdotti.put(codiceV, new Integer(0));
-		mappaProdotti.put(categoria, new String());
-		mappaProdotti.put(descrizione, new String());
-		mappaProdotti.put(prezzo, new Integer(0));
-
-		return mappaProdotti;
-	}
-
-	@Override
 	public LinkedList<Product> load() {
 		return new LinkedList<Product>();
 	}
@@ -92,6 +77,20 @@ public class ProductsModel extends AbstractModel {
 		db.setProducts(listaProdotti); // Sposto i dati dalla lista interna al
 										// DB
 		return db;// e restituisco
+	}
+
+	@Override
+	public Map<String, Object> getMap(IDataTableModel obj) {
+		Map<String, Object> mappaProdotti = new HashMap<>();
+
+		mappaProdotti.put(nome, new String());
+		mappaProdotti.put(codiceA, new Integer(0));
+		mappaProdotti.put(codiceV, new Integer(0));
+		mappaProdotti.put(categoria, new String());
+		mappaProdotti.put(descrizione, new String());
+		mappaProdotti.put(prezzo, new Integer(0));
+
+		return mappaProdotti;
 	}
 
 }

@@ -28,12 +28,6 @@ public class CreaFattureModel extends AbstractModel {
 	}
 
 	@Override
-	public Map<String, Object> getMap() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public LinkedList<Item> load() {
 		// TODO Auto-generated method stub
 		return null;
@@ -47,6 +41,12 @@ public class CreaFattureModel extends AbstractModel {
 
 	@Override
 	public DBDataModel saveDBAndClose() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, Object> getMap(IDataTableModel obj) {
 		// TODO Auto-generated method stub
 		return null;
 	}

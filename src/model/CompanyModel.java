@@ -52,12 +52,13 @@ public class CompanyModel extends AbstractModel {
 
 	/**
 	 * Restituisco la mappa delle aziende
+	 * @param iDataTableModel 
 	 * 
 	 * 
 	 * 
 	 */
 	@Override
-	public Map<String, Object> getMap() {
+	public Map<String, Object> getMap(IDataTableModel iDataTableModel) {
 
 		Map<String, Object> mappaAziende = new HashMap<>();
 

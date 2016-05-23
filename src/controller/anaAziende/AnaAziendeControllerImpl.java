@@ -2,14 +2,17 @@ package controller.anaAziende;
 
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.Map;
 
 import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
 
 import controller.IAnagraficaViewObserver;
 import controller.dbController.DBLoader;
 import controller.dbController.DBSaver;
 import controller.main.MainControllerImpl;
 import dataModel.Company;
+import dataModel.IDataTableModel;
 import model.CompanyModel;
 import view.anaAziende.AnaAziendeView;
 
@@ -67,7 +70,6 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		view.setList(model.load());
 	}
 
 	@Override
@@ -80,4 +82,25 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 		model.remove(view.getSelectedItem());
 		view.setList(model.load());
 	}
+
+	@Override
+	public Map<String, Object> getMap(IDataTableModel obj) {
+		return model.getMap(obj);
+	}
+
+	@Override
+	public void add(Map<String, Object> mappa) throws InstanceAlreadyExistsException, IllegalArgumentException {
+		model.add(mappa);
+	}
+
+	@Override
+	public void edit(Map<String, Object> mappa) throws InstanceNotFoundException {
+		model.edit(view.getSelectedItem(), mappa);
+	}
+
+	@Override
+	public void refresh() {
+		view.setList(model.load());
+	}
+
 }

@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
 
+import controller.IAnagraficaViewObserver;
 import dataEnum.IDataEnum;
 import dataModel.IDataTableModel;
 import model.AbstractModel;
@@ -39,7 +40,7 @@ public class AddEditPopupView extends AbstractWideView {
 	 * 
 	 */
 	private static final long serialVersionUID = -2412389895309056834L;
-	private final AbstractModel model;
+	private final IAnagraficaViewObserver controller;
 	private final IDataTableModel obj;
 	private final HashMap<String, JComponent> compoMap;
 	private final AbstractAnagraficaView view;
@@ -49,12 +50,12 @@ public class AddEditPopupView extends AbstractWideView {
 	 * @param dimension
 	 */
 	public AddEditPopupView(final IDataTableModel obj, final String title, final Dimension dimension,
-			final AbstractModel model, final AbstractAnagraficaView view) {
+			final IAnagraficaViewObserver controller, final AbstractAnagraficaView view) {
 		super(title, dimension);
 		this.view = view;
 		this.obj = obj;
-		this.model = model;
-		Map<String, Object> mappa = model.getMap();
+		this.controller = controller;
+		Map<String, Object> mappa = controller.getMap(obj);
 		compoMap = new HashMap<String, JComponent>();
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -99,7 +100,6 @@ public class AddEditPopupView extends AbstractWideView {
 				compoMap.put(campo, jcb);
 				itemPanel.add(jcb);
 			}
-
 			mainPanel.add(Box.createRigidArea(new Dimension(0, 8)));
 			mainPanel.add(itemPanel);
 			itemPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -140,18 +140,16 @@ public class AddEditPopupView extends AbstractWideView {
 			if (field instanceof JSpinner) {
 				mappa.put(key, ((JSpinner) field).getValue());
 			}
-			System.out.println(mappa.get(key).getClass());
-			System.out.println(mappa.get(key));
 		}
-		System.out.println(mappa.toString());
 		try {
-			model.add(mappa);
+			controller.add(mappa);
 		} catch (InstanceAlreadyExistsException e) {
 			errorDialog("errore", e.getMessage());
 		} catch (IllegalArgumentException e) {
 			errorDialog("errore", e.getMessage());
 		}
-		view.setList(model.load());
+		controller.refresh();
+		chiusura();
 	}
 
 	@Override
@@ -161,7 +159,7 @@ public class AddEditPopupView extends AbstractWideView {
 
 	private void edit() {
 		try {
-			model.edit(obj, null);
+			controller.edit(null);
 		} catch (InstanceNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

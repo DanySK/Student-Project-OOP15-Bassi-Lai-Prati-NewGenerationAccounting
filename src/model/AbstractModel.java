@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
+import dataModel.Account;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 
@@ -54,7 +55,7 @@ public abstract class AbstractModel {
 	protected abstract void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare)
 			throws InstanceNotFoundException;
 
-	public abstract Map<String, Object> getMap();
+	public abstract Map<String, Object> getMap(IDataTableModel obj);
 
 	/**
 	 * operazione di aggiunta di un nuovo oggetto al dataBase del programma
@@ -77,5 +78,4 @@ public abstract class AbstractModel {
 	public abstract void remove(IDataTableModel elem) throws InstanceNotFoundException;
 
 	public abstract DBDataModel saveDBAndClose();
-
 }
