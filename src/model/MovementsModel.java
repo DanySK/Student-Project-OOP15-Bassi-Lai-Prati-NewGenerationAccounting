@@ -3,6 +3,7 @@ package model;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.management.InstanceAlreadyExistsException;
@@ -24,7 +25,8 @@ public class MovementsModel extends AbstractModel {
 	private final static String DATA = "Data Movimento";
 	private final static String LISTA = "Lista Conti Mossi";
 	private DBDataModel db;
-	LinkedList<Movement> listaMovimenti;
+	private LinkedList<Movement> listaMovimenti;
+	private float temp;
 
 	public MovementsModel(DBDataModel db) {
 		this.db = db;
@@ -32,7 +34,8 @@ public class MovementsModel extends AbstractModel {
 
 	@Override
 	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
-		Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
+		@SuppressWarnings("unchecked")
+        Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
 		// chiedere a fede se va bene il cast
 		if (listaMovimenti.contains(m)) {
 			throw new InstanceAlreadyExistsException("elemento già esistente");
@@ -41,15 +44,28 @@ public class MovementsModel extends AbstractModel {
 			throw new IllegalArgumentException("elemento da inserire non valido");
 		}
 		listaMovimenti.add(m);
+		AccountsModel a = new AccountsModel(db);
 		for (Operation op : m.getListaConti()) {
-			// AccountsModel.updateAccounts(op);
-		}
+                    a.updateAccounts(op);
+            }
+		
+
 	}
 
-	@Override
+	@SuppressWarnings("unchecked")
+    @Override
 	public void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare) {
-		// implementare
-
+		if (obj.getClass().equals(Movement.class)){
+		    Movement m = new Movement(null,null);
+		    m.setData((Date) elemDaModificare.get(DATA));
+		    m.setListaConti((List<Operation>) elemDaModificare.get(LISTA));
+		    for(Movement mov:listaMovimenti){
+		        if (mov.equals(obj)){
+		           // remove(mov);
+		            //add(elemDaModificare);
+		        }
+		    }
+		}
 	}
 
 	@Override
@@ -94,8 +110,12 @@ public class MovementsModel extends AbstractModel {
 			} else {
 				if (listaMovimenti.contains(m)) {
 					listaMovimenti.remove(m);
+					AccountsModel a = new AccountsModel(db);
 					for (Operation op : m.getListaConti()) {
-						// concludere
+						temp = op.getAvere();
+						op.setAvere(op.getDare());
+						op.setDare(temp);
+						a.updateAccounts(op);
 					}
 				} else {
 					throw new InstanceNotFoundException("elemento da eliminare non trovato");

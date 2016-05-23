@@ -8,11 +8,31 @@ package dataEnum;
  *
  */
 public enum Natures implements IDataEnum {
-	ATTIVITA, COSTO, PASSIVITA, RICAVO;
+	DEFAULT, ATTIVITA, COSTO, PASSIVITA, RICAVO;
 
 	@Override
+<<<<<<< local
+	public String toString(Enum<? extends IDataEnum> value) {
+		Natures natura = (Natures) value;
+		if (value instanceof Natures) {
+			switch (natura) {
+			case ATTIVITA:
+				return "Attivit�";
+			case COSTO:
+				return "Costi";
+			case PASSIVITA:
+				return "Passivit�";
+			case RICAVO:
+				return "Ricavi";
+			case DEFAULT:
+			        return "";
+			}
+		}
+		return "";
+=======
 	public Enum<?>[] getEnumValues() {
 		return values();
+>>>>>>> other
 	}
 
 }
