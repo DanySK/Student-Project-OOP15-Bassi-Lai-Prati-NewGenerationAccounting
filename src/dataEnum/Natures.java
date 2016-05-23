@@ -8,9 +8,8 @@ package dataEnum;
  *
  */
 public enum Natures implements IDataEnum {
-	ATTIVITA, COSTO, PASSIVITA, RICAVO;
+	DEFAULT, ATTIVITA, COSTO, PASSIVITA, RICAVO;
 
-	@Override
 	public Enum<?>[] getEnumValues() {
 		return values();
 	}

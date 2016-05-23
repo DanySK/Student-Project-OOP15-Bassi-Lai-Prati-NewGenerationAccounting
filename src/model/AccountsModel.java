@@ -25,32 +25,32 @@ public class AccountsModel extends AbstractModel {
 	private final static String NATURA = "Natura Conto";
 	private final static String NOME = "Nome Conto";
 	private final static String SALDO = "Saldo Conto";
+        private boolean trovato = false;
+        private DBDataModel db;
+        public  LinkedList<Account> listaaccount;
+        
+        public AccountsModel(DBDataModel db) {
+                this.db = db;
+                listaaccount = new LinkedList<Account>();
+        }
 
-	private LinkedList<Account> listaaccount;
 
 	public static LinkedList<Account> chartOfAccounts() {
 		return null;
-
 	}
 
-	public void updateAccounts(Operation op) { // aggiorna i conti dopo
-												// l'aggiunta/modifica/eliminazione
-												// di un movimento
+	public void updateAccounts(Operation op) { // aggiorna i conti dopo l'aggiunta/modifica/eliminazione di un movimento
 		if (listaaccount.contains(op.getConto())) {
 			for (Account elem : listaaccount) {
 				if (elem.equals(op.getConto())) {
 					if (elem.getNatura().equals(Natures.COSTO) || elem.getNatura().equals(Natures.ATTIVITA)) {
 						if (op.getDare() > 0)
-							elem.incrSaldo(op.getDare());// Costo e Attività
-															// aumentano in dare
+							elem.incrSaldo(op.getDare());// Costo e Attività aumentano in dare
 						else if (op.getAvere() > 0)
 							elem.decrSaldo(op.getAvere());// e calano in avere
 					} else {
 						if (op.getAvere() > 0)
-							elem.incrSaldo(op.getAvere()); // Ricavo e
-															// Passività
-															// aumentano in
-															// avere
+							elem.incrSaldo(op.getAvere()); // Ricavo e Passività aumentano in avere
 						else if (op.getDare() > 0)
 							elem.decrSaldo(op.getDare());// e calano in dare
 					}
@@ -58,16 +58,6 @@ public class AccountsModel extends AbstractModel {
 			}
 		}
 	}
-
-	private boolean trovato = false;
-
-	private DBDataModel db;
-
-	public AccountsModel(DBDataModel db) {
-		this.db = db;
-		this.listaaccount = db.getAccounts();
-	}
-
 	@Override
 	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
 		if (elem.get(NOME) == "" || elem.get(NATURA) == null || (Long) elem.get(SALDO) != 0) {
@@ -111,8 +101,8 @@ public class AccountsModel extends AbstractModel {
 	public Map<String, Object> getMap() {
 		Map<String, Object> mappa = new HashMap<>();
 		mappa.put(NOME, new String());
-		mappa.put(NATURA, Natures.ATTIVITA);
-		mappa.put(SALDO, new Long(0));
+		mappa.put(NATURA, Natures.DEFAULT);
+		mappa.put(SALDO, new Float(0));
 		return mappa;
 	}
 
@@ -130,12 +120,7 @@ public class AccountsModel extends AbstractModel {
 		return new LinkedList<Account>(db.getAccounts());
 	}
 
-	List<? extends IDataTableModel> load(Natures natura) throws Exception { // carica
-																			// i
-																			// dati
-																			// secondo
-																			// la
-																			// natura
+	public List<? extends IDataTableModel> load(Natures natura) throws Exception { // carica i dati secondo la natura																	// natura
 		LinkedList<Account> filtroNatura = new LinkedList<Account>();
 		if (natura.equals(null)) {
 			throw new Exception("natura non valida");
@@ -148,14 +133,7 @@ public class AccountsModel extends AbstractModel {
 		return filtroNatura;
 	}
 
-	List<? extends IDataTableModel> load(String nome) throws Exception { // carica
-																			// i
-																			// dati
-																			// secondo
-																			// il
-																			// nome
-																			// //
-																			// nome
+	public List<? extends IDataTableModel> load(String nome) throws Exception { // carica i dati secondo il nome																	// nome
 		LinkedList<Account> filtroNome = new LinkedList<Account>();
 		if (nome.isEmpty()) {
 			throw new Exception("nome non valido");
@@ -169,9 +147,7 @@ public class AccountsModel extends AbstractModel {
 	}
 
 	@Override
-	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException { // elimina
-																							// i
-																							// dati
+	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException { // elimina i dati																					// dati
 		if (elemDaEliminare.getClass().equals(Account.class)) {
 			Account a = (Account) elemDaEliminare;
 			for (Account elem : listaaccount) {
