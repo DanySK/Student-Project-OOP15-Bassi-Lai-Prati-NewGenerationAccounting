@@ -6,6 +6,7 @@ package controller.anaConti;
 import java.awt.Dimension;
 
 import controller.IAnagraficaViewObserver;
+import controller.dbController.DBSaver;
 import controller.main.MainControllerImpl;
 import dataModel.DBDataModel;
 import model.AccountsModel;
@@ -39,8 +40,10 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	 */
 	@Override
 	public void chiusura() {
+		DBDataModel db = model.saveDBAndClose();
+		new DBSaver(db.getPath(), view, db).start();
 		view.close();
-		new MainControllerImpl(model.saveDBAndClose());
+		new MainControllerImpl(db);
 	}
 
 	/*
@@ -61,7 +64,7 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	 */
 	@Override
 	public void tasto1() {
-		new AddEditPopupView(null, view.getTitle(), new Dimension(300, 400), model).start();
+		new AddEditPopupView(null, view.getTitle(), new Dimension(300, 400), model, view).start();
 	}
 
 	/*
@@ -71,7 +74,7 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	 */
 	@Override
 	public void tasto2() {
-		new AddEditPopupView(view.getSelectedItem(), view.getTitle(), new Dimension(300, 400), model).start();
+		new AddEditPopupView(view.getSelectedItem(), view.getTitle(), new Dimension(300, 400), model, view).start();
 	}
 
 	/*

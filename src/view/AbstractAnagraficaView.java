@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 import controller.IAnagraficaViewObserver;
 import dataModel.IDataTableModel;
@@ -69,6 +70,7 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 		footer.add(tasto3);
 		footer.add(tasto4);
 		this.dataModel = new MyTableModel<dataModel>(intestazione, lista);
+		getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane scrollPane = new JScrollPane(getTable());
 		getTable().setModel(getModel());
 		MyFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);

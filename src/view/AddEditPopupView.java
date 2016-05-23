@@ -42,14 +42,16 @@ public class AddEditPopupView extends AbstractWideView {
 	private final AbstractModel model;
 	private final IDataTableModel obj;
 	private final HashMap<String, JComponent> compoMap;
+	private final AbstractAnagraficaView view;
 
 	/**
 	 * @param title
 	 * @param dimension
 	 */
 	public AddEditPopupView(final IDataTableModel obj, final String title, final Dimension dimension,
-			final AbstractModel model) {
+			final AbstractModel model, final AbstractAnagraficaView view) {
 		super(title, dimension);
+		this.view = view;
 		this.obj = obj;
 		this.model = model;
 		Map<String, Object> mappa = model.getMap();
@@ -149,7 +151,7 @@ public class AddEditPopupView extends AbstractWideView {
 		} catch (IllegalArgumentException e) {
 			errorDialog("errore", e.getMessage());
 		}
-
+		view.setList(model.load());
 	}
 
 	@Override
