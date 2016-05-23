@@ -3,7 +3,6 @@
  */
 package dataModel;
 
-import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
@@ -12,21 +11,17 @@ import java.util.LinkedList;
  * @author Pentolo
  *
  */
-public class DBDataModel implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7561096726236641612L;
+public class DBDataModel {
 
 	private LinkedList<Account> accounts;
-	private transient boolean accountsModified = false;
+	private boolean accountsModified = false;
 	private LinkedList<Customers_Suppliers> customersSuppliers;
-	private transient boolean customersSuppliersModified = false;
+	private boolean customersSuppliersModified = false;
 	private LinkedList<Movement> moviments;
-	private transient boolean movimentsModified = false;
+	private boolean movimentsModified = false;
 	private LinkedList<Product> products;
-	private transient boolean productsModified = false;
-	private transient String path;
+	private boolean productsModified = false;
+	private String path;
 
 	public DBDataModel(final LinkedList<Account> accounts, final LinkedList<Company> companys,
 			final LinkedList<Customers_Suppliers> customersSuppliers, final LinkedList<Movement> moviments,

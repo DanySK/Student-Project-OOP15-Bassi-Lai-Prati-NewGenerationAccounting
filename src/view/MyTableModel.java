@@ -24,7 +24,7 @@ public class MyTableModel<dataModel extends IDataTableModel> extends AbstractTab
 	 */
 	private static final long serialVersionUID = -9056625553908580890L;
 	private String headerList[];
-	private final List<dataModel> objectsList;
+	private List<dataModel> objectsList;
 
 	/**
 	 * 
@@ -71,5 +71,10 @@ public class MyTableModel<dataModel extends IDataTableModel> extends AbstractTab
 	@Override
 	public String getValueAt(int row, int column) {
 		return objectsList.get(row).getValueAt(column);
+	}
+
+	public void setList(List<dataModel> objectsList) {
+		this.objectsList = objectsList;
+		fireTableDataChanged();
 	}
 }

@@ -26,22 +26,21 @@ public class AccountsModel extends AbstractModel {
 	private final static String NOME = "Nome Conto";
 	private final static String SALDO = "Saldo Conto";
 	private boolean trovato = false;
-	private DBDataModel db;
-
-	public LinkedList<Account> listaaccount;
+	private final DBDataModel db;
+	private final LinkedList<Account> listaaccount;
 
 	public static LinkedList<Account> chartOfAccounts() {
-		return null;
+		return new LinkedList<Account>();
 	}
 
 	public AccountsModel(DBDataModel db) {
 		this.db = db;
-		listaaccount = new LinkedList<Account>();
+		listaaccount = new LinkedList<Account>(db.getAccounts());
 	}
 
 	@Override
 	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
-		if (elem.get(NOME) == "" || elem.get(NATURA) == null || (Long) elem.get(SALDO) != 0) {
+		if (elem.get(NOME) == "" || elem.get(NATURA) == null || (Float) elem.get(SALDO) != 0) {
 			throw new IllegalArgumentException("valori non validi");
 		}
 		Account a = new Account((String) elem.get(NOME), (Natures) elem.get(NATURA), 0);
@@ -49,7 +48,6 @@ public class AccountsModel extends AbstractModel {
 			throw new InstanceAlreadyExistsException("elemento già inserito");
 		}
 		listaaccount.add(a);
-		db.setAccounts(listaaccount);
 	}
 
 	@Override
@@ -80,14 +78,14 @@ public class AccountsModel extends AbstractModel {
 
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
-		if (obj.equals(null)) {
+		if (obj == null) {
 			Map<String, Object> mappaVuota = new HashMap<>();
-			mappaVuota.put(NOME, new String());
-			mappaVuota.put(NATURA, Natures.DEFAULT);
+			mappaVuota.put(NOME, new String(""));
+			mappaVuota.put(NATURA, Natures.ATTIVITA);
 			mappaVuota.put(SALDO, new Float(0));
 			return mappaVuota;
 		} else {
-			if (obj.getClass().equals(Account.class)) {
+			if (obj instanceof Account) {
 				Map<String, Object> mappaPiena = new HashMap<>();
 				mappaPiena.put(NOME, ((Account) obj).getName());
 				mappaPiena.put(NATURA, ((Account) obj).getNatura());
@@ -101,7 +99,7 @@ public class AccountsModel extends AbstractModel {
 
 	@Override
 	public LinkedList<Account> load() { // carica tutti i dati
-		return new LinkedList<Account>(db.getAccounts());
+		return new LinkedList<Account>(listaaccount);
 	}
 
 	public List<? extends IDataTableModel> load(Natures natura) throws Exception { // carica
@@ -116,7 +114,7 @@ public class AccountsModel extends AbstractModel {
 		if (natura.equals(null)) {
 			throw new Exception("natura non valida");
 		} else
-			for (Account a : db.getAccounts()) {
+			for (Account a : listaaccount) {
 				if (a.getNatura().equals(natura)) {
 					filtroNatura.add(a);
 				}
@@ -136,7 +134,7 @@ public class AccountsModel extends AbstractModel {
 		if (nome.isEmpty()) {
 			throw new Exception("nome non valido");
 		} else
-			for (Account a : db.getAccounts()) {
+			for (Account a : listaaccount) {
 				if (a.getName().contains(nome)) {
 					filtroNome.add(a);
 				}

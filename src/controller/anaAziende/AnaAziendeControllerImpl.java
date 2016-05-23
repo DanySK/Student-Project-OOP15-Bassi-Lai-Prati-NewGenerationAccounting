@@ -96,13 +96,10 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	public void tasto1() {
 		try {
 			model.add(null);
-		} catch (InstanceAlreadyExistsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (InstanceAlreadyExistsException | IllegalArgumentException e) {
+			view.errorDialog("Errore", e.getMessage());
 		}
+
 	}
 
 	@Override

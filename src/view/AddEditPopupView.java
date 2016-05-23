@@ -11,8 +11,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.management.InstanceAlreadyExistsException;
-import javax.management.InstanceNotFoundException;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -40,9 +38,9 @@ public class AddEditPopupView extends AbstractWideView {
 	 */
 	private static final long serialVersionUID = -2412389895309056834L;
 	private final IAnagraficaViewObserver controller;
-	private final IDataTableModel obj;
 	private final HashMap<String, JComponent> compoMap;
 	private final AbstractAnagraficaView view;
+	private final Map<String, Object> mappa;
 
 	/**
 	 * @param title
@@ -52,9 +50,8 @@ public class AddEditPopupView extends AbstractWideView {
 			final IAnagraficaViewObserver controller, final AbstractAnagraficaView view) {
 		super(title, dimension);
 		this.view = view;
-		this.obj = obj;
 		this.controller = controller;
-		Map<String, Object> mappa = controller.getMap(obj);
+		mappa = controller.getMap(obj);
 		compoMap = new HashMap<String, JComponent>();
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -65,7 +62,7 @@ public class AddEditPopupView extends AbstractWideView {
 			Object item = mappa.get(campo);
 
 			if (item instanceof String) {
-				JTextField jtf = new JTextField(50);
+				JTextField jtf = new JTextField(25);
 				if (item != null) {
 					jtf.setText((String) item);
 				}
@@ -80,11 +77,16 @@ public class AddEditPopupView extends AbstractWideView {
 				itemPanel.add(js);
 			} else if (item instanceof Number) {
 				JSpinner js;
-				if (item instanceof Float || item instanceof Double) {
+				if (item instanceof Float) {
 					js = new javax.swing.JSpinner(
-							new SpinnerNumberModel(((Number) item).doubleValue(), null, null, 0.01));
+							new SpinnerNumberModel(((Float) item).floatValue(), null, null, 0.01));
+				} else if (item instanceof Double) {
+					js = new javax.swing.JSpinner(
+							new SpinnerNumberModel(((Double) item).doubleValue(), null, null, 0.01));
+				} else if (item instanceof Long) {
+					js = new javax.swing.JSpinner(new SpinnerNumberModel(((Long) item).longValue(), null, null, 1));
 				} else {
-					js = new javax.swing.JSpinner(new SpinnerNumberModel(((Number) item).longValue(), null, null, 1));
+					js = new javax.swing.JSpinner(new SpinnerNumberModel(((Integer) item).intValue(), null, null, 1));
 				}
 				if (item != null) {
 					js.setValue(item);
@@ -99,7 +101,7 @@ public class AddEditPopupView extends AbstractWideView {
 				compoMap.put(campo, jcb);
 				itemPanel.add(jcb);
 			}
-			mainPanel.add(Box.createRigidArea(new Dimension(0, 8)));
+			mainPanel.add(Box.createRigidArea(new Dimension(0, 7)));
 			mainPanel.add(itemPanel);
 			itemPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		}
@@ -126,25 +128,43 @@ public class AddEditPopupView extends AbstractWideView {
 		MyFrame.getContentPane().add(mainPanel, BorderLayout.CENTER);
 	}
 
-	private void add() {
-		Map<String, Object> mappa = new HashMap<String, Object>();
-		for (String key : compoMap.keySet()) {
+	private Map<String, Object> populateMap() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		for (String key : mappa.keySet()) {
 			JComponent field = compoMap.get(key);
-			if (field instanceof JComboBox) {
-				mappa.put(key, ((JComboBox<?>) field).getSelectedItem());
-			}
-			if (field instanceof JTextField) {
-				mappa.put(key, ((JTextField) field).getText());
-			}
-			if (field instanceof JSpinner) {
-				mappa.put(key, ((JSpinner) field).getValue());
+			Object defaultValue = mappa.get(key);
+
+			if (defaultValue instanceof String && field instanceof JTextField) {
+				map.put(key, ((JTextField) field).getText());
+			} else if (defaultValue instanceof Date && field instanceof JSpinner) {
+				map.put(key, ((JSpinner) field).getValue());
+			} else if (defaultValue instanceof Number && field instanceof JSpinner) {
+				Number numero = (Number) ((JSpinner) field).getValue();
+				if (defaultValue instanceof Float) {
+					map.put(key, numero.floatValue());
+				} else if (defaultValue instanceof Double) {
+					map.put(key, numero.doubleValue());
+				} else if (defaultValue instanceof Long) {
+					map.put(key, numero.longValue());
+				} else {
+					map.put(key, numero.intValue());
+				}
+			} else if (defaultValue instanceof Enum && defaultValue instanceof IDataEnum
+					&& field instanceof JComboBox) {
+				map.put(key, ((JComboBox<?>) field).getSelectedItem());
+			} else {
+				throw new IllegalArgumentException(
+						"Errore di conversione del dato " + key + " correggere e riprovare.");
 			}
 		}
+		System.out.println(map);
+		return map;
+	}
+
+	private void add() {
 		try {
-			controller.add(mappa);
-		} catch (InstanceAlreadyExistsException e) {
-			errorDialog("errore", e.getMessage());
-		} catch (IllegalArgumentException e) {
+			controller.add(populateMap());
+		} catch (Exception e) {
 			errorDialog("errore", e.getMessage());
 		}
 		controller.refresh();
@@ -158,11 +178,12 @@ public class AddEditPopupView extends AbstractWideView {
 
 	private void edit() {
 		try {
-			controller.edit(null);
-		} catch (InstanceNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			controller.edit(populateMap());
+		} catch (Exception e) {
+			errorDialog("errore", e.getMessage());
 		}
+		controller.refresh();
+		chiusura();
 	}
 
 }

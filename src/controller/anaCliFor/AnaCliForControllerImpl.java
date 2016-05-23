@@ -28,9 +28,6 @@ public class AnaCliForControllerImpl implements IAnagraficaViewObserver {
 	private final CustomersSuppliersModel model;
 	private final AnaCliForView view;
 
-	/**
-	 * @param view
-	 */
 	public AnaCliForControllerImpl(final DBDataModel db, final String title) {
 		this.model = new CustomersSuppliersModel(db);
 		this.view = new AnaCliForView(model.load(), title);
@@ -40,15 +37,9 @@ public class AnaCliForControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void add(Map<String, Object> mappa) throws InstanceAlreadyExistsException, IllegalArgumentException {
-		// TODO Auto-generated method stub
-
+		model.add(mappa);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see controller.AbstractAnagraficaViewObserver#chiusura()
-	 */
 	@Override
 	public void chiusura() {
 		view.close();
@@ -59,7 +50,7 @@ public class AnaCliForControllerImpl implements IAnagraficaViewObserver {
 	public void edit(Map<String, Object> mappa) throws InstanceNotFoundException {
 		try {
 			model.edit(view.getSelectedItem(), mappa);
-		} catch (Exception e) {
+		} catch (InstanceAlreadyExistsException | IllegalArgumentException e) {
 			view.errorDialog("Errore", e.getMessage());
 		}
 	}
@@ -74,32 +65,17 @@ public class AnaCliForControllerImpl implements IAnagraficaViewObserver {
 		view.setList(model.load());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see controller.AbstractAnagraficaViewObserver#tasto0()
-	 */
 	@Override
 	public void tasto0() {
 		// TODO Auto-generated method stub
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see controller.AbstractAnagraficaViewObserver#tasto1()
-	 */
 	@Override
 	public void tasto1() {
 		new AddEditPopupView(null, view.getTitle(), new Dimension(300, 400), this, view).start();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see controller.AbstractAnagraficaViewObserver#tasto2()
-	 */
 	@Override
 	public void tasto2() {
 		try {
@@ -109,11 +85,6 @@ public class AnaCliForControllerImpl implements IAnagraficaViewObserver {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see controller.AbstractAnagraficaViewObserver#tasto3()
-	 */
 	@Override
 	public void tasto3() {
 		try {

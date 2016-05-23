@@ -36,7 +36,6 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 	private static final long serialVersionUID = -1706093338606827050L;
 
 	private MyTableModel<dataModel> dataModel;
-	private LinkedList<dataModel> list;
 	protected IAnagraficaViewObserver observer;
 	private final JTable table = new JTable();
 	private final JButton tasto0 = new JButton();
@@ -58,7 +57,6 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 	public AbstractAnagraficaView(final LinkedList<dataModel> lista, final String intestazione[], final String title,
 			final String testo0, final String testo1, final String testo2, final String testo3, final String testo4) {
 		super(title, new Dimension(500, 625));
-		this.list = lista;
 		tasto0.setText(testo0);
 		tasto1.setText(testo1);
 		tasto2.setText(testo2);
@@ -120,8 +118,7 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 	}
 
 	public void setList(final LinkedList<dataModel> lista) {
-		this.list = new LinkedList<dataModel>(lista);
-		dataModel.fireTableDataChanged();
+		getModel().setList(lista);
 	}
 
 	public void setObserver(final IAnagraficaViewObserver observer) {
