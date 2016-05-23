@@ -26,16 +26,16 @@ public class AccountsModel extends AbstractModel {
 	private final static String NOME = "Nome Conto";
 	private final static String SALDO = "Saldo Conto";
 
-	static LinkedList<Account> listaaccount;
+	private LinkedList<Account> listaaccount;
 
 	public static LinkedList<Account> chartOfAccounts() {
 		return null;
 
 	}
 
-	public static void updateAccounts(Operation op) { // aggiorna i conti dopo
-														// l'aggiunta/modifica/eliminazione
-														// di un movimento
+	public void updateAccounts(Operation op) { // aggiorna i conti dopo
+												// l'aggiunta/modifica/eliminazione
+												// di un movimento
 		if (listaaccount.contains(op.getConto())) {
 			for (Account elem : listaaccount) {
 				if (elem.equals(op.getConto())) {
@@ -65,15 +65,15 @@ public class AccountsModel extends AbstractModel {
 
 	public AccountsModel(DBDataModel db) {
 		this.db = db;
+		this.listaaccount = db.getAccounts();
 	}
 
 	@Override
-	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException { // aggiunge
-																								// elementi
+	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
 		if (elem.get(NOME) == "" || elem.get(NATURA) == null || (Long) elem.get(SALDO) != 0) {
 			throw new IllegalArgumentException("valori non validi");
 		}
-		Account a = new Account(elem.get(NOME).toString(), (Natures) elem.get(NATURA), 0);
+		Account a = new Account((String) elem.get(NOME), (Natures) elem.get(NATURA), 0);
 		if (listaaccount.contains(a)) {
 			throw new InstanceAlreadyExistsException("elemento già inserito");
 		}

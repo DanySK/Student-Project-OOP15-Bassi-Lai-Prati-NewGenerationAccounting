@@ -42,7 +42,7 @@ public class MovementsModel extends AbstractModel {
 		}
 		listaMovimenti.add(m);
 		for (Operation op : m.getListaConti()) {
-			AccountsModel.updateAccounts(op);
+			// AccountsModel.updateAccounts(op);
 		}
 	}
 

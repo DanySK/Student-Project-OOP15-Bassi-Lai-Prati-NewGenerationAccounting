@@ -14,5 +14,5 @@ public enum Gender implements IDataEnum {
 	public Enum<?>[] getEnumValues() {
 		return values();
 	}
-	
+
 }

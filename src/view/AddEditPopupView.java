@@ -76,8 +76,14 @@ public class AddEditPopupView extends AbstractWideView {
 				}
 				compoMap.put(campo, js);
 				itemPanel.add(js);
-			} else if (item instanceof Long) {
-				JSpinner js = new javax.swing.JSpinner(new SpinnerNumberModel());
+			} else if (item instanceof Number) {
+				JSpinner js;
+				if (item instanceof Float || item instanceof Double) {
+					js = new javax.swing.JSpinner(
+							new SpinnerNumberModel(((Number) item).doubleValue(), null, null, 0.01));
+				} else {
+					js = new javax.swing.JSpinner(new SpinnerNumberModel(((Number) item).longValue(), null, null, 1));
+				}
 				if (item != null) {
 					js.setValue(item);
 				}
@@ -120,15 +126,30 @@ public class AddEditPopupView extends AbstractWideView {
 	}
 
 	private void add() {
-		try {
-			model.add(null);
-		} catch (InstanceAlreadyExistsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Map<String, Object> mappa = new HashMap<String, Object>();
+		for (String key : compoMap.keySet()) {
+			JComponent field = compoMap.get(key);
+			if (field instanceof JComboBox) {
+				mappa.put(key, ((JComboBox<?>) field).getSelectedItem());
+			}
+			if (field instanceof JTextField) {
+				mappa.put(key, ((JTextField) field).getText());
+			}
+			if (field instanceof JSpinner) {
+				mappa.put(key, ((JSpinner) field).getValue());
+			}
+			System.out.println(mappa.get(key).getClass());
+			System.out.println(mappa.get(key));
 		}
+		System.out.println(mappa.toString());
+		try {
+			model.add(mappa);
+		} catch (InstanceAlreadyExistsException e) {
+			errorDialog("errore", e.getMessage());
+		} catch (IllegalArgumentException e) {
+			errorDialog("errore", e.getMessage());
+		}
+
 	}
 
 	@Override
