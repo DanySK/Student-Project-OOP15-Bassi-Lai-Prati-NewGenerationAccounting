@@ -8,5 +8,16 @@ package dataEnum;
  *
  */
 public enum KindPerson {
-	CLIENTE, FORNITORE
+	CLIENTE, FORNITORE;
+	
+	public String getString(KindPerson kp){
+		switch (kp){
+		case CLIENTE:
+			return "Cliente";
+		case FORNITORE:
+			return "Fornitore";
+		default:
+			return "";
+		}
+	}
 }

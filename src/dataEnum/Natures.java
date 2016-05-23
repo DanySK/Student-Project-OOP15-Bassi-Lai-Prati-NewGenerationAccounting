@@ -8,5 +8,20 @@ package dataEnum;
  *
  */
 public enum Natures {
-	ATTIVITA, COSTO, PASSIVITA, RICAVO
+	ATTIVITA, COSTO, PASSIVITA, RICAVO;
+	
+	public String getString(Natures natura){
+		switch (natura){
+		case ATTIVITA:
+			return "Attività";
+		case COSTO:
+			return "Costi";
+		case PASSIVITA:
+			return "Passività";
+		case RICAVO:
+			return "Ricavi";
+		default:
+			return "";
+		}
+	}
 }

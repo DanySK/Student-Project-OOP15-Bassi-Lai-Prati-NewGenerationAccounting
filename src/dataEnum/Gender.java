@@ -8,5 +8,16 @@ package dataEnum;
  */
 
 public enum Gender {
-	F, M
+	F, M;
+	
+	public String getString(Gender gender){
+		switch (gender){
+		case F:
+			return "Femmina";
+		case M:
+			return "Maschio";
+		default:
+			return "";
+		}
+	}
 }
