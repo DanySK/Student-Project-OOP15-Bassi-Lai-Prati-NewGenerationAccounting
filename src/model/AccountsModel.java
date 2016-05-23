@@ -25,31 +25,21 @@ public class AccountsModel extends AbstractModel {
 	private final static String NATURA = "Natura Conto";
 	private final static String NOME = "Nome Conto";
 	private final static String SALDO = "Saldo Conto";
-<<<<<<< local
         private boolean trovato = false;
         private DBDataModel db;
-        public static LinkedList<Account> listaaccount;
+        public  LinkedList<Account> listaaccount;
         
         public AccountsModel(DBDataModel db) {
                 this.db = db;
                 listaaccount = new LinkedList<Account>();
         }
-=======
 
-	private LinkedList<Account> listaaccount;
->>>>>>> other
 
 	public static LinkedList<Account> chartOfAccounts() {
 		return null;
 	}
 
-<<<<<<< local
-	public static void updateAccounts(Operation op) { // aggiorna i conti dopo l'aggiunta/modifica/eliminazione di un movimento
-=======
-	public void updateAccounts(Operation op) { // aggiorna i conti dopo
-												// l'aggiunta/modifica/eliminazione
-												// di un movimento
->>>>>>> other
+	public void updateAccounts(Operation op) { // aggiorna i conti dopo l'aggiunta/modifica/eliminazione di un movimento
 		if (listaaccount.contains(op.getConto())) {
 			for (Account elem : listaaccount) {
 				if (elem.equals(op.getConto())) {
@@ -68,19 +58,6 @@ public class AccountsModel extends AbstractModel {
 			}
 		}
 	}
-
-<<<<<<< local
-=======
-	private boolean trovato = false;
-
-	private DBDataModel db;
-
-	public AccountsModel(DBDataModel db) {
-		this.db = db;
-		this.listaaccount = db.getAccounts();
-	}
-
->>>>>>> other
 	@Override
 	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
 		if (elem.get(NOME) == "" || elem.get(NATURA) == null || (Long) elem.get(SALDO) != 0) {
