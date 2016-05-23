@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -47,15 +48,15 @@ public class MovementsModel extends AbstractModel {
 	}
 
 	@Override
-	public void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare) {
+	public void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare) throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException {
 		if (obj.getClass().equals(Movement.class)) {
 			Movement m = new Movement(null, null);
 			m.setData((Date) elemDaModificare.get(DATA));
 			m.setListaConti((List<Operation>) elemDaModificare.get(LISTA));
 			for (Movement mov : listaMovimenti) {
 				if (mov.equals(obj)) {
-					// remove(mov);
-					// add(elemDaModificare);
+				    remove(mov);
+				    add(elemDaModificare);
 				}
 			}
 		}
@@ -63,20 +64,24 @@ public class MovementsModel extends AbstractModel {
 
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
-		// TODO Auto-generated method stub
-		return null;
+		if(obj.equals(null)){
+		    Map<String, Object> mappaVuota = new HashMap<>();
+		    mappaVuota.put(DATA, new Date());
+		    mappaVuota.put(LISTA, new LinkedList<Operation>());
+		    return mappaVuota;
+		}else
+		    {
+		    if(obj.getClass().equals(Movement.class)){
+		        Map<String, Object> mappaPiena = new HashMap<>();
+		        mappaPiena.put(DATA, ((Movement) obj).getData());
+		        mappaPiena.put(LISTA, ((Movement) obj).getListaConti());
+		        return mappaPiena;
+		    }
+		    else
+		        throw new IllegalArgumentException("valori non validi");
+		}
 	}
 
-	/*
-	 * 
-	 * @Override public Map<String, Object> getMap() { Map<String, Object> mappa
-	 * = new HashMap<>(); mappa.put(DATA, new Date()); mappa.put(LISTA, new
-	 * LinkedList<Operation>()); return mappa; }
-	 * 
-	 * public Map<String, Object> getMap(Movement obj) { Map<String, Object>
-	 * mappa = new HashMap<>(); mappa.put(DATA, obj.getData()); mappa.put(LISTA,
-	 * obj.getListaConti()); return mappa; }
-	 */
 	@Override
 	public LinkedList<Movement> load() {
 		return new LinkedList<Movement>(db.getMoviments());

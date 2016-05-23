@@ -1,5 +1,6 @@
 package model;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -24,14 +25,15 @@ public class AccountsModel extends AbstractModel {
 	private final static String NATURA = "Natura Conto";
 	private final static String NOME = "Nome Conto";
 	private final static String SALDO = "Saldo Conto";
+	private boolean trovato = false;
+        private DBDataModel db;
+
+        public LinkedList<Account> listaaccount;
+	
 	public static LinkedList<Account> chartOfAccounts() {
 		return null;
 	}
-	private boolean trovato = false;
-	private DBDataModel db;
-
-	public LinkedList<Account> listaaccount;
-
+	
 	public AccountsModel(DBDataModel db) {
 		this.db = db;
 		listaaccount = new LinkedList<Account>();
@@ -78,20 +80,27 @@ public class AccountsModel extends AbstractModel {
 
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
-		// TODO Auto-generated method stub
-		return null;
+		if(obj.equals(null)){
+		    Map<String, Object> mappaVuota = new HashMap<>();
+		    mappaVuota.put(NOME, new String());
+		    mappaVuota.put(NATURA,Natures.DEFAULT);
+		    mappaVuota.put(SALDO, new Float(0));
+		    return mappaVuota;
+		}
+		else {
+		    if (obj.getClass().equals(Account.class)){
+		        Map<String,Object> mappaPiena = new HashMap<>();
+		        mappaPiena.put(NOME, ((Account) obj).getName());
+		        mappaPiena.put(NATURA, ((Account) obj).getNatura());
+		        mappaPiena.put(SALDO, ((Account) obj).getSaldo());
+		        return mappaPiena;
+		    }
+		    else{ 
+		        throw new IllegalArgumentException("valori non validi");
+		    }
+		}
 	}
 
-	/*
-	 * @Override public Map<String, Object> getMap() { Map<String, Object> mappa
-	 * = new HashMap<>(); mappa.put(NOME, new String()); mappa.put(NATURA,
-	 * Natures.DEFAULT); mappa.put(SALDO, new Float(0)); return mappa; }
-	 * 
-	 * @Override public Map<String, Object> getMap(Account obj) { Map<String,
-	 * Object> mappa = new HashMap<>(); mappa.put(NOME, obj.getName());
-	 * mappa.put(NATURA, obj.getNatura()); mappa.put(SALDO, obj.getSaldo());
-	 * return mappa; }
-	 */
 	@Override
 	public LinkedList<Account> load() { // carica tutti i dati
 		return new LinkedList<Account>(db.getAccounts());
