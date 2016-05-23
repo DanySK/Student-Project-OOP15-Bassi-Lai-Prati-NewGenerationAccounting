@@ -38,6 +38,11 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 		view.start();
 	}
 
+	@Override
+	public void add(Map<String, Object> mappa) throws InstanceAlreadyExistsException, IllegalArgumentException {
+		model.add(mappa);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -49,6 +54,21 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 		new DBSaver(db.getPath(), view, db).start();
 		view.close();
 		new MainControllerImpl(db);
+	}
+
+	@Override
+	public void edit(Map<String, Object> mappa) throws InstanceNotFoundException {
+		model.edit(view.getSelectedItem(), mappa);
+	}
+
+	@Override
+	public Map<String, Object> getMap(IDataTableModel obj) {
+		return model.getMap(obj);
+	}
+
+	@Override
+	public void refresh() {
+		view.setList(model.load());
 	}
 
 	/*
@@ -91,25 +111,5 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	public void tasto3() {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public Map<String, Object> getMap(IDataTableModel obj) {
-		return model.getMap(obj);
-	}
-
-	@Override
-	public void add(Map<String, Object> mappa) throws InstanceAlreadyExistsException, IllegalArgumentException {
-		model.add(mappa);
-	}
-
-	@Override
-	public void edit(Map<String, Object> mappa) throws InstanceNotFoundException {
-		model.edit(view.getSelectedItem(), mappa);
-	}
-
-	@Override
-	public void refresh() {
-		view.setList(model.load());
 	}
 }

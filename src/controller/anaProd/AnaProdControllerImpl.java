@@ -35,6 +35,12 @@ public class AnaProdControllerImpl implements IAnagraficaViewObserver {
 		view.start();
 	}
 
+	@Override
+	public void add(Map<String, Object> mappa) throws InstanceAlreadyExistsException, IllegalArgumentException {
+		// TODO Auto-generated method stub
+
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -44,6 +50,24 @@ public class AnaProdControllerImpl implements IAnagraficaViewObserver {
 	public void chiusura() {
 		view.close();
 		new MainControllerImpl(model.saveDBAndClose());
+
+	}
+
+	@Override
+	public void edit(Map<String, Object> mappa) throws InstanceNotFoundException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Map<String, Object> getMap(IDataTableModel obj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void refresh() {
+		// TODO Auto-generated method stub
 
 	}
 
@@ -89,29 +113,5 @@ public class AnaProdControllerImpl implements IAnagraficaViewObserver {
 	public void tasto3() {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public Map<String, Object> getMap(IDataTableModel obj) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void add(Map<String, Object> mappa) throws InstanceAlreadyExistsException, IllegalArgumentException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void edit(Map<String, Object> mappa) throws InstanceNotFoundException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void refresh() {
-		// TODO Auto-generated method stub
-		
 	}
 }

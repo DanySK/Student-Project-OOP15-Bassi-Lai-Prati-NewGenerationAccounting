@@ -39,11 +39,31 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	}
 
 	@Override
+	public void add(Map<String, Object> mappa) throws InstanceAlreadyExistsException, IllegalArgumentException {
+		model.add(mappa);
+	}
+
+	@Override
 	public void chiusura() {
 		if (view.confirmDialog("Sei sicuro di voler uscire dal programma?", "Uscire")) {
 			saveCompanysList();
 			System.exit(0);
 		}
+	}
+
+	@Override
+	public void edit(Map<String, Object> mappa) throws InstanceNotFoundException {
+		model.edit(view.getSelectedItem(), mappa);
+	}
+
+	@Override
+	public Map<String, Object> getMap(IDataTableModel obj) {
+		return model.getMap(obj);
+	}
+
+	@Override
+	public void refresh() {
+		view.setList(model.load());
 	}
 
 	private void saveCompanysList() {
@@ -80,26 +100,6 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	@Override
 	public void tasto3() {
 		model.remove(view.getSelectedItem());
-		view.setList(model.load());
-	}
-
-	@Override
-	public Map<String, Object> getMap(IDataTableModel obj) {
-		return model.getMap(obj);
-	}
-
-	@Override
-	public void add(Map<String, Object> mappa) throws InstanceAlreadyExistsException, IllegalArgumentException {
-		model.add(mappa);
-	}
-
-	@Override
-	public void edit(Map<String, Object> mappa) throws InstanceNotFoundException {
-		model.edit(view.getSelectedItem(), mappa);
-	}
-
-	@Override
-	public void refresh() {
 		view.setList(model.load());
 	}
 

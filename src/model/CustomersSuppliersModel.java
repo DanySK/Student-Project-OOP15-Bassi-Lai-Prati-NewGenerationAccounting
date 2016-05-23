@@ -60,6 +60,21 @@ public class CustomersSuppliersModel extends AbstractModel {
 	}
 
 	@Override
+	public Map<String, Object> getMap(IDataTableModel obj) {
+		Map<String, Object> mappaRapportiC = new HashMap<>();
+
+		mappaRapportiC.put(CF, new Integer(0));
+		mappaRapportiC.put(Nome, new String());
+		mappaRapportiC.put(Cognome, new String());
+		mappaRapportiC.put(Indirizzo, new String());
+		mappaRapportiC.put(CAP, new Integer(0));
+		mappaRapportiC.put(Credito, new Integer(0));
+		mappaRapportiC.put(Debito, new Integer(0));
+		mappaRapportiC.put(Telefono, new String());
+		return mappaRapportiC;
+	}
+
+	@Override
 	public LinkedList<Customers_Suppliers> load() {
 
 		return new LinkedList<Customers_Suppliers>();
@@ -79,20 +94,5 @@ public class CustomersSuppliersModel extends AbstractModel {
 		db.setCustomersSuppliers(listaRapportiC); // Sposto i dati dalla lista
 													// interna al DB
 		return db;// e restituisco
-	}
-
-	@Override
-	public Map<String, Object> getMap(IDataTableModel obj) {
-		Map<String, Object> mappaRapportiC = new HashMap<>();
-
-		mappaRapportiC.put(CF, new Integer(0));
-		mappaRapportiC.put(Nome, new String());
-		mappaRapportiC.put(Cognome, new String());
-		mappaRapportiC.put(Indirizzo, new String());
-		mappaRapportiC.put(CAP, new Integer(0));
-		mappaRapportiC.put(Credito, new Integer(0));
-		mappaRapportiC.put(Debito, new Integer(0));
-		mappaRapportiC.put(Telefono, new String());
-		return mappaRapportiC;
 	}
 }

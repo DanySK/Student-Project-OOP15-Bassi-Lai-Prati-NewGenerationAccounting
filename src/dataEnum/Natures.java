@@ -10,6 +10,7 @@ package dataEnum;
 public enum Natures implements IDataEnum {
 	DEFAULT, ATTIVITA, COSTO, PASSIVITA, RICAVO;
 
+	@Override
 	public Enum<?>[] getEnumValues() {
 		return values();
 	}

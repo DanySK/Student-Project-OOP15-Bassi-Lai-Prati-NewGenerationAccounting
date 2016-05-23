@@ -28,7 +28,6 @@ import javax.swing.SpinnerNumberModel;
 import controller.IAnagraficaViewObserver;
 import dataEnum.IDataEnum;
 import dataModel.IDataTableModel;
-import model.AbstractModel;
 
 /**
  * @author Pentolo

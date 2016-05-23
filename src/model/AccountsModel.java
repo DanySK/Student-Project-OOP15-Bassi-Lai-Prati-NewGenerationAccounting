@@ -1,6 +1,5 @@
 package model;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -25,39 +24,19 @@ public class AccountsModel extends AbstractModel {
 	private final static String NATURA = "Natura Conto";
 	private final static String NOME = "Nome Conto";
 	private final static String SALDO = "Saldo Conto";
-        private boolean trovato = false;
-        private DBDataModel db;
-        public  LinkedList<Account> listaaccount;
-        
-        public AccountsModel(DBDataModel db) {
-                this.db = db;
-                listaaccount = new LinkedList<Account>();
-        }
-
-
 	public static LinkedList<Account> chartOfAccounts() {
 		return null;
 	}
+	private boolean trovato = false;
+	private DBDataModel db;
 
-	public void updateAccounts(Operation op) { // aggiorna i conti dopo l'aggiunta/modifica/eliminazione di un movimento
-		if (listaaccount.contains(op.getConto())) {
-			for (Account elem : listaaccount) {
-				if (elem.equals(op.getConto())) {
-					if (elem.getNatura().equals(Natures.COSTO) || elem.getNatura().equals(Natures.ATTIVITA)) {
-						if (op.getDare() > 0)
-							elem.incrSaldo(op.getDare());// Costo e Attività aumentano in dare
-						else if (op.getAvere() > 0)
-							elem.decrSaldo(op.getAvere());// e calano in avere
-					} else {
-						if (op.getAvere() > 0)
-							elem.incrSaldo(op.getAvere()); // Ricavo e Passività aumentano in avere
-						else if (op.getDare() > 0)
-							elem.decrSaldo(op.getDare());// e calano in dare
-					}
-				}
-			}
-		}
+	public LinkedList<Account> listaaccount;
+
+	public AccountsModel(DBDataModel db) {
+		this.db = db;
+		listaaccount = new LinkedList<Account>();
 	}
+
 	@Override
 	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
 		if (elem.get(NOME) == "" || elem.get(NATURA) == null || (Long) elem.get(SALDO) != 0) {
@@ -96,31 +75,36 @@ public class AccountsModel extends AbstractModel {
 				throw new IllegalArgumentException("paramentro non valido");
 		}
 	}
-/*
-	@Override
-	public Map<String, Object> getMap() {
-		Map<String, Object> mappa = new HashMap<>();
-		mappa.put(NOME, new String());
-		mappa.put(NATURA, Natures.DEFAULT);
-		mappa.put(SALDO, new Float(0));
-		return mappa;
-	}
 
 	@Override
-	public Map<String, Object> getMap(Account obj) {
-		Map<String, Object> mappa = new HashMap<>();
-		mappa.put(NOME, obj.getName());
-		mappa.put(NATURA, obj.getNatura());
-		mappa.put(SALDO, obj.getSaldo());
-		return mappa;
+	public Map<String, Object> getMap(IDataTableModel obj) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-*/
+
+	/*
+	 * @Override public Map<String, Object> getMap() { Map<String, Object> mappa
+	 * = new HashMap<>(); mappa.put(NOME, new String()); mappa.put(NATURA,
+	 * Natures.DEFAULT); mappa.put(SALDO, new Float(0)); return mappa; }
+	 * 
+	 * @Override public Map<String, Object> getMap(Account obj) { Map<String,
+	 * Object> mappa = new HashMap<>(); mappa.put(NOME, obj.getName());
+	 * mappa.put(NATURA, obj.getNatura()); mappa.put(SALDO, obj.getSaldo());
+	 * return mappa; }
+	 */
 	@Override
 	public LinkedList<Account> load() { // carica tutti i dati
 		return new LinkedList<Account>(db.getAccounts());
 	}
 
-	public List<? extends IDataTableModel> load(Natures natura) throws Exception { // carica i dati secondo la natura																	// natura
+	public List<? extends IDataTableModel> load(Natures natura) throws Exception { // carica
+																					// i
+																					// dati
+																					// secondo
+																					// la
+																					// natura
+																					// //
+																					// natura
 		LinkedList<Account> filtroNatura = new LinkedList<Account>();
 		if (natura.equals(null)) {
 			throw new Exception("natura non valida");
@@ -133,7 +117,14 @@ public class AccountsModel extends AbstractModel {
 		return filtroNatura;
 	}
 
-	public List<? extends IDataTableModel> load(String nome) throws Exception { // carica i dati secondo il nome																	// nome
+	public List<? extends IDataTableModel> load(String nome) throws Exception { // carica
+																				// i
+																				// dati
+																				// secondo
+																				// il
+																				// nome
+																				// //
+																				// nome
 		LinkedList<Account> filtroNome = new LinkedList<Account>();
 		if (nome.isEmpty()) {
 			throw new Exception("nome non valido");
@@ -147,7 +138,11 @@ public class AccountsModel extends AbstractModel {
 	}
 
 	@Override
-	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException { // elimina i dati																					// dati
+	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException { // elimina
+																							// i
+																							// dati
+																							// //
+																							// dati
 		if (elemDaEliminare.getClass().equals(Account.class)) {
 			Account a = (Account) elemDaEliminare;
 			for (Account elem : listaaccount) {
@@ -175,10 +170,30 @@ public class AccountsModel extends AbstractModel {
 		return db;
 	}
 
-	@Override
-	public Map<String, Object> getMap(IDataTableModel obj) {
-		// TODO Auto-generated method stub
-		return null;
+	public void updateAccounts(Operation op) { // aggiorna i conti dopo
+												// l'aggiunta/modifica/eliminazione
+												// di un movimento
+		if (listaaccount.contains(op.getConto())) {
+			for (Account elem : listaaccount) {
+				if (elem.equals(op.getConto())) {
+					if (elem.getNatura().equals(Natures.COSTO) || elem.getNatura().equals(Natures.ATTIVITA)) {
+						if (op.getDare() > 0)
+							elem.incrSaldo(op.getDare());// Costo e Attività
+															// aumentano in dare
+						else if (op.getAvere() > 0)
+							elem.decrSaldo(op.getAvere());// e calano in avere
+					} else {
+						if (op.getAvere() > 0)
+							elem.incrSaldo(op.getAvere()); // Ricavo e
+															// Passività
+															// aumentano in
+															// avere
+						else if (op.getDare() > 0)
+							elem.decrSaldo(op.getDare());// e calano in dare
+					}
+				}
+			}
+		}
 	}
 
 }

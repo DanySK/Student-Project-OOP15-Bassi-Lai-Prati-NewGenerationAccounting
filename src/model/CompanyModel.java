@@ -52,7 +52,8 @@ public class CompanyModel extends AbstractModel {
 
 	/**
 	 * Restituisco la mappa delle aziende
-	 * @param iDataTableModel 
+	 * 
+	 * @param iDataTableModel
 	 * 
 	 * 
 	 * 

@@ -1,8 +1,8 @@
 package model;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.management.InstanceAlreadyExistsException;
@@ -42,31 +42,41 @@ public class MovementsModel extends AbstractModel {
 		}
 		listaMovimenti.add(m);
 		for (Operation op : m.getListaConti()) {
-			// AccountsModel.updateAccounts(op);
+			// a.updateAccounts(op);
 		}
 	}
 
 	@Override
 	public void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare) {
-		// implementare
-
-	}/*
+		if (obj.getClass().equals(Movement.class)) {
+			Movement m = new Movement(null, null);
+			m.setData((Date) elemDaModificare.get(DATA));
+			m.setListaConti((List<Operation>) elemDaModificare.get(LISTA));
+			for (Movement mov : listaMovimenti) {
+				if (mov.equals(obj)) {
+					// remove(mov);
+					// add(elemDaModificare);
+				}
+			}
+		}
+	}
 
 	@Override
-	public Map<String, Object> getMap() {
-		Map<String, Object> mappa = new HashMap<>();
-		mappa.put(DATA, new Date());
-		mappa.put(LISTA, new LinkedList<Operation>());
-		return mappa;
+	public Map<String, Object> getMap(IDataTableModel obj) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	public Map<String, Object> getMap(Movement obj) {
-		Map<String, Object> mappa = new HashMap<>();
-		mappa.put(DATA, obj.getData());
-		mappa.put(LISTA, obj.getListaConti());
-		return mappa;
-	}
-*/
+	/*
+	 * 
+	 * @Override public Map<String, Object> getMap() { Map<String, Object> mappa
+	 * = new HashMap<>(); mappa.put(DATA, new Date()); mappa.put(LISTA, new
+	 * LinkedList<Operation>()); return mappa; }
+	 * 
+	 * public Map<String, Object> getMap(Movement obj) { Map<String, Object>
+	 * mappa = new HashMap<>(); mappa.put(DATA, obj.getData()); mappa.put(LISTA,
+	 * obj.getListaConti()); return mappa; }
+	 */
 	@Override
 	public LinkedList<Movement> load() {
 		return new LinkedList<Movement>(db.getMoviments());
@@ -95,7 +105,10 @@ public class MovementsModel extends AbstractModel {
 				if (listaMovimenti.contains(m)) {
 					listaMovimenti.remove(m);
 					for (Operation op : m.getListaConti()) {
-						// concludere
+						/*
+						 * temp = op.getAvere(); op.setAvere(op.getDare());
+						 * op.setDare(temp); a.updateAccounts(op);
+						 */
 					}
 				} else {
 					throw new InstanceNotFoundException("elemento da eliminare non trovato");
@@ -108,11 +121,5 @@ public class MovementsModel extends AbstractModel {
 	public DBDataModel saveDBAndClose() {
 		db.setMoviments(listaMovimenti);
 		return db;
-	}
-
-	@Override
-	public Map<String, Object> getMap(IDataTableModel obj) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

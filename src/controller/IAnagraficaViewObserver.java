@@ -15,6 +15,14 @@ import dataModel.IDataTableModel;
  *
  */
 public interface IAnagraficaViewObserver extends IViewObserver {
+	void add(Map<String, Object> mappa) throws InstanceAlreadyExistsException, IllegalArgumentException;
+
+	void edit(Map<String, Object> mappa) throws InstanceNotFoundException;
+
+	Map<String, Object> getMap(IDataTableModel obj);
+
+	void refresh();
+
 	void tasto0();
 
 	void tasto1();
@@ -22,12 +30,4 @@ public interface IAnagraficaViewObserver extends IViewObserver {
 	void tasto2();
 
 	void tasto3();
-
-	Map<String, Object> getMap(IDataTableModel obj);
-
-	void add(Map<String, Object> mappa) throws InstanceAlreadyExistsException, IllegalArgumentException;
-
-	void edit(Map<String, Object> mappa) throws InstanceNotFoundException;
-
-	void refresh();
 }
