@@ -23,19 +23,19 @@ public class Company implements IDataTableModel {
 	}
 
 	private int cap;
-
 	private String citta;
-	private UUID codice_azienda;
+	private UUID codice;
 	private String indirizzo;
 	private long partita_iva;
 	private char[] password;
 	private String provincia;
 	private String ragione_sociale;
-
 	private String tel;
 
-	public Company(final UUID codice_azienda, final char[] password, final String ragione_sociale, final long partita_iva, final String indirizzo,
-			final String citta, final int cap, final String provincia, final String tel) {
+	public Company(final UUID codice, final char[] password, final String ragione_sociale,
+			final long partita_iva, final String indirizzo, final String citta, final int cap, final String provincia,
+			final String tel) {
+		this.codice = codice;
 		this.password = password;
 		this.ragione_sociale = ragione_sociale;
 		this.partita_iva = partita_iva;
@@ -56,7 +56,7 @@ public class Company implements IDataTableModel {
 	}
 
 	public UUID getCodice_azienda() {
-		return codice_azienda;
+		return codice;
 	}
 
 	public String getIndirizzo() {
@@ -103,8 +103,8 @@ public class Company implements IDataTableModel {
 		this.citta = citta;
 	}
 
-	public void setCodice_azienda(final UUID codice_azienda) {
-		this.codice_azienda = codice_azienda;
+	public void setCodice(final UUID codice) {
+		this.codice = codice;
 	}
 
 	public void setIndirizzo(final String indirizzo) {
@@ -130,5 +130,4 @@ public class Company implements IDataTableModel {
 	public void setTel(final String tel) {
 		this.tel = tel;
 	}
-
 }

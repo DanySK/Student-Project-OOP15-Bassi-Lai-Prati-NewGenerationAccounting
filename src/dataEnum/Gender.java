@@ -7,17 +7,29 @@ package dataEnum;
  *
  */
 
-public enum Gender {
+public enum Gender implements IDataEnum {
 	F, M;
 	
-	public String getString(Gender gender){
-		switch (gender){
-		case F:
-			return "Femmina";
-		case M:
-			return "Maschio";
-		default:
-			return "";
+	@Override
+	public String toString(Enum<? extends IDataEnum> value) {
+		Gender gender = (Gender) value;
+		if (value instanceof Gender) {
+			switch (gender) {
+			case F:
+				return "Femmina";
+			case M:
+				return "Maschio";
+			}
 		}
+		return "";
+	}
+
+	@Override
+	public String[] getStrings() {
+		String[] stringVet = new String[values().length];
+		for (Gender value : values()){
+			stringVet[value.ordinal()] = value.toString();
+		}
+		return stringVet;
 	}
 }

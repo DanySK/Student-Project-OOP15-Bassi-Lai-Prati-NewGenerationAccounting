@@ -26,6 +26,7 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
 
 import dataEnum.Gender;
+import dataEnum.IDataEnum;
 import dataEnum.KindPerson;
 import dataEnum.Natures;
 import dataModel.IDataTableModel;
@@ -85,22 +86,8 @@ public class AddEditPopupView extends AbstractWideView {
 				}
 				compoMap.put(campo, js);
 				itemPanel.add(js);
-			} else if (item instanceof Gender) {
-				JComboBox<Gender> jcb = new JComboBox<Gender>();
-				if (item != null) {
-					jcb.setSelectedItem(item);
-				}
-				compoMap.put(campo, jcb);
-				itemPanel.add(jcb);
-			} else if (item instanceof KindPerson) {
-				JComboBox<KindPerson> jcb = new JComboBox<KindPerson>();
-				if (item != null) {
-					jcb.setSelectedItem(item);
-				}
-				compoMap.put(campo, jcb);
-				itemPanel.add(jcb);
-			} else if (item instanceof Natures) {
-				JComboBox<Natures> jcb = new JComboBox<Natures>();
+			} else if (item instanceof Enum && item instanceof IDataEnum) {
+				JComboBox<String> jcb = new JComboBox<String>(((IDataEnum) item).getStrings());
 				if (item != null) {
 					jcb.setSelectedItem(item);
 				}
@@ -108,7 +95,7 @@ public class AddEditPopupView extends AbstractWideView {
 				itemPanel.add(jcb);
 			}
 
-			mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+			mainPanel.add(Box.createRigidArea(new Dimension(0, 8)));
 			mainPanel.add(itemPanel);
 			itemPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		}

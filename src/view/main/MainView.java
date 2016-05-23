@@ -54,14 +54,14 @@ public class MainView extends AbstractWideView {
 	private String[] listaBtn;
 
 	public MainView() {
-		super(Messages.getString("MainView.8"), new Dimension(300, 350));
+		super(Messages.getString("MainView.8"), new Dimension(290, 375));
 		int maxBtn = Integer.parseInt(Messages.getString("MainView.500"));
 		listaBtn = new String[maxBtn];
 		JPanel panel = new JPanel();
 		myAction actionEvent = new myAction();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		for (int i = 0; i < maxBtn; i++) {
-			panel.add(Box.createRigidArea(new Dimension(0, 5)));
+			panel.add(Box.createRigidArea(new Dimension(0, 10)));
 			String tmpStr = Messages.getString("MainView." + i);
 			listaBtn[i] = tmpStr;
 			final JButton tmpBtn = new JButton(tmpStr);

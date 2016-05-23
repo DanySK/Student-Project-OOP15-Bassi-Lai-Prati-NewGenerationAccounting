@@ -7,21 +7,33 @@ package dataEnum;
  * @author niky
  *
  */
-public enum Natures {
+public enum Natures implements IDataEnum {
 	ATTIVITA, COSTO, PASSIVITA, RICAVO;
-	
-	public String getString(Natures natura){
-		switch (natura){
-		case ATTIVITA:
-			return "Attività";
-		case COSTO:
-			return "Costi";
-		case PASSIVITA:
-			return "Passività";
-		case RICAVO:
-			return "Ricavi";
-		default:
-			return "";
+
+	@Override
+	public String toString(Enum<? extends IDataEnum> value) {
+		Natures natura = (Natures) value;
+		if (value instanceof Natures) {
+			switch (natura) {
+			case ATTIVITA:
+				return "Attività";
+			case COSTO:
+				return "Costi";
+			case PASSIVITA:
+				return "Passività";
+			case RICAVO:
+				return "Ricavi";
+			}
 		}
+		return "";
+	}
+
+	@Override
+	public String[] getStrings() {
+		String[] stringVet = new String[values().length];
+		for (Natures value : values()){
+			stringVet[value.ordinal()] = value.toString();
+		}
+		return stringVet;
 	}
 }

@@ -28,7 +28,6 @@ public class CompanyModel extends AbstractModel {
 	private final static String telefono = "Telefono";
 	private final long partitaIVA = 0; // ricordarsi controlli sulla lunghezza
 	private final LinkedList<Company> listaAziende;
-	
 
 	public CompanyModel(final LinkedList<Company> linkedList) {
 		listaAziende = linkedList;
@@ -37,9 +36,9 @@ public class CompanyModel extends AbstractModel {
 	@Override
 	protected void addElem(Map<String, Object> elem) {
 		// SOLO PER TEST, DA CANCELLARE
-		char[] password = { 'p', 'w', 'd' };
-		Company nuovaazienda = new Company(UUID.randomUUID(), password, ragione_sociale, partitaIVA, indirizzo, citta, 0,
-				provincia, telefono);
+		char[] password = {};
+		Company nuovaazienda = new Company(UUID.randomUUID(), password, ragione_sociale, partitaIVA, indirizzo, citta,
+				0, provincia, telefono);
 		listaAziende.add(nuovaazienda);
 	}
 
@@ -110,6 +109,5 @@ public class CompanyModel extends AbstractModel {
 	public DBDataModel saveDBAndClose() {
 		return null;
 	}
-
 
 }
