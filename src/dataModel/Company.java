@@ -1,5 +1,7 @@
 package dataModel;
 
+import java.util.UUID;
+
 /**
  * classe per la gestione della singola azienda
  * 
@@ -32,9 +34,8 @@ public class Company implements IDataTableModel {
 
 	private String tel;
 
-	public Company(int codice_azienda, char[] password, String ragione_sociale, long partita_iva, String indirizzo,
+	public Company(UUID codice_azienda, char[] password, String ragione_sociale, long partita_iva, String indirizzo,
 			String citta, int cap, String provincia, String tel) {
-		this.codice_azienda = codice_azienda;
 		this.password = password;
 		this.ragione_sociale = ragione_sociale;
 		this.partita_iva = partita_iva;

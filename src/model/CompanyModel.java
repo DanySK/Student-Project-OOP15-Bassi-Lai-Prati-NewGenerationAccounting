@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.UUID;
 
 import dataModel.Company;
 import dataModel.DBDataModel;
@@ -18,18 +19,18 @@ import dataModel.IDataTableModel;
  */
 
 public class CompanyModel extends AbstractModel {
-	private static int count = 0;
 
 	private final static String ragione_sociale = "Ragione Sociale";
 	private final static String cap = "CAP";
 	private final static String citta = "Citta'";
-	// della P.IVA
 	private final static String provincia = "Provincia";
 	private final static String indirizzo = "Indirizzo";
 	private final static String telefono = "Telefono";
-										LinkedList<Company> listaAziende;
-	private int codice_azienda = 0;
 	private final long partitaIVA = 0; // ricordarsi controlli sulla lunghezza
+	
+	LinkedList<Company> listaAziende;
+	UUID codice_azienda = UUID.randomUUID(); //Ho usato UUID, così non sono necessari controlli, semplicemente genera un numero random univoco.
+	
 
 	public CompanyModel(LinkedList<Company> linkedList) {
 		listaAziende = linkedList;
@@ -39,7 +40,7 @@ public class CompanyModel extends AbstractModel {
 	protected void addElem(Map<String, Object> elem) {
 		// SOLO PER TEST, DA CANCELLARE
 		char[] password = { 'p', 'w', 'd' };
-		setCodice_azienda(++count); // autoincrement
+		
 		Company nuovaazienda = new Company(codice_azienda, password, ragione_sociale, partitaIVA, indirizzo, citta, 0,
 				provincia, telefono);
 		listaAziende.add(nuovaazienda);
@@ -67,7 +68,6 @@ public class CompanyModel extends AbstractModel {
 		mappaAziende.put(ragione_sociale, new String());
 		mappaAziende.put(cap, new Integer(0));
 		mappaAziende.put(citta, new String());
-		// mappaAziende.put(partitaIVA, new Long(0));
 		mappaAziende.put(provincia, new String());
 		mappaAziende.put(telefono, new Integer(0));
 
@@ -114,8 +114,5 @@ public class CompanyModel extends AbstractModel {
 		return null;
 	}
 
-	private void setCodice_azienda(int codice_azienda) {
-		this.codice_azienda = codice_azienda;
-	}
 
 }

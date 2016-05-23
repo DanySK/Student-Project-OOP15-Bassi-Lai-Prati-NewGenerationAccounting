@@ -21,11 +21,10 @@ public class ProductsModel extends AbstractModel {
 	private final static String nome = "NProdotto";
 	private final static String codiceA = "CodiceAcquisto";
 	private final static String codiceV = "CodiceVendita";
-	private final static String scorta = "Scorta";
+	private int scorta;
 	private final static String categoria = "Categoria";
 	private final static String descrizione = "Descrizione";
 	private final static String prezzo = "Prezzo";
-
 	LinkedList<Product> listaProdotti;
 
 	private DBDataModel db;
@@ -37,8 +36,8 @@ public class ProductsModel extends AbstractModel {
 	@Override
 	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
 		if (listaProdotti.contains(elem)) {
-			throw new IllegalArgumentException("Elemento gi� esistente!");
-		} else {
+			throw new IllegalArgumentException("Elemento gia' esistente!");
+		} else {//fare meglio
 			Product nuovoprodotto = new Product(elem.get(nome).toString(), (Integer) elem.get(codiceA),
 					(Integer) elem.get(codiceV), (Integer) elem.get(scorta), 0, elem.get(descrizione).toString(),
 					elem.get(categoria).toString(), (Integer) elem.get(prezzo));
@@ -62,10 +61,10 @@ public class ProductsModel extends AbstractModel {
 		mappaProdotti.put(nome, new String());
 		mappaProdotti.put(codiceA, new Integer(0));
 		mappaProdotti.put(codiceV, new Integer(0));
-		mappaProdotti.put(scorta, new Integer(0));
 		mappaProdotti.put(categoria, new String());
 		mappaProdotti.put(descrizione, new String());
 		mappaProdotti.put(prezzo, new Integer(0));
+		
 
 		return mappaProdotti;
 	}
@@ -79,6 +78,9 @@ public class ProductsModel extends AbstractModel {
 	public void remove(IDataTableModel elem) {
 		if (listaProdotti.contains(elem)) {
 			// controllo scorta = 0 -> Y = ok cancella N = errore
+			if((listaProdotti.contains(scorta>0))){
+				throw new IllegalArgumentException("Hai ancora rimanenze in magazzino di questo prodotto, non puoi eliminarlo.");	
+			}
 			listaProdotti.remove(elem);
 		} else {
 			throw new IllegalArgumentException("Elemento non trovato.");
