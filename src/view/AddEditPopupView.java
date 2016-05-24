@@ -128,6 +128,31 @@ public class AddEditPopupView extends AbstractWideView {
 		MyFrame.getContentPane().add(mainPanel, BorderLayout.CENTER);
 	}
 
+	private void add() {
+		try {
+			controller.add(populateMap());
+		} catch (Exception e) {
+			errorDialog("errore", e.getMessage());
+		}
+		controller.refresh();
+		chiusura();
+	}
+
+	@Override
+	protected void chiusura() {
+		this.close();
+	}
+
+	private void edit() {
+		try {
+			controller.edit(populateMap());
+		} catch (Exception e) {
+			errorDialog("errore", e.getMessage());
+		}
+		controller.refresh();
+		chiusura();
+	}
+
 	private Map<String, Object> populateMap() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		for (String key : mappa.keySet()) {
@@ -159,31 +184,6 @@ public class AddEditPopupView extends AbstractWideView {
 		}
 		System.out.println(map);
 		return map;
-	}
-
-	private void add() {
-		try {
-			controller.add(populateMap());
-		} catch (Exception e) {
-			errorDialog("errore", e.getMessage());
-		}
-		controller.refresh();
-		chiusura();
-	}
-
-	@Override
-	protected void chiusura() {
-		this.close();
-	}
-
-	private void edit() {
-		try {
-			controller.edit(populateMap());
-		} catch (Exception e) {
-			errorDialog("errore", e.getMessage());
-		}
-		controller.refresh();
-		chiusura();
 	}
 
 }

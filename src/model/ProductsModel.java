@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import javax.management.InstanceNotFoundException;
+
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 import dataModel.Product;
@@ -25,10 +27,10 @@ public class ProductsModel extends AbstractModel {
 	private final static String categoria = "Categoria";
 	private final static String descrizione = "Descrizione";
 	private final static String prezzo = "Prezzo";
-	private final static String rimanenze= "Rimanenze"; //string di scorta
+	private final static String rimanenze = "Rimanenze"; // string di scorta
 	private int scorta;
-	private boolean trovato=false;
-	
+	private boolean trovato = false;
+
 	LinkedList<Product> listaProdotti;
 
 	private DBDataModel db;
@@ -39,7 +41,8 @@ public class ProductsModel extends AbstractModel {
 
 	@Override
 	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
-		if (elem.get(nome) == "" ||elem.get(codiceA) == "" || elem.get(codiceV) == "" || elem.get(categoria) == "" || elem.get(descrizione) == "" || elem.get(prezzo) == "") {
+		if (elem.get(nome) == "" || elem.get(codiceA) == "" || elem.get(codiceV) == "" || elem.get(categoria) == ""
+				|| elem.get(descrizione) == "" || elem.get(prezzo) == "") {
 			throw new IllegalArgumentException("Uno o più valori inseriti risultano non validi. Riprovare.");
 		}
 		if (listaProdotti.contains(elem)) {
@@ -54,10 +57,11 @@ public class ProductsModel extends AbstractModel {
 	}
 
 	@Override
-	protected void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare) throws InstanceNotFoundException {
+	protected void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare)
+			throws InstanceNotFoundException {
 		if (!listaProdotti.contains(obj)) {
 			throw new InstanceNotFoundException("Elemento da modificare non presente, riprovare.");
-		}else {
+		} else {
 			if (obj.getClass().equals(Product.class)) {
 				Product cerca = (Product) obj;
 				for (Product elem : listaProdotti) {
@@ -69,8 +73,8 @@ public class ProductsModel extends AbstractModel {
 				if (trovato == false) {
 					throw new InstanceNotFoundException("Elemento da modificare non presente.");
 				}
-		listaProdotti.remove(obj);
-		addElem(infoDaModificare);
+				listaProdotti.remove(obj);
+				addElem(infoDaModificare);
 			}
 		}
 	}
@@ -79,8 +83,8 @@ public class ProductsModel extends AbstractModel {
 	public Map<String, Object> getMap(IDataTableModel obj) {
 
 		if (obj == null) {
-			Map<String, Object> mappaVuota= new HashMap<>();	
-			
+			Map<String, Object> mappaVuota = new HashMap<>();
+
 			mappaVuota.put(nome, new String(""));
 			mappaVuota.put(codiceA, new Integer(0));
 			mappaVuota.put(codiceV, new Integer(0));
@@ -89,9 +93,9 @@ public class ProductsModel extends AbstractModel {
 			mappaVuota.put(prezzo, new Integer(0));
 			mappaVuota.put(rimanenze, new Integer(0));
 			return mappaVuota;
-			
+
 		} else {
-			if (obj instanceof Product){
+			if (obj instanceof Product) {
 				Map<String, Object> mappaPiena = new HashMap<>();
 				mappaPiena.put(nome, ((Product) obj).getNome());
 				mappaPiena.put(codiceA, ((Product) obj).getCod_acquisto());
@@ -99,13 +103,13 @@ public class ProductsModel extends AbstractModel {
 				mappaPiena.put(categoria, ((Product) obj).getCategoria());
 				mappaPiena.put(descrizione, ((Product) obj).getDescrizione());
 				mappaPiena.put(prezzo, ((Product) obj).getPrezzovendita());
-				mappaPiena.put(rimanenze, ((Product)obj).getScorta());
+				mappaPiena.put(rimanenze, ((Product) obj).getScorta());
 				return mappaPiena;
-			}else {
+			} else {
 				throw new IllegalArgumentException("Valori non validi, riprovare.");
 			}
 		}
-			
+
 	}
 
 	@Override
@@ -113,20 +117,7 @@ public class ProductsModel extends AbstractModel {
 		return new LinkedList<Product>(listaProdotti);
 	}
 
-	@Override
-	public void remove(IDataTableModel elem) {
-		if (listaProdotti.contains(elem)) {
-			// controllo scorta = 0? -> Y = ok cancella N = errore
-			if ((listaProdotti.contains(scorta > 0))) {
-				throw new IllegalArgumentException("Hai ancora rimanenze in magazzino di questo prodotto, non puoi eliminarlo.");
-			}
-			listaProdotti.remove(elem);
-		} else {
-			throw new IllegalArgumentException("Elemento non trovato.");
-		}
-	}
-	
-	public List<? extends IDataTableModel> load(String nome) throws Exception { 																			// natura
+	public List<? extends IDataTableModel> load(String nome) throws Exception { // natura
 		LinkedList<Product> filtroNome = new LinkedList<Product>();
 		if (nome.equals(null)) {
 			throw new Exception("Nome non valido.");
@@ -138,11 +129,25 @@ public class ProductsModel extends AbstractModel {
 			}
 		return filtroNome;
 	}
-	
+
+	@Override
+	public void remove(IDataTableModel elem) {
+		if (listaProdotti.contains(elem)) {
+			// controllo scorta = 0? -> Y = ok cancella N = errore
+			if ((listaProdotti.contains(scorta > 0))) {
+				throw new IllegalArgumentException(
+						"Hai ancora rimanenze in magazzino di questo prodotto, non puoi eliminarlo.");
+			}
+			listaProdotti.remove(elem);
+		} else {
+			throw new IllegalArgumentException("Elemento non trovato.");
+		}
+	}
 
 	@Override
 	public DBDataModel saveDBAndClose() {
-		db.setProducts(listaProdotti); // Sposto i dati dalla lista interna al DB
+		db.setProducts(listaProdotti); // Sposto i dati dalla lista interna al
+										// DB
 		return db;// e restituisco
 	}
 

@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
+
 import dataModel.Company;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
@@ -29,22 +30,24 @@ public class CompanyModel extends AbstractModel {
 	private final static String provincia = "Provincia";
 	private final static String indirizzo = "Indirizzo";
 	private final static String telefono = "Telefono";
-	private final static String p_iva = "P.IVA"; //stringa che uso unicamente per il return nelle mappe.
+	private final static String p_iva = "P.IVA"; // stringa che uso unicamente
+													// per il return nelle
+													// mappe.
 	private final long partitaIVA = 0; // ricordarsi controlli sulla lunghezza
-	//private final int length = String.valueOf(11).length();
+	// private final int length = String.valueOf(11).length();
 	private boolean trovato = false;
-	
+
 	private final LinkedList<Company> listaAziende;
-	
-	
-	
+
 	public CompanyModel(final LinkedList<Company> linkedList) {
 		listaAziende = linkedList;
 	}
 
 	@Override
 	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
-		if (elem.get(ragione_sociale) == "" ||(Long) elem.get(partitaIVA) == null || elem.get(cap) == "" || elem.get(citta) == "" || elem.get(provincia) == "" || elem.get(indirizzo) == "" || elem.get(telefono) == "") {
+		if (elem.get(ragione_sociale) == "" || (Long) elem.get(partitaIVA) == null || elem.get(cap) == ""
+				|| elem.get(citta) == "" || elem.get(provincia) == "" || elem.get(indirizzo) == ""
+				|| elem.get(telefono) == "") {
 			throw new IllegalArgumentException("Uno o più valori inseriti risultano non validi. Riprovare.");
 		}
 		// SOLO PER TEST, DA CANCELLARE
@@ -58,11 +61,12 @@ public class CompanyModel extends AbstractModel {
 	}
 
 	@Override
-	public void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare) throws InstanceAlreadyExistsException, InstanceNotFoundException {
-		
+	public void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare)
+			throws InstanceAlreadyExistsException, InstanceNotFoundException {
+
 		if (!listaAziende.contains(obj)) {
 			throw new InstanceNotFoundException("Elemento da modificare non presente, riprovare.");
-		}else {
+		} else {
 			if (obj.getClass().equals(Company.class)) {
 				Company cerca = (Company) obj;
 				for (Company elem : listaAziende) {
@@ -74,24 +78,13 @@ public class CompanyModel extends AbstractModel {
 				if (trovato == false) {
 					throw new InstanceNotFoundException("Elemento da modificare non presente.");
 				}
-		listaAziende.remove(obj);
+				listaAziende.remove(obj);
 
-		addElem(infoDaModificare);
+				addElem(infoDaModificare);
+			}
 		}
 	}
-}
-	
-	@Override
-	public void remove(IDataTableModel elem) {
-		if (listaAziende.contains(elem)) {
-			listaAziende.remove(elem);
-		} else {
-			throw new IllegalArgumentException("Elemento non trovato.");
-		}
-	}
-	
-	
-	
+
 	/**
 	 * Restituisco la mappa delle aziende
 	 * 
@@ -101,8 +94,8 @@ public class CompanyModel extends AbstractModel {
 	public Map<String, Object> getMap(IDataTableModel obj) {
 
 		if (obj == null) {
-			Map<String, Object> mappaVuota= new HashMap<>();	
-			
+			Map<String, Object> mappaVuota = new HashMap<>();
+
 			mappaVuota.put(ragione_sociale, new String());
 			mappaVuota.put(cap, new Integer(0));
 			mappaVuota.put(citta, new String(""));
@@ -110,9 +103,9 @@ public class CompanyModel extends AbstractModel {
 			mappaVuota.put(telefono, new Integer(0));
 			mappaVuota.put(p_iva, new String(""));
 			return mappaVuota;
-			
+
 		} else {
-			if (obj instanceof Company){
+			if (obj instanceof Company) {
 				Map<String, Object> mappaPiena = new HashMap<>();
 				mappaPiena.put(ragione_sociale, ((Company) obj).getRagione_sociale());
 				mappaPiena.put(cap, ((Company) obj).getCap());
@@ -121,11 +114,11 @@ public class CompanyModel extends AbstractModel {
 				mappaPiena.put(telefono, ((Company) obj).getTel());
 				mappaPiena.put(p_iva, ((Company) obj).getPartita_iva());
 				return mappaPiena;
-			}else {
+			} else {
 				throw new IllegalArgumentException("Valori non validi, riprovare.");
 			}
 		}
-			
+
 	}
 
 	/**
@@ -139,10 +132,23 @@ public class CompanyModel extends AbstractModel {
 
 	@Override
 	public LinkedList<Company> load() {
-		return new LinkedList <Company>(listaAziende);
+		return new LinkedList<Company>(listaAziende);
 	}
-	
-	public List<? extends IDataTableModel> load(String Ragione_sociale) throws Exception { 																			// natura
+
+	public List<? extends IDataTableModel> load(Long p_iva) throws Exception {
+		LinkedList<Company> filtroPIVA = new LinkedList<Company>();
+		if (p_iva.equals(null)) {
+			throw new Exception("P.IVA non valida!");
+		} else
+			for (Company filtra : listaAziende) {
+				if (filtra.getPartita_iva() == p_iva) {
+					filtroPIVA.add(filtra);
+				}
+			}
+		return filtroPIVA;
+	}
+
+	public List<? extends IDataTableModel> load(String Ragione_sociale) throws Exception { // natura
 		LinkedList<Company> filtroRagioneSociale = new LinkedList<Company>();
 		if (Ragione_sociale.equals(null)) {
 			throw new Exception("Ragione Sociale non valida.");
@@ -154,18 +160,14 @@ public class CompanyModel extends AbstractModel {
 			}
 		return filtroRagioneSociale;
 	}
-	
-	public List<? extends IDataTableModel> load(Long p_iva) throws Exception { 																			
-		LinkedList<Company> filtroPIVA = new LinkedList<Company>();
-		if (p_iva.equals(null)) {
-			throw new Exception("P.IVA non valida!");
-		} else
-			for (Company filtra : listaAziende) {
-				if (filtra.getPartita_iva()==(long)p_iva) {
-					filtroPIVA.add(filtra);
-				}
-			}
-		return filtroPIVA;
+
+	@Override
+	public void remove(IDataTableModel elem) {
+		if (listaAziende.contains(elem)) {
+			listaAziende.remove(elem);
+		} else {
+			throw new IllegalArgumentException("Elemento non trovato.");
+		}
 	}
 
 	/**

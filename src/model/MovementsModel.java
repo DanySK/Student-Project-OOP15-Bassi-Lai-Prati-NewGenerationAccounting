@@ -65,7 +65,7 @@ public class MovementsModel extends AbstractModel {
 
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
-		if (obj==null) {
+		if (obj == null) {
 			Map<String, Object> mappaVuota = new HashMap<>();
 			mappaVuota.put(DATA, new Date());
 			mappaVuota.put(LISTA, new LinkedList<Operation>());

@@ -35,9 +35,8 @@ public class CustomersSuppliersModel extends AbstractModel {
 	private final String Sessostring = "SessoString";
 	private KindPerson ruolo;
 	private Gender sesso;
-	private boolean trovato=false;
-	
-	
+	private boolean trovato = false;
+
 	private DBDataModel db;
 
 	/* listaRapportiC = lista rapporti commerciali */
@@ -70,8 +69,8 @@ public class CustomersSuppliersModel extends AbstractModel {
 	public Map<String, Object> getMap(IDataTableModel obj) {
 
 		if (obj == null) {
-			Map<String, Object> mappaVuota= new HashMap<>();	
-			
+			Map<String, Object> mappaVuota = new HashMap<>();
+
 			mappaVuota.put(CF, new String(""));
 			mappaVuota.put(Citta, new String(""));
 			mappaVuota.put(Cognome, new String(""));
@@ -85,11 +84,11 @@ public class CustomersSuppliersModel extends AbstractModel {
 			mappaVuota.put(Ruolostring, KindPerson.FORNITORE);
 			mappaVuota.put(Sessostring, Gender.F);
 			mappaVuota.put(Sessostring, Gender.M);
-			
+
 			return mappaVuota;
-			
+
 		} else {
-			if (obj instanceof Customers_Suppliers){
+			if (obj instanceof Customers_Suppliers) {
 				Map<String, Object> mappaPiena = new HashMap<>();
 				mappaPiena.put(CF, ((Customers_Suppliers) obj).getCf());
 				mappaPiena.put(Citta, ((Customers_Suppliers) obj).getCitta());
@@ -103,21 +102,21 @@ public class CustomersSuppliersModel extends AbstractModel {
 				mappaPiena.put(Ruolostring, ((Customers_Suppliers) obj).getRuolo());
 				mappaPiena.put(Sessostring, ((Customers_Suppliers) obj).getSesso());
 
-				
 				return mappaPiena;
-			}else {
+			} else {
 				throw new IllegalArgumentException("Valori non validi, riprovare.");
 			}
 		}
-			
+
 	}
+
 	@Override
 	public LinkedList<Customers_Suppliers> load() {
 
 		return new LinkedList<Customers_Suppliers>();
 	}
 
-	public List<? extends IDataTableModel> load(String Cf) throws Exception { 																			// natura
+	public List<? extends IDataTableModel> load(String Cf) throws Exception { // natura
 		LinkedList<Customers_Suppliers> filtroCF = new LinkedList<Customers_Suppliers>();
 		if (Cf.equals(null)) {
 			throw new Exception("Cf non valido.");
@@ -129,10 +128,9 @@ public class CustomersSuppliersModel extends AbstractModel {
 			}
 		return filtroCF;
 	}
-	
-	
+
 	@Override
-	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException {																												// dati
+	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException { // dati
 		if (elemDaEliminare.getClass().equals(Customers_Suppliers.class)) {
 			Customers_Suppliers rimuovi = (Customers_Suppliers) elemDaEliminare;
 			for (Customers_Suppliers elem : listaRapportiC) {
@@ -142,7 +140,8 @@ public class CustomersSuppliersModel extends AbstractModel {
 						listaRapportiC.remove(elem);
 						db.setCustomersSuppliers(listaRapportiC);
 					} else {
-						throw new IllegalArgumentException("Esiste ancora un credito o un debito verso questa persona, dunque rimozione non effettuabile.");
+						throw new IllegalArgumentException(
+								"Esiste ancora un credito o un debito verso questa persona, dunque rimozione non effettuabile.");
 					}
 				}
 			}

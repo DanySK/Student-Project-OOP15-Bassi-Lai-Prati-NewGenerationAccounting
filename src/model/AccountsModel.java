@@ -25,13 +25,13 @@ public class AccountsModel extends AbstractModel {
 	private final static String NATURA = "Natura Conto";
 	private final static String NOME = "Nome Conto";
 	private final static String SALDO = "Saldo Conto";
-	private boolean trovato = false;
-	private final DBDataModel db;
-	private final LinkedList<Account> listaaccount;
-
 	public static LinkedList<Account> chartOfAccounts() {
 		return new LinkedList<Account>();
 	}
+	private boolean trovato = false;
+	private final DBDataModel db;
+
+	private final LinkedList<Account> listaaccount;
 
 	public AccountsModel(DBDataModel db) {
 		this.db = db;
@@ -102,7 +102,9 @@ public class AccountsModel extends AbstractModel {
 		return new LinkedList<Account>(listaaccount);
 	}
 
-	public List<? extends IDataTableModel> load(Natures natura) throws Exception { // carica																			// natura
+	public List<? extends IDataTableModel> load(Natures natura) throws Exception { // carica
+																					// //
+																					// natura
 		LinkedList<Account> filtroNatura = new LinkedList<Account>();
 		if (natura.equals(null)) {
 			throw new Exception("natura non valida");
