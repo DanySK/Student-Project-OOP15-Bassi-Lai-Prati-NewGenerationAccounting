@@ -1,22 +1,18 @@
 package controller.anaAziende;
 
-import java.awt.Dimension;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.Map;
 
-import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
 import controller.IAnagraficaViewObserver;
+import controller.PopupControllerImpl;
 import controller.dbController.DBLoader;
 import controller.dbController.DBSaver;
 import controller.main.MainControllerImpl;
 import dataEnum.PopupMode;
 import dataModel.Company;
-import dataModel.IDataTableModel;
 import model.CompanyModel;
-import view.AddEditPopupView;
 import view.anaAziende.AnaAziendeView;
 
 public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
@@ -48,32 +44,11 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	}
 
 	@Override
-	public void add(Map<String, Object> mappa) throws InstanceAlreadyExistsException, IllegalArgumentException {
-		model.add(mappa);
-	}
-
-	@Override
 	public void chiusura() {
 		if (view.confirmDialog("Sei sicuro di voler uscire dal programma?", "Uscire")) {
 			saveCompanysList();
 			System.exit(0);
 		}
-	}
-
-	@Override
-	public void edit(Map<String, Object> mappa) throws InstanceNotFoundException {
-		try {
-			model.edit(view.getSelectedItem(), mappa);
-		} catch (InstanceAlreadyExistsException e) {
-			view.errorDialog("Errore", e.getMessage());
-		} catch (IllegalArgumentException e) {
-			view.errorDialog("Errore", e.getMessage());
-		}
-	}
-
-	@Override
-	public Map<String, Object> getMap(IDataTableModel obj) {
-		return model.getMap(obj);
 	}
 
 	@Override
@@ -91,20 +66,27 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void tasto0() {
-		new AddEditPopupView(PopupMode.FIND, null, view.getTitle(), new Dimension(300, 400), this, view).start();
+		try {
+			new PopupControllerImpl(PopupMode.ADD, model, this, view);
+		} catch (InstanceNotFoundException | IllegalArgumentException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
 	}
 
 	@Override
 	public void tasto1() {
-		new AddEditPopupView(PopupMode.ADD, null, view.getTitle(), new Dimension(300, 400), this, view).start();
+		try {
+			new PopupControllerImpl(PopupMode.EDIT, model, this, view);
+		} catch (InstanceNotFoundException | IllegalArgumentException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
 	}
 
 	@Override
 	public void tasto2() {
 		try {
-			new AddEditPopupView(PopupMode.FIND, view.getSelectedItem(), view.getTitle(), new Dimension(300, 400), this,
-					view).start();
-		} catch (InstanceNotFoundException e) {
+			new PopupControllerImpl(PopupMode.FIND, model, this, view);
+		} catch (InstanceNotFoundException | IllegalArgumentException e) {
 			view.errorDialog("Errore", e.getMessage());
 		}
 	}
@@ -117,11 +99,6 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 			view.errorDialog("Errore", e.getMessage());
 		}
 		refresh();
-	}
-
-	@Override
-	public void filterList(Map<String, Object> mappa) {
-		view.setList((LinkedList<Company>) model.load(mappa));
 	}
 
 }
