@@ -29,14 +29,11 @@ public class CreaFattureModel extends AbstractModel {
 	
 	LinkedList<Item> listaCarrello;
 	
-////	public CreaFattureModel(DBDataModel db) {
-//		this.db = db;
-//	}
-
-	public CreaFattureModel(DBDataModel db2) {
-		// TODO Auto-generated constructor stub
+public CreaFattureModel(DBDataModel db) {
+		this.db = db;
 	}
 
+	
 	@Override
 	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
 //		if (oggetto.getScorta()<=0){

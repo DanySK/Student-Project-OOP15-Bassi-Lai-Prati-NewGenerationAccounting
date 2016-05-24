@@ -9,8 +9,6 @@ import java.util.UUID;
 
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
-
-import dataModel.Account;
 import dataModel.Company;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
@@ -65,7 +63,7 @@ public class CompanyModel extends AbstractModel {
 		if (!listaAziende.contains(obj)) {
 			throw new InstanceNotFoundException("Elemento da modificare non presente, riprovare.");
 		}else {
-			if (obj.getClass().equals(Account.class)) {
+			if (obj.getClass().equals(Company.class)) {
 				Company cerca = (Company) obj;
 				for (Company elem : listaAziende) {
 					if (elem.getCodice_azienda().equals(cerca.getCodice_azienda())) {
@@ -98,9 +96,6 @@ public class CompanyModel extends AbstractModel {
 	 * Restituisco la mappa delle aziende
 	 * 
 	 * @param iDataTableModel
-	 * 
-	 * 
-	 * 
 	 */
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
