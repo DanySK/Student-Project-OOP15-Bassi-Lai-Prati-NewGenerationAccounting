@@ -6,19 +6,48 @@ import java.util.Map;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 import dataModel.Item;
+import dataModel.Product;
+
+/**
+ * Classe implementativa per la gestione del carrello che permette l'acquisto di prodotti,
+ * coinvolgendo i movimenti dei conti e delle scorte in magazzino.
+ * 
+ * @author Diego
+ *
+ */
+
 
 public class CreaFattureModel extends AbstractModel {
 
 	DBDataModel db;
+	
+//private final Product oggetto;
+//private final int quantita;
 
-	public CreaFattureModel(DBDataModel db) {
-		this.db = db;
+	private int spesa; //Spesa = subtotale
+
+	
+	LinkedList<Item> listaCarrello;
+	
+////	public CreaFattureModel(DBDataModel db) {
+//		this.db = db;
+//	}
+
+	public CreaFattureModel(DBDataModel db2) {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-
+//		if (oggetto.getScorta()<=0){
+//			throw new IllegalArgumentException("Questo prodotto non è più disponibile in magazzino, mi dispiace.");	
+//		}else{
+		
+//		Item nuovoCarrello = new Item (oggetto, quantita);
+//		}
+		
+//		listaCarrello.add(nuovoCarrello);
+		
 	}
 
 	@Override

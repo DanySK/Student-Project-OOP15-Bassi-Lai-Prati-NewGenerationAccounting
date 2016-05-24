@@ -75,7 +75,7 @@ public class ProductsModel extends AbstractModel {
 	@Override
 	public void remove(IDataTableModel elem) {
 		if (listaProdotti.contains(elem)) {
-			// controllo scorta = 0 -> Y = ok cancella N = errore
+			// controllo scorta = 0? -> Y = ok cancella N = errore
 			if ((listaProdotti.contains(scorta > 0))) {
 				throw new IllegalArgumentException(
 						"Hai ancora rimanenze in magazzino di questo prodotto, non puoi eliminarlo.");
@@ -88,8 +88,7 @@ public class ProductsModel extends AbstractModel {
 
 	@Override
 	public DBDataModel saveDBAndClose() {
-		db.setProducts(listaProdotti); // Sposto i dati dalla lista interna al
-										// DB
+		db.setProducts(listaProdotti); // Sposto i dati dalla lista interna al DB
 		return db;// e restituisco
 	}
 
