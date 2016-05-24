@@ -50,7 +50,7 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	@Override
 	public void tasto0() {
 		try {
-			new PopupControllerImpl(PopupMode.ADD, model, this, view);
+			new PopupControllerImpl(PopupMode.FIND, model, this, view);
 		} catch (InstanceNotFoundException | IllegalArgumentException e) {
 			view.errorDialog("Errore", e.getMessage());
 		}
@@ -59,7 +59,7 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	@Override
 	public void tasto1() {
 		try {
-			new PopupControllerImpl(PopupMode.EDIT, model, this, view);
+			new PopupControllerImpl(PopupMode.ADD, model, this, view);
 		} catch (InstanceNotFoundException | IllegalArgumentException e) {
 			view.errorDialog("Errore", e.getMessage());
 		}
@@ -68,7 +68,7 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	@Override
 	public void tasto2() {
 		try {
-			new PopupControllerImpl(PopupMode.FIND, model, this, view);
+			new PopupControllerImpl(PopupMode.EDIT, model, this, view);
 		} catch (InstanceNotFoundException | IllegalArgumentException e) {
 			view.errorDialog("Errore", e.getMessage());
 		}

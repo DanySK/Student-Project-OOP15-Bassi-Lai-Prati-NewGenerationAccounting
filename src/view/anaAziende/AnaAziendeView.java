@@ -39,8 +39,8 @@ public class AnaAziendeView extends AbstractAnagraficaView<Company> {
 		topPanel.add(new JLabel("Password: "));
 		topPanel.add(passwordField);
 		topPanel.add(accediButton);
-		MyFrame.getContentPane().add(topPanel, BorderLayout.NORTH);
-		SwingUtilities.getRootPane(MyFrame).setDefaultButton(accediButton);
+		getMyFrame().getContentPane().add(topPanel, BorderLayout.NORTH);
+		SwingUtilities.getRootPane(getMyFrame()).setDefaultButton(accediButton);
 		accediButton.addActionListener(e -> {
 			Company item = null;
 			try {

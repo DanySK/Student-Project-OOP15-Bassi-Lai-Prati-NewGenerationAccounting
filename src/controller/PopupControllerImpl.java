@@ -46,21 +46,21 @@ public class PopupControllerImpl implements IViewObserver {
 		String titolo;
 		switch (mode) {
 		case ADD:
-			titolo = new String("Aggiungi");
+			titolo = "Aggiungi";
 			mappa = model.getMap(null);
 			break;
 		case EDIT:
-			titolo = new String("Modifica");
+			titolo = "Modifica";
 			mappa = model.getMap(ParentView.getSelectedItem());
 			break;
 		case FIND:
-			titolo = new String("Filtra/Cerca");
+			titolo = "Filtra/Cerca";
 			mappa = model.getFilterMap();
 			break;
 		default:
 			throw new IllegalArgumentException("Modalità non consentita.");
 		}
-		Dimension dim = new Dimension(350, 200 + 30 * mappa.size());
+		Dimension dim = new Dimension(350, 200 + 40 * mappa.size());
 		this.view = new AddEditPopupView(titolo, dim, mappa);
 		view.setObserver(this);
 		view.start();

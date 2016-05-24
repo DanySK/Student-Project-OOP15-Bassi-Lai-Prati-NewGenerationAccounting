@@ -25,7 +25,7 @@ import dataModel.IDataTableModel;
  * @author Pentolo
  *
  */
-public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> extends AbstractFrame {
+public abstract class AbstractAnagraficaView<E extends IDataTableModel> extends AbstractFrame {
 
 	private final static String DEFAULT_TASTO_0 = "Cerca";
 	private final static String DEFAULT_TASTO_1 = "Aggiungi";
@@ -35,7 +35,7 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 
 	private static final long serialVersionUID = -1706093338606827050L;
 
-	private MyTableModel<dataModel> dataModel;
+	private MyTableModel<E> dataModel;
 	protected IAnagraficaViewObserver observer;
 	private final JTable table = new JTable();
 	private final JButton tasto0 = new JButton();
@@ -49,12 +49,12 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 	 * @param lm
 	 * @param dimension
 	 */
-	public AbstractAnagraficaView(final LinkedList<dataModel> lista, final String intestazione[], final String title) {
+	public AbstractAnagraficaView(final LinkedList<E> lista, final String intestazione[], final String title) {
 		this(lista, intestazione, title, DEFAULT_TASTO_0, DEFAULT_TASTO_1, DEFAULT_TASTO_2, DEFAULT_TASTO_3,
 				DEFAULT_TASTO_4);
 	}
 
-	public AbstractAnagraficaView(final LinkedList<dataModel> lista, final String intestazione[], final String title,
+	public AbstractAnagraficaView(final LinkedList<E> lista, final String intestazione[], final String title,
 			final String testo0, final String testo1, final String testo2, final String testo3, final String testo4) {
 		super(title, new Dimension(500, 625));
 		tasto0.setText(testo0);
@@ -68,12 +68,12 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 		footer.add(tasto2);
 		footer.add(tasto3);
 		footer.add(tasto4);
-		this.dataModel = new MyTableModel<dataModel>(intestazione, lista);
+		this.dataModel = new MyTableModel<E>(intestazione, lista);
 		getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		JScrollPane scrollPane = new JScrollPane(getTable());
+		final JScrollPane scrollPane = new JScrollPane(getTable());
 		getTable().setModel(getModel());
-		MyFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
-		MyFrame.getContentPane().add(footer, BorderLayout.SOUTH);
+		getMyFrame().getContentPane().add(scrollPane, BorderLayout.CENTER);
+		getMyFrame().getContentPane().add(footer, BorderLayout.SOUTH);
 		addListeners();
 	}
 
@@ -100,7 +100,7 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 		observer.chiusura();
 	}
 
-	protected MyTableModel<dataModel> getModel() {
+	protected MyTableModel<E> getModel() {
 		return dataModel;
 	}
 
@@ -117,7 +117,7 @@ public abstract class AbstractAnagraficaView<dataModel extends IDataTableModel> 
 		return table;
 	}
 
-	public void setList(final LinkedList<dataModel> lista) {
+	public void setList(final LinkedList<E> lista) {
 		getModel().setList(lista);
 	}
 

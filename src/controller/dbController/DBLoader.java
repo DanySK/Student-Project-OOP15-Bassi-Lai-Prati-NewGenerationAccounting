@@ -22,7 +22,7 @@ import view.AbstractFrame;
  * @author Pentolo
  *
  */
-public class DBLoader extends AbstractDB {
+public final class DBLoader extends AbstractDB {
 
 	public static LinkedList<Company> loadCompanys() throws IOException {
 		File file = getCompanyFile();
@@ -37,7 +37,7 @@ public class DBLoader extends AbstractDB {
 		}
 		try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
 			Object readElem = ois.readObject();
-			if (readElem instanceof java.util.LinkedList) {
+			if (readElem instanceof LinkedList) {
 				return (LinkedList<Company>) readElem;
 			}
 		} catch (Exception e) {
@@ -72,7 +72,7 @@ public class DBLoader extends AbstractDB {
 		}
 		try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
 			Object readElem = ois.readObject();
-			if (!readElem.equals(null) && readElem instanceof java.util.LinkedList) {
+			if (readElem != null && readElem instanceof java.util.LinkedList) {
 				return (LinkedList) readElem;
 			}
 		} catch (Exception e) {

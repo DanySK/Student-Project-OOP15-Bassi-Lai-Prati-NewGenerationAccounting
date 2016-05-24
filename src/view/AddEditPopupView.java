@@ -30,13 +30,13 @@ import dataEnum.IDataEnum;
  * @author Pentolo
  *
  */
-public class AddEditPopupView extends AbstractWideView {
+public class AddEditPopupView extends AbstractFrame {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2412389895309056834L;
-	private PopupControllerImpl controller;
+	private PopupControllerImpl observer;
 	private final HashMap<String, JComponent> compoMap;
 
 	/**
@@ -101,22 +101,25 @@ public class AddEditPopupView extends AbstractWideView {
 		}
 		JPanel footer = new JPanel(new FlowLayout());
 		JButton chiudi = new JButton("Chiudi");
-		JButton btn = new JButton();
+		JButton btnOk = new JButton(title);
 		chiudi.addActionListener(e -> {
-			chiusura();
+			observer.chiusura();
 		});
-		btn.setText(title);
-		btn.addActionListener(e -> {
-			controller.go(compoMap);
+		btnOk.addActionListener(e -> {
+			observer.go(compoMap);
 		});
-		footer.add(btn);
+		footer.add(btnOk);
 		footer.add(chiudi);
-		MyFrame.getContentPane().add(footer, BorderLayout.SOUTH);
-		MyFrame.getContentPane().add(mainPanel, BorderLayout.CENTER);
+		getMyFrame().getContentPane().add(footer, BorderLayout.SOUTH);
+		getMyFrame().getContentPane().add(mainPanel, BorderLayout.CENTER);
 	}
 
 	@Override
 	protected void chiusura() {
-		controller.chiusura();
+		observer.chiusura();
+	}
+
+	public void setObserver(PopupControllerImpl observer) {
+		this.observer = observer;
 	}
 }

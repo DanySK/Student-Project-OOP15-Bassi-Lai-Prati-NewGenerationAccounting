@@ -70,7 +70,7 @@ public class MainView extends AbstractWideView {
 			tmpBtn.addActionListener(actionEvent);
 			panel.add(tmpBtn);
 		}
-		MyFrame.getContentPane().add(panel, BorderLayout.CENTER);
+		getMyFrame().getContentPane().add(panel, BorderLayout.CENTER);
 	}
 
 	@Override

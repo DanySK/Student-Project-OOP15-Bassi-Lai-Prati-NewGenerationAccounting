@@ -37,9 +37,9 @@ public abstract class AbstractWideView extends AbstractFrame {
 		JButton chiudi = new JButton("Chiudi");
 		JPanel footer = new JPanel(new FlowLayout());
 		footer.add(chiudi);
-		MyFrame.getContentPane().add(footer, BorderLayout.SOUTH);
+		getMyFrame().getContentPane().add(footer, BorderLayout.SOUTH);
 		chiudi.addActionListener(e -> {
-			chiusura();
+			observer.chiusura();
 		});
 	}
 
