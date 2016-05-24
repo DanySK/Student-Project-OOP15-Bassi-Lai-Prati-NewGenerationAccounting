@@ -3,7 +3,6 @@ package model;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -135,32 +134,20 @@ public class CompanyModel extends AbstractModel {
 		return new LinkedList<Company>(listaAziende);
 	}
 
-	/* public List<? extends IDataTableModel> load(Long p_iva) throws Exception {
-		LinkedList<Company> filtroPIVA = new LinkedList<Company>();
-		if (p_iva.equals(null)) {
-			throw new Exception("P.IVA non valida!");
-		} else
-			for (Company filtra : listaAziende) {
-				if (filtra.getPartita_iva() == p_iva) {
-					filtroPIVA.add(filtra);
-				}
-			}
-		return filtroPIVA;
-	}
-
-	public List<? extends IDataTableModel> load(String Ragione_sociale) throws Exception { // natura
-		LinkedList<Company> filtroRagioneSociale = new LinkedList<Company>();
-		if (Ragione_sociale.equals(null)) {
-			throw new Exception("Ragione Sociale non valida.");
-		} else
-			for (Company filtra : listaAziende) {
-				if (filtra.getRagione_sociale().equals(Ragione_sociale)) {
-					filtroRagioneSociale.add(filtra);
-				}
-			}
-		return filtroRagioneSociale;
-	}
-*/
+	/*
+	 * public List<? extends IDataTableModel> load(Long p_iva) throws Exception
+	 * { LinkedList<Company> filtroPIVA = new LinkedList<Company>(); if
+	 * (p_iva.equals(null)) { throw new Exception("P.IVA non valida!"); } else
+	 * for (Company filtra : listaAziende) { if (filtra.getPartita_iva() ==
+	 * p_iva) { filtroPIVA.add(filtra); } } return filtroPIVA; }
+	 * 
+	 * public List<? extends IDataTableModel> load(String Ragione_sociale)
+	 * throws Exception { // natura LinkedList<Company> filtroRagioneSociale =
+	 * new LinkedList<Company>(); if (Ragione_sociale.equals(null)) { throw new
+	 * Exception("Ragione Sociale non valida."); } else for (Company filtra :
+	 * listaAziende) { if (filtra.getRagione_sociale().equals(Ragione_sociale))
+	 * { filtroRagioneSociale.add(filtra); } } return filtroRagioneSociale; }
+	 */
 	@Override
 	public void remove(IDataTableModel elem) {
 		if (listaAziende.contains(elem)) {
@@ -187,16 +174,16 @@ public class CompanyModel extends AbstractModel {
 		return null;
 	}
 
-    @Override
-    public Map<String, Object> getFilterMap() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public Map<String, Object> getFilterMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

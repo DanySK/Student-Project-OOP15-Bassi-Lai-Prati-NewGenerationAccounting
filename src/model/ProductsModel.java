@@ -2,7 +2,6 @@ package model;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import javax.management.InstanceNotFoundException;
@@ -116,20 +115,14 @@ public class ProductsModel extends AbstractModel {
 	public LinkedList<Product> load() {
 		return new LinkedList<Product>(listaProdotti);
 	}
+
 	/*
-	public List<? extends IDataTableModel> load(String nome) throws Exception { // natura
-		LinkedList<Product> filtroNome = new LinkedList<Product>();
-		if (nome.equals(null)) {
-			throw new Exception("Nome non valido.");
-		} else
-			for (Product filtra : listaProdotti) {
-				if (filtra.getNome().equals(nome)) {
-					filtroNome.add(filtra);
-				}
-			}
-		return filtroNome;
-	}
-*/
+	 * public List<? extends IDataTableModel> load(String nome) throws Exception
+	 * { // natura LinkedList<Product> filtroNome = new LinkedList<Product>();
+	 * if (nome.equals(null)) { throw new Exception("Nome non valido."); } else
+	 * for (Product filtra : listaProdotti) { if (filtra.getNome().equals(nome))
+	 * { filtroNome.add(filtra); } } return filtroNome; }
+	 */
 	@Override
 	public void remove(IDataTableModel elem) {
 		if (listaProdotti.contains(elem)) {
@@ -151,16 +144,16 @@ public class ProductsModel extends AbstractModel {
 		return db;// e restituisco
 	}
 
-    @Override
-    public Map<String, Object> getFilterMap() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public Map<String, Object> getFilterMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

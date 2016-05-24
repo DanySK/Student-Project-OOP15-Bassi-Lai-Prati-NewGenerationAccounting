@@ -9,7 +9,6 @@ import java.util.Map;
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
-import dataEnum.Natures;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 import dataModel.Movement;
@@ -65,11 +64,11 @@ public class MovementsModel extends AbstractModel {
 					add(elemDaModificare);
 				}
 			}
-		}
-		else{
-		    throw new IllegalArgumentException("l'oggetto passato non è un movimento");
+		} else {
+			throw new IllegalArgumentException("l'oggetto passato non è un movimento");
 		}
 	}
+
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
 		if (obj == null) {
@@ -92,23 +91,19 @@ public class MovementsModel extends AbstractModel {
 	public LinkedList<Movement> load() {
 		return new LinkedList<Movement>(db.getMoviments());
 	}
-/*
-	LinkedList<Movement> load(Date da, Date a) throws IllegalArgumentException {
-		LinkedList<Movement> filtroData = new LinkedList<>();
-		if (da == null && a == null) {
-			throw new IllegalArgumentException("date non valide");
-		} else
-			for (Movement m : db.getMoviments()) {
-				if (m.getData().equals(da) || m.getData().equals(a) || m.getData().after(da) && m.getData().before(a)) {
-					filtroData.add(m);
-				}
-			}
-		return filtroData;
-	}
-*/
+
+	/*
+	 * LinkedList<Movement> load(Date da, Date a) throws
+	 * IllegalArgumentException { LinkedList<Movement> filtroData = new
+	 * LinkedList<>(); if (da == null && a == null) { throw new
+	 * IllegalArgumentException("date non valide"); } else for (Movement m :
+	 * db.getMoviments()) { if (m.getData().equals(da) || m.getData().equals(a)
+	 * || m.getData().after(da) && m.getData().before(a)) { filtroData.add(m); }
+	 * } return filtroData; }
+	 */
 	@Override
 	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException {
-	    AccountsModel a = new AccountsModel(db);
+		AccountsModel a = new AccountsModel(db);
 		if (elemDaEliminare instanceof Movement) {
 			Movement m = (Movement) elemDaEliminare;
 			if (m.getData() == null || m.getListaConti().isEmpty()) {
@@ -117,35 +112,37 @@ public class MovementsModel extends AbstractModel {
 				if (listaMovimenti.contains(m)) {
 					listaMovimenti.remove(m);
 					for (Operation op : m.getListaConti()) {
-					    temp = op.getAvere(); op.setAvere(op.getDare());
-					    op.setDare(temp); a.updateAccounts(op);
+						temp = op.getAvere();
+						op.setAvere(op.getDare());
+						op.setDare(temp);
+						a.updateAccounts(op);
 					}
 				} else {
 					throw new InstanceNotFoundException("elemento da eliminare presente in lista");
 				}
 			}
-		}
-		else{
-		    throw new IllegalArgumentException("l'oggetto da rimuovere non è un movimento");
+		} else {
+			throw new IllegalArgumentException("l'oggetto da rimuovere non è un movimento");
 		}
 	}
+
 	@Override
 	public DBDataModel saveDBAndClose() {
 		db.setMoviments(listaMovimenti);
 		return db;
 	}
 
-    @Override
-    public Map<String, Object> getFilterMap() {
-        Map<String,Object> mappaFiltro = new HashMap<>();
-        mappaFiltro.put(DA, new Date());
-        mappaFiltro.put(A, new Date());
-        return mappaFiltro;
-    }
+	@Override
+	public Map<String, Object> getFilterMap() {
+		Map<String, Object> mappaFiltro = new HashMap<>();
+		mappaFiltro.put(DA, new Date());
+		mappaFiltro.put(A, new Date());
+		return mappaFiltro;
+	}
 
-    @Override
-    public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -27,11 +27,11 @@ public class AccountsModel extends AbstractModel {
 	private final static String SEZIONE = "Sezione del Conto";
 	private boolean trovato = false;
 	private final DBDataModel db;
-        private final LinkedList<Account> listaaccount = new LinkedList<Account>();
-        
-        public AccountsModel(DBDataModel db) {
-            this.db = db;
-        }
+	private final LinkedList<Account> listaaccount = new LinkedList<Account>();
+
+	public AccountsModel(DBDataModel db) {
+		this.db = db;
+	}
 
 	public static LinkedList<Account> chartOfAccounts() {
 		return new LinkedList<Account>();
@@ -97,35 +97,22 @@ public class AccountsModel extends AbstractModel {
 	public LinkedList<Account> load() { // carica tutti i dati
 		return new LinkedList<Account>(listaaccount);
 	}
-	/*
-	public List<? extends IDataTableModel> load(Natures natura) throws Exception { // carica
-																					// //
-																					// natura
-		LinkedList<Account> filtroNatura = new LinkedList<Account>();
-		if (natura.equals(null)) {
-			throw new Exception("natura non valida");
-		} else
-			for (Account a : listaaccount) {
-				if (a.getNatura().equals(natura)) {
-					filtroNatura.add(a);
-				}
-			}
-		return filtroNatura;
-	}
 
-	public List<? extends IDataTableModel> load(String nome) throws Exception { // carica																		// nome
-		LinkedList<Account> filtroNome = new LinkedList<Account>();
-		if (nome.isEmpty()) {
-			throw new Exception("nome non valido");
-		} else
-			for (Account a : listaaccount) {
-				if (a.getName().contains(nome)) {
-					filtroNome.add(a);
-				}
-			}
-		return filtroNome;
-	}
-*/
+	/*
+	 * public List<? extends IDataTableModel> load(Natures natura) throws
+	 * Exception { // carica // // // natura LinkedList<Account> filtroNatura =
+	 * new LinkedList<Account>(); if (natura.equals(null)) { throw new
+	 * Exception("natura non valida"); } else for (Account a : listaaccount) {
+	 * if (a.getNatura().equals(natura)) { filtroNatura.add(a); } } return
+	 * filtroNatura; }
+	 * 
+	 * public List<? extends IDataTableModel> load(String nome) throws Exception
+	 * { // carica // nome LinkedList<Account> filtroNome = new
+	 * LinkedList<Account>(); if (nome.isEmpty()) { throw new Exception(
+	 * "nome non valido"); } else for (Account a : listaaccount) { if
+	 * (a.getName().contains(nome)) { filtroNome.add(a); } } return filtroNome;
+	 * }
+	 */
 	@Override
 	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException { // elimina
 																							// i
@@ -159,18 +146,24 @@ public class AccountsModel extends AbstractModel {
 		return db;
 	}
 
-	public void updateAccounts(Operation op) { // aggiorna i conti dopo l'aggiunta/modifica/eliminazione di un movimento
+	public void updateAccounts(Operation op) { // aggiorna i conti dopo
+												// l'aggiunta/modifica/eliminazione
+												// di un movimento
 		if (listaaccount.contains(op.getConto())) {
 			for (Account elem : listaaccount) {
 				if (elem.equals(op.getConto())) {
 					if (elem.getNatura().equals(Natures.COSTO) || elem.getNatura().equals(Natures.ATTIVITA)) {
 						if (op.getDare() > 0)
-							elem.incrSaldo(op.getDare());// Costo e Attività aumentano in dare
+							elem.incrSaldo(op.getDare());// Costo e Attività
+															// aumentano in dare
 						else if (op.getAvere() > 0)
 							elem.decrSaldo(op.getAvere());// e calano in avere
 					} else {
 						if (op.getAvere() > 0)
-							elem.incrSaldo(op.getAvere()); // Ricavo e Passività aumentano in avere
+							elem.incrSaldo(op.getAvere()); // Ricavo e
+															// Passività
+															// aumentano in
+															// avere
 						else if (op.getDare() > 0)
 							elem.decrSaldo(op.getDare());// e calano in dare
 					}
@@ -179,20 +172,19 @@ public class AccountsModel extends AbstractModel {
 		}
 	}
 
-    @Override
-    public Map<String, Object> getFilterMap() {
-        Map<String,Object> mappaFiltro = new HashMap<>();
-        mappaFiltro.put(NOME, new String());
-        mappaFiltro.put(NATURA, Natures.values());
-        //mappaFiltro.put(SEZIONE, value);
-        return mappaFiltro;
-    }
+	@Override
+	public Map<String, Object> getFilterMap() {
+		Map<String, Object> mappaFiltro = new HashMap<>();
+		mappaFiltro.put(NOME, new String());
+		mappaFiltro.put(NATURA, Natures.values());
+		// mappaFiltro.put(SEZIONE, value);
+		return mappaFiltro;
+	}
 
-    @Override
-    public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+	@Override
+	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

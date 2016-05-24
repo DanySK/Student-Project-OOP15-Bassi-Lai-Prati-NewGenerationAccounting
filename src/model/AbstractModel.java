@@ -66,8 +66,8 @@ public abstract class AbstractModel {
 	 * @param elem
 	 *            mappa contenente le informazioni sull'elemento da aggiungere
 	 */
-	public abstract LinkedList<? extends IDataTableModel> load(Map<String,Object>mappaFiltro);
-	
+	public abstract LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro);
+
 	public abstract LinkedList<? extends IDataTableModel> load();
 
 	/**
@@ -82,6 +82,6 @@ public abstract class AbstractModel {
 	public abstract void remove(IDataTableModel elem) throws InstanceNotFoundException;
 
 	public abstract DBDataModel saveDBAndClose();
-	
-	public abstract Map<String,Object> getFilterMap();
+
+	public abstract Map<String, Object> getFilterMap();
 }

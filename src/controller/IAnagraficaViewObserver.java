@@ -21,6 +21,8 @@ public interface IAnagraficaViewObserver extends IViewObserver {
 
 	Map<String, Object> getMap(IDataTableModel obj);
 
+	void filterList(Map<String, Object> mappa);
+
 	void refresh();
 
 	void tasto0();

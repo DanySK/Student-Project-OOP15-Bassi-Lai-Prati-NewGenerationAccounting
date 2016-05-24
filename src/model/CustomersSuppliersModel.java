@@ -2,7 +2,6 @@ package model;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import javax.management.InstanceNotFoundException;
@@ -115,20 +114,15 @@ public class CustomersSuppliersModel extends AbstractModel {
 
 		return new LinkedList<Customers_Suppliers>();
 	}
+
 	/*
-	public List<? extends IDataTableModel> load(String Cf) throws Exception { // natura
-		LinkedList<Customers_Suppliers> filtroCF = new LinkedList<Customers_Suppliers>();
-		if (Cf.equals(null)) {
-			throw new Exception("Cf non valido.");
-		} else
-			for (Customers_Suppliers filtra : listaRapportiC) {
-				if (filtra.getCf().equals(Cf)) {
-					filtroCF.add(filtra);
-				}
-			}
-		return filtroCF;
-	}
-*/
+	 * public List<? extends IDataTableModel> load(String Cf) throws Exception {
+	 * // natura LinkedList<Customers_Suppliers> filtroCF = new
+	 * LinkedList<Customers_Suppliers>(); if (Cf.equals(null)) { throw new
+	 * Exception("Cf non valido."); } else for (Customers_Suppliers filtra :
+	 * listaRapportiC) { if (filtra.getCf().equals(Cf)) { filtroCF.add(filtra);
+	 * } } return filtroCF; }
+	 */
 	@Override
 	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException { // dati
 		if (elemDaEliminare.getClass().equals(Customers_Suppliers.class)) {
@@ -160,15 +154,15 @@ public class CustomersSuppliersModel extends AbstractModel {
 		return db;// e restituisco
 	}
 
-    @Override
-    public Map<String, Object> getFilterMap() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public Map<String, Object> getFilterMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

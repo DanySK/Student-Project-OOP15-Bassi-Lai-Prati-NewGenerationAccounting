@@ -12,6 +12,7 @@ import controller.IAnagraficaViewObserver;
 import controller.dbController.DBLoader;
 import controller.dbController.DBSaver;
 import controller.main.MainControllerImpl;
+import dataEnum.PopupMode;
 import dataModel.Company;
 import dataModel.IDataTableModel;
 import model.CompanyModel;
@@ -90,23 +91,19 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void tasto0() {
-
+		new AddEditPopupView(PopupMode.FIND, null, view.getTitle(), new Dimension(300, 400), this, view).start();
 	}
 
 	@Override
 	public void tasto1() {
-		try {
-			model.add(null);
-		} catch (InstanceAlreadyExistsException | IllegalArgumentException e) {
-			view.errorDialog("Errore", e.getMessage());
-		}
-
+		new AddEditPopupView(PopupMode.ADD, null, view.getTitle(), new Dimension(300, 400), this, view).start();
 	}
 
 	@Override
 	public void tasto2() {
 		try {
-			new AddEditPopupView(view.getSelectedItem(), view.getTitle(), new Dimension(300, 400), this, view).start();
+			new AddEditPopupView(PopupMode.FIND, view.getSelectedItem(), view.getTitle(), new Dimension(300, 400), this,
+					view).start();
 		} catch (InstanceNotFoundException e) {
 			view.errorDialog("Errore", e.getMessage());
 		}
@@ -120,6 +117,11 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 			view.errorDialog("Errore", e.getMessage());
 		}
 		refresh();
+	}
+
+	@Override
+	public void filterList(Map<String, Object> mappa) {
+		view.setList((LinkedList<Company>) model.load(mappa));
 	}
 
 }

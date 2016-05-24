@@ -25,6 +25,7 @@ import javax.swing.SpinnerNumberModel;
 
 import controller.IAnagraficaViewObserver;
 import dataEnum.IDataEnum;
+import dataEnum.PopupMode;
 import dataModel.IDataTableModel;
 
 /**
@@ -41,14 +42,16 @@ public class AddEditPopupView extends AbstractWideView {
 	private final HashMap<String, JComponent> compoMap;
 	private final AbstractAnagraficaView view;
 	private final Map<String, Object> mappa;
+	private final PopupMode mode;
 
 	/**
 	 * @param title
 	 * @param dimension
 	 */
-	public AddEditPopupView(final IDataTableModel obj, final String title, final Dimension dimension,
-			final IAnagraficaViewObserver controller, final AbstractAnagraficaView view) {
+	public AddEditPopupView(final PopupMode mode, final IDataTableModel obj, final String title,
+			final Dimension dimension, final IAnagraficaViewObserver controller, final AbstractAnagraficaView view) {
 		super(title, dimension);
+		this.mode = mode;
 		this.view = view;
 		this.controller = controller;
 		mappa = controller.getMap(obj);
@@ -111,21 +114,35 @@ public class AddEditPopupView extends AbstractWideView {
 		chiudi.addActionListener(e -> {
 			chiusura();
 		});
-		if (obj == null) {
+		if (mode == PopupMode.ADD) {
 			btn.setText("Aggiungi");
 			btn.addActionListener(e -> {
 				add();
 			});
-		} else {
+		} else if (mode == PopupMode.EDIT) {
 			btn.setText("Modifica");
 			btn.addActionListener(e -> {
 				edit();
+			});
+		} else {
+			btn.setText("Cerca/Filtra");
+			btn.addActionListener(e -> {
+				find();
 			});
 		}
 		footer.add(btn);
 		footer.add(chiudi);
 		MyFrame.getContentPane().add(footer, BorderLayout.SOUTH);
 		MyFrame.getContentPane().add(mainPanel, BorderLayout.CENTER);
+	}
+
+	private void find() {
+		try {
+			controller.filterList(populateMap());
+		} catch (Exception e) {
+			errorDialog("errore", e.getMessage());
+		}
+		chiusura();
 	}
 
 	private void add() {
