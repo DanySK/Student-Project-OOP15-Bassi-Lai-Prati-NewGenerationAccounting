@@ -35,6 +35,7 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 			item = (Company) view.getSelectedItem();
 		} catch (InstanceNotFoundException e) {
 			view.errorDialog("Errore", e.getMessage());
+			return;
 		}
 		if (item != null && model.isPasswordCorrect(password, item)) {
 			saveCompanysList();

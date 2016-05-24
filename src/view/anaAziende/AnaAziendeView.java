@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.SwingUtilities;
 
 import controller.anaAziende.AnaAziendeControllerImpl;
 import dataModel.Company;
@@ -39,6 +40,7 @@ public class AnaAziendeView extends AbstractAnagraficaView<Company> {
 		topPanel.add(passwordField);
 		topPanel.add(accediButton);
 		MyFrame.getContentPane().add(topPanel, BorderLayout.NORTH);
+		SwingUtilities.getRootPane(MyFrame).setDefaultButton(accediButton);
 		accediButton.addActionListener(e -> {
 			Company item = null;
 			try {

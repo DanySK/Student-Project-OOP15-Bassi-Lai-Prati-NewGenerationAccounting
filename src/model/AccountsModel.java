@@ -25,9 +25,11 @@ public class AccountsModel extends AbstractModel {
 	private final static String NATURA = "Natura Conto";
 	private final static String NOME = "Nome Conto";
 	private final static String SALDO = "Saldo Conto";
+
 	public static LinkedList<Account> chartOfAccounts() {
 		return new LinkedList<Account>();
 	}
+
 	private boolean trovato = false;
 	private final DBDataModel db;
 
