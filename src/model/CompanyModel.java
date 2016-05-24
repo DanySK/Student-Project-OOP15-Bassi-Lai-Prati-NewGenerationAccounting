@@ -48,7 +48,7 @@ public class CompanyModel extends AbstractModel {
 		if (elem.get(ragione_sociale) == "" || (Long) elem.get(partitaIVA) == null || elem.get(cap) == ""
 				|| elem.get(citta) == "" || elem.get(provincia) == "" || elem.get(indirizzo) == ""
 				|| elem.get(telefono) == "") {
-			throw new IllegalArgumentException("Uno o più valori inseriti risultano non validi. Riprovare.");
+			throw new IllegalArgumentException("Uno o piï¿½ valori inseriti risultano non validi. Riprovare.");
 		}
 		// SOLO PER TEST, DA CANCELLARE
 		char[] password = {};
@@ -186,5 +186,11 @@ public class CompanyModel extends AbstractModel {
 	public DBDataModel saveDBAndClose() {
 		return null;
 	}
+
+    @Override
+    public Map<String, Object> getFilterMap() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

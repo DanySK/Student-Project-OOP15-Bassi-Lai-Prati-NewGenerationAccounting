@@ -43,7 +43,7 @@ public class ProductsModel extends AbstractModel {
 	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
 		if (elem.get(nome) == "" || elem.get(codiceA) == "" || elem.get(codiceV) == "" || elem.get(categoria) == ""
 				|| elem.get(descrizione) == "" || elem.get(prezzo) == "") {
-			throw new IllegalArgumentException("Uno o più valori inseriti risultano non validi. Riprovare.");
+			throw new IllegalArgumentException("Uno o piï¿½ valori inseriti risultano non validi. Riprovare.");
 		}
 		if (listaProdotti.contains(elem)) {
 			throw new IllegalArgumentException("Elemento gia' esistente!");
@@ -150,5 +150,11 @@ public class ProductsModel extends AbstractModel {
 										// DB
 		return db;// e restituisco
 	}
+
+    @Override
+    public Map<String, Object> getFilterMap() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

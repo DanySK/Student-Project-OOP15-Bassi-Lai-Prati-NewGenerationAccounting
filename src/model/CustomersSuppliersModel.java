@@ -159,4 +159,10 @@ public class CustomersSuppliersModel extends AbstractModel {
 													// interna al DB
 		return db;// e restituisco
 	}
+
+    @Override
+    public Map<String, Object> getFilterMap() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

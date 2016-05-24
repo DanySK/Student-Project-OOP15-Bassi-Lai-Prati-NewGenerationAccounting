@@ -80,4 +80,5 @@ public abstract class AbstractModel {
 	public abstract void remove(IDataTableModel elem) throws InstanceNotFoundException;
 
 	public abstract DBDataModel saveDBAndClose();
+	public abstract Map<String,Object> getFilterMap();
 }

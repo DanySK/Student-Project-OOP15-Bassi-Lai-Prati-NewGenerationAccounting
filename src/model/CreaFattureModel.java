@@ -33,7 +33,7 @@ public class CreaFattureModel extends AbstractModel {
 	@Override
 	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
 		// if (oggetto.getScorta()<=0){
-		// throw new IllegalArgumentException("Questo prodotto non è più
+		// throw new IllegalArgumentException("Questo prodotto non ï¿½ piï¿½
 		// disponibile in magazzino, mi dispiace.");
 		// }else{
 
@@ -73,5 +73,11 @@ public class CreaFattureModel extends AbstractModel {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    @Override
+    public Map<String, Object> getFilterMap() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

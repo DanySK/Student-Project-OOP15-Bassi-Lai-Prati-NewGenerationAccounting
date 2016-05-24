@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
+import dataEnum.Natures;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 import dataModel.Movement;
@@ -24,8 +25,11 @@ public class MovementsModel extends AbstractModel {
 
 	private final static String DATA = "Data Movimento";
 	private final static String LISTA = "Lista Conti Mossi";
+	private final static String DA = "Data da cui iniziare a cercare";
+	private final static String A = "Data fino a cui cercare";
 	private DBDataModel db;
-	LinkedList<Movement> listaMovimenti;
+	private LinkedList<Movement> listaMovimenti;
+	private float temp;
 
 	public MovementsModel(DBDataModel db) {
 		this.db = db;
@@ -34,23 +38,24 @@ public class MovementsModel extends AbstractModel {
 	@Override
 	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
 		Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
+		AccountsModel a = new AccountsModel(db);
 		// chiedere a fede se va bene il cast
 		if (listaMovimenti.contains(m)) {
 			throw new InstanceAlreadyExistsException("elemento già esistente");
 		}
-		if (m.getData().equals(null) || m.getListaConti().isEmpty()) {
-			throw new IllegalArgumentException("elemento da inserire non valido");
+		if (m.getData() == null || m.getListaConti().isEmpty()) {
+			throw new IllegalArgumentException("data non valida o lista vuota");
 		}
 		listaMovimenti.add(m);
 		for (Operation op : m.getListaConti()) {
-			// a.updateAccounts(op);
+			a.updateAccounts(op);
 		}
 	}
 
 	@Override
 	public void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare)
 			throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException {
-		if (obj.getClass().equals(Movement.class)) {
+		if (obj instanceof Movement) {
 			Movement m = new Movement(null, null);
 			m.setData((Date) elemDaModificare.get(DATA));
 			m.setListaConti((List<Operation>) elemDaModificare.get(LISTA));
@@ -61,8 +66,10 @@ public class MovementsModel extends AbstractModel {
 				}
 			}
 		}
+		else{
+		    throw new IllegalArgumentException("l'oggetto passato non è un movimento");
+		}
 	}
-
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
 		if (obj == null) {
@@ -77,7 +84,7 @@ public class MovementsModel extends AbstractModel {
 				mappaPiena.put(LISTA, ((Movement) obj).getListaConti());
 				return mappaPiena;
 			} else
-				throw new IllegalArgumentException("valori non validi");
+				throw new IllegalArgumentException("l'oggetto inserito non è un movimento");
 		}
 	}
 
@@ -101,29 +108,38 @@ public class MovementsModel extends AbstractModel {
 
 	@Override
 	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException {
-		if (elemDaEliminare.getClass().equals(Movement.class)) {
+	    AccountsModel a = new AccountsModel(db);
+		if (elemDaEliminare instanceof Movement) {
 			Movement m = (Movement) elemDaEliminare;
 			if (m.getData() == null || m.getListaConti().isEmpty()) {
-				throw new IllegalArgumentException("elemento non valido");
+				throw new IllegalArgumentException("data non valida o lista vuota");
 			} else {
 				if (listaMovimenti.contains(m)) {
 					listaMovimenti.remove(m);
 					for (Operation op : m.getListaConti()) {
-						/*
-						 * temp = op.getAvere(); op.setAvere(op.getDare());
-						 * op.setDare(temp); a.updateAccounts(op);
-						 */
+					    temp = op.getAvere(); op.setAvere(op.getDare());
+					    op.setDare(temp); a.updateAccounts(op);
 					}
 				} else {
-					throw new InstanceNotFoundException("elemento da eliminare non trovato");
+					throw new InstanceNotFoundException("elemento da eliminare presente in lista");
 				}
 			}
 		}
+		else{
+		    throw new IllegalArgumentException("l'oggetto da rimuovere non è un movimento");
+		}
 	}
-
 	@Override
 	public DBDataModel saveDBAndClose() {
 		db.setMoviments(listaMovimenti);
 		return db;
 	}
+
+    @Override
+    public Map<String, Object> getFilterMap() {
+        Map<String,Object> mappaFiltro = new HashMap<>();
+        mappaFiltro.put(DA, new Date());
+        mappaFiltro.put(A, new Date());
+        return mappaFiltro;
+    }
 }
