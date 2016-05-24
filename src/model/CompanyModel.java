@@ -130,12 +130,12 @@ public class CompanyModel extends AbstractModel {
 		return Arrays.equals(company.getPassword(), password);
 	}
 
-	/*@Override
+	@Override
 	public LinkedList<Company> load() {
 		return new LinkedList<Company>(listaAziende);
 	}
 
-	public List<? extends IDataTableModel> load(Long p_iva) throws Exception {
+	/* public List<? extends IDataTableModel> load(Long p_iva) throws Exception {
 		LinkedList<Company> filtroPIVA = new LinkedList<Company>();
 		if (p_iva.equals(null)) {
 			throw new Exception("P.IVA non valida!");

@@ -93,11 +93,11 @@ public class AccountsModel extends AbstractModel {
 		}
 	}
 
-	/*@Override
+	@Override
 	public LinkedList<Account> load() { // carica tutti i dati
 		return new LinkedList<Account>(listaaccount);
 	}
-
+	/*
 	public List<? extends IDataTableModel> load(Natures natura) throws Exception { // carica
 																					// //
 																					// natura
@@ -193,5 +193,6 @@ public class AccountsModel extends AbstractModel {
         // TODO Auto-generated method stub
         return null;
     }
+
 
 }

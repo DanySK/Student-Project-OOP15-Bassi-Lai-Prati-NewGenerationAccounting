@@ -56,11 +56,11 @@ public class CreaFattureModel extends AbstractModel {
 		return null;
 	}
 
-	/*@Override
+	@Override
 	public LinkedList<Item> load() {
 		// TODO Auto-generated method stub
 		return null;
-	}*/
+	}
 
 	@Override
 	public void remove(IDataTableModel elem) {

@@ -111,12 +111,12 @@ public class ProductsModel extends AbstractModel {
 		}
 
 	}
-/*
+
 	@Override
 	public LinkedList<Product> load() {
 		return new LinkedList<Product>(listaProdotti);
 	}
-
+	/*
 	public List<? extends IDataTableModel> load(String nome) throws Exception { // natura
 		LinkedList<Product> filtroNome = new LinkedList<Product>();
 		if (nome.equals(null)) {

@@ -87,12 +87,12 @@ public class MovementsModel extends AbstractModel {
 				throw new IllegalArgumentException("l'oggetto inserito non è un movimento");
 		}
 	}
-/*
+
 	@Override
 	public LinkedList<Movement> load() {
 		return new LinkedList<Movement>(db.getMoviments());
 	}
-
+/*
 	LinkedList<Movement> load(Date da, Date a) throws IllegalArgumentException {
 		LinkedList<Movement> filtroData = new LinkedList<>();
 		if (da == null && a == null) {

@@ -67,6 +67,8 @@ public abstract class AbstractModel {
 	 *            mappa contenente le informazioni sull'elemento da aggiungere
 	 */
 	public abstract LinkedList<? extends IDataTableModel> load(Map<String,Object>mappaFiltro);
+	
+	public abstract LinkedList<? extends IDataTableModel> load();
 
 	/**
 	 * operazione per restituire alla view i dati del dataBase da mostrare
@@ -80,5 +82,6 @@ public abstract class AbstractModel {
 	public abstract void remove(IDataTableModel elem) throws InstanceNotFoundException;
 
 	public abstract DBDataModel saveDBAndClose();
+	
 	public abstract Map<String,Object> getFilterMap();
 }

@@ -110,12 +110,12 @@ public class CustomersSuppliersModel extends AbstractModel {
 
 	}
 
-	/* @Override
+	@Override
 	public LinkedList<Customers_Suppliers> load() {
 
 		return new LinkedList<Customers_Suppliers>();
 	}
-
+	/*
 	public List<? extends IDataTableModel> load(String Cf) throws Exception { // natura
 		LinkedList<Customers_Suppliers> filtroCF = new LinkedList<Customers_Suppliers>();
 		if (Cf.equals(null)) {
