@@ -2,7 +2,6 @@ package model;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import javax.management.InstanceAlreadyExistsException;
@@ -94,7 +93,7 @@ public class AccountsModel extends AbstractModel {
 		}
 	}
 
-	@Override
+	/*@Override
 	public LinkedList<Account> load() { // carica tutti i dati
 		return new LinkedList<Account>(listaaccount);
 	}
@@ -126,7 +125,7 @@ public class AccountsModel extends AbstractModel {
 			}
 		return filtroNome;
 	}
-
+*/
 	@Override
 	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException { // elimina
 																							// i
@@ -187,6 +186,12 @@ public class AccountsModel extends AbstractModel {
         mappaFiltro.put(NATURA, Natures.values());
         //mappaFiltro.put(SEZIONE, value);
         return mappaFiltro;
+    }
+
+    @Override
+    public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

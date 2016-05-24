@@ -56,11 +56,11 @@ public class CreaFattureModel extends AbstractModel {
 		return null;
 	}
 
-	@Override
+	/*@Override
 	public LinkedList<Item> load() {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 
 	@Override
 	public void remove(IDataTableModel elem) {
@@ -76,6 +76,12 @@ public class CreaFattureModel extends AbstractModel {
 
     @Override
     public Map<String, Object> getFilterMap() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
         // TODO Auto-generated method stub
         return null;
     }

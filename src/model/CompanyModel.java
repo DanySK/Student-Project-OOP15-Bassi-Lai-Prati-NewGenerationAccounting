@@ -130,7 +130,7 @@ public class CompanyModel extends AbstractModel {
 		return Arrays.equals(company.getPassword(), password);
 	}
 
-	@Override
+	/*@Override
 	public LinkedList<Company> load() {
 		return new LinkedList<Company>(listaAziende);
 	}
@@ -160,7 +160,7 @@ public class CompanyModel extends AbstractModel {
 			}
 		return filtroRagioneSociale;
 	}
-
+*/
 	@Override
 	public void remove(IDataTableModel elem) {
 		if (listaAziende.contains(elem)) {
@@ -189,6 +189,12 @@ public class CompanyModel extends AbstractModel {
 
     @Override
     public Map<String, Object> getFilterMap() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
         // TODO Auto-generated method stub
         return null;
     }

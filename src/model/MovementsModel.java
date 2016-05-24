@@ -87,7 +87,7 @@ public class MovementsModel extends AbstractModel {
 				throw new IllegalArgumentException("l'oggetto inserito non è un movimento");
 		}
 	}
-
+/*
 	@Override
 	public LinkedList<Movement> load() {
 		return new LinkedList<Movement>(db.getMoviments());
@@ -105,7 +105,7 @@ public class MovementsModel extends AbstractModel {
 			}
 		return filtroData;
 	}
-
+*/
 	@Override
 	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException {
 	    AccountsModel a = new AccountsModel(db);
@@ -141,5 +141,11 @@ public class MovementsModel extends AbstractModel {
         mappaFiltro.put(DA, new Date());
         mappaFiltro.put(A, new Date());
         return mappaFiltro;
+    }
+
+    @Override
+    public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

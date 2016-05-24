@@ -111,7 +111,7 @@ public class ProductsModel extends AbstractModel {
 		}
 
 	}
-
+/*
 	@Override
 	public LinkedList<Product> load() {
 		return new LinkedList<Product>(listaProdotti);
@@ -129,7 +129,7 @@ public class ProductsModel extends AbstractModel {
 			}
 		return filtroNome;
 	}
-
+*/
 	@Override
 	public void remove(IDataTableModel elem) {
 		if (listaProdotti.contains(elem)) {
@@ -153,6 +153,12 @@ public class ProductsModel extends AbstractModel {
 
     @Override
     public Map<String, Object> getFilterMap() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
         // TODO Auto-generated method stub
         return null;
     }

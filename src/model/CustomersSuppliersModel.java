@@ -110,7 +110,7 @@ public class CustomersSuppliersModel extends AbstractModel {
 
 	}
 
-	@Override
+	/* @Override
 	public LinkedList<Customers_Suppliers> load() {
 
 		return new LinkedList<Customers_Suppliers>();
@@ -128,7 +128,7 @@ public class CustomersSuppliersModel extends AbstractModel {
 			}
 		return filtroCF;
 	}
-
+*/
 	@Override
 	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException { // dati
 		if (elemDaEliminare.getClass().equals(Customers_Suppliers.class)) {
@@ -162,6 +162,12 @@ public class CustomersSuppliersModel extends AbstractModel {
 
     @Override
     public Map<String, Object> getFilterMap() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
         // TODO Auto-generated method stub
         return null;
     }

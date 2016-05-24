@@ -66,7 +66,7 @@ public abstract class AbstractModel {
 	 * @param elem
 	 *            mappa contenente le informazioni sull'elemento da aggiungere
 	 */
-	public abstract LinkedList<? extends IDataTableModel> load();
+	public abstract LinkedList<? extends IDataTableModel> load(Map<String,Object>mappaFiltro);
 
 	/**
 	 * operazione per restituire alla view i dati del dataBase da mostrare
