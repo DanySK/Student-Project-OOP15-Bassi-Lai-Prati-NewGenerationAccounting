@@ -65,13 +65,13 @@ public class MovementsModel extends AbstractModel {
 
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
-		if (obj.equals(null)) {
+		if (obj==null) {
 			Map<String, Object> mappaVuota = new HashMap<>();
 			mappaVuota.put(DATA, new Date());
 			mappaVuota.put(LISTA, new LinkedList<Operation>());
 			return mappaVuota;
 		} else {
-			if (obj.getClass().equals(Movement.class)) {
+			if (obj instanceof Movement) {
 				Map<String, Object> mappaPiena = new HashMap<>();
 				mappaPiena.put(DATA, ((Movement) obj).getData());
 				mappaPiena.put(LISTA, ((Movement) obj).getListaConti());

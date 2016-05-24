@@ -102,14 +102,7 @@ public class AccountsModel extends AbstractModel {
 		return new LinkedList<Account>(listaaccount);
 	}
 
-	public List<? extends IDataTableModel> load(Natures natura) throws Exception { // carica
-																					// i
-																					// dati
-																					// secondo
-																					// la
-																					// natura
-																					// //
-																					// natura
+	public List<? extends IDataTableModel> load(Natures natura) throws Exception { // carica																			// natura
 		LinkedList<Account> filtroNatura = new LinkedList<Account>();
 		if (natura.equals(null)) {
 			throw new Exception("natura non valida");
