@@ -27,7 +27,7 @@ public class Account implements IDataTableModel {
 	private float saldo;
 	private Sections sezione;
 	
-	public Account(String nome, Natures natura, float saldo, Sections sezione) {
+	public Account(String nome, Natures natura, Sections sezione, float saldo) {
             this.nome = nome;
             this.natura = natura;
             this.saldo = saldo;

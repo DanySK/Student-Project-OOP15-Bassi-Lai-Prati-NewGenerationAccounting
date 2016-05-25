@@ -44,14 +44,17 @@ public class AccountsModel extends AbstractModel {
         if (elem.get(NOME) == "" || elem.get(NATURA) == null || (Float) elem.get(SALDO) != 0) {
             throw new IllegalArgumentException("nome, natura non valide o saldo diverso da 0");
         }
-        //Account a = new Account((String) elem.get(NOME), (Natures) elem.get(NATURA),(Sections)elem.get(SEZIONE), 0);
+        Account a = new Account((String) elem.get(NOME), (Natures) elem.get(NATURA),(Sections)elem.get(SEZIONE), 0);
         if(checkSection((Natures)elem.get(NATURA),(Sections)elem.get(SEZIONE))){
-            //if (listaaccount.contains(a)) {
+            if (listaaccount.contains(a)) {
                 throw new InstanceAlreadyExistsException("elemento già esistente in lista");
             }
-           // listaaccount.add(a);
+           listaaccount.add(a);
         }
-   // }
+        else{
+            throw new IllegalArgumentException("sezione non appartenente alla natura");
+        }
+    }
 
     @Override
     protected void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare) throws InstanceNotFoundException { // modifica elementi
@@ -59,8 +62,8 @@ public class AccountsModel extends AbstractModel {
         if (!listaaccount.contains(obj)) {
             throw new InstanceNotFoundException("elemento da modificare non presente in lista");
         } else {
-            if ((float) elemDaModificare.get(SALDO) != 0 && (Natures) elemDaModificare.get(NATURA) != null) {
-                throw new IllegalArgumentException("non posso modificare il saldo o la natura di un conto");
+            if ((float) elemDaModificare.get(SALDO) != 0 && (Natures) elemDaModificare.get(NATURA) != null && elemDaModificare.get(SEZIONE)!=null) {
+                throw new IllegalArgumentException("non posso modificare il saldo, natura o sezione di un conto");
             }
             if (obj instanceof Account) {
                 Account a = (Account) obj;
@@ -84,9 +87,10 @@ public class AccountsModel extends AbstractModel {
             Map<String, Object> mappaVuota = new HashMap<>();
             mappaVuota.put(NOME, new String(""));
             mappaVuota.put(NATURA, Natures.ATTIVITA);
-            //mappaVuota.put(SEZIONE, );
+            mappaVuota.put(SEZIONE,Sections.CREDITI_VS_SOCI);
             return mappaVuota;
-        } else {
+        } 
+        else {
             if (obj instanceof Account) {
                 Map<String, Object> mappaPiena = new HashMap<>();
                 mappaPiena.put(NOME, ((Account) obj).getName());
@@ -112,7 +116,7 @@ public class AccountsModel extends AbstractModel {
                             listaaccount.remove(elem);
                             db.setAccounts(listaaccount);
                         } else {
-                            throw new IllegalArgumentException("non posso eliminare l'elemento perchè ha saldo != 0");
+                            throw new IllegalArgumentException("non posso eliminare l'elemento perchè ha saldo > 0");
                         }
                     }
                 }
@@ -131,24 +135,18 @@ public class AccountsModel extends AbstractModel {
         return db;
     }
 
-    public void updateAccounts(Operation op) { // aggiorna i conti dopo
-                                               // l'aggiunta/modifica/eliminazione
-                                               // di un movimento
-        if (listaaccount.contains(op.getConto())) {
-            for (Account elem : listaaccount) {
+    public void updateAccounts(Operation op) { // aggiorna i conti dopo                                       
+        if (listaaccount.contains(op.getConto())) { // l'aggiunta/modifica/eliminazione
+            for (Account elem : listaaccount) { // di un movimento
                 if (elem.equals(op.getConto())) {
                     if (elem.getNatura().equals(Natures.COSTO) || elem.getNatura().equals(Natures.ATTIVITA)) {
                         if (op.getDare() > 0)
-                            elem.incrSaldo(op.getDare());// Costo e Attività
-                                                         // aumentano in dare
+                            elem.incrSaldo(op.getDare());// Costo e Attività aumentano in dare
                         else if (op.getAvere() > 0)
                             elem.decrSaldo(op.getAvere());// e calano in avere
                     } else {
                         if (op.getAvere() > 0)
-                            elem.incrSaldo(op.getAvere()); // Ricavo e
-                                                           // Passività
-                                                           // aumentano in
-                                                           // avere
+                            elem.incrSaldo(op.getAvere()); // Ricavi e Passività aumentano in avere                                    
                         else if (op.getDare() > 0)
                             elem.decrSaldo(op.getDare());// e calano in dare
                     }
@@ -172,7 +170,7 @@ public class AccountsModel extends AbstractModel {
     }
     
     @Override
-    public LinkedList<Account> load(Map<String, Object> mappaFiltro) {// carica dati con filtri
+    public LinkedList<Account> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {// carica dati con filtri
         LinkedList<Account> listaFiltrata = new LinkedList<>();
         if (mappaFiltro.get(NOME) != null) { // controllo il nome
             for (Account a : listaaccount) {
@@ -222,8 +220,7 @@ public class AccountsModel extends AbstractModel {
             }
         }
         if (listaFiltrata.isEmpty()) {
-            // throw new InstanceNotFoundException("nella lista non sono
-            // presenti elementi che soddisfano i filtri");
+            throw new InstanceNotFoundException("nella lista non sono presenti elementi che soddisfano i filtri");
         }
         return null;
     }
