@@ -27,7 +27,6 @@ public class AccountsModel extends AbstractModel {
 	private final static String SALDO = "Saldo Conto";
 	private final static String SEZIONE = "Sezione del Conto";
 	private boolean trovato = false;
-	Natures natura;
 	private final DBDataModel db;
 	private final LinkedList<Account> listaaccount;
 
@@ -42,8 +41,8 @@ public class AccountsModel extends AbstractModel {
 
 	@Override
 	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
-		if (elem.get(NOME) == "" || elem.get(NATURA) == null || (Float) elem.get(SALDO) != 0) {
-			throw new IllegalArgumentException("nome, natura non valide o saldo diverso da 0");
+		if (elem.get(NOME) == "" || elem.get(NATURA) == null || (Sections)elem.get(SEZIONE)==null) {
+			throw new IllegalArgumentException("nome, natura o sezione non valide");
 		}
 		Account a = new Account((String) elem.get(NOME), (Natures) elem.get(NATURA), (Sections) elem.get(SEZIONE), 0);
 		if (checkSection((Natures) elem.get(NATURA), (Sections) elem.get(SEZIONE))) {
@@ -57,31 +56,31 @@ public class AccountsModel extends AbstractModel {
 	}
 
 	@Override
-	protected void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare)
-			throws InstanceNotFoundException { // modifica elementi
-		trovato = false;
-		if (!listaaccount.contains(obj)) {
-			throw new InstanceNotFoundException("elemento da modificare non presente in lista");
-		} else {
-			if ((float) elemDaModificare.get(SALDO) != 0 && (Natures) elemDaModificare.get(NATURA) != null
-					&& elemDaModificare.get(SEZIONE) != null) {
-				throw new IllegalArgumentException("non posso modificare il saldo, natura o sezione di un conto");
-			}
-			if (obj instanceof Account) {
-				Account a = (Account) obj;
-				for (Account elem : listaaccount) {
-					if (elem.getName().equals(a.getName())) {
-						elem.setName(a.getName());
-						trovato = true;
-					}
-				}
-				if (trovato == false) {
-					throw new InstanceNotFoundException("elemento da modificare non presente in lista");
-				}
-			} else
-				throw new IllegalArgumentException("l'oggetto inserito non è un Conto");
+	protected void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare) throws InstanceNotFoundException { // modifica elementi
+	trovato = false;
+	if(obj != null){
+	       if ((Float) elemDaModificare.get(SALDO) != 0 || (Natures) elemDaModificare.get(NATURA) != null || (Sections) elemDaModificare.get(SEZIONE) != null) {
+			throw new IllegalArgumentException("non posso modificare il saldo, natura o sezione di un conto");
 		}
-	}
+		else
+		{
+		    if (obj instanceof Account) {
+		        Account a = (Account) obj;
+	                for (Account elem : listaaccount) {
+	                    if (elem.getName().equals(a.getName())) {
+	                         elem.setName(elemDaModificare.get(NOME).toString());
+	                         trovato = true;
+	                    }
+	                }
+	                if (trovato == false) {
+	                    throw new InstanceNotFoundException("elemento da modificare non presente in lista");
+	                }
+	            } 
+		    else throw new IllegalArgumentException("l'oggetto inserito non è un Conto");
+	         }
+	    }
+	throw new IllegalArgumentException("oggeto di riferimento non valido");
+}
 
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
@@ -164,8 +163,8 @@ public class AccountsModel extends AbstractModel {
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
 		mappaFiltro.put(NOME, new String());
-		mappaFiltro.put(NATURA, Natures.values());
-		mappaFiltro.put(SEZIONE, Sections.values());
+		mappaFiltro.put(NATURA, Natures.ATTIVITA);
+		mappaFiltro.put(SEZIONE, Sections.ATTIVITA_FINANZIARIE);
 		return mappaFiltro;
 	}
 
@@ -180,7 +179,7 @@ public class AccountsModel extends AbstractModel {
 																										// con
 																										// filtri
 		LinkedList<Account> listaFiltrata = new LinkedList<>();
-		if (mappaFiltro.get(NOME) != null) { // controllo il nome
+		if (mappaFiltro.get(NOME) != "") { // controllo il nome
 			for (Account a : listaaccount) {
 				if (a.getName().contentEquals(NOME))
 					listaFiltrata.add(a);
@@ -233,12 +232,7 @@ public class AccountsModel extends AbstractModel {
 		return null;
 	}
 
-	private boolean checkSection(Natures nat, Sections sez) {// fare solo il
-																// controllo
-																// della natura
-																// e deve
-																// tornare un
-																// bool
+	private boolean checkSection(Natures nat, Sections sez) {											// bool
 		switch (nat) {
 		case ATTIVITA:
 			return Sections.getAttivita().contains(sez);

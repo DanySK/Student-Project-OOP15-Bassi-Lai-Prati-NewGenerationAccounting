@@ -11,7 +11,7 @@ import dataEnum.Sections;
  */
 public class Account implements IDataTableModel {
 
-	private static final String[] INTESTAZIONE = { "Natura", "Sezione", "Nome" };
+	private static final String[] INTESTAZIONE = { "Natura", "Sezione", "Nome","Saldo" };
 
 	/**
 	 * 
@@ -86,6 +86,8 @@ public class Account implements IDataTableModel {
 			return getSezione().toString();
 		case 2:
 			return getName();
+		case 3:
+		        return Float.toString(getSaldo());
 		default:
 			return "";
 		}
