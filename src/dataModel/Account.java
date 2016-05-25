@@ -1,6 +1,7 @@
 package dataModel;
 
 import dataEnum.Natures;
+import dataEnum.Sections;
 
 /**
  * classe per la gestione del singolo conto
@@ -24,8 +25,17 @@ public class Account implements IDataTableModel {
 	private Natures natura;
 	private String nome;
 	private float saldo;
+	private Sections sezione;
 
-	public Account(String nome, Natures natura, float saldo) {
+	public Sections getSezione() {
+        return sezione;
+    }
+
+    public void setSezione(Sections sezione) {
+        this.sezione = sezione;
+    }
+
+    public Account(String nome, Natures natura, float saldo) {
 		this.nome = nome;
 		this.natura = natura;
 		this.saldo = saldo;
