@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -36,7 +38,6 @@ public class MovementsModel extends AbstractModel {
 
 	@Override
 	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
-		@SuppressWarnings("unchecked")
 		Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
 		AccountsModel a = new AccountsModel(db);
 		if (listaMovimenti.contains(m)) {
@@ -51,14 +52,13 @@ public class MovementsModel extends AbstractModel {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare)
 			throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException {
 		if (obj instanceof Movement) {
 			Movement m = new Movement(null, null);
 			m.setData((Date) elemDaModificare.get(DATA));
-			m.setListaConti((List<Operation>) elemDaModificare.get(LISTA));
+			m.setListaConti((LinkedList<Operation>) elemDaModificare.get(LISTA));
 			for (Movement mov : listaMovimenti) {
 				if (mov.equals(obj)) {
 					remove(mov);

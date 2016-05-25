@@ -23,7 +23,7 @@ public class Movement implements IDataTableModel {
 	}
 
 	private Date data;
-	private List<Operation> listaConti;
+	private LinkedList<Operation> listaConti;
 
 	public Movement(Date data, LinkedList<Operation> object) {
 		this.data = data;
@@ -56,7 +56,7 @@ public class Movement implements IDataTableModel {
 		this.data = data;
 	}
 
-	public void setListaConti(List<Operation> listaContiUsati) {
+	public void setListaConti(LinkedList<Operation> listaContiUsati) {
 		this.listaConti = listaContiUsati;
 	}
 
