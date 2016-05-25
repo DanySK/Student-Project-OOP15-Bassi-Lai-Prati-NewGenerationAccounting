@@ -9,6 +9,8 @@ import dataModel.DBDataModel;
 import view.AbstractFrame;
 
 /**
+ * classe astratta per tutte le classi che interagiranno con il DataBase
+ * 
  * @author Pentolo
  *
  */

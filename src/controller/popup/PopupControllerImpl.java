@@ -1,7 +1,7 @@
 /**
  * 
  */
-package controller;
+package controller.popup;
 
 import java.awt.Dimension;
 import java.util.Date;
@@ -16,14 +16,18 @@ import javax.swing.JPasswordField;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
+import controller.IAnagraficaViewObserver;
+import controller.IViewObserver;
 import dataEnum.IDataEnum;
 import dataEnum.PopupMode;
 import dataModel.Company;
 import model.AbstractModel;
 import view.AbstractAnagraficaView;
-import view.AddEditPopupView;
+import view.popup.AddEditPopupView;
 
 /**
+ * implementazione del controller di AddEditPopupView
+ * 
  * @author Pentolo
  *
  */
@@ -93,7 +97,7 @@ public class PopupControllerImpl implements IViewObserver {
 	}
 
 	public void filterList(final Map<String, Object> mappa) {
-		ParentView.setList((LinkedList<Company>) model.load(mappa));
+		ParentView.setList(model.load(mappa));
 	}
 
 	public Map<String, Object> populateMap(final HashMap<String, JComponent> compoMap) {

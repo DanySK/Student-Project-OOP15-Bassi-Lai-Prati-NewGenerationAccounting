@@ -16,6 +16,8 @@ import dataModel.IDataTableModel;
 import view.AbstractFrame;
 
 /**
+ * classe che gestisce l'output su DataBase
+ * 
  * @author Pentolo
  *
  */
@@ -51,6 +53,14 @@ public class DBSaver extends AbstractDB {
 
 	public DBSaver(final String path, final AbstractFrame view, final DBDataModel db) {
 		super(path, view, db);
+	}
+
+	public static void addCompany(String path) {
+		// TODO
+	}
+
+	public static void removeCompany(String path) {
+		// TODO
 	}
 
 	@Override

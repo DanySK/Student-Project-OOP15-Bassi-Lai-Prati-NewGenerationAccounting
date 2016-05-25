@@ -1,7 +1,7 @@
 /**
  * 
  */
-package view;
+package view.popup;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,8 +22,9 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
 
-import controller.PopupControllerImpl;
+import controller.popup.PopupControllerImpl;
 import dataEnum.IDataEnum;
+import view.AbstractFrame;
 
 /**
  * @author Pentolo
@@ -51,7 +51,7 @@ public class AddEditPopupView extends AbstractFrame {
 		JPanel itemPanel;
 		for (String campo : mappa.keySet()) {
 			itemPanel = new JPanel();
-			itemPanel.add(new JLabel(campo + ": "));
+			itemPanel.add(new JLabel(campo + " :  "));
 			Object item = mappa.get(campo);
 			if (item instanceof char[]) {
 				item = new String((char[]) item);
@@ -95,7 +95,6 @@ public class AddEditPopupView extends AbstractFrame {
 				compoMap.put(campo, jcb);
 				itemPanel.add(jcb);
 			}
-			mainPanel.add(Box.createRigidArea(new Dimension(0, 7)));
 			mainPanel.add(itemPanel);
 			itemPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		}

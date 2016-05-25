@@ -6,8 +6,8 @@ package controller.movimenti;
 import javax.management.InstanceNotFoundException;
 
 import controller.IAnagraficaViewObserver;
-import controller.PopupControllerImpl;
 import controller.main.MainControllerImpl;
+import controller.popup.PopupControllerImpl;
 import dataEnum.PopupMode;
 import dataModel.DBDataModel;
 import model.MovementsModel;

@@ -19,6 +19,8 @@ import model.AccountsModel;
 import view.AbstractFrame;
 
 /**
+ * classe che gestisce l'input da DataBase
+ * 
  * @author Pentolo
  *
  */
