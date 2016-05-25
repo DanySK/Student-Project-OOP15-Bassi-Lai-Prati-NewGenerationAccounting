@@ -79,6 +79,7 @@ public class PopupControllerImpl implements IViewObserver {
 			switch (mode) {
 			case ADD:
 				model.add(populateMap(compoMap));
+				System.out.println("a");
 				parentController.refresh();
 				break;
 			case EDIT:

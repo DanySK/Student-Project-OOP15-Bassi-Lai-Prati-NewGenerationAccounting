@@ -65,9 +65,10 @@ public abstract class AbstractModel {
 	 * @author niky
 	 * @param elem
 	 *            mappa contenente le informazioni sull'elemento da aggiungere
-	 * @throws InstanceNotFoundException 
+	 * @throws InstanceNotFoundException
 	 */
-	public abstract LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException;
+	public abstract LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro)
+			throws InstanceNotFoundException;
 
 	public abstract LinkedList<? extends IDataTableModel> load();
 
