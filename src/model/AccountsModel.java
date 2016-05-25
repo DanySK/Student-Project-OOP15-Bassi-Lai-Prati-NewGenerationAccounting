@@ -44,16 +44,17 @@ public class AccountsModel extends AbstractModel {
         if (elem.get(NOME) == "" || elem.get(NATURA) == null || (Float) elem.get(SALDO) != 0) {
             throw new IllegalArgumentException("nome, natura non valide o saldo diverso da 0");
         }
-        Account a = new Account((String) elem.get(NOME), (Natures) elem.get(NATURA), 0);
-        if (listaaccount.contains(a)) {
-            throw new InstanceAlreadyExistsException("elemento già esistente in lista");
+        //Account a = new Account((String) elem.get(NOME), (Natures) elem.get(NATURA),(Sections)elem.get(SEZIONE), 0);
+        if(checkSection((Natures)elem.get(NATURA),(Sections)elem.get(SEZIONE))){
+            //if (listaaccount.contains(a)) {
+                throw new InstanceAlreadyExistsException("elemento già esistente in lista");
+            }
+           // listaaccount.add(a);
         }
-        listaaccount.add(a);
-    }
+   // }
 
     @Override
-    protected void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare)
-                    throws InstanceNotFoundException { // modifica elementi
+    protected void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare) throws InstanceNotFoundException { // modifica elementi
         trovato = false;
         if (!listaaccount.contains(obj)) {
             throw new InstanceNotFoundException("elemento da modificare non presente in lista");
@@ -83,7 +84,7 @@ public class AccountsModel extends AbstractModel {
             Map<String, Object> mappaVuota = new HashMap<>();
             mappaVuota.put(NOME, new String(""));
             mappaVuota.put(NATURA, Natures.ATTIVITA);
-           // mappaVuota.put(SEZIONE, value);
+            //mappaVuota.put(SEZIONE, );
             return mappaVuota;
         } else {
             if (obj instanceof Account) {
@@ -171,7 +172,7 @@ public class AccountsModel extends AbstractModel {
     }
     
     @Override
-    public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {// carica dati con filtri
+    public LinkedList<Account> load(Map<String, Object> mappaFiltro) {// carica dati con filtri
         LinkedList<Account> listaFiltrata = new LinkedList<>();
         if (mappaFiltro.get(NOME) != null) { // controllo il nome
             for (Account a : listaaccount) {
@@ -195,7 +196,7 @@ public class AccountsModel extends AbstractModel {
             }
             if (mappaFiltro.get(SEZIONE) != null) { // controllo se la sezione
                                                     // appartiene alla nature
-                if ((checkSection((Natures) mappaFiltro.get(NATURA), (Sections) mappaFiltro.get(SEZIONE))) == mappaFiltro.get(NATURA)) {
+                if ((checkSection((Natures) mappaFiltro.get(NATURA), (Sections) mappaFiltro.get(SEZIONE)))) {
                     for (Account a : listaFiltrata) { // doppio filtro sez + nat
                         if (a.getSezione() != mappaFiltro.get(SEZIONE))
                             listaFiltrata.remove(a);
@@ -227,27 +228,19 @@ public class AccountsModel extends AbstractModel {
         return null;
     }
 
-    private Natures checkSection(Natures nat, Sections sez) {
-        if(nat != Natures.COSTO){
-            if(nat!=Natures.RICAVO){
-                if(nat!=Natures.ATTIVITA){
-                    if(Sections.getPassivita().contains(sez))
-                        natura = Natures.PASSIVITA;
-                }
-                else{
-                    if(Sections.getAttivita().contains(sez))
-                        natura = Natures.ATTIVITA;
-                }
-            }
-            else{
-                if(Sections.getRicavi().contains(sez))
-                    natura = Natures.RICAVO;
-            }
+    private boolean checkSection(Natures nat, Sections sez) {// fare solo il controllo della natura e deve tornare un bool
+        switch(nat){
+        case ATTIVITA:
+                return Sections.getAttivita().contains(sez);
+        case COSTO:
+                return Sections.getCosti().contains(sez);
+        case PASSIVITA:
+                return Sections.getPassivita().contains(sez);
+        case RICAVO:
+                return Sections.getRicavi().contains(sez);
+        default:
+            return false;
+        
         }
-        else{
-            if(Sections.getCosti().contains(sez))
-                natura = Natures.COSTO;
-        }
-        return natura;
-  }
+         }
 }

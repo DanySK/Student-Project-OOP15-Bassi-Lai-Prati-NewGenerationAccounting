@@ -36,7 +36,8 @@ public class MovementsModel extends AbstractModel {
 
 	@Override
 	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
-		Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
+		@SuppressWarnings("unchecked")
+        Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
 		AccountsModel a = new AccountsModel(db);
 		// chiedere a fede se va bene il cast
 		if (listaMovimenti.contains(m)) {
@@ -141,7 +142,7 @@ public class MovementsModel extends AbstractModel {
 	}
 
 	@Override
-	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
+	public LinkedList<Movement> load(Map<String, Object> mappaFiltro) {
 		// TODO Auto-generated method stub
 		return null;
 	}
