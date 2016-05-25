@@ -45,7 +45,6 @@ public class CompanyModel extends AbstractModel {
 		
 		if (elem.get(ragione_sociale) == "" ){
 			throw new IllegalArgumentException("Ragione sociale non valida. Riprovare.");
-		
 		}
 		
 		if (elem.get(password) == ""){
@@ -79,8 +78,9 @@ public class CompanyModel extends AbstractModel {
 			throw new IllegalArgumentException("Numero di telefono non valido. Riprovare.");
 		
 		}
-		Company nuovaazienda = new Company(UUID.randomUUID(), password, ragione_sociale, p_iva, indirizzo, citta,
-				0, provincia, telefono);
+		Company nuovaazienda = new Company(UUID.randomUUID(),(char[]) elem.get(password), (String) elem.get(ragione_sociale),(String) elem.get(p_iva),(String) elem.get(indirizzo),(String) elem.get(citta),
+			(int) elem.get(cap),(String) elem.get(provincia),(String)elem.get(indirizzo));
+		
 		if (listaAziende.contains(nuovaazienda)) {
 			throw new InstanceAlreadyExistsException("L'elemento e' gia' presente.");
 		}
