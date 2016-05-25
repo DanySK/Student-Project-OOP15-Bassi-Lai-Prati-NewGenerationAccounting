@@ -42,7 +42,10 @@ public class CompanyModel extends AbstractModel {
 	}
 
 	public UUID getLastAddedItemCode(){
-		return nuovaazienda.getCodice_azienda();
+		if (nuovaazienda != null && nuovaazienda.getCodice_azienda() != null && nuovaazienda.getCodice_azienda() instanceof UUID){
+			return nuovaazienda.getCodice_azienda();
+		}
+		return null;
 	}
 	
 	@Override

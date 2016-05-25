@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.LinkedList;
+import java.util.UUID;
 
 import dataModel.Company;
 import dataModel.Customers_Suppliers;
@@ -56,16 +57,16 @@ public class DBSaver extends AbstractDB {
 		super(path, view, db);
 	}
 
-	public static void addCompany(String path) {
-		new DBSaver(path, null, new DBDataModel(AccountsModel.chartOfAccounts(), new LinkedList<Customers_Suppliers>(),
-				new LinkedList<Movement>(), new LinkedList<Product>(), path)).start();
+	public static void addCompany(final UUID uuid) {
+		new DBSaver(uuid.toString(), null, new DBDataModel(AccountsModel.chartOfAccounts(), new LinkedList<Customers_Suppliers>(),
+				new LinkedList<Movement>(), new LinkedList<Product>(), uuid.toString())).start();
 	}
 
-	public static void removeCompany(String path) {
+	public static void removeCompany(final String path) {
 		deleteDirectory(getDBDirectory(path));
 	}
 
-	private static void deleteDirectory(File path) {
+	private static void deleteDirectory(final File path) {
 		if (path.exists()) {
 			for (File file : path.listFiles()) {
 				if (file.isDirectory()) {

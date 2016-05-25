@@ -2,6 +2,7 @@ package controller.anaAziende;
 
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.UUID;
 
 import javax.management.InstanceNotFoundException;
 
@@ -89,7 +90,10 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 		try {
 			new PopupControllerImpl(PopupMode.ADD, model, this, view) {
 				protected void beforeCloseActions() {
-					DBSaver.addCompany(null);
+					UUID codice = model.getLastAddedItemCode();
+					if (codice != null) {
+						DBSaver.addCompany(codice);
+					}
 				}
 			};
 		} catch (InstanceNotFoundException | IllegalArgumentException e) {
