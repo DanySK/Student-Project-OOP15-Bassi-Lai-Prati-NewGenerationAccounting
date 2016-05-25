@@ -29,11 +29,8 @@ public class CompanyModel extends AbstractModel {
 	private final static String provincia = "Provincia";
 	private final static String indirizzo = "Indirizzo";
 	private final static String telefono = "Telefono";
-	private final static String p_iva = "P.IVA"; // stringa che uso unicamente
-													// per il return nelle
-													// mappe.
-	private final long partitaIVA = 0; // ricordarsi controlli sulla lunghezza
-	// private final int length = String.valueOf(11).length();
+	private final static String p_iva = "P.IVA"; 
+													
 	private boolean trovato = false;
 
 	private final LinkedList<Company> listaAziende;
@@ -44,14 +41,42 @@ public class CompanyModel extends AbstractModel {
 
 	@Override
 	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
-		if (elem.get(ragione_sociale) == "" || (Long) elem.get(partitaIVA) == null || elem.get(cap) == ""
-				|| elem.get(citta) == "" || elem.get(provincia) == "" || elem.get(indirizzo) == ""
-				|| elem.get(telefono) == "") {
-			throw new IllegalArgumentException("Uno o pi� valori inseriti risultano non validi. Riprovare.");
+		if (elem.get(ragione_sociale) == "" ){
+			throw new IllegalArgumentException("Ragione sociale non valida. Riprovare.");
+		
 		}
+		
+		if (elem.get(p_iva) == ""){
+			throw new IllegalArgumentException("PartitaIVA non valida. Riprovare.");
+		}
+		
+		if (elem.get(cap) == ""){
+			throw new IllegalArgumentException("CAP non valido. Riprovare.");
+		
+		}
+		
+		if (elem.get(citta) == ""){
+			throw new IllegalArgumentException("Citta' non valida. Riprovare.");
+		
+		}
+		if ( elem.get(provincia) == ""){
+			throw new IllegalArgumentException("Provincia' non valida. Riprovare.");
+		
+		}
+		
+		if (elem.get(indirizzo) == ""){
+			throw new IllegalArgumentException("Indirizzo non valido. Riprovare.");
+		
+		}
+		
+		if (elem.get(telefono) == ""){
+			throw new IllegalArgumentException("Numero di telefono non valido. Riprovare.");
+		
+		}
+		
 		// SOLO PER TEST, DA CANCELLARE
 		char[] password = {};
-		Company nuovaazienda = new Company(UUID.randomUUID(), password, ragione_sociale, partitaIVA, indirizzo, citta,
+		Company nuovaazienda = new Company(UUID.randomUUID(), password, ragione_sociale, p_iva, indirizzo, citta,
 				0, provincia, telefono);
 		if (listaAziende.contains(nuovaazienda)) {
 			throw new InstanceAlreadyExistsException("L'elemento e' gia' presente.");
@@ -134,20 +159,6 @@ public class CompanyModel extends AbstractModel {
 		return new LinkedList<Company>(listaAziende);
 	}
 
-	/*
-	 * public List<? extends IDataTableModel> load(Long p_iva) throws Exception
-	 * { LinkedList<Company> filtroPIVA = new LinkedList<Company>(); if
-	 * (p_iva.equals(null)) { throw new Exception("P.IVA non valida!"); } else
-	 * for (Company filtra : listaAziende) { if (filtra.getPartita_iva() ==
-	 * p_iva) { filtroPIVA.add(filtra); } } return filtroPIVA; }
-	 * 
-	 * public List<? extends IDataTableModel> load(String Ragione_sociale)
-	 * throws Exception { // natura LinkedList<Company> filtroRagioneSociale =
-	 * new LinkedList<Company>(); if (Ragione_sociale.equals(null)) { throw new
-	 * Exception("Ragione Sociale non valida."); } else for (Company filtra :
-	 * listaAziende) { if (filtra.getRagione_sociale().equals(Ragione_sociale))
-	 * { filtroRagioneSociale.add(filtra); } } return filtroRagioneSociale; }
-	 */
 	@Override
 	public void remove(IDataTableModel elem) {
 		if (listaAziende.contains(elem)) {
@@ -176,14 +187,41 @@ public class CompanyModel extends AbstractModel {
 
 	@Override
 	public Map<String, Object> getFilterMap() {
-		// TODO Auto-generated method stub
-		return null;
+        Map<String, Object> mappaFiltro = new HashMap<>();
+        mappaFiltro.put(ragione_sociale, new String());
+        mappaFiltro.put(p_iva, new String(""));
+		return mappaFiltro;
 	}
 
 	@Override
-	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {
+        LinkedList<Company> listaFiltrata = new LinkedList<>();
+        if (mappaFiltro.get(ragione_sociale) != null) {
+            for (Company controllofiltro : listaAziende) {
+                if (controllofiltro.getRagione_sociale().contentEquals(ragione_sociale)){
+                    listaFiltrata.add(controllofiltro);
+                }
+            }
+        }
+     
+           if (mappaFiltro.get(p_iva) != null) {
+               for (Company controllofiltro : listaAziende) {
+              	if(controllofiltro.getPartita_iva() == mappaFiltro.get(p_iva)) {   
+                	listaFiltrata.add(controllofiltro);
+                  } else {
+                      // lista filtrata NON vuota
+                      for (Company doppiofiltro : listaFiltrata) { 
+                          if (doppiofiltro.getPartita_iva()!= mappaFiltro.get(p_iva)){
+                              listaFiltrata.remove(doppiofiltro);
+                          }
+                      }
+              }
+           }
+            if (listaFiltrata.isEmpty()) {
+                throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri.");
+            }
+        
+}
+           return null;
+}
 }
