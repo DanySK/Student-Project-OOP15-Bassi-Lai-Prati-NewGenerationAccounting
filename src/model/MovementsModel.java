@@ -39,7 +39,6 @@ public class MovementsModel extends AbstractModel {
 		@SuppressWarnings("unchecked")
         Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
 		AccountsModel a = new AccountsModel(db);
-		// chiedere a fede se va bene il cast
 		if (listaMovimenti.contains(m)) {
 			throw new InstanceAlreadyExistsException("elemento già esistente");
 		}
@@ -52,7 +51,8 @@ public class MovementsModel extends AbstractModel {
 		}
 	}
 
-	@Override
+	@SuppressWarnings("unchecked")
+    @Override
 	public void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare)
 			throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException {
 		if (obj instanceof Movement) {
@@ -87,21 +87,6 @@ public class MovementsModel extends AbstractModel {
 				throw new IllegalArgumentException("l'oggetto inserito non è un movimento");
 		}
 	}
-
-	@Override
-	public LinkedList<Movement> load() {
-		return new LinkedList<Movement>(db.getMoviments());
-	}
-
-	/*
-	 * LinkedList<Movement> load(Date da, Date a) throws
-	 * IllegalArgumentException { LinkedList<Movement> filtroData = new
-	 * LinkedList<>(); if (da == null && a == null) { throw new
-	 * IllegalArgumentException("date non valide"); } else for (Movement m :
-	 * db.getMoviments()) { if (m.getData().equals(da) || m.getData().equals(a)
-	 * || m.getData().after(da) && m.getData().before(a)) { filtroData.add(m); }
-	 * } return filtroData; }
-	 */
 	@Override
 	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException {
 		AccountsModel a = new AccountsModel(db);
@@ -142,8 +127,40 @@ public class MovementsModel extends AbstractModel {
 	}
 
 	@Override
+        public LinkedList<Movement> load() {
+                return new LinkedList<Movement>(db.getMoviments());
+        }
+	
+	@Override
 	public LinkedList<Movement> load(Map<String, Object> mappaFiltro) {
-		// TODO Auto-generated method stub
-		return null;
+	    LinkedList<Movement> listaFiltrata = new LinkedList<>();
+	    Date da = (Date) mappaFiltro.get(DA);
+	    Date a = (Date) mappaFiltro.get(A);
+	    if(da != null && a!= null){
+	        for(Movement m : listaMovimenti){
+	            if(m.getData().after(da) && m.getData().before(a)){
+	                listaFiltrata.add(m);
+	            }
+	        }   
+	    }
+	    else if(da != null && a == null){
+	        for(Movement m : listaMovimenti){
+                    if(m.getData().after(da)){
+                        listaFiltrata.add(m);
+                    }
+                }   
+	    }
+	    else if(da == null && a != null){
+	        for(Movement m : listaMovimenti){
+                    if(m.getData().before(a)){
+                        listaFiltrata.add(m);
+                    }
+                }   
+	    }
+	    else if (da == null && a == null){
+	        throw new IllegalArgumentException("le date inserite non sono valide");
+	    }
+	    
+	    return listaFiltrata;
 	}
 }
