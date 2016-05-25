@@ -6,7 +6,6 @@ package controller.popup;
 import java.awt.Dimension;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 import javax.management.InstanceNotFoundException;
@@ -20,7 +19,6 @@ import controller.IAnagraficaViewObserver;
 import controller.IViewObserver;
 import dataEnum.IDataEnum;
 import dataEnum.PopupMode;
-import dataModel.Company;
 import model.AbstractModel;
 import view.AbstractAnagraficaView;
 import view.popup.AddEditPopupView;
@@ -35,18 +33,19 @@ public class PopupControllerImpl implements IViewObserver {
 
 	private final AbstractModel model;
 	private final IAnagraficaViewObserver parentController;
-	private final AbstractAnagraficaView ParentView;
+	private final AbstractAnagraficaView parentView;
 	private final AddEditPopupView view;
 	private final PopupMode mode;
 	private final Map<String, Object> mappa;
 
 	public PopupControllerImpl(final PopupMode mode, final AbstractModel model,
-			final IAnagraficaViewObserver parentController, final AbstractAnagraficaView ParentView)
+			final IAnagraficaViewObserver parentController, final AbstractAnagraficaView parentView)
 			throws InstanceNotFoundException, IllegalArgumentException {
 		this.mode = mode;
 		this.model = model;
 		this.parentController = parentController;
-		this.ParentView = ParentView;
+		this.parentView = parentView;
+		parentView.setEnabled(false);
 		String titolo;
 		switch (mode) {
 		case ADD:
@@ -55,7 +54,7 @@ public class PopupControllerImpl implements IViewObserver {
 			break;
 		case EDIT:
 			titolo = "Modifica";
-			mappa = model.getMap(ParentView.getSelectedItem());
+			mappa = model.getMap(parentView.getSelectedItem());
 			break;
 		case FIND:
 			titolo = "Filtra/Cerca";
@@ -79,11 +78,11 @@ public class PopupControllerImpl implements IViewObserver {
 		try {
 			switch (mode) {
 			case ADD:
-				model.add(mappa);
+				model.add(populateMap(compoMap));
 				parentController.refresh();
 				break;
 			case EDIT:
-				model.edit(ParentView.getSelectedItem(), mappa);
+				model.edit(parentView.getSelectedItem(), populateMap(compoMap));
 				parentController.refresh();
 				break;
 			case FIND:
@@ -97,7 +96,11 @@ public class PopupControllerImpl implements IViewObserver {
 	}
 
 	public void filterList(final Map<String, Object> mappa) {
-		ParentView.setList(model.load(mappa));
+		try {
+			parentView.setList(model.load(mappa));
+		} catch (InstanceNotFoundException e) {
+			view.errorDialog("errore", e.getMessage());
+		}
 	}
 
 	public Map<String, Object> populateMap(final HashMap<String, JComponent> compoMap) {
