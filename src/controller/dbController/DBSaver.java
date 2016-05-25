@@ -11,8 +11,12 @@ import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 
 import dataModel.Company;
+import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
+import dataModel.Movement;
+import dataModel.Product;
+import model.AccountsModel;
 import view.AbstractFrame;
 
 /**
@@ -26,9 +30,6 @@ public class DBSaver extends AbstractDB {
 	private static void save(final boolean mustbeSaved, final File file,
 			final LinkedList<? extends IDataTableModel> linkedList) throws IOException {
 		boolean save = mustbeSaved;
-		if (file.getParentFile().mkdir()) {
-			save = true;
-		}
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
@@ -56,17 +57,32 @@ public class DBSaver extends AbstractDB {
 	}
 
 	public static void addCompany(String path) {
-		// TODO
+		new DBSaver(path, null, new DBDataModel(AccountsModel.chartOfAccounts(), new LinkedList<Customers_Suppliers>(),
+				new LinkedList<Movement>(), new LinkedList<Product>(), path)).start();
 	}
 
 	public static void removeCompany(String path) {
-		// TODO
+		deleteDirectory(getDBDirectory(path));
+	}
+
+	private static void deleteDirectory(File path) {
+		if (path.exists()) {
+			for (File file : path.listFiles()) {
+				if (file.isDirectory()) {
+					deleteDirectory(file);
+				} else {
+					file.delete();
+				}
+			}
+			path.delete();
+		}
 	}
 
 	@Override
 	public void run() {
 		final DBDataModel db = getDb();
 		try {
+			getDBDirectory(db.getPath()).mkdir();
 			save(db.isAccountsModified(), getAccountFile(), db.getAccounts());
 			save(db.isCustomersSuppliersModified(), getCustomersupplierFile(), db.getCustomersSuppliers());
 			save(db.isMovimentsModified(), getMovementFile(), db.getMoviments());

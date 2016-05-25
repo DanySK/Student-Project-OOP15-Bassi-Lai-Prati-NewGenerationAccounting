@@ -59,6 +59,10 @@ public abstract class AbstractDB extends Thread {
 		return getFile(CUSTOMERSUPPLIER_FILENAME);
 	}
 
+	protected static File getDBDirectory(String path) {
+		return new File(DB_PATH + SEPARATOR + path);
+	}
+
 	/**
 	 * @return the db
 	 */

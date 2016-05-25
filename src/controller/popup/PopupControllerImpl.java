@@ -71,7 +71,12 @@ public class PopupControllerImpl implements IViewObserver {
 
 	@Override
 	public void chiusura() {
+		beforeCloseActions();
 		view.close();
+	}
+	
+	protected void beforeCloseActions(){
+		//DO NOTHING. THIS METHOD CAN BE OVERRIDE FOR ACTIONS BEFORE CLOSE.
 	}
 
 	public void go(final HashMap<String, JComponent> compoMap) {
@@ -79,7 +84,6 @@ public class PopupControllerImpl implements IViewObserver {
 			switch (mode) {
 			case ADD:
 				model.add(populateMap(compoMap));
-				System.out.println("a");
 				parentController.refresh();
 				break;
 			case EDIT:

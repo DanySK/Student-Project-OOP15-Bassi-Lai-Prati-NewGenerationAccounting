@@ -32,6 +32,7 @@ public class CompanyModel extends AbstractModel {
 	private final static String p_iva = "P.IVA"; 
 	private final char[] password = {};
 	
+	private Company nuovaazienda;
 	private boolean trovato = false;
 
 	private final LinkedList<Company> listaAziende;
@@ -40,6 +41,10 @@ public class CompanyModel extends AbstractModel {
 		listaAziende = linkedList;
 	}
 
+	public UUID getLastAddedItemCode(){
+		return nuovaazienda.getCodice_azienda();
+	}
+	
 	@Override
 	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
 		
@@ -78,7 +83,7 @@ public class CompanyModel extends AbstractModel {
 			throw new IllegalArgumentException("Numero di telefono non valido. Riprovare.");
 		
 		}
-		Company nuovaazienda = new Company(UUID.randomUUID(),(char[]) elem.get(password), (String) elem.get(ragione_sociale),(String) elem.get(p_iva),(String) elem.get(indirizzo),(String) elem.get(citta),
+		nuovaazienda = new Company(UUID.randomUUID(),(char[]) elem.get(password), (String) elem.get(ragione_sociale),(String) elem.get(p_iva),(String) elem.get(indirizzo),(String) elem.get(citta),
 			(int) elem.get(cap),(String) elem.get(provincia),(String)elem.get(indirizzo));
 		
 		if (listaAziende.contains(nuovaazienda)) {

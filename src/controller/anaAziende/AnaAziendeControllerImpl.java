@@ -26,21 +26,32 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 		view.start();
 	}
 
-	public void accedi(final char[] password) {
-		Company item = null;
-		try {
-			item = (Company) view.getSelectedItem();
-		} catch (InstanceNotFoundException e) {
-			view.errorDialog("Errore", e.getMessage());
-			return;
-		}
-		if (item != null && model.isPasswordCorrect(password, item)) {
+	public void accedi() {
+		if (checkPwd(getSelectedCompany())) {
 			saveCompanysList();
 			view.close();
-			new MainControllerImpl(DBLoader.loadDB(item.getCodice_azienda().toString(), view));
+			new MainControllerImpl(DBLoader.loadDB(getSelectedCompany().getCodice_azienda().toString(), view));
 		} else {
-			view.errorDialog("Password errata", "Password Errata, riprovare.");
+			wrongPwd();
 		}
+	}
+
+	private boolean checkPwd(Company company) {
+		return model.isPasswordCorrect(view.getInputPassword(), company);
+	}
+
+	private void wrongPwd() {
+		view.errorDialog("Password Errata", "Attenzione! La password inserita è errata. riprovare.");
+	}
+
+	private Company getSelectedCompany() {
+		Company company = null;
+		try {
+			company = (Company) view.getSelectedItem();
+		} catch (InstanceNotFoundException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
+		return company;
 	}
 
 	@Override
@@ -76,7 +87,11 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	@Override
 	public void tasto1() {
 		try {
-			new PopupControllerImpl(PopupMode.ADD, model, this, view);
+			new PopupControllerImpl(PopupMode.ADD, model, this, view) {
+				protected void beforeCloseActions() {
+					DBSaver.addCompany(null);
+				}
+			};
 		} catch (InstanceNotFoundException | IllegalArgumentException e) {
 			view.errorDialog("Errore", e.getMessage());
 		}
@@ -84,21 +99,31 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void tasto2() {
-		try {
-			new PopupControllerImpl(PopupMode.EDIT, model, this, view);
-		} catch (InstanceNotFoundException | IllegalArgumentException e) {
-			view.errorDialog("Errore", e.getMessage());
+		if (checkPwd(getSelectedCompany())) {
+			try {
+				new PopupControllerImpl(PopupMode.EDIT, model, this, view);
+			} catch (InstanceNotFoundException | IllegalArgumentException e) {
+				view.errorDialog("Errore", e.getMessage());
+			}
+		} else {
+			wrongPwd();
 		}
 	}
 
 	@Override
 	public void tasto3() {
-		try {
-			model.remove(view.getSelectedItem());
-		} catch (InstanceNotFoundException e) {
-			view.errorDialog("Errore", e.getMessage());
+		if (checkPwd(getSelectedCompany())) {
+			try {
+				Company item = (Company) view.getSelectedItem();
+				DBSaver.removeCompany(item.getCodice_azienda().toString());
+				model.remove(item);
+			} catch (InstanceNotFoundException e) {
+				view.errorDialog("Errore", e.getMessage());
+			}
+			refresh();
+		} else {
+			wrongPwd();
 		}
-		refresh();
 	}
 
 }

@@ -62,7 +62,6 @@ public final class DBLoader extends AbstractDB {
 	}
 
 	private LinkedList load(File file, LinkedList defaultList) {
-		file.getParentFile().mkdir();
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
@@ -88,6 +87,7 @@ public final class DBLoader extends AbstractDB {
 	@Override
 	public void run() {
 		DBDataModel db = getDb();
+		getDBDirectory(db.getPath()).mkdir();
 		db.setAccounts(load(getAccountFile(), AccountsModel.chartOfAccounts()));
 		db.setCustomersSuppliers(load(getCustomersupplierFile(), new LinkedList<Customers_Suppliers>()));
 		db.setMoviments(load(getMovementFile(), new LinkedList<Movement>()));

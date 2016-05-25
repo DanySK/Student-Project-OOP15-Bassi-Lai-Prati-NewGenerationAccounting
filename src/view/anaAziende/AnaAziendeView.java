@@ -27,13 +27,15 @@ public class AnaAziendeView extends AbstractAnagraficaView<Company> {
 
 	private static final long serialVersionUID = 5859979634610547926L;
 
+	private final JPasswordField passwordField;
+
 	public AnaAziendeView(final LinkedList<Company> lista) {
 		this(lista, "Benvenuto in NGA");
 	}
 
 	public AnaAziendeView(final LinkedList<Company> lista, final String title) {
 		super(lista, Company.getIntestazione(), title);
-		JPasswordField passwordField = new JPasswordField(15);
+		passwordField = new JPasswordField(15);
 		JButton accediButton = new JButton("Accedi");
 		JPanel topPanel = new JPanel(new FlowLayout());
 		topPanel.add(new JLabel("Password: "));
@@ -49,10 +51,14 @@ public class AnaAziendeView extends AbstractAnagraficaView<Company> {
 				errorDialog("Errore", ex.getMessage());
 			}
 			if (item != null) {
-				((AnaAziendeControllerImpl) observer).accedi(passwordField.getPassword());
+				((AnaAziendeControllerImpl) observer).accedi();
 			} else {
 				errorDialog("Attenzione, seleziona una riga per continuare!", "nessuna riga selezionata");
 			}
 		});
+	}
+
+	public char[] getInputPassword() {
+		return passwordField.getPassword();
 	}
 }
