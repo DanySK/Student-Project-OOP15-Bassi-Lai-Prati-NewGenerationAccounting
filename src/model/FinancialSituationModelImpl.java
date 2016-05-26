@@ -38,10 +38,7 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
         CE = new LinkedList<Account>();
     }
 
-    private LinkedList<Account> calcolaSP() { // nature = attivita e passivita /
-                                              // sezioni getAttivita e
-                                              // getPassivita
-
+    private LinkedList<Account> calcolaSP() {
         for (Account a : contiRegistrati) {
             if (a.getNatura() == Natures.ATTIVITA) {
                 for (Sections s : Sections.getAttivita()) {
@@ -112,6 +109,5 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
         // TODO Auto-generated method stub
         return null;
     }
-
 
 }
