@@ -73,7 +73,7 @@ public class CompanyModel extends AbstractModel {
 		
 		}
 		if ( elem.get(provincia) == ""){
-			throw new IllegalArgumentException("Provincia' non valida. Riprovare.");
+			throw new IllegalArgumentException("Provincia non valida. Riprovare.");
 		
 		}
 		

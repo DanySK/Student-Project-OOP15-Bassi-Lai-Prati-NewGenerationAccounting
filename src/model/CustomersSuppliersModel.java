@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
 import dataEnum.Gender;
@@ -11,6 +12,7 @@ import dataEnum.KindPerson;
 import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
+
 
 /**
  * Classe implementativa per la gestione dell'anagrafica clienti\fornitori.
@@ -46,23 +48,94 @@ public class CustomersSuppliersModel extends AbstractModel {
 	}
 
 	@Override
-	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException { // controllare
-																						// il
-																						// CF?
+	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException, InstanceAlreadyExistsException { // controllare
+		
+		if (elem.get(CF) == "" ){
+			throw new IllegalArgumentException("CF non valido. Riprovare.");
+		}
+		
+		if (elem.get(Citta) == ""){
+			throw new IllegalArgumentException("Città non valida. Riprovare.");
+		}
+		
+		if (elem.get(Cognome) == ""){
+			throw new IllegalArgumentException("Cognome non valido. Riprovare.");
+		}
+		
+		if (elem.get(Nome) == ""){
+			throw new IllegalArgumentException("Nome non valido. Riprovare.");
+		
+		}
+		
+		if (elem.get(Indirizzo) == ""){
+			throw new IllegalArgumentException("Indirizzo non valido. Riprovare.");
+		
+		}
+		if ( elem.get(CAP) == ""){
+			throw new IllegalArgumentException("CAP non valido. Riprovare.");
+		
+		}
+		
+		if (elem.get(Credito) == ""){
+			throw new IllegalArgumentException("Credito non valido. Riprovare.");
+		
+		}	
+		
+		if (elem.get(Debito) == ""){
+			throw new IllegalArgumentException("Debito non valido. Riprovare.");
+		
+		}
+		
+		if (elem.get(Telefono) == ""){
+			throw new IllegalArgumentException("Numero di telefono non valido. Riprovare.");
+		
+		}
+		
+		if (elem.get(Ruolostring) == ""){
+			throw new IllegalArgumentException("Ruolo non valido. Riprovare.");
+		
+		}
+		
+		if (elem.get(Sessostring) == ""){
+			throw new IllegalArgumentException("Gender non valido. Riprovare.");
+		
+		}
+		
 		Customers_Suppliers rapportoC = new Customers_Suppliers(elem.get(Nome).toString(), elem.get(Cognome).toString(),
 				elem.get(CF).toString(), elem.get(Indirizzo).toString(), elem.get(Citta).toString(),
 				(Integer) elem.get(CAP), elem.get(Telefono).toString(), (Gender) elem.get(sesso),
 				(KindPerson) elem.get(ruolo), (Integer) elem.get(Credito), (Integer) elem.get(Debito));
+		
+		if (listaRapportiC.contains(rapportoC)) {
+			throw new InstanceAlreadyExistsException("L'elemento e' gia' presente.");
+		}
 		listaRapportiC.add(rapportoC);
 	}
 
 	@Override
-	protected void editElem(IDataTableModel obj, Map<String, Object> ifoDaModificare) {
-		listaRapportiC.remove(obj);
-
-		addElem(ifoDaModificare);
-
+	protected void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare)
+			throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException {
+		
+		if (!listaRapportiC.contains(obj)) {
+			throw new InstanceNotFoundException("Elemento da modificare non presente, riprovare.");
+		} else {
+			if (obj instanceof Customers_Suppliers) {
+				Customers_Suppliers cerca = (Customers_Suppliers) obj;
+				for (Customers_Suppliers elem : listaRapportiC) {
+					if (elem.getCf().equals(cerca.getCf())) {
+						elem.setCf(cerca.getCf());
+						trovato = true;
+					}
+				}
+				if (trovato == false) {
+					throw new InstanceNotFoundException("Elemento da modificare non presente.");
+				}
+				listaRapportiC.remove(obj);
+				addElem(infoDaModificare);
+			}
+		}
 	}
+
 
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
@@ -115,14 +188,6 @@ public class CustomersSuppliersModel extends AbstractModel {
 		return new LinkedList<Customers_Suppliers>();
 	}
 
-	/*
-	 * public List<? extends IDataTableModel> load(String Cf) throws Exception {
-	 * // natura LinkedList<Customers_Suppliers> filtroCF = new
-	 * LinkedList<Customers_Suppliers>(); if (Cf.equals(null)) { throw new
-	 * Exception("Cf non valido."); } else for (Customers_Suppliers filtra :
-	 * listaRapportiC) { if (filtra.getCf().equals(Cf)) { filtroCF.add(filtra);
-	 * } } return filtroCF; }
-	 */
 	@Override
 	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException { // dati
 		if (elemDaEliminare.getClass().equals(Customers_Suppliers.class)) {
