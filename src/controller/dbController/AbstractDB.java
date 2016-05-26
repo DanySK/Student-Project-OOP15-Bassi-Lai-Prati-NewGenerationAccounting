@@ -34,6 +34,7 @@ public abstract class AbstractDB extends Thread {
 	protected static File getDBDirectory(String path) {
 		return new File(DB_PATH + SEPARATOR + path);
 	}
+
 	private final String path;
 
 	private final AbstractFrame view;

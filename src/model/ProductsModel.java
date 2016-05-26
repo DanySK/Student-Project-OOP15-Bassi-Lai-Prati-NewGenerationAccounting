@@ -167,11 +167,11 @@ public class ProductsModel extends AbstractModel {
 
 		if (mappaFiltro.get(codiceA) != null) {
 			for (Product controllofiltro : listaProdotti) {
-				if (controllofiltro.getCod_acquisto() == mappaFiltro.get(codiceA)) {
+				if (controllofiltro.getCod_acquisto() == Integer.parseInt(mappaFiltro.get(codiceV).toString())) {
 					listaFiltrata.add(controllofiltro);
 				} else {
 					for (Product doppiofiltro : listaFiltrata) {
-						if (doppiofiltro.getCod_acquisto() != mappaFiltro.get(codiceA)) {
+						if (doppiofiltro.getCod_acquisto() != Integer.parseInt(mappaFiltro.get(codiceV).toString())) {
 							listaFiltrata.remove(doppiofiltro);
 						}
 					}
@@ -181,11 +181,11 @@ public class ProductsModel extends AbstractModel {
 		}
 		if (mappaFiltro.get(codiceV) != null) {
 			for (Product controllofiltro : listaProdotti) {
-				if (controllofiltro.getCod_vendita() == mappaFiltro.get(codiceV)) {
+				if (controllofiltro.getCod_vendita() == Integer.parseInt(mappaFiltro.get(codiceV).toString())) {
 					listaFiltrata.add(controllofiltro);
 				} else {
 					for (Product doppiofiltro : listaFiltrata) {
-						if (doppiofiltro.getCod_vendita() != mappaFiltro.get(codiceV)) {
+						if (doppiofiltro.getCod_vendita() != Integer.parseInt(mappaFiltro.get(codiceV).toString())) {
 							listaFiltrata.remove(doppiofiltro);
 						}
 					}

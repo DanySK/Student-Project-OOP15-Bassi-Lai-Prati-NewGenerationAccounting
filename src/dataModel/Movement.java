@@ -44,8 +44,8 @@ public class Movement implements IDataTableModel {
 		case 0:
 			return getData().toString();
 		case 1:
-			for(Operation o : listaConti){
-			    return o.getConto().getName() + o.getDare() + o.getAvere();
+			for (Operation o : listaConti) {
+				return o.getConto().getName() + o.getDare() + o.getAvere();
 			}
 		default:
 			return "";

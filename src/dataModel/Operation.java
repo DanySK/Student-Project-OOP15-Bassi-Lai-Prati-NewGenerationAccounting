@@ -7,9 +7,11 @@ public class Operation implements IEdiTableDataModel {
 	private static final long serialVersionUID = 14756423876583L;
 
 	private static final String[] INTESTAZIONE = { "Conto", "Dare", "Avere" };
+
 	public static String[] getIntestazione() {
 		return INTESTAZIONE;
 	}
+
 	private Account conto;
 
 	private float dare;
