@@ -1,9 +1,7 @@
 package model;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.LinkedList;
 
-import dataEnum.Natures;
 import dataModel.Account;
 
 /**
@@ -14,9 +12,10 @@ import dataModel.Account;
  *
  */
 public interface IFinancialSituationModel {
-	public String getAnalisiFinanziaria();
+	
+    public String getAnalisiFinanziaria();
+    public LinkedList<Account> getSP();
+    public LinkedList<Account> getCE();
+    
 
-	public Map<Natures, Set<Account>> getContoEconomico();
-
-	public Map<Natures, Set<Account>> getStatoPatrimoniale();
 }
