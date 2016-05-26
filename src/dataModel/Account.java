@@ -11,7 +11,7 @@ import dataEnum.Sections;
  */
 public class Account implements IDataTableModel {
 
-	private static final String[] INTESTAZIONE = { "Natura", "Sezione", "Nome","Saldo" };
+	private static final String[] INTESTAZIONE = { "Natura", "Sezione", "Nome", "Saldo" };
 
 	/**
 	 * 
@@ -31,14 +31,6 @@ public class Account implements IDataTableModel {
 		this.nome = nome;
 		this.natura = natura;
 		this.saldo = saldo;
-		this.sezione = sezione;
-	}
-
-	public Sections getSezione() {
-		return sezione;
-	}
-
-	public void setSezione(Sections sezione) {
 		this.sezione = sezione;
 	}
 
@@ -77,6 +69,10 @@ public class Account implements IDataTableModel {
 		return saldo;
 	}
 
+	public Sections getSezione() {
+		return sezione;
+	}
+
 	@Override
 	public String getValueAt(int column) {
 		switch (column) {
@@ -87,7 +83,7 @@ public class Account implements IDataTableModel {
 		case 2:
 			return getName();
 		case 3:
-		        return Float.toString(getSaldo());
+			return Float.toString(getSaldo());
 		default:
 			return "";
 		}
@@ -107,6 +103,10 @@ public class Account implements IDataTableModel {
 
 	public void setSaldo(long saldo) {
 		this.saldo = saldo;
+	}
+
+	public void setSezione(Sections sezione) {
+		this.sezione = sezione;
 	}
 
 	@Override

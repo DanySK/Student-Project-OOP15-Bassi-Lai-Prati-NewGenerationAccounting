@@ -40,36 +40,37 @@ public class ProductsModel extends AbstractModel {
 
 	@Override
 	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
-		
-		if (elem.get(nome) == "" ){
+
+		if (elem.get(nome) == "") {
 			throw new IllegalArgumentException("Nome non valido. Riprovare.");
 		}
-		
-		if (elem.get(codiceA) == "" ){
+
+		if (elem.get(codiceA) == "") {
 			throw new IllegalArgumentException("Codice Acquisto non valido. Riprovare.");
 		}
-		
-		if (elem.get(codiceV) == "" ){
+
+		if (elem.get(codiceV) == "") {
 			throw new IllegalArgumentException("Codice Vendita non valido. Riprovare.");
 		}
-		
-		if (elem.get(categoria) == "" ){
+
+		if (elem.get(categoria) == "") {
 			throw new IllegalArgumentException("Categoria non valida. Riprovare.");
 		}
-		
-		if (elem.get(descrizione) == "" ){ //indispensabile?
+
+		if (elem.get(descrizione) == "") { // indispensabile?
 			throw new IllegalArgumentException("Descrizione non valida. Riprovare.");
 		}
-		
-		if (elem.get(prezzo) == "" ){
+
+		if (elem.get(prezzo) == "") {
 			throw new IllegalArgumentException("Prezzo non valido. Riprovare.");
 		}
-		
-//		if (elem.get(rimanenze) == "" ){
-//			throw new IllegalArgumentException("Rimanenze non valide. Riprovare.");
-//		}
-//		
-		
+
+		// if (elem.get(rimanenze) == "" ){
+		// throw new IllegalArgumentException("Rimanenze non valide.
+		// Riprovare.");
+		// }
+		//
+
 		if (listaProdotti.contains(elem)) {
 			throw new IllegalArgumentException("Elemento gia' esistente!");
 		} else {
@@ -102,6 +103,16 @@ public class ProductsModel extends AbstractModel {
 				addElem(infoDaModificare);
 			}
 		}
+	}
+
+	@Override
+	public Map<String, Object> getFilterMap() {
+		Map<String, Object> mappaFiltro = new HashMap<>();
+		mappaFiltro.put(nome, new String(""));
+		mappaFiltro.put(codiceA, new String(""));
+		mappaFiltro.put(codiceV, new String(""));
+		mappaFiltro.put(categoria, new String(""));
+		return mappaFiltro;
 	}
 
 	@Override
@@ -141,7 +152,63 @@ public class ProductsModel extends AbstractModel {
 	public LinkedList<Product> load() {
 		return new LinkedList<Product>(listaProdotti);
 	}
-	
+
+	@Override
+	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro)
+			throws InstanceNotFoundException {
+		LinkedList<Product> listaFiltrata = new LinkedList<>();
+		if (mappaFiltro.get(nome) != null) {
+			for (Product controllofiltro : listaProdotti) {
+				if (controllofiltro.getNome().contentEquals(nome)) {
+					listaFiltrata.add(controllofiltro);
+				}
+			}
+		}
+
+		if (mappaFiltro.get(codiceA) != null) {
+			for (Product controllofiltro : listaProdotti) {
+				if (controllofiltro.getCod_acquisto() == mappaFiltro.get(codiceA)) {
+					listaFiltrata.add(controllofiltro);
+				} else {
+					for (Product doppiofiltro : listaFiltrata) {
+						if (doppiofiltro.getCod_acquisto() != mappaFiltro.get(codiceA)) {
+							listaFiltrata.remove(doppiofiltro);
+						}
+					}
+				}
+			}
+
+		}
+		if (mappaFiltro.get(codiceV) != null) {
+			for (Product controllofiltro : listaProdotti) {
+				if (controllofiltro.getCod_vendita() == mappaFiltro.get(codiceV)) {
+					listaFiltrata.add(controllofiltro);
+				} else {
+					for (Product doppiofiltro : listaFiltrata) {
+						if (doppiofiltro.getCod_vendita() != mappaFiltro.get(codiceV)) {
+							listaFiltrata.remove(doppiofiltro);
+						}
+					}
+				}
+			}
+
+		}
+
+		if (mappaFiltro.get(categoria) != null) {
+			for (Product controllofiltro : listaProdotti) {
+				if (controllofiltro.getCategoria().contentEquals(categoria)) {
+					listaFiltrata.add(controllofiltro);
+				}
+			}
+		}
+
+		if (listaFiltrata.isEmpty()) {
+			throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri.");
+		}
+
+		return null;
+	}
+
 	@Override
 	public void remove(IDataTableModel elem) {
 		if (listaProdotti.contains(elem)) {
@@ -161,77 +228,6 @@ public class ProductsModel extends AbstractModel {
 		db.setProducts(listaProdotti); // Sposto i dati dalla lista interna al
 										// DB
 		return db;// e restituisco
-	}
-
-	@Override
-	public Map<String, Object> getFilterMap() {
-		 Map<String, Object> mappaFiltro = new HashMap<>();
-	        mappaFiltro.put(nome, new String(""));
-	        mappaFiltro.put(codiceA, new String(""));
-	        mappaFiltro.put(codiceV, new String(""));
-	        mappaFiltro.put(categoria, new String(""));
-			return mappaFiltro;		
-	}
-
-	@Override
-	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {
-	       LinkedList<Product> listaFiltrata = new LinkedList<>();
-	        if (mappaFiltro.get(nome) != null) {
-	            for (Product controllofiltro : listaProdotti) {
-	                if (controllofiltro.getNome().contentEquals(nome)){
-	                    listaFiltrata.add(controllofiltro);
-	                }
-	            }
-	        }
-	     
-	           if (mappaFiltro.get(codiceA) != null) {
-	               for (Product controllofiltro : listaProdotti) {
-	              	if((Integer)controllofiltro.getCod_acquisto()== mappaFiltro.get(codiceA)) {   
-	                	listaFiltrata.add(controllofiltro);
-	                  } else {
-	                      for (Product doppiofiltro : listaFiltrata) { 
-	                          if ((Integer)doppiofiltro.getCod_acquisto()!= mappaFiltro.get(codiceA)){
-	                              listaFiltrata.remove(doppiofiltro);
-	                          }
-	                      }
-	              }
-	           }
-	            
-	        
-	}
-	           if (mappaFiltro.get(codiceV) != null) {
-	               for (Product controllofiltro : listaProdotti) {
-	              	if((Integer)controllofiltro.getCod_vendita()== mappaFiltro.get(codiceV)) {   
-	                	listaFiltrata.add(controllofiltro);
-	                  } else {
-	                      for (Product doppiofiltro : listaFiltrata) { 
-	                          if ((Integer)doppiofiltro.getCod_vendita()!= mappaFiltro.get(codiceV)){
-	                              listaFiltrata.remove(doppiofiltro);
-	                          }
-	                      }
-	              }
-	           }
-	            
-	        
-	}
-	      
-	           if (mappaFiltro.get(categoria) != null) {
-		            for (Product controllofiltro : listaProdotti) {
-		                if (controllofiltro.getCategoria().contentEquals(categoria)){
-		                    listaFiltrata.add(controllofiltro);
-		                }
-		            }
-		        }
-	           
-	           
-	           if (listaFiltrata.isEmpty()) {
-	                throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri.");
-	            }
-	           
-	           
-	           
-	           
-		return null;
 	}
 
 }

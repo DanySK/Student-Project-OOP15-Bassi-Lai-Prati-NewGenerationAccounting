@@ -13,11 +13,6 @@ public enum Sections implements IDataEnum { // insieme di tutte le sezioni di SP
 	// RICAVI
 	VALORE_DELLA_PRODUZIONE, PROVENTI_FINANZIARI, RIVALUTAZIONI, PROVENTI_STRAORDINARI;
 
-	@Override
-	public Enum<?>[] getEnumValues() {
-		return values();
-	}
-
 	public static LinkedList<Sections> getAttivita() {
 		LinkedList<Sections> attivita = new LinkedList<>();
 		// valori da 0 a 10
@@ -33,17 +28,6 @@ public enum Sections implements IDataEnum { // insieme di tutte le sezioni di SP
 		return attivita;
 	}
 
-	public static LinkedList<Sections> getPassivita() {
-		LinkedList<Sections> passivita = new LinkedList<>();
-		// valori da 10 a 15
-		passivita.add(PATRIMONIO_NETTO);
-		passivita.add(FONDI_RISCHI_E_ONERI);
-		passivita.add(TFR);
-		passivita.add(DEBITI);
-		passivita.add(RATEI_E_RISCONTI_PASSIVI);
-		return passivita;
-	}
-
 	public static LinkedList<Sections> getCosti() {
 		LinkedList<Sections> costi = new LinkedList<>();
 		// valori da 15 a 21
@@ -55,6 +39,17 @@ public enum Sections implements IDataEnum { // insieme di tutte le sezioni di SP
 		return costi;
 	}
 
+	public static LinkedList<Sections> getPassivita() {
+		LinkedList<Sections> passivita = new LinkedList<>();
+		// valori da 10 a 15
+		passivita.add(PATRIMONIO_NETTO);
+		passivita.add(FONDI_RISCHI_E_ONERI);
+		passivita.add(TFR);
+		passivita.add(DEBITI);
+		passivita.add(RATEI_E_RISCONTI_PASSIVI);
+		return passivita;
+	}
+
 	public static LinkedList<Sections> getRicavi() {
 		LinkedList<Sections> ricavi = new LinkedList<>();
 		// valori da 21 a 24
@@ -63,6 +58,11 @@ public enum Sections implements IDataEnum { // insieme di tutte le sezioni di SP
 		ricavi.add(RIVALUTAZIONI);
 		ricavi.add(PROVENTI_STRAORDINARI);
 		return ricavi;
+	}
+
+	@Override
+	public Enum<?>[] getEnumValues() {
+		return values();
 	}
 
 }

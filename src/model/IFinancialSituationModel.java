@@ -12,10 +12,11 @@ import dataModel.Account;
  *
  */
 public interface IFinancialSituationModel {
-	
-    public String getAnalisiFinanziaria();
-    public LinkedList<Account> getSP();
-    public LinkedList<Account> getCE();
-    
+
+	public String getAnalisiFinanziaria();
+
+	public LinkedList<Account> getCE();
+
+	public LinkedList<Account> getSP();
 
 }

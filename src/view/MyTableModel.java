@@ -17,19 +17,19 @@ import dataModel.IDataTableModel;
  * @author Pentolo
  *
  */
-public class MyTableModel<dataModel extends IDataTableModel> extends AbstractTableModel {
+public class MyTableModel<E extends IDataTableModel> extends AbstractTableModel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -9056625553908580890L;
 	private String headerList[];
-	private List<dataModel> objectsList;
+	private List<E> objectsList;
 
 	/**
 	 * 
 	 */
-	public MyTableModel(final String headerList[], final List<dataModel> list) {
+	public MyTableModel(final String headerList[], final List<E> list) {
 		this.objectsList = list;
 		this.headerList = headerList;
 	}
@@ -49,7 +49,7 @@ public class MyTableModel<dataModel extends IDataTableModel> extends AbstractTab
 		return headerList[col];
 	}
 
-	public dataModel getObjectAt(final int row) {
+	public E getObjectAt(final int row) {
 		return objectsList.get(row);
 	}
 
@@ -73,7 +73,7 @@ public class MyTableModel<dataModel extends IDataTableModel> extends AbstractTab
 		return objectsList.get(row).getValueAt(column);
 	}
 
-	public void setList(List<dataModel> objectsList) {
+	public void setList(List<E> objectsList) {
 		this.objectsList = objectsList;
 		fireTableDataChanged();
 	}

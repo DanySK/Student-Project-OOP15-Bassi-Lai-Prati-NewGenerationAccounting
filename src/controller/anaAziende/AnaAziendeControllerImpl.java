@@ -44,8 +44,12 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 		return model.isPasswordCorrect(view.getInputPassword(), company);
 	}
 
-	private void wrongPwd() {
-		view.errorDialog("Password Errata", "Attenzione! La password inserita è errata. riprovare.");
+	@Override
+	public void chiusura() {
+		if (view.confirmDialog("Sei sicuro di voler uscire dal programma?", "Uscire")) {
+			saveCompanysList();
+			System.exit(0);
+		}
 	}
 
 	private Company getSelectedCompany() {
@@ -56,14 +60,6 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 			view.errorDialog("Errore", e.getMessage());
 		}
 		return company;
-	}
-
-	@Override
-	public void chiusura() {
-		if (view.confirmDialog("Sei sicuro di voler uscire dal programma?", "Uscire")) {
-			saveCompanysList();
-			System.exit(0);
-		}
 	}
 
 	@Override
@@ -92,6 +88,7 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	public void tasto1() {
 		try {
 			new PopupControllerImpl(PopupMode.ADD, model, this, view) {
+				@Override
 				protected void beforeCloseActions() {
 					UUID codice = model.getLastAddedItemCode();
 					if (codice != null) {
@@ -132,6 +129,10 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 				wrongPwd();
 			}
 		}
+	}
+
+	private void wrongPwd() {
+		view.errorDialog("Password Errata", "Attenzione! La password inserita è errata. riprovare.");
 	}
 
 }

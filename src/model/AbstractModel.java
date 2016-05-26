@@ -57,7 +57,11 @@ public abstract class AbstractModel {
 	protected abstract void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare)
 			throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException;
 
+	public abstract Map<String, Object> getFilterMap();
+
 	public abstract Map<String, Object> getMap(IDataTableModel obj);
+
+	public abstract LinkedList<? extends IDataTableModel> load();
 
 	/**
 	 * operazione di aggiunta di un nuovo oggetto al dataBase del programma
@@ -69,8 +73,6 @@ public abstract class AbstractModel {
 	 */
 	public abstract LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro)
 			throws InstanceNotFoundException;
-
-	public abstract LinkedList<? extends IDataTableModel> load();
 
 	/**
 	 * operazione per restituire alla view i dati del dataBase da mostrare
@@ -84,6 +86,4 @@ public abstract class AbstractModel {
 	public abstract void remove(IDataTableModel elem) throws InstanceNotFoundException;
 
 	public abstract DBDataModel saveDBAndClose();
-
-	public abstract Map<String, Object> getFilterMap();
 }

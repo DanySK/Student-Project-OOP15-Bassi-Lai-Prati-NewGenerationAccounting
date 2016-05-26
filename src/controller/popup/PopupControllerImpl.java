@@ -69,15 +69,23 @@ public class PopupControllerImpl implements IViewObserver {
 		view.start();
 	}
 
+	protected void beforeCloseActions() {
+		// DO NOTHING. THIS METHOD CAN BE OVERRIDEN FOR ACTIONS BEFORE CLOSE.
+	}
+
 	@Override
 	public void chiusura() {
 		beforeCloseActions();
 		parentView.enableView();
 		view.close();
 	}
-	
-	protected void beforeCloseActions(){
-		//DO NOTHING. THIS METHOD CAN BE OVERRIDEN FOR ACTIONS BEFORE CLOSE.
+
+	public void filterList(final Map<String, Object> mappa) {
+		try {
+			parentView.setList(model.load(mappa));
+		} catch (InstanceNotFoundException e) {
+			view.errorDialog("errore", e.getMessage());
+		}
 	}
 
 	public void go(final HashMap<String, JComponent> compoMap) {
@@ -97,14 +105,6 @@ public class PopupControllerImpl implements IViewObserver {
 			}
 			chiusura();
 		} catch (Exception e) {
-			view.errorDialog("errore", e.getMessage());
-		}
-	}
-
-	public void filterList(final Map<String, Object> mappa) {
-		try {
-			parentView.setList(model.load(mappa));
-		} catch (InstanceNotFoundException e) {
 			view.errorDialog("errore", e.getMessage());
 		}
 	}

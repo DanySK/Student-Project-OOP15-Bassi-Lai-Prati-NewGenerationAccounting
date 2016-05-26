@@ -24,13 +24,6 @@ public abstract class AbstractFrame extends JFrame {
 	private final JFrame myFrame;
 
 	/**
-	 * @return the myFrame
-	 */
-	protected final JFrame getMyFrame() {
-		return myFrame;
-	}
-
-	/**
 	 * frame generico del progetto NGA
 	 * 
 	 * @param title
@@ -58,14 +51,6 @@ public abstract class AbstractFrame extends JFrame {
 
 	protected abstract void chiusura();
 
-	public void disableView(){
-		this.myFrame.setEnabled(false);
-	}
-	
-	public void enableView(){
-		this.myFrame.setEnabled(true);
-	}
-	
 	public void close() {
 		this.myFrame.setVisible(false);
 	}
@@ -75,8 +60,23 @@ public abstract class AbstractFrame extends JFrame {
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
 	}
 
+	public void disableView() {
+		this.myFrame.setEnabled(false);
+	}
+
+	public void enableView() {
+		this.myFrame.setEnabled(true);
+	}
+
 	public void errorDialog(final String title, final String message) {
 		JOptionPane.showMessageDialog(myFrame, message, title, JOptionPane.ERROR_MESSAGE);
+	}
+
+	/**
+	 * @return the myFrame
+	 */
+	protected final JFrame getMyFrame() {
+		return myFrame;
 	}
 
 	public void start() {

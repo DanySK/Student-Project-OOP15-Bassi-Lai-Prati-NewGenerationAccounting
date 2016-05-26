@@ -1,11 +1,8 @@
 package model;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import javax.management.InstanceAlreadyExistsException;
@@ -71,6 +68,14 @@ public class MovementsModel extends AbstractModel {
 	}
 
 	@Override
+	public Map<String, Object> getFilterMap() {
+		Map<String, Object> mappaFiltro = new HashMap<>();
+		mappaFiltro.put(DA, new Date());
+		mappaFiltro.put(A, new Date());
+		return mappaFiltro;
+	}
+
+	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
 		if (obj == null) {
 			Map<String, Object> mappaVuota = new HashMap<>();
@@ -86,45 +91,6 @@ public class MovementsModel extends AbstractModel {
 			} else
 				throw new IllegalArgumentException("l'oggetto inserito non è un movimento");
 		}
-	}
-
-	@Override
-	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException {
-		AccountsModel a = new AccountsModel(db);
-		if (elemDaEliminare instanceof Movement) {
-			Movement m = (Movement) elemDaEliminare;
-			if (m.getData() == null || m.getListaConti().isEmpty()) {
-				throw new IllegalArgumentException("data non valida o lista vuota");
-			} else {
-				if (listaMovimenti.contains(m)) {
-					listaMovimenti.remove(m);
-					for (Operation op : m.getListaConti()) {
-						temp = op.getAvere();
-						op.setAvere(op.getDare());
-						op.setDare(temp);
-						a.updateAccounts(op);
-					}
-				} else {
-					throw new InstanceNotFoundException("elemento da eliminare presente in lista");
-				}
-			}
-		} else {
-			throw new IllegalArgumentException("l'oggetto da rimuovere non è un movimento");
-		}
-	}
-
-	@Override
-	public DBDataModel saveDBAndClose() {
-		db.setMoviments(listaMovimenti);
-		return db;
-	}
-
-	@Override
-	public Map<String, Object> getFilterMap() {
-		Map<String, Object> mappaFiltro = new HashMap<>();
-		mappaFiltro.put(DA, new Date());
-		mappaFiltro.put(A, new Date());
-		return mappaFiltro;
 	}
 
 	@Override
@@ -160,5 +126,36 @@ public class MovementsModel extends AbstractModel {
 		}
 
 		return listaFiltrata;
+	}
+
+	@Override
+	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException {
+		AccountsModel a = new AccountsModel(db);
+		if (elemDaEliminare instanceof Movement) {
+			Movement m = (Movement) elemDaEliminare;
+			if (m.getData() == null || m.getListaConti().isEmpty()) {
+				throw new IllegalArgumentException("data non valida o lista vuota");
+			} else {
+				if (listaMovimenti.contains(m)) {
+					listaMovimenti.remove(m);
+					for (Operation op : m.getListaConti()) {
+						temp = op.getAvere();
+						op.setAvere(op.getDare());
+						op.setDare(temp);
+						a.updateAccounts(op);
+					}
+				} else {
+					throw new InstanceNotFoundException("elemento da eliminare presente in lista");
+				}
+			}
+		} else {
+			throw new IllegalArgumentException("l'oggetto da rimuovere non è un movimento");
+		}
+	}
+
+	@Override
+	public DBDataModel saveDBAndClose() {
+		db.setMoviments(listaMovimenti);
+		return db;
 	}
 }

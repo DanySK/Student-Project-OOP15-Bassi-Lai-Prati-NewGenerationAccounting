@@ -28,6 +28,29 @@ import view.AbstractFrame;
  */
 public class DBSaver extends AbstractDB {
 
+	public static void addCompany(final UUID uuid) {
+		new DBSaver(uuid.toString(), null,
+				new DBDataModel(AccountsModel.chartOfAccounts(), new LinkedList<Customers_Suppliers>(),
+						new LinkedList<Movement>(), new LinkedList<Product>(), uuid.toString())).start();
+	}
+
+	private static void deleteDirectory(final File path) {
+		if (path.exists()) {
+			for (File file : path.listFiles()) {
+				if (file.isDirectory()) {
+					deleteDirectory(file);
+				} else {
+					file.delete();
+				}
+			}
+			path.delete();
+		}
+	}
+
+	public static void removeCompany(final String path) {
+		deleteDirectory(getDBDirectory(path));
+	}
+
 	private static void save(final boolean mustbeSaved, final File file,
 			final LinkedList<? extends IDataTableModel> linkedList) throws IOException {
 		boolean save = mustbeSaved;
@@ -55,28 +78,6 @@ public class DBSaver extends AbstractDB {
 
 	public DBSaver(final String path, final AbstractFrame view, final DBDataModel db) {
 		super(path, view, db);
-	}
-
-	public static void addCompany(final UUID uuid) {
-		new DBSaver(uuid.toString(), null, new DBDataModel(AccountsModel.chartOfAccounts(), new LinkedList<Customers_Suppliers>(),
-				new LinkedList<Movement>(), new LinkedList<Product>(), uuid.toString())).start();
-	}
-
-	public static void removeCompany(final String path) {
-		deleteDirectory(getDBDirectory(path));
-	}
-
-	private static void deleteDirectory(final File path) {
-		if (path.exists()) {
-			for (File file : path.listFiles()) {
-				if (file.isDirectory()) {
-					deleteDirectory(file);
-				} else {
-					file.delete();
-				}
-			}
-			path.delete();
-		}
 	}
 
 	@Override

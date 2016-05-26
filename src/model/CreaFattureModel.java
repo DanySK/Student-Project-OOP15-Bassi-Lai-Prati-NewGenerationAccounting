@@ -51,6 +51,12 @@ public class CreaFattureModel extends AbstractModel {
 	}
 
 	@Override
+	public Map<String, Object> getFilterMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
 		// TODO Auto-generated method stub
 		return null;
@@ -63,6 +69,12 @@ public class CreaFattureModel extends AbstractModel {
 	}
 
 	@Override
+	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public void remove(IDataTableModel elem) {
 		// TODO Auto-generated method stub
 
@@ -70,18 +82,6 @@ public class CreaFattureModel extends AbstractModel {
 
 	@Override
 	public DBDataModel saveDBAndClose() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Map<String, Object> getFilterMap() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
 		// TODO Auto-generated method stub
 		return null;
 	}
