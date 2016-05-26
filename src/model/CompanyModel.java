@@ -170,7 +170,7 @@ public class CompanyModel extends AbstractModel {
 	 */
 
 	public boolean isPasswordCorrect(final char[] password, final Company company) {
-		return Arrays.equals(company.getPassword(), password);
+		return company.getPassword().equals(password);
 	}
 
 	@Override
