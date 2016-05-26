@@ -28,12 +28,15 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	}
 
 	public void accedi() {
-		if (checkPwd(getSelectedCompany())) {
-			saveCompanysList();
-			view.close();
-			new MainControllerImpl(DBLoader.loadDB(getSelectedCompany().getCodice_azienda().toString(), view));
-		} else {
-			wrongPwd();
+		Company company = getSelectedCompany();
+		if (company != null) {
+			if (checkPwd(company)) {
+				saveCompanysList();
+				view.close();
+				new MainControllerImpl(DBLoader.loadDB(company.getCodice_azienda().toString(), view));
+			} else {
+				wrongPwd();
+			}
 		}
 	}
 
@@ -103,30 +106,31 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void tasto2() {
-		if (checkPwd(getSelectedCompany())) {
-			try {
-				new PopupControllerImpl(PopupMode.EDIT, model, this, view);
-			} catch (InstanceNotFoundException | IllegalArgumentException e) {
-				view.errorDialog("Errore", e.getMessage());
+		Company company = getSelectedCompany();
+		if (company != null) {
+			if (checkPwd(company)) {
+				try {
+					new PopupControllerImpl(PopupMode.EDIT, model, this, view);
+				} catch (InstanceNotFoundException | IllegalArgumentException e) {
+					view.errorDialog("Errore", e.getMessage());
+				}
+			} else {
+				wrongPwd();
 			}
-		} else {
-			wrongPwd();
 		}
 	}
 
 	@Override
 	public void tasto3() {
-		if (checkPwd(getSelectedCompany())) {
-			try {
-				Company item = (Company) view.getSelectedItem();
-				DBSaver.removeCompany(item.getCodice_azienda().toString());
-				model.remove(item);
-			} catch (InstanceNotFoundException e) {
-				view.errorDialog("Errore", e.getMessage());
+		Company company = getSelectedCompany();
+		if (company != null) {
+			if (checkPwd(company)) {
+				DBSaver.removeCompany(company.getCodice_azienda().toString());
+				model.remove(company);
+				refresh();
+			} else {
+				wrongPwd();
 			}
-			refresh();
-		} else {
-			wrongPwd();
 		}
 	}
 

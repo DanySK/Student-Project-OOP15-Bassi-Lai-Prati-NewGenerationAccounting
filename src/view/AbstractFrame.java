@@ -58,6 +58,14 @@ public abstract class AbstractFrame extends JFrame {
 
 	protected abstract void chiusura();
 
+	public void disableView(){
+		this.myFrame.setEnabled(false);
+	}
+	
+	public void enableView(){
+		this.myFrame.setEnabled(true);
+	}
+	
 	public void close() {
 		this.myFrame.setVisible(false);
 	}

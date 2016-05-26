@@ -45,7 +45,7 @@ public class PopupControllerImpl implements IViewObserver {
 		this.model = model;
 		this.parentController = parentController;
 		this.parentView = parentView;
-		parentView.setEnabled(false);
+		parentView.disableView();
 		String titolo;
 		switch (mode) {
 		case ADD:
@@ -72,11 +72,12 @@ public class PopupControllerImpl implements IViewObserver {
 	@Override
 	public void chiusura() {
 		beforeCloseActions();
+		parentView.enableView();
 		view.close();
 	}
 	
 	protected void beforeCloseActions(){
-		//DO NOTHING. THIS METHOD CAN BE OVERRIDE FOR ACTIONS BEFORE CLOSE.
+		//DO NOTHING. THIS METHOD CAN BE OVERRIDEN FOR ACTIONS BEFORE CLOSE.
 	}
 
 	public void go(final HashMap<String, JComponent> compoMap) {
