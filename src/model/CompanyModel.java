@@ -80,7 +80,7 @@ public class CompanyModel extends AbstractModel {
 		}
 		nuovaazienda = new Company(UUID.randomUUID(), (char[]) elem.get(password), (String) elem.get(ragione_sociale),
 				(String) elem.get(p_iva), (String) elem.get(indirizzo), (String) elem.get(citta), (int) elem.get(cap),
-				(String) elem.get(provincia), (String) elem.get(indirizzo));
+				(String) elem.get(provincia), (String) elem.get(telefono));
 
 		if (listaAziende.contains(nuovaazienda)) {
 			throw new InstanceAlreadyExistsException("L'elemento e' gia' presente.");
@@ -91,18 +91,14 @@ public class CompanyModel extends AbstractModel {
 	@Override
 	public void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare)
 			throws InstanceAlreadyExistsException, InstanceNotFoundException {
-
-		if (!listaAziende.contains(obj)) {
-			throw new InstanceNotFoundException("Elemento da modificare non presente, riprovare.");
-		} else {
-			if (obj instanceof Company) {
+		
 				((Company) obj).setPassword((char[]) infoDaModificare.get(password));
 
 				if (trovato == false) {
 					throw new InstanceNotFoundException("Elemento da modificare non presente.");
 				}
-			}
-		}
+			
+		
 	}
 
 	@Override
@@ -138,7 +134,8 @@ public class CompanyModel extends AbstractModel {
 			mappaVuota.put(provincia, new String(""));
 			mappaVuota.put(telefono, new String(""));
 			mappaVuota.put(p_iva, new String(""));
-			mappaVuota.put(password, new String(""));
+			mappaVuota.put(password, new char[]{});
+			mappaVuota.put(indirizzo, new String());
 
 			return mappaVuota;
 
@@ -152,6 +149,7 @@ public class CompanyModel extends AbstractModel {
 				mappaPiena.put(telefono, ((Company) obj).getTel());
 				mappaPiena.put(p_iva, ((Company) obj).getPartita_iva());
 				mappaPiena.put(password, ((Company) obj).getPassword());
+				mappaPiena.put(indirizzo, ((Company) obj).getIndirizzo());
 
 				return mappaPiena;
 			} else {
