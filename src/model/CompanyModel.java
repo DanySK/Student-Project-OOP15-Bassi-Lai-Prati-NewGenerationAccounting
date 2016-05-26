@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
+
 import dataModel.Company;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
@@ -108,7 +109,8 @@ public class CompanyModel extends AbstractModel {
 					if (elem.getCodice_azienda().equals(cerca.getCodice_azienda())) {
 						elem.setCodice(cerca.getCodice_azienda());
 						//creare possibilità di modifica password tramite listaAziende.setPassword=mappa.get(Password)
-
+						elem.setPassword(((String) infoDaModificare.get(password)).toCharArray());
+						
 						trovato = true;
 					}
 				}
@@ -139,7 +141,8 @@ public class CompanyModel extends AbstractModel {
 			mappaVuota.put(provincia, new String(""));
 			mappaVuota.put(telefono, new String(""));
 			mappaVuota.put(p_iva, new String(""));
-			//mappaVuota.put((String)password, new char[""]);
+			mappaVuota.put((String)password.toString(), new String(""));
+			
 			return mappaVuota;
 
 		} else {
@@ -151,6 +154,7 @@ public class CompanyModel extends AbstractModel {
 				mappaPiena.put(provincia, ((Company) obj).getProvincia());
 				mappaPiena.put(telefono, ((Company) obj).getTel());
 				mappaPiena.put(p_iva, ((Company) obj).getPartita_iva());
+				mappaPiena.put((String)password.toString(), ((Company) obj).getPassword());
 				//mappaPiena.put((Object)password, ((Company) obj).getPassword());
 				return mappaPiena;
 			} else {
