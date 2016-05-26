@@ -131,7 +131,7 @@ public class PopupControllerImpl implements IViewObserver {
 			if (defaultValue instanceof String && field instanceof JTextField) {
 				map.put(key, ((JTextField) field).getText());
 			} else if (defaultValue instanceof char[] && field instanceof JTextField) {
-				map.put(key, ((JPasswordField) field).getPassword());
+				map.put(key, ((JTextField) field).getText().toCharArray());
 			} else if (defaultValue instanceof Date && field instanceof JSpinner) {
 				map.put(key, ((JSpinner) field).getValue());
 			} else if (defaultValue instanceof Number && field instanceof JSpinner) {
