@@ -107,7 +107,8 @@ public class CompanyModel extends AbstractModel {
 				for (Company elem : listaAziende) {
 					if (elem.getCodice_azienda().equals(cerca.getCodice_azienda())) {
 						elem.setCodice(cerca.getCodice_azienda());
-						
+						//creare possibilità di modifica password tramite listaAziende.setPassword=mappa.get(Password)
+
 						trovato = true;
 					}
 				}
