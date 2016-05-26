@@ -8,6 +8,19 @@ public class Operation implements IEdiTableDataModel {
 
 	private static final String[] INTESTAZIONE = { "Conto", "Dare", "Avere" };
 
+	public static Class getColumnClass(int column) {
+		switch (column) {
+		case 0:
+			return Account.class;
+		case 1:
+			return Float.class;
+		case 2:
+			return Float.class;
+		default:
+			return null;
+		}
+	}
+
 	public static String[] getIntestazione() {
 		return INTESTAZIONE;
 	}
@@ -26,11 +39,6 @@ public class Operation implements IEdiTableDataModel {
 
 	public float getAvere() {
 		return avere;
-	}
-
-	@Override
-	public Class getColumnClass(int column) {
-		return getValueAt(column).getClass();
 	}
 
 	public Account getConto() {
@@ -68,25 +76,25 @@ public class Operation implements IEdiTableDataModel {
 	}
 
 	@Override
-	public void setValueAt(Object value, Operation operation, int column) throws IllegalArgumentException {
+	public void setValueAt(Object value, int column) throws IllegalArgumentException {
 		switch (column) {
 		case 0:
 			if (value instanceof Account) {
-				operation.setConto((Account) value);
+				setConto((Account) value);
 			} else {
 				throw new IllegalArgumentException("Dato non valido. riprovare");
 			}
 			break;
 		case 1:
 			if (value instanceof Float) {
-				operation.setDare((float) value);
+				setDare((float) value);
 			} else {
 				throw new IllegalArgumentException("Dato non valido. riprovare");
 			}
 			break;
 		case 2:
 			if (value instanceof Float) {
-				operation.setAvere((float) value);
+				setAvere((float) value);
 			} else {
 				throw new IllegalArgumentException("Dato non valido. riprovare");
 			}

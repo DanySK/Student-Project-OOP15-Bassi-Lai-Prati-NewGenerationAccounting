@@ -9,6 +9,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
@@ -17,14 +19,21 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
 
+import controller.movimenti.MovimentiCellEditor;
+import controller.movimenti.MovimentiCellRenderer;
 import controller.popup.PopupControllerImpl;
 import dataEnum.IDataEnum;
+import dataModel.Movement;
+import dataModel.Operation;
 import view.AbstractFrame;
+import view.MyEdiTableModel;
 
 /**
  * @author Pentolo
@@ -50,53 +59,62 @@ public class AddEditPopupView extends AbstractFrame {
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		JPanel itemPanel;
 		for (String campo : mappa.keySet()) {
-			itemPanel = new JPanel();
-			itemPanel.add(new JLabel(campo + " :  "));
 			Object item = mappa.get(campo);
-			if (item instanceof char[]) {
-				item = new String((char[]) item);
+			if (item != null) {
+				itemPanel = new JPanel();
+				itemPanel.add(new JLabel(campo + " :  "));
+				if (item instanceof char[]) {
+					item = new String((char[]) item);
+				}
+				if (item instanceof String) {
+					JTextField jtf = new JTextField(25);
+					if (item != null) {
+						jtf.setText((String) item);
+					}
+					compoMap.put(campo, jtf);
+					itemPanel.add(jtf);
+				} else if (item instanceof Date) {
+					JSpinner js = new JSpinner(new SpinnerDateModel());
+					if (item != null) {
+						js.setValue(item);
+					}
+					compoMap.put(campo, js);
+					itemPanel.add(js);
+				} else if (item instanceof Number) {
+					JSpinner js;
+					if (item instanceof Float) {
+						js = new JSpinner(new SpinnerNumberModel(((Float) item).floatValue(), null, null, 0.01));
+					} else if (item instanceof Double) {
+						js = new JSpinner(new SpinnerNumberModel(((Double) item).doubleValue(), null, null, 0.01));
+					} else if (item instanceof Long) {
+						js = new JSpinner(new SpinnerNumberModel(((Long) item).longValue(), null, null, 1));
+					} else {
+						js = new JSpinner(new SpinnerNumberModel(((Integer) item).intValue(), null, null, 1));
+					}
+					if (item != null) {
+						js.setValue(item);
+					}
+					js.setPreferredSize(new Dimension(100, js.getPreferredSize().height));
+					compoMap.put(campo, js);
+					itemPanel.add(js);
+				} else if (item instanceof Enum && item instanceof IDataEnum) {
+					JComboBox<Enum<?>> jcb = new JComboBox<Enum<?>>(((IDataEnum) item).getEnumValues());
+					if (item != null) {
+						jcb.setSelectedItem(item);
+					}
+					compoMap.put(campo, jcb);
+					itemPanel.add(jcb);
+				} else if (item instanceof LinkedList) {
+					if (((LinkedList<?>) item).get(0) != null && ((LinkedList<?>) item).get(0) instanceof Operation) {
+						JTable operationTable = getOperationEdiTable((LinkedList<Operation>) item);
+						JScrollPane scrollpane = new JScrollPane(operationTable);
+						compoMap.put(campo, operationTable);
+						itemPanel.add(operationTable);
+					}
+				}
+				mainPanel.add(itemPanel);
+				itemPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 			}
-			if (item instanceof String) {
-				JTextField jtf = new JTextField(25);
-				if (item != null) {
-					jtf.setText((String) item);
-				}
-				compoMap.put(campo, jtf);
-				itemPanel.add(jtf);
-			} else if (item instanceof Date) {
-				JSpinner js = new JSpinner(new SpinnerDateModel());
-				if (item != null) {
-					js.setValue(item);
-				}
-				compoMap.put(campo, js);
-				itemPanel.add(js);
-			} else if (item instanceof Number) {
-				JSpinner js;
-				if (item instanceof Float) {
-					js = new JSpinner(new SpinnerNumberModel(((Float) item).floatValue(), null, null, 0.01));
-				} else if (item instanceof Double) {
-					js = new JSpinner(new SpinnerNumberModel(((Double) item).doubleValue(), null, null, 0.01));
-				} else if (item instanceof Long) {
-					js = new JSpinner(new SpinnerNumberModel(((Long) item).longValue(), null, null, 1));
-				} else {
-					js = new JSpinner(new SpinnerNumberModel(((Integer) item).intValue(), null, null, 1));
-				}
-				if (item != null) {
-					js.setValue(item);
-				}
-				js.setPreferredSize(new Dimension(100, js.getPreferredSize().height));
-				compoMap.put(campo, js);
-				itemPanel.add(js);
-			} else if (item instanceof Enum && item instanceof IDataEnum) {
-				JComboBox<Enum<?>> jcb = new JComboBox<Enum<?>>(((IDataEnum) item).getEnumValues());
-				if (item != null) {
-					jcb.setSelectedItem(item);
-				}
-				compoMap.put(campo, jcb);
-				itemPanel.add(jcb);
-			}
-			mainPanel.add(itemPanel);
-			itemPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		}
 		JPanel footer = new JPanel(new FlowLayout());
 		JButton chiudi = new JButton("Chiudi");
@@ -116,6 +134,25 @@ public class AddEditPopupView extends AbstractFrame {
 	@Override
 	protected void chiusura() {
 		observer.chiusura();
+	}
+
+	private JTable getOperationEdiTable(final List<Operation> operationsList) {
+		JTable myTable = new JTable();
+		MyEdiTableModel<Operation> tableModel = new MyEdiTableModel<Operation>(Operation.getIntestazione(),
+				operationsList) {
+
+			private static final long serialVersionUID = -7742093275061915171L;
+
+			@Override
+			public Class getColumnClass(int column) {
+				return Operation.getColumnClass(column);
+			}
+
+		};
+		myTable.setModel(tableModel);
+		myTable.setDefaultRenderer(Movement.class, new MovimentiCellRenderer());
+		myTable.setDefaultEditor(Movement.class, new MovimentiCellEditor(observer.getAccountsList()));
+		return myTable;
 	}
 
 	public void setObserver(PopupControllerImpl observer) {

@@ -48,13 +48,13 @@ public class Movement implements IDataTableModel {
 				return o.getConto().getName();
 			}
 		case 2:
-		    for (Operation o : listaConti) {
-                        return Float.toString(o.getDare());
-                    }
+			for (Operation o : listaConti) {
+				return Float.toString(o.getDare());
+			}
 		case 3:
-                    for (Operation o : listaConti) {
-                        return Float.toString(o.getAvere());
-                    }
+			for (Operation o : listaConti) {
+				return Float.toString(o.getAvere());
+			}
 		default:
 			return "";
 		}

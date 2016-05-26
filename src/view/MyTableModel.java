@@ -24,7 +24,7 @@ public class MyTableModel<E extends IDataTableModel> extends AbstractTableModel 
 	 */
 	private static final long serialVersionUID = -9056625553908580890L;
 	private String headerList[];
-	private List<E> objectsList;
+	protected List<E> objectsList;
 
 	/**
 	 * 

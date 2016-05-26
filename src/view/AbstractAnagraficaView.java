@@ -35,7 +35,7 @@ public abstract class AbstractAnagraficaView<E extends IDataTableModel> extends 
 
 	private static final long serialVersionUID = -1706093338606827050L;
 
-	private MyTableModel<E> dataModel;
+	private MyTableModel<E> tableModel;
 	protected IAnagraficaViewObserver observer;
 	private final JTable table = new JTable();
 	private final JButton tasto0 = new JButton();
@@ -68,10 +68,10 @@ public abstract class AbstractAnagraficaView<E extends IDataTableModel> extends 
 		footer.add(tasto2);
 		footer.add(tasto3);
 		footer.add(tasto4);
-		this.dataModel = new MyTableModel<E>(intestazione, lista);
+		this.tableModel = new MyTableModel<E>(intestazione, lista);
 		getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		final JScrollPane scrollPane = new JScrollPane(getTable());
-		getTable().setModel(getModel());
+		final JScrollPane scrollPane = new JScrollPane(table);
+		table.setModel(tableModel);
 		getMyFrame().getContentPane().add(scrollPane, BorderLayout.CENTER);
 		getMyFrame().getContentPane().add(footer, BorderLayout.SOUTH);
 		addListeners();
@@ -101,7 +101,7 @@ public abstract class AbstractAnagraficaView<E extends IDataTableModel> extends 
 	}
 
 	protected MyTableModel<E> getModel() {
-		return dataModel;
+		return tableModel;
 	}
 
 	public IDataTableModel getSelectedItem() throws InstanceNotFoundException {

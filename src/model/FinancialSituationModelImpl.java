@@ -1,4 +1,5 @@
 package model;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -17,18 +18,18 @@ import dataModel.DBDataModel;
  */
 public class FinancialSituationModelImpl implements IFinancialSituationModel {
 
-    private LinkedList<Account> SP;
-    private LinkedList<Account> CE;
-    private DBDataModel db;
-    private LinkedList<Account> contiRegistrati = db.getAccounts();
-    private static String ROI;
-    private static String ROS;
-    private static String leverage;
-    private static String ROT;
-    private static String ROE;
-    private static String margineStrutturaPrimario;
-    private static String margineStrutturaSecondario;
-    private static String margineDiTesoreria;
+	private static String ROI;
+	private static String ROS;
+	private static String leverage;
+	private static String ROT;
+	private static String ROE;
+	private static String margineStrutturaPrimario;
+	private static String margineStrutturaSecondario;
+	private static String margineDiTesoreria;
+	private LinkedList<Account> SP;
+	private LinkedList<Account> CE;
+	private DBDataModel db;
+	private LinkedList<Account> contiRegistrati = db.getAccounts();
 
 	public FinancialSituationModelImpl(DBDataModel db) {
 		this.db = db;
@@ -50,18 +51,32 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 					}
 				}
 			}
-        }
-        for (Account a : contiRegistrati) {
-            if (a.getNatura() == Natures.RICAVO) {
-                for (Sections s : Sections.getRicavi()) {
-                    if (a.getSezione() == s) {
-                        CE.add(a);
-                    }
-                }
-            }
-        }
-        return CE;
-    }
+		}
+		for (Account a : contiRegistrati) {
+			if (a.getNatura() == Natures.RICAVO) {
+				for (Sections s : Sections.getRicavi()) {
+					if (a.getSezione() == s) {
+						CE.add(a);
+					}
+				}
+			}
+		}
+		return CE;
+	}
+
+	private Map<String, Float> calcolaIndici_Margini() {
+		Map<String, Float> indiciMargini = new HashMap<>();
+		// calcolo dell'indice ROS
+		// calcolo dell'indice ROT
+		// calcolo dell'indice ROI
+		// calcolo dell'indice leverage
+		// calcolo dell'indice ROE
+		// calcolo del margine di struttura primario
+		// calcolo del margine di struttura secondario
+		// calcolo del margine di tesoreria
+		return null;
+
+	}
 
 	private LinkedList<Account> calcolaSP() {
 		for (Account a : contiRegistrati) {
@@ -85,6 +100,11 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		return SP;
 	}
 
+	@Override
+	public String getAnalisiFinanziaria() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public LinkedList<Account> getCE() {
@@ -100,24 +120,5 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	    private Map<String,Float>calcolaIndici_Margini(){
-	        Map<String,Float> indiciMargini = new HashMap<>();
-	        // calcolo dell'indice ROS
-	        // calcolo dell'indice ROT
-	        // calcolo dell'indice ROI
-	        // calcolo dell'indice leverage
-	        // calcolo dell'indice ROE
-	        // calcolo del margine di struttura primario
-	        // calcolo del margine di struttura secondario
-	        // calcolo del margine di tesoreria
-	        return null;
-	        
-	    }
-
-        @Override
-        public String getAnalisiFinanziaria() {
-            // TODO Auto-generated method stub
-            return null;
-        }
 
 }

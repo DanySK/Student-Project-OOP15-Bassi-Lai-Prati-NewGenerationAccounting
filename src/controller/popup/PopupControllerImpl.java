@@ -6,6 +6,7 @@ package controller.popup;
 import java.awt.Dimension;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 import javax.management.InstanceNotFoundException;
@@ -13,13 +14,18 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JPasswordField;
 import javax.swing.JSpinner;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.TableModel;
 
 import controller.IAnagraficaViewObserver;
 import controller.IViewObserver;
 import dataEnum.IDataEnum;
 import dataEnum.PopupMode;
+import dataModel.Account;
+import dataModel.Operation;
 import model.AbstractModel;
+import model.AccountsModel;
 import view.AbstractAnagraficaView;
 import view.popup.AddEditPopupView;
 
@@ -88,6 +94,13 @@ public class PopupControllerImpl implements IViewObserver {
 		}
 	}
 
+	public LinkedList<Account> getAccountsList() {
+		if (model instanceof AccountsModel) {
+			return ((AccountsModel) model).load();
+		}
+		return null;
+	}
+
 	public void go(final HashMap<String, JComponent> compoMap) {
 		try {
 			switch (mode) {
@@ -135,6 +148,20 @@ public class PopupControllerImpl implements IViewObserver {
 			} else if (defaultValue instanceof Enum && defaultValue instanceof IDataEnum
 					&& field instanceof JComboBox) {
 				map.put(key, ((JComboBox<?>) field).getSelectedItem());
+			} else if (defaultValue instanceof LinkedList && field instanceof JTable
+					&& ((LinkedList<?>) defaultValue).get(0) != null
+					&& ((LinkedList<?>) defaultValue).get(0) instanceof Operation) {
+				LinkedList<Operation> operations = new LinkedList<Operation>();
+				TableModel table = ((JTable) field).getModel();
+				for (int i = 0; i < table.getRowCount(); i++) {
+					if (Operation.getColumnClass(0) == table.getValueAt(i, 0)
+							&& Operation.getColumnClass(0) == table.getValueAt(i, 0)
+							&& Operation.getColumnClass(0) == table.getValueAt(i, 0)) {
+						operations.add(new Operation((Account) table.getValueAt(i, 0), (float) table.getValueAt(i, 1),
+								(float) table.getValueAt(i, 2)));
+					}
+				}
+				map.put(key, operations);
 			} else {
 				throw new IllegalArgumentException(
 						"Errore di conversione del dato " + key + " correggere e riprovare.");

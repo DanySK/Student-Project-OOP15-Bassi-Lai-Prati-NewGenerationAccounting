@@ -8,7 +8,5 @@ package dataModel;
  *
  */
 public interface IEdiTableDataModel extends IDataTableModel {
-	Class getColumnClass(int column);
-
-	void setValueAt(Object value, Operation operation, int column) throws IllegalArgumentException;
+	void setValueAt(Object value, int column) throws IllegalArgumentException;
 }

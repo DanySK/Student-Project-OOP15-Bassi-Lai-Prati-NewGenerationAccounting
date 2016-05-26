@@ -1,6 +1,5 @@
 package model;
 
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -8,7 +7,6 @@ import java.util.UUID;
 
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
-
 
 import dataModel.Company;
 import dataModel.DBDataModel;
@@ -30,9 +28,9 @@ public class CompanyModel extends AbstractModel {
 	private final static String provincia = "Provincia";
 	private final static String indirizzo = "Indirizzo";
 	private final static String telefono = "Telefono";
-	private final static String p_iva = "P.IVA"; 
-	private final static String password = "Password";//chiavi mappe
-	
+	private final static String p_iva = "P.IVA";
+	private final static String password = "Password";// chiavi mappe
+
 	private Company nuovaazienda;
 	private boolean trovato = false;
 
@@ -42,54 +40,48 @@ public class CompanyModel extends AbstractModel {
 		listaAziende = linkedList;
 	}
 
-	public UUID getLastAddedItemCode(){
-		if (nuovaazienda != null && nuovaazienda.getCodice_azienda() != null && nuovaazienda.getCodice_azienda() instanceof UUID){
-			return nuovaazienda.getCodice_azienda();
-		}
-		return null;
-	}
-	
 	@Override
 	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
-		
-		if (elem.get(ragione_sociale) == "" ){
+
+		if (elem.get(ragione_sociale) == "") {
 			throw new IllegalArgumentException("Ragione sociale non valida. Riprovare.");
 		}
-		
-		if (elem.get(password) == ""){
+
+		if (elem.get(password) == "") {
 			throw new IllegalArgumentException("Password non valida. Riprovare.");
 		}
-		
-		if (elem.get(p_iva) == ""){
+
+		if (elem.get(p_iva) == "") {
 			throw new IllegalArgumentException("PartitaIVA non valida. Riprovare.");
 		}
-		
-		if (elem.get(cap) == ""){
+
+		if (elem.get(cap) == "") {
 			throw new IllegalArgumentException("CAP non valido. Riprovare.");
-		
+
 		}
-		
-		if (elem.get(citta) == ""){
+
+		if (elem.get(citta) == "") {
 			throw new IllegalArgumentException("Citta' non valida. Riprovare.");
-		
+
 		}
-		if ( elem.get(provincia) == ""){
+		if (elem.get(provincia) == "") {
 			throw new IllegalArgumentException("Provincia non valida. Riprovare.");
-		
+
 		}
-		
-		if (elem.get(indirizzo) == ""){
+
+		if (elem.get(indirizzo) == "") {
 			throw new IllegalArgumentException("Indirizzo non valido. Riprovare.");
-		
+
 		}
-		
-		if (elem.get(telefono) == ""){
+
+		if (elem.get(telefono) == "") {
 			throw new IllegalArgumentException("Numero di telefono non valido. Riprovare.");
-		
+
 		}
-		nuovaazienda = new Company(UUID.randomUUID(),(char[]) elem.get(password), (String) elem.get(ragione_sociale),(String) elem.get(p_iva),(String) elem.get(indirizzo),(String) elem.get(citta),
-			(int) elem.get(cap),(String) elem.get(provincia),(String)elem.get(indirizzo));
-		
+		nuovaazienda = new Company(UUID.randomUUID(), (char[]) elem.get(password), (String) elem.get(ragione_sociale),
+				(String) elem.get(p_iva), (String) elem.get(indirizzo), (String) elem.get(citta), (int) elem.get(cap),
+				(String) elem.get(provincia), (String) elem.get(indirizzo));
+
 		if (listaAziende.contains(nuovaazienda)) {
 			throw new InstanceAlreadyExistsException("L'elemento e' gia' presente.");
 		}
@@ -104,13 +96,29 @@ public class CompanyModel extends AbstractModel {
 			throw new InstanceNotFoundException("Elemento da modificare non presente, riprovare.");
 		} else {
 			if (obj instanceof Company) {
-				((Company) obj).setPassword((char[])infoDaModificare.get(password));
-				
+				((Company) obj).setPassword((char[]) infoDaModificare.get(password));
+
 				if (trovato == false) {
 					throw new InstanceNotFoundException("Elemento da modificare non presente.");
 				}
 			}
 		}
+	}
+
+	@Override
+	public Map<String, Object> getFilterMap() {
+		Map<String, Object> mappaFiltro = new HashMap<>();
+		mappaFiltro.put(ragione_sociale, new String(""));
+		mappaFiltro.put(p_iva, new String(""));
+		return mappaFiltro;
+	}
+
+	public UUID getLastAddedItemCode() {
+		if (nuovaazienda != null && nuovaazienda.getCodice_azienda() != null
+				&& nuovaazienda.getCodice_azienda() instanceof UUID) {
+			return nuovaazienda.getCodice_azienda();
+		}
+		return null;
 	}
 
 	/**
@@ -131,7 +139,7 @@ public class CompanyModel extends AbstractModel {
 			mappaVuota.put(telefono, new String(""));
 			mappaVuota.put(p_iva, new String(""));
 			mappaVuota.put(password, new String(""));
-			
+
 			return mappaVuota;
 
 		} else {
@@ -144,7 +152,7 @@ public class CompanyModel extends AbstractModel {
 				mappaPiena.put(telefono, ((Company) obj).getTel());
 				mappaPiena.put(p_iva, ((Company) obj).getPartita_iva());
 				mappaPiena.put(password, ((Company) obj).getPassword());
-				
+
 				return mappaPiena;
 			} else {
 				throw new IllegalArgumentException("Valori non validi, riprovare.");
@@ -165,6 +173,38 @@ public class CompanyModel extends AbstractModel {
 	@Override
 	public LinkedList<Company> load() {
 		return new LinkedList<Company>(listaAziende);
+	}
+
+	@Override
+	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro)
+			throws InstanceNotFoundException {
+		LinkedList<Company> listaFiltrata = new LinkedList<>();
+		if (mappaFiltro.get(ragione_sociale) != null) {
+			for (Company controllofiltro : listaAziende) {
+				if (controllofiltro.getRagione_sociale().contentEquals(ragione_sociale)) {
+					listaFiltrata.add(controllofiltro);
+				}
+			}
+		}
+
+		if (mappaFiltro.get(p_iva) != null) {
+			for (Company controllofiltro : listaAziende) {
+				if (controllofiltro.getPartita_iva() == mappaFiltro.get(p_iva)) {
+					listaFiltrata.add(controllofiltro);
+				} else {
+					for (Company doppiofiltro : listaFiltrata) {
+						if (doppiofiltro.getPartita_iva() != mappaFiltro.get(p_iva)) {
+							listaFiltrata.remove(doppiofiltro);
+						}
+					}
+				}
+			}
+			if (listaFiltrata.isEmpty()) {
+				throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri.");
+			}
+
+		}
+		return null;
 	}
 
 	@Override
@@ -192,43 +232,4 @@ public class CompanyModel extends AbstractModel {
 	public DBDataModel saveDBAndClose() {
 		return null;
 	}
-
-	@Override
-	public Map<String, Object> getFilterMap() {
-        Map<String, Object> mappaFiltro = new HashMap<>();
-        mappaFiltro.put(ragione_sociale, new String(""));
-        mappaFiltro.put(p_iva, new String(""));
-		return mappaFiltro;
-	}
-
-	@Override
-	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {
-        LinkedList<Company> listaFiltrata = new LinkedList<>();
-        if (mappaFiltro.get(ragione_sociale) != null) {
-            for (Company controllofiltro : listaAziende) {
-                if (controllofiltro.getRagione_sociale().contentEquals(ragione_sociale)){
-                    listaFiltrata.add(controllofiltro);
-                }
-            }
-        }
-     
-           if (mappaFiltro.get(p_iva) != null) {
-               for (Company controllofiltro : listaAziende) {
-              	if(controllofiltro.getPartita_iva() == mappaFiltro.get(p_iva)) {   
-                	listaFiltrata.add(controllofiltro);
-                  } else {
-                      for (Company doppiofiltro : listaFiltrata) { 
-                          if (doppiofiltro.getPartita_iva()!= mappaFiltro.get(p_iva)){
-                              listaFiltrata.remove(doppiofiltro);
-                          }
-                      }
-              }
-           }
-            if (listaFiltrata.isEmpty()) {
-                throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri.");
-            }
-        
-}
-           return null;
-}
 }
