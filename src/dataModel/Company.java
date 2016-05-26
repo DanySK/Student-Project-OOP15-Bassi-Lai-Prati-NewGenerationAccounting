@@ -32,6 +32,7 @@ public class Company implements IDataTableModel {
 	private String ragione_sociale;
 	private String tel;
 
+
 	public Company(final UUID codice, final char[] password, final String ragione_sociale, final String p_iva,
 			final String indirizzo, final String citta, final int cap, final String provincia, final String tel) {
 

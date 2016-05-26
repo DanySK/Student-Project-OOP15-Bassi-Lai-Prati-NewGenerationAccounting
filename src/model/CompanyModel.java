@@ -107,6 +107,7 @@ public class CompanyModel extends AbstractModel {
 				for (Company elem : listaAziende) {
 					if (elem.getCodice_azienda().equals(cerca.getCodice_azienda())) {
 						elem.setCodice(cerca.getCodice_azienda());
+						
 						trovato = true;
 					}
 				}
@@ -137,6 +138,7 @@ public class CompanyModel extends AbstractModel {
 			mappaVuota.put(provincia, new String(""));
 			mappaVuota.put(telefono, new String(""));
 			mappaVuota.put(p_iva, new String(""));
+			//mappaVuota.put((String)password, new char[""]);
 			return mappaVuota;
 
 		} else {
@@ -148,6 +150,7 @@ public class CompanyModel extends AbstractModel {
 				mappaPiena.put(provincia, ((Company) obj).getProvincia());
 				mappaPiena.put(telefono, ((Company) obj).getTel());
 				mappaPiena.put(p_iva, ((Company) obj).getPartita_iva());
+				//mappaPiena.put((Object)password, ((Company) obj).getPassword());
 				return mappaPiena;
 			} else {
 				throw new IllegalArgumentException("Valori non validi, riprovare.");
