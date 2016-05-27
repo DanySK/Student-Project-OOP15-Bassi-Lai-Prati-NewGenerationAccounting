@@ -24,7 +24,6 @@ public class AccountsModel extends AbstractModel {
 
 	private final static String NATURA = "Natura Conto";
 	private final static String NOME = "Nome Conto";
-	private final static String SALDO = "Saldo Conto";
 	private final static String SEZIONE = "Sezione del Conto";
 
 	public static LinkedList<Account> chartOfAccounts() {
@@ -77,35 +76,33 @@ public class AccountsModel extends AbstractModel {
 	protected void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare)
 			throws InstanceNotFoundException { // modifica elementi
 		trovato = false;
-		if (obj != null) {
-			if ((Float) elemDaModificare.get(SALDO) != 0 || (Natures) elemDaModificare.get(NATURA) != null
-					|| (Sections) elemDaModificare.get(SEZIONE) != null) {
-				throw new IllegalArgumentException("non posso modificare il saldo, natura o sezione di un conto");
-			} else {
-				if (obj instanceof Account) {
-					Account a = (Account) obj;
-					for (Account elem : listaaccount) {
-						if (elem.getName().equals(a.getName())) {
-							elem.setName(elemDaModificare.get(NOME).toString());
-							trovato = true;
-						}
+			if (obj instanceof Account) {
+				Account a = (Account) obj;
+				if(!elemDaModificare.get(NOME).toString().isEmpty()){
+				    for (Account elem : listaaccount) {
+					if (elem.getName().equals(a.getName())) {					    
+					        elem.setName(elemDaModificare.get(NOME).toString());
+					        trovato = true;
 					}
-					if (trovato == false) {
-						throw new InstanceNotFoundException("elemento da modificare non presente in lista");
-					}
-				} else
-					throw new IllegalArgumentException("l'oggetto inserito non è un Conto");
-			}
-		}
-		throw new IllegalArgumentException("oggeto di riferimento non valido");
+				    }	
+				}
+				else{
+                                   throw new IllegalArgumentException("la stringa inserita come nome non è valida");
+				}
+			
+				if (trovato == false){
+					throw new InstanceNotFoundException("elemento da modificare non presente in lista");
+				}
+			} else
+				throw new IllegalArgumentException("l'oggetto inserito non è un Conto");
 	}
 
 	@Override
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
-		mappaFiltro.put(NOME, new String());
+		mappaFiltro.put(NOME, new String(""));
 		mappaFiltro.put(NATURA, Natures.ATTIVITA);
-		mappaFiltro.put(SEZIONE, Sections.ATTIVITA_FINANZIARIE);
+		mappaFiltro.put(SEZIONE, Sections.CREDITI_VS_SOCI);
 		return mappaFiltro;
 	}
 
@@ -134,19 +131,16 @@ public class AccountsModel extends AbstractModel {
 	}
 
 	@Override
-	public LinkedList<Account> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {// carica
-																										// dati
-																										// con
-																										// filtri
+	public LinkedList<Account> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {// carica dati																								// filtri
 		LinkedList<Account> listaFiltrata = new LinkedList<>();
-		if (mappaFiltro.get(NOME) != "") { // controllo il nome
+		if (!mappaFiltro.get(NOME).toString().isEmpty()) { // controllo il nome
 			for (Account a : listaaccount) {
 				if (a.getName().contentEquals(NOME))
 					listaFiltrata.add(a);
 			}
 		}
 		// nome = null o nome != null
-		if (mappaFiltro.get(NATURA) != null) { // controllo la natura
+		if (mappaFiltro.get(NATURA) instanceof Natures) { // controllo la natura
 			if (listaFiltrata.isEmpty()) {
 				for (Account a : listaaccount) { // singolo filtro su natura
 					if (a.getNatura() == mappaFiltro.get(NATURA))
@@ -172,7 +166,7 @@ public class AccountsModel extends AbstractModel {
 			}
 		}
 		// natura = null
-		if (mappaFiltro.get(SEZIONE) != null) {
+		if (mappaFiltro.get(SEZIONE) instanceof Sections) {
 			if (listaFiltrata.isEmpty()) {
 				for (Account a : listaaccount) { // singolo filtro su sezione
 					if (a.getSezione() == mappaFiltro.get(SEZIONE))
@@ -189,7 +183,8 @@ public class AccountsModel extends AbstractModel {
 		if (listaFiltrata.isEmpty()) {
 			throw new InstanceNotFoundException("nella lista non sono presenti elementi che soddisfano i filtri");
 		}
-		return null;
+		else
+		return listaFiltrata;
 	}
 
 	@Override
