@@ -13,7 +13,7 @@ import dataModel.Account;
  */
 public interface IFinancialSituationModel {
 
-	public String getAnalisiFinanziaria();
+	public String AnalisiFinanziaria();
 
 	public LinkedList<Account> getCE();
 
