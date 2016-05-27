@@ -55,7 +55,7 @@ public class CompanyModel extends AbstractModel {
 			throw new IllegalArgumentException("PartitaIVA non valida. Riprovare.");
 		}
 
-		if (elem.get(cap) == "") {
+		if (elem.get(cap) == null) {
 			throw new IllegalArgumentException("CAP non valido. Riprovare.");
 
 		}
@@ -92,7 +92,14 @@ public class CompanyModel extends AbstractModel {
 	public void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare)
 			throws InstanceAlreadyExistsException, InstanceNotFoundException {
 		
-				((Company) obj).setPassword((char[]) infoDaModificare.get(password));
+		((Company) obj).setRagione_sociale((String) infoDaModificare.get(password));
+		((Company) obj).setCap((Integer) infoDaModificare.get(cap));
+		((Company) obj).setCitta((String) infoDaModificare.get(citta));
+		((Company) obj).setProvincia((String) infoDaModificare.get(provincia));
+		((Company) obj).setIndirizzo((String) infoDaModificare.get(indirizzo));
+		((Company) obj).setPartita_iva((String) infoDaModificare.get(p_iva));
+		((Company) obj).setTel((String) infoDaModificare.get(telefono));
+		((Company) obj).setPassword((char[]) infoDaModificare.get(password));
 
 				if (trovato == false) {
 					throw new InstanceNotFoundException("Elemento da modificare non presente.");
