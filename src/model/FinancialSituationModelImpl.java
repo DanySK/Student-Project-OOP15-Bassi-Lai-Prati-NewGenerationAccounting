@@ -25,7 +25,7 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 	private static String ROE;
 	private static String margineStrutturaPrimario;
 	private static String margineStrutturaSecondario;
-	private static String margineDiTesoreria;
+	private static String margineTesoreria;
 	private LinkedList<Account> SP;
 	private LinkedList<Account> CE;
 	private DBDataModel db;
@@ -66,15 +66,15 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 
 	private Map<String, Float> calcolaIndici_Margini() {
 		Map<String, Float> indiciMargini = new HashMap<>();
-		// calcolo dell'indice ROS
-		// calcolo dell'indice ROT
-		// calcolo dell'indice ROI
-		// calcolo dell'indice leverage
-		// calcolo dell'indice ROE
-		// calcolo del margine di struttura primario
-		// calcolo del margine di struttura secondario
-		// calcolo del margine di tesoreria
-		return null;
+		indiciMargini.put(ROS, getROS());
+		indiciMargini.put(ROT, getROT());
+		indiciMargini.put(ROI, getROI());
+		indiciMargini.put(ROE, getROE());
+		indiciMargini.put(leverage, getLeverage());
+		indiciMargini.put(margineStrutturaPrimario, getMargineStrutturaPrimario());
+		indiciMargini.put(margineStrutturaSecondario, getMargineStrutturaSecondario());
+		indiciMargini.put(margineTesoreria, getMargineTesoreria());
+		return indiciMargini;
 
 	}
 
@@ -102,8 +102,9 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 
 	@Override
 	public String getAnalisiFinanziaria() {
-		// TODO Auto-generated method stub
-		return null;
+	    Map<String,Float> mappaIndiciMargini = new HashMap<>();
+            mappaIndiciMargini = calcolaIndici_Margini();
+            return null;
 	}
 
 	@Override
@@ -120,5 +121,38 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	private Float getROI(){
+        return null;
+	}
+	
+	private Float getROS(){
+	    return null;
+	}
+	
+	private Float getROT(){
+            return null;
+        }
+	
+	private Float getLeverage(){
+            return null;
+        }
+	
+	private Float getROE(){
+            return null;
+        }
+	
+	private Float getMargineStrutturaPrimario(){
+            return null;
+        }
+	
+	private Float getMargineStrutturaSecondario(){
+            return null;
+        }
+	
+	private Float getMargineTesoreria(){
+            return null;
+        }
+	
 
 }
