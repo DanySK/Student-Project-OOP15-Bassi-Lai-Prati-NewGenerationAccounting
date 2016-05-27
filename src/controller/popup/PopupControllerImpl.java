@@ -51,7 +51,6 @@ public class PopupControllerImpl implements IViewObserver {
 		this.model = model;
 		this.parentController = parentController;
 		this.parentView = parentView;
-		parentView.disableView();
 		String titolo;
 		switch (mode) {
 		case ADD:
@@ -69,10 +68,10 @@ public class PopupControllerImpl implements IViewObserver {
 		default:
 			throw new IllegalArgumentException("Modalità non consentita.");
 		}
-		Dimension dim = new Dimension(350, 200 + 40 * mappa.size());
-		this.view = new AddEditPopupView(titolo, dim, mappa);
-		view.setObserver(this);
+		Dimension dim = new Dimension(350, 150 + 50 * mappa.size());
+		view = new AddEditPopupView(titolo, dim, mappa, this);
 		view.start();
+		parentView.disableView();
 	}
 
 	protected void beforeCloseActions() {

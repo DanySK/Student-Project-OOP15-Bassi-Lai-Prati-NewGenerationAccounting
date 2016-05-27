@@ -76,25 +76,24 @@ public class AccountsModel extends AbstractModel {
 	protected void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare)
 			throws InstanceNotFoundException { // modifica elementi
 		trovato = false;
-			if (obj instanceof Account) {
-				Account a = (Account) obj;
-				if(!elemDaModificare.get(NOME).toString().isEmpty()){
-				    for (Account elem : listaaccount) {
-					if (elem.getName().equals(a.getName())) {					    
-					        elem.setName(elemDaModificare.get(NOME).toString());
-					        trovato = true;
+		if (obj instanceof Account) {
+			Account a = (Account) obj;
+			if (!elemDaModificare.get(NOME).toString().isEmpty()) {
+				for (Account elem : listaaccount) {
+					if (elem.getName().equals(a.getName())) {
+						elem.setName(elemDaModificare.get(NOME).toString());
+						trovato = true;
 					}
-				    }	
 				}
-				else{
-                                   throw new IllegalArgumentException("la stringa inserita come nome non è valida");
-				}
-			
-				if (trovato == false){
-					throw new InstanceNotFoundException("elemento da modificare non presente in lista");
-				}
-			} else
-				throw new IllegalArgumentException("l'oggetto inserito non è un Conto");
+			} else {
+				throw new IllegalArgumentException("la stringa inserita come nome non è valida");
+			}
+
+			if (trovato == false) {
+				throw new InstanceNotFoundException("elemento da modificare non presente in lista");
+			}
+		} else
+			throw new IllegalArgumentException("l'oggetto inserito non è un Conto");
 	}
 
 	@Override
@@ -131,7 +130,10 @@ public class AccountsModel extends AbstractModel {
 	}
 
 	@Override
-	public LinkedList<Account> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {// carica dati																								// filtri
+	public LinkedList<Account> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {// carica
+																										// dati
+																										// //
+																										// filtri
 		LinkedList<Account> listaFiltrata = new LinkedList<>();
 		if (!mappaFiltro.get(NOME).toString().isEmpty()) { // controllo il nome
 			for (Account a : listaaccount) {
@@ -182,9 +184,8 @@ public class AccountsModel extends AbstractModel {
 		}
 		if (listaFiltrata.isEmpty()) {
 			throw new InstanceNotFoundException("nella lista non sono presenti elementi che soddisfano i filtri");
-		}
-		else
-		return listaFiltrata;
+		} else
+			return listaFiltrata;
 	}
 
 	@Override

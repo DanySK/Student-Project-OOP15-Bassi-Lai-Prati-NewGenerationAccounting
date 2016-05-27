@@ -30,6 +30,7 @@ import controller.movimenti.MovimentiCellEditor;
 import controller.movimenti.MovimentiCellRenderer;
 import controller.popup.PopupControllerImpl;
 import dataEnum.IDataEnum;
+import dataModel.Account;
 import dataModel.Movement;
 import dataModel.Operation;
 import view.AbstractFrame;
@@ -51,9 +52,12 @@ public class AddEditPopupView extends AbstractFrame {
 	/**
 	 * @param title
 	 * @param dimension
+	 * @param popupControllerImpl
 	 */
-	public AddEditPopupView(final String title, final Dimension dimension, final Map<String, Object> mappa) {
+	public AddEditPopupView(final String title, final Dimension dimension, final Map<String, Object> mappa,
+			PopupControllerImpl observer) {
 		super(title, dimension);
+		this.observer = observer;
 		compoMap = new HashMap<String, JComponent>();
 		final JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -105,7 +109,8 @@ public class AddEditPopupView extends AbstractFrame {
 					compoMap.put(campo, jcb);
 					itemPanel.add(jcb);
 				} else if (item instanceof LinkedList) {
-					if (((LinkedList<?>) item).get(0) != null && ((LinkedList<?>) item).get(0) instanceof Operation) {
+					System.out.println("dentro");
+					if (item.getClass().isAssignableFrom(LinkedList.class)) {
 						final JTable operationTable = getOperationEdiTable((LinkedList<Operation>) item);
 						final JScrollPane scrollpane = new JScrollPane(operationTable);
 						compoMap.put(campo, operationTable);
@@ -151,11 +156,7 @@ public class AddEditPopupView extends AbstractFrame {
 		};
 		myTable.setModel(tableModel);
 		myTable.setDefaultRenderer(Movement.class, new MovimentiCellRenderer());
-		myTable.setDefaultEditor(Movement.class, new MovimentiCellEditor(observer.getAccountsList()));
+		myTable.setDefaultEditor(Account.class, new MovimentiCellEditor(observer.getAccountsList()));
 		return myTable;
-	}
-
-	public void setObserver(final PopupControllerImpl observer) {
-		this.observer = observer;
 	}
 }

@@ -102,14 +102,46 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 
 	@Override
 	public String getAnalisiFinanziaria() {
-	    Map<String,Float> mappaIndiciMargini = new HashMap<>();
-            mappaIndiciMargini = calcolaIndici_Margini();
-            return null;
+		Map<String, Float> mappaIndiciMargini = new HashMap<>();
+		mappaIndiciMargini = calcolaIndici_Margini();
+		return null;
 	}
 
 	@Override
 	public LinkedList<Account> getCE() {
 		return calcolaCE();
+	}
+
+	private Float getLeverage() {
+		return null;
+	}
+
+	private Float getMargineStrutturaPrimario() {
+		return null;
+	}
+
+	private Float getMargineStrutturaSecondario() {
+		return null;
+	}
+
+	private Float getMargineTesoreria() {
+		return null;
+	}
+
+	private Float getROE() {
+		return null;
+	}
+
+	private Float getROI() {
+		return null;
+	}
+
+	private Float getROS() {
+		return null;
+	}
+
+	private Float getROT() {
+		return null;
 	}
 
 	@Override
@@ -121,38 +153,5 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	private Float getROI(){
-        return null;
-	}
-	
-	private Float getROS(){
-	    return null;
-	}
-	
-	private Float getROT(){
-            return null;
-        }
-	
-	private Float getLeverage(){
-            return null;
-        }
-	
-	private Float getROE(){
-            return null;
-        }
-	
-	private Float getMargineStrutturaPrimario(){
-            return null;
-        }
-	
-	private Float getMargineStrutturaSecondario(){
-            return null;
-        }
-	
-	private Float getMargineTesoreria(){
-            return null;
-        }
-	
 
 }
