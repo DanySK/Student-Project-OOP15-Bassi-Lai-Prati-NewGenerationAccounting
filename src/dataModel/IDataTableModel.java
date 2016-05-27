@@ -13,5 +13,5 @@ import java.io.Serializable;
  *
  */
 public interface IDataTableModel extends Serializable {
-	String getValueAt(int column);
+	Object getValueAt(int column);
 }

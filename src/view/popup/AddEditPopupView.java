@@ -30,6 +30,8 @@ import controller.movimenti.MovimentiCellEditor;
 import controller.movimenti.MovimentiCellRenderer;
 import controller.popup.PopupControllerImpl;
 import dataEnum.IDataEnum;
+import dataEnum.Natures;
+import dataEnum.Sections;
 import dataModel.Account;
 import dataModel.Movement;
 import dataModel.Operation;
@@ -109,10 +111,10 @@ public class AddEditPopupView extends AbstractFrame {
 					compoMap.put(campo, jcb);
 					itemPanel.add(jcb);
 				} else if (item instanceof LinkedList) {
-					System.out.println("dentro");
 					if (item.getClass().isAssignableFrom(LinkedList.class)) {
 						final JTable operationTable = getOperationEdiTable((LinkedList<Operation>) item);
 						final JScrollPane scrollpane = new JScrollPane(operationTable);
+						scrollpane.setPreferredSize(new Dimension(325, 100));
 						compoMap.put(campo, operationTable);
 						itemPanel.add(scrollpane);
 					}
@@ -143,19 +145,23 @@ public class AddEditPopupView extends AbstractFrame {
 
 	private JTable getOperationEdiTable(final List<Operation> operationsList) {
 		final JTable myTable = new JTable();
+		myTable.setPreferredSize(new Dimension(350, 100));
+		//if (operationsList.size() == 0){
+			LinkedList<Operation> lista = new LinkedList<Operation>();
+			lista.add(new Operation(observer.getAccountsList().getFirst(), (float)5.12, (float) 12.14));
+			lista.add(new Operation(observer.getAccountsList().getFirst(), (float)5.12, (float) 12.14));
+			lista.add(new Operation(observer.getAccountsList().getFirst(), (float)5.12, (float) 12.14));
+		//}
 		final MyEdiTableModel<Operation> tableModel = new MyEdiTableModel<Operation>(Operation.getIntestazione(),
-				operationsList) {
-
+				lista) {
 			private static final long serialVersionUID = -7742093275061915171L;
-
 			@Override
 			public Class<?> getColumnClass(int column) {
 				return Operation.getColumnClass(column);
 			}
-
 		};
 		myTable.setModel(tableModel);
-		myTable.setDefaultRenderer(Movement.class, new MovimentiCellRenderer());
+		myTable.setDefaultRenderer(Account.class, new MovimentiCellRenderer());
 		myTable.setDefaultEditor(Account.class, new MovimentiCellEditor(observer.getAccountsList()));
 		return myTable;
 	}

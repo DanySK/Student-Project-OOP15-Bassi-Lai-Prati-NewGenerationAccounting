@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
+import dataModel.Account;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 import dataModel.Movement;
@@ -31,22 +32,24 @@ public class MovementsModel extends AbstractModel {
 
 	public MovementsModel(DBDataModel db) {
 		this.db = db;
+		listaMovimenti = db.getMoviments();
 	}
 
 	@Override
 	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
 		Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
-		AccountsModel a = new AccountsModel(db);
 		if (listaMovimenti.contains(m)) {
 			throw new InstanceAlreadyExistsException("elemento già esistente");
 		}
-		if (m.getData() == null || m.getListaConti().isEmpty()) {
+		if (m.getData() == null || m.getListaConti().isEmpty()) { 
 			throw new IllegalArgumentException("data non valida o lista vuota");
 		}
 		listaMovimenti.add(m);
+		LinkedList<Account> accountList = db.getAccounts();
 		for (Operation op : m.getListaConti()) {
-			a.updateAccounts(op);
+			//da sistemare in modo sensato.
 		}
+		db.setAccounts(accountList);
 	}
 
 	@Override
@@ -157,5 +160,9 @@ public class MovementsModel extends AbstractModel {
 	public DBDataModel saveDBAndClose() {
 		db.setMoviments(listaMovimenti);
 		return db;
+	}
+
+	public LinkedList<Account> getAllAccounts() {
+		return db.getAccounts();
 	}
 }

@@ -51,7 +51,7 @@ public class MyTableModel<E extends IDataTableModel> extends AbstractTableModel 
 	}
 
 	@Override
-	public String getValueAt(int row, int column) {
+	public Object getValueAt(final int row, final int column) {
 		return objectsList.get(row).getValueAt(column);
 	}
 

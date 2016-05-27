@@ -8,7 +8,7 @@ public class Operation implements IEdiTableDataModel {
 
 	private static final String[] INTESTAZIONE = { "Conto", "Dare", "Avere" };
 
-	public static Class getColumnClass(int column) {
+	public static Class<?> getColumnClass(int column) {
 		switch (column) {
 		case 0:
 			return Account.class;
@@ -50,14 +50,14 @@ public class Operation implements IEdiTableDataModel {
 	}
 
 	@Override
-	public String getValueAt(int column) {
+	public Object getValueAt(int column) {
 		switch (column) {
 		case 0:
-			return getConto().getName();
+			return getConto();
 		case 1:
-			return Float.toString(getDare());
+			return getDare();
 		case 2:
-			return Float.toString(getAvere());
+			return getAvere();
 		default:
 			return "";
 		}
@@ -77,6 +77,7 @@ public class Operation implements IEdiTableDataModel {
 
 	@Override
 	public void setValueAt(Object value, int column) throws IllegalArgumentException {
+		System.out.println(value + "  " + column);
 		switch (column) {
 		case 0:
 			if (value instanceof Account) {

@@ -39,18 +39,18 @@ public class MovimentiCellEditor extends AbstractCellEditor implements TableCell
 		if (value instanceof Account) {
 			this.account = (Account) value;
 		}
-		JComboBox<Account> comboCountry = new JComboBox<Account>();
+		JComboBox<Account> comboAcc = new JComboBox<Account>();
 		for (Account acc : listAccount) {
-			comboCountry.addItem(acc);
+			comboAcc.addItem(acc);
 		}
-		comboCountry.setSelectedItem(account);
-		comboCountry.addActionListener(this);
+		comboAcc.setSelectedItem(account);
+		comboAcc.addActionListener(this);
 		if (isSelected) {
-			comboCountry.setBackground(table.getSelectionBackground());
+			comboAcc.setBackground(table.getSelectionBackground());
 		} else {
-			comboCountry.setBackground(table.getSelectionForeground());
+			comboAcc.setBackground(table.getSelectionForeground());
 		}
-		return comboCountry;
+		return comboAcc;
 	}
 
 }

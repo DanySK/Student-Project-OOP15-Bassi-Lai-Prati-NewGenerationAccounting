@@ -23,6 +23,12 @@ public class Movement implements IDataTableModel {
 	}
 
 	private Date data;
+	
+	@Override
+	public String toString() {
+		return "Movement [data=" + data + ", listaConti=" + listaConti + "]";
+	}
+
 	private LinkedList<Operation> listaConti;
 
 	public Movement(Date data, LinkedList<Operation> object) {
