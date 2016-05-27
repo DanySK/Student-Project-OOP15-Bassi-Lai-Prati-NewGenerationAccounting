@@ -1,3 +1,5 @@
+package controller;
+
 import java.io.IOException;
 
 import controller.anaAziende.AnaAziendeControllerImpl;
@@ -13,7 +15,7 @@ import controller.dbController.DBLoader;
  * 
  * @author Pentolo
  */
-public class ApplicationStart {
+public final class ApplicationStart {
 
 	/**
 	 * @param args

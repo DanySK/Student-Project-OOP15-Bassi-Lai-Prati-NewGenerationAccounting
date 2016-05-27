@@ -22,6 +22,7 @@ public class MovimentiCellEditor extends AbstractCellEditor implements TableCell
 		this.listAccount = linkedList;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		JComboBox<Account> comboAccount = (JComboBox<Account>) event.getSource();

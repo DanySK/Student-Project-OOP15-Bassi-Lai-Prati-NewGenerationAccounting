@@ -36,7 +36,7 @@ public class DBSaver extends AbstractDB {
 
 	private static void deleteDirectory(final File path) {
 		if (path.exists()) {
-			for (File file : path.listFiles()) {
+			for (final File file : path.listFiles()) {
 				if (file.isDirectory()) {
 					deleteDirectory(file);
 				} else {

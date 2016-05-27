@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -91,7 +92,7 @@ public class CompanyModel extends AbstractModel {
 	@Override
 	public void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare)
 			throws InstanceAlreadyExistsException, InstanceNotFoundException {
-		
+
 		((Company) obj).setRagione_sociale((String) infoDaModificare.get(password));
 		((Company) obj).setCap((Integer) infoDaModificare.get(cap));
 		((Company) obj).setCitta((String) infoDaModificare.get(citta));
@@ -101,11 +102,10 @@ public class CompanyModel extends AbstractModel {
 		((Company) obj).setTel((String) infoDaModificare.get(telefono));
 		((Company) obj).setPassword((char[]) infoDaModificare.get(password));
 
-				if (trovato == false) {
-					throw new InstanceNotFoundException("Elemento da modificare non presente.");
-				}
-			
-		
+		if (trovato == false) {
+			throw new InstanceNotFoundException("Elemento da modificare non presente.");
+		}
+
 	}
 
 	@Override
@@ -141,7 +141,7 @@ public class CompanyModel extends AbstractModel {
 			mappaVuota.put(provincia, new String(""));
 			mappaVuota.put(telefono, new String(""));
 			mappaVuota.put(p_iva, new String(""));
-			mappaVuota.put(password, new char[]{});
+			mappaVuota.put(password, new char[] {});
 			mappaVuota.put(indirizzo, new String());
 
 			return mappaVuota;
@@ -172,7 +172,7 @@ public class CompanyModel extends AbstractModel {
 	 */
 
 	public boolean isPasswordCorrect(final char[] password, final Company company) {
-		return company.getPassword().equals(password);
+		return Arrays.equals(password, company.getPassword());
 	}
 
 	@Override

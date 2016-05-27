@@ -12,7 +12,6 @@ import java.util.Map;
 import javax.management.InstanceNotFoundException;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JPasswordField;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -35,6 +34,7 @@ import view.popup.AddEditPopupView;
  * @author Pentolo
  *
  */
+@SuppressWarnings("rawtypes")
 public class PopupControllerImpl implements IViewObserver {
 
 	private final AbstractModel model;
@@ -86,6 +86,7 @@ public class PopupControllerImpl implements IViewObserver {
 		view.close();
 	}
 
+	@SuppressWarnings("unchecked")
 	public void filterList(final Map<String, Object> mappa) {
 		try {
 			parentView.setList(model.load(mappa));

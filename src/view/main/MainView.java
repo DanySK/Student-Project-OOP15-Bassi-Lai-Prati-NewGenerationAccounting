@@ -25,8 +25,8 @@ public class MainView extends AbstractWideView {
 	class myAction implements ActionListener {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			String action = e.getActionCommand();
+		public void actionPerformed(final ActionEvent e) {
+			final String action = e.getActionCommand();
 			if (action.equals(listaBtn[0])) {
 				((MainControllerImpl) observer).btn0(action);
 			} else if (action.equals(listaBtn[1])) {
@@ -51,18 +51,18 @@ public class MainView extends AbstractWideView {
 
 	private static final long serialVersionUID = 8496684753244767160L;
 
-	private String[] listaBtn;
+	private final String[] listaBtn;
 
 	public MainView() {
 		super(Messages.getString("MainView.8"), new Dimension(290, 375));
-		int maxBtn = Integer.parseInt(Messages.getString("MainView.500"));
+		final int maxBtn = Integer.parseInt(Messages.getString("MainView.500"));
 		listaBtn = new String[maxBtn];
-		JPanel panel = new JPanel();
-		myAction actionEvent = new myAction();
+		final JPanel panel = new JPanel();
+		final myAction actionEvent = new myAction();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		for (int i = 0; i < maxBtn; i++) {
 			panel.add(Box.createRigidArea(new Dimension(0, 10)));
-			String tmpStr = Messages.getString("MainView." + i);
+			final String tmpStr = Messages.getString("MainView." + i);
 			listaBtn[i] = tmpStr;
 			final JButton tmpBtn = new JButton(tmpStr);
 			tmpBtn.setActionCommand(tmpStr);

@@ -30,7 +30,7 @@ public class MainControllerImpl implements IViewObserver {
 	private final DBDataModel db;
 	private final MainView view;
 
-	public MainControllerImpl(DBDataModel db) {
+	public MainControllerImpl(final DBDataModel db) {
 		this.view = new MainView();
 		this.db = db;
 		this.view.setObserver(this);

@@ -26,8 +26,9 @@ import view.AbstractFrame;
  */
 public final class DBLoader extends AbstractDB {
 
+	@SuppressWarnings("unchecked")
 	public static LinkedList<Company> loadCompanys() throws IOException {
-		File file = getCompanyFile();
+		final File file = getCompanyFile();
 		file.getParentFile().mkdir();
 		if (!file.exists()) {
 			try {
@@ -38,7 +39,7 @@ public final class DBLoader extends AbstractDB {
 			}
 		}
 		try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
-			Object readElem = ois.readObject();
+			final Object readElem = ois.readObject();
 			if (readElem instanceof LinkedList) {
 				return (LinkedList<Company>) readElem;
 			}
@@ -49,7 +50,7 @@ public final class DBLoader extends AbstractDB {
 	}
 
 	public static DBDataModel loadDB(final String path, final AbstractFrame view) {
-		DBDataModel db = new DBDataModel(path);
+		final DBDataModel db = new DBDataModel(path);
 		new DBLoader(path, view, db).start();
 		return db;
 	}
@@ -61,7 +62,8 @@ public final class DBLoader extends AbstractDB {
 		super(path, view, db);
 	}
 
-	private LinkedList load(File file, LinkedList defaultList) {
+	@SuppressWarnings("rawtypes")
+	private LinkedList load(final File file, final LinkedList defaultList) {
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
@@ -72,8 +74,8 @@ public final class DBLoader extends AbstractDB {
 			}
 		}
 		try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
-			Object readElem = ois.readObject();
-			if (readElem != null && readElem instanceof java.util.LinkedList) {
+			final Object readElem = ois.readObject();
+			if (readElem instanceof LinkedList) {
 				return (LinkedList) readElem;
 			}
 		} catch (Exception e) {
@@ -84,6 +86,7 @@ public final class DBLoader extends AbstractDB {
 		return defaultList;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
 		DBDataModel db = getDb();

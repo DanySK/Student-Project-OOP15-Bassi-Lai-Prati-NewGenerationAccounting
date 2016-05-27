@@ -105,7 +105,7 @@ public abstract class AbstractAnagraficaView<E extends IDataTableModel> extends 
 	}
 
 	public IDataTableModel getSelectedItem() throws InstanceNotFoundException {
-		int row = getTable().getSelectedRow();
+		final int row = getTable().getSelectedRow();
 		if (row != -1) {
 			return getModel().getObjectAt(row);
 		} else {

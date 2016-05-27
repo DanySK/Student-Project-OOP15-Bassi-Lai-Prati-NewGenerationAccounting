@@ -34,8 +34,8 @@ public abstract class AbstractWideView extends AbstractFrame {
 	 */
 	public AbstractWideView(final String title, final Dimension dimension) {
 		super(title, dimension);
-		JButton chiudi = new JButton("Chiudi");
-		JPanel footer = new JPanel(new FlowLayout());
+		final JButton chiudi = new JButton("Chiudi");
+		final JPanel footer = new JPanel(new FlowLayout());
 		footer.add(chiudi);
 		getMyFrame().getContentPane().add(footer, BorderLayout.SOUTH);
 		chiudi.addActionListener(e -> {
@@ -52,7 +52,7 @@ public abstract class AbstractWideView extends AbstractFrame {
 	 * @param observer
 	 *            the observer to set
 	 */
-	public void setObserver(IViewObserver observer) {
+	public void setObserver(final IViewObserver observer) {
 		this.observer = observer;
 	}
 }

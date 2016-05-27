@@ -31,7 +31,7 @@ public abstract class AbstractDB extends Thread {
 		return new File(DB_PATH + SEPARATOR + COMPANY_FILENAME);
 	}
 
-	protected static File getDBDirectory(String path) {
+	protected static File getDBDirectory(final String path) {
 		return new File(DB_PATH + SEPARATOR + path);
 	}
 
@@ -71,7 +71,7 @@ public abstract class AbstractDB extends Thread {
 		return db;
 	}
 
-	private File getFile(String fileName) {
+	private File getFile(final String fileName) {
 		return new File(DB_PATH + SEPARATOR + path + SEPARATOR + fileName);
 	}
 

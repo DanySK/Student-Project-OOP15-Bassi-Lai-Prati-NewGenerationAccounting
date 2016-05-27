@@ -55,10 +55,10 @@ public class AddEditPopupView extends AbstractFrame {
 	public AddEditPopupView(final String title, final Dimension dimension, final Map<String, Object> mappa) {
 		super(title, dimension);
 		compoMap = new HashMap<String, JComponent>();
-		JPanel mainPanel = new JPanel();
+		final JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		JPanel itemPanel;
-		for (String campo : mappa.keySet()) {
+		for (final String campo : mappa.keySet()) {
 			Object item = mappa.get(campo);
 			if (item != null) {
 				itemPanel = new JPanel();
@@ -74,7 +74,7 @@ public class AddEditPopupView extends AbstractFrame {
 					compoMap.put(campo, jtf);
 					itemPanel.add(jtf);
 				} else if (item instanceof Date) {
-					JSpinner js = new JSpinner(new SpinnerDateModel());
+					final JSpinner js = new JSpinner(new SpinnerDateModel());
 					if (item != null) {
 						js.setValue(item);
 					}
@@ -98,7 +98,7 @@ public class AddEditPopupView extends AbstractFrame {
 					compoMap.put(campo, js);
 					itemPanel.add(js);
 				} else if (item instanceof Enum && item instanceof IDataEnum) {
-					JComboBox<Enum<?>> jcb = new JComboBox<Enum<?>>(((IDataEnum) item).getEnumValues());
+					final JComboBox<Enum<?>> jcb = new JComboBox<Enum<?>>(((IDataEnum) item).getEnumValues());
 					if (item != null) {
 						jcb.setSelectedItem(item);
 					}
@@ -106,19 +106,19 @@ public class AddEditPopupView extends AbstractFrame {
 					itemPanel.add(jcb);
 				} else if (item instanceof LinkedList) {
 					if (((LinkedList<?>) item).get(0) != null && ((LinkedList<?>) item).get(0) instanceof Operation) {
-						JTable operationTable = getOperationEdiTable((LinkedList<Operation>) item);
-						JScrollPane scrollpane = new JScrollPane(operationTable);
+						final JTable operationTable = getOperationEdiTable((LinkedList<Operation>) item);
+						final JScrollPane scrollpane = new JScrollPane(operationTable);
 						compoMap.put(campo, operationTable);
-						itemPanel.add(operationTable);
+						itemPanel.add(scrollpane);
 					}
 				}
 				mainPanel.add(itemPanel);
 				itemPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 			}
 		}
-		JPanel footer = new JPanel(new FlowLayout());
-		JButton chiudi = new JButton("Chiudi");
-		JButton btnOk = new JButton(title);
+		final JPanel footer = new JPanel(new FlowLayout());
+		final JButton chiudi = new JButton("Chiudi");
+		final JButton btnOk = new JButton(title);
 		chiudi.addActionListener(e -> {
 			observer.chiusura();
 		});
@@ -137,14 +137,14 @@ public class AddEditPopupView extends AbstractFrame {
 	}
 
 	private JTable getOperationEdiTable(final List<Operation> operationsList) {
-		JTable myTable = new JTable();
-		MyEdiTableModel<Operation> tableModel = new MyEdiTableModel<Operation>(Operation.getIntestazione(),
+		final JTable myTable = new JTable();
+		final MyEdiTableModel<Operation> tableModel = new MyEdiTableModel<Operation>(Operation.getIntestazione(),
 				operationsList) {
 
 			private static final long serialVersionUID = -7742093275061915171L;
 
 			@Override
-			public Class getColumnClass(int column) {
+			public Class<?> getColumnClass(int column) {
 				return Operation.getColumnClass(column);
 			}
 
@@ -155,7 +155,7 @@ public class AddEditPopupView extends AbstractFrame {
 		return myTable;
 	}
 
-	public void setObserver(PopupControllerImpl observer) {
+	public void setObserver(final PopupControllerImpl observer) {
 		this.observer = observer;
 	}
 }

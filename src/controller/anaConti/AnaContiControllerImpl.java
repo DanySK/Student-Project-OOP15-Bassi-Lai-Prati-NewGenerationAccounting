@@ -36,7 +36,7 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void chiusura() {
-		DBDataModel db = model.saveDBAndClose();
+		final DBDataModel db = model.saveDBAndClose();
 		new DBSaver(db.getPath(), view, db).start();
 		view.close();
 		new MainControllerImpl(db);

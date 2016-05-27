@@ -27,19 +27,19 @@ public abstract class MyEdiTableModel<E extends IEdiTableDataModel> extends MyTa
 	}
 
 	@Override
-	public abstract Class getColumnClass(int column);
+	public abstract Class<?> getColumnClass(final int column);
 
 	@Override
-	public String getValueAt(int row, int column) {
+	public String getValueAt(final int row, final int column) {
 		return objectsList.get(row).getValueAt(column);
 	}
 
 	@Override
-	public boolean isCellEditable(int rowIndex, int columnIndex) {
+	public boolean isCellEditable(final int rowIndex, final int columnIndex) {
 		return true;
 	}
 
-	void setValueAt(Object value, Operation operation, int column) {
+	void setValueAt(final Object value, final Operation operation, final int column) {
 		operation.setValueAt(value, column);
 	}
 }

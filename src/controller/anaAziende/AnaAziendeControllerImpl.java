@@ -20,7 +20,7 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	private final AnaAziendeView view;
 	private final CompanyModel model;
 
-	public AnaAziendeControllerImpl(LinkedList<Company> linkedList) {
+	public AnaAziendeControllerImpl(final LinkedList<Company> linkedList) {
 		this.model = new CompanyModel(linkedList);
 		this.view = new AnaAziendeView(model.load());
 		this.view.setObserver(this);
@@ -28,7 +28,7 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	}
 
 	public void accedi() {
-		Company company = getSelectedCompany();
+		final Company company = getSelectedCompany();
 		if (company != null) {
 			if (checkPwd(company)) {
 				saveCompanysList();
@@ -40,7 +40,7 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 		}
 	}
 
-	private boolean checkPwd(Company company) {
+	private boolean checkPwd(final Company company) {
 		return model.isPasswordCorrect(view.getInputPassword(), company);
 	}
 
@@ -90,7 +90,7 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 			new PopupControllerImpl(PopupMode.ADD, model, this, view) {
 				@Override
 				protected void beforeCloseActions() {
-					UUID codice = model.getLastAddedItemCode();
+					final UUID codice = model.getLastAddedItemCode();
 					if (codice != null) {
 						DBSaver.addCompany(codice);
 					}
@@ -103,7 +103,7 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void tasto2() {
-		Company company = getSelectedCompany();
+		final Company company = getSelectedCompany();
 		if (company != null) {
 			if (checkPwd(company)) {
 				try {
@@ -119,7 +119,7 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void tasto3() {
-		Company company = getSelectedCompany();
+		final Company company = getSelectedCompany();
 		if (company != null) {
 			if (checkPwd(company)) {
 				DBSaver.removeCompany(company.getCodice_azienda().toString());
