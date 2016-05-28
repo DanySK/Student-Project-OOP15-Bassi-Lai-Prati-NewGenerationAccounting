@@ -85,24 +85,19 @@ public class ProductsModel extends AbstractModel {
 	@Override
 	protected void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare)
 			throws InstanceNotFoundException {
-		if (!listaProdotti.contains(obj)) {
-			throw new InstanceNotFoundException("Elemento da modificare non presente, riprovare.");
-		} else {
-			if (obj instanceof Product) {
-				Product cerca = (Product) obj;
-				for (Product elem : listaProdotti) {
-					if (elem.getNome().equals(cerca.getNome())) {
-						elem.setNome(cerca.getNome());
-						trovato = true;
-					}
-				}
+				
+		
+		((Product) obj).setNome((String) infoDaModificare.get(nome));
+		((Product) obj).setCod_acquisto((Integer) infoDaModificare.get(codiceA));
+		((Product) obj).setCod_vendita((Integer) infoDaModificare.get(codiceV));		
+		((Product) obj).setCategoria((String) infoDaModificare.get(categoria));
+		((Product) obj).setDescrizione((String) infoDaModificare.get(descrizione));
+		((Product) obj).setPrezzovendita((Integer) infoDaModificare.get(prezzo));
+		
+		
 				if (trovato == false) {
 					throw new InstanceNotFoundException("Elemento da modificare non presente.");
 				}
-				listaProdotti.remove(obj);
-				addElem(infoDaModificare);
-			}
-		}
 	}
 
 	@Override

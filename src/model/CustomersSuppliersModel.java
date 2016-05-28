@@ -118,21 +118,23 @@ public class CustomersSuppliersModel extends AbstractModel {
 		if (!listaRapportiC.contains(obj)) {
 			throw new InstanceNotFoundException("Elemento da modificare non presente, riprovare.");
 		} else {
-			if (obj instanceof Customers_Suppliers) {
-				Customers_Suppliers cerca = (Customers_Suppliers) obj;
-				for (Customers_Suppliers elem : listaRapportiC) {
-					if (elem.getCf().equals(cerca.getCf())) {
-						elem.setCf(cerca.getCf());
-						trovato = true;
-					}
+			
+			((Customers_Suppliers) obj).setCf((String) infoDaModificare.get(CF));
+			((Customers_Suppliers) obj).setCitta((String) infoDaModificare.get(Citta));
+			((Customers_Suppliers) obj).setCognome((String) infoDaModificare.get(Cognome));
+			((Customers_Suppliers) obj).setNome((String) infoDaModificare.get(Nome));
+			((Customers_Suppliers) obj).setIndirizzo((String) infoDaModificare.get(Indirizzo));
+			((Customers_Suppliers) obj).setCap((Integer) infoDaModificare.get(CAP));
+			((Customers_Suppliers) obj).setCredito((Integer) infoDaModificare.get(Credito));
+			((Customers_Suppliers) obj).setDebito((Integer) infoDaModificare.get(Debito));
+			((Customers_Suppliers) obj).setRuolo((KindPerson) infoDaModificare.get(ruolo));
+			((Customers_Suppliers) obj).setSesso((Gender) infoDaModificare.get(sesso));
+
 				}
 				if (trovato == false) {
 					throw new InstanceNotFoundException("Elemento da modificare non presente.");
 				}
-				listaRapportiC.remove(obj);
-				addElem(infoDaModificare);
-			}
-		}
+					
 	}
 
 	@Override
