@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -40,13 +41,6 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		SP = new LinkedList<Account>();
 		CE = new LinkedList<Account>();
 		contiRegistrati = db.getAccounts();
-	}
-
-	@Override
-	public String AnalisiFinanziaria() {
-		calcolaIndici_Margini();
-
-		return null;
 	}
 
 	private LinkedList<Account> calcolaCE() {
@@ -214,6 +208,14 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		}
 		return (ricVend - costiAcq) / ricVend;
 	}
+	
+    @Override
+    public String AnalisiFinanziaria() {
+        calcolaIndici_Margini();
+        ArrayList<String> commento = new ArrayList<>();
+        // FINIRE
+        return null;
+    }
 
 	private Float getROT() {
 		float scorte = 0;
@@ -242,8 +244,7 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 	}
 
 	public DBDataModel saveDBAndClose() {
-		// TODO Auto-generated method stub
-		return null;
+		return db;
 	}
 
 }

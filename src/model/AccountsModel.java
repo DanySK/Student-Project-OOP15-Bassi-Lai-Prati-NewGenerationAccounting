@@ -26,10 +26,6 @@ public class AccountsModel extends AbstractModel {
 	private final static String NOME = "Nome Conto";
 	private final static String SEZIONE = "Sezione del Conto";
 
-	public static LinkedList<Account> chartOfAccounts() {
-		return new LinkedList<Account>();
-	}
-
 	private boolean trovato = false;
 	private final DBDataModel db;
 
@@ -42,7 +38,7 @@ public class AccountsModel extends AbstractModel {
 
 	@Override
 	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
-		if (elem.get(NOME) == "" || elem.get(NATURA) == null || (Sections) elem.get(SEZIONE) == null) {
+		if (elem.get(NOME) == "" || elem.get(NATURA) == Natures.NESSUNO || (Sections) elem.get(SEZIONE) == Sections.NESSUNO) {
 			throw new IllegalArgumentException("nome, natura o sezione non valide");
 		}
 		Account a = new Account((String) elem.get(NOME), (Natures) elem.get(NATURA), (Sections) elem.get(SEZIONE), 0);
@@ -110,8 +106,8 @@ public class AccountsModel extends AbstractModel {
 		if (obj == null) {
 			Map<String, Object> mappaVuota = new HashMap<>();
 			mappaVuota.put(NOME, new String(""));
-			mappaVuota.put(NATURA, Natures.ATTIVITA);
-			mappaVuota.put(SEZIONE, Sections.CREDITI_VS_SOCI);
+			mappaVuota.put(NATURA, Natures.NESSUNO);
+			mappaVuota.put(SEZIONE, Sections.NESSUNO);
 			return mappaVuota;
 		} else {
 			if (obj instanceof Account) {
@@ -119,7 +115,7 @@ public class AccountsModel extends AbstractModel {
 				mappaPiena.put(NOME, ((Account) obj).getName());
 				return mappaPiena;
 			} else {
-				throw new IllegalArgumentException("l'oggetto inseito non è un Conto");
+				throw new IllegalArgumentException("l'oggetto inserito non è un Conto");
 			}
 		}
 	}
@@ -130,10 +126,7 @@ public class AccountsModel extends AbstractModel {
 	}
 
 	@Override
-	public LinkedList<Account> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {// carica
-																										// dati
-																										// //
-																										// filtri
+	public LinkedList<Account> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {// carica																							// filtri
 		LinkedList<Account> listaFiltrata = new LinkedList<>();
 		if (!mappaFiltro.get(NOME).toString().isEmpty()) { // controllo il nome
 			for (Account a : listaaccount) {
@@ -142,7 +135,7 @@ public class AccountsModel extends AbstractModel {
 			}
 		}
 		// nome = null o nome != null
-		if (mappaFiltro.get(NATURA) instanceof Natures) { // controllo la natura
+		if (mappaFiltro.get(NATURA) instanceof Natures && mappaFiltro.get(NATURA) != Natures.NESSUNO) { // controllo la natura
 			if (listaFiltrata.isEmpty()) {
 				for (Account a : listaaccount) { // singolo filtro su natura
 					if (a.getNatura() == mappaFiltro.get(NATURA))
@@ -155,7 +148,7 @@ public class AccountsModel extends AbstractModel {
 				}
 
 			}
-			if (mappaFiltro.get(SEZIONE) != null) { // controllo se la sezione
+			if (mappaFiltro.get(SEZIONE) != Sections.NESSUNO) { // controllo se la sezione
 													// appartiene alla nature
 				if ((checkSection((Natures) mappaFiltro.get(NATURA), (Sections) mappaFiltro.get(SEZIONE)))) {
 					for (Account a : listaFiltrata) { // doppio filtro sez + nat

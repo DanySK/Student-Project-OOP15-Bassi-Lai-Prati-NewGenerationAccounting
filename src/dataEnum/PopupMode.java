@@ -8,5 +8,5 @@ package dataEnum;
  *
  */
 public enum PopupMode {
-	ADD, EDIT, FIND;
+	ADD, EDIT, FIND, NESSUNO;
 }

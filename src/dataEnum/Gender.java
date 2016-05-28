@@ -8,7 +8,7 @@ package dataEnum;
  */
 
 public enum Gender implements IDataEnum {
-	F, M;
+	F, M, NESSUNO;
 
 	@Override
 	public Enum<?>[] getEnumValues() {

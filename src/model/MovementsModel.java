@@ -38,33 +38,51 @@ public class MovementsModel extends AbstractModel {
 	}
 
 	@Override
-	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
-		Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
+	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException, InstanceNotFoundException {
+	    //controllare qui e nella edit che il movimento abbia il saldo dare e avere uguali
+	    // una riga del movimento non può avere dare e avere insieme
+	        if(!(elem.get(DATA) instanceof Date)){
+	            throw new IllegalArgumentException("data inserita non valida");
+	        }
+	        if(!(elem.get(LISTA)instanceof LinkedList)){
+	            throw new IllegalArgumentException("lista inserita non valida");
+	        }
+	        Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
 		if (listaMovimenti.contains(m)) {
 			throw new InstanceAlreadyExistsException("elemento già esistente");
-		}
-		if (m.getData() == null || m.getListaConti().isEmpty()) {
-			throw new IllegalArgumentException("data non valida o lista vuota");
 		}
 		listaMovimenti.add(m);
 		LinkedList<Account> accountList = db.getAccounts();
 		for (Operation op : m.getListaConti()) {
-			// da sistemare in modo sensato.
+			if(accountList.contains(op.getConto())){
+			    for(Account a : accountList){
+			        if (a == op.getConto()){
+			            if (a.getNatura() == Natures.ATTIVITA || a.getNatura() == Natures.COSTO){
+			                a.incrSaldo(op.getDare());
+			                a.decrSaldo(op.getAvere());
+			            }
+			            else if (a.getNatura() == Natures.PASSIVITA || a.getNatura() == Natures.RICAVO){
+			                a.incrSaldo(op.getAvere());
+			                a.decrSaldo(op.getDare());
+			            }
+			        }
+			    }
+			}
+			else{
+			    throw new InstanceNotFoundException("il conto cercato non è presente in lista");
+			}
 		}
 		db.setAccounts(accountList);
 	}
 
 	@Override
 	public void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare)
-			throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException {
+			throws IllegalArgumentException, InstanceNotFoundException, InstanceAlreadyExistsException {
 		if (obj instanceof Movement) {
-			Movement m = new Movement(null, null);
-			m.setData((Date) elemDaModificare.get(DATA));
-			m.setListaConti((LinkedList<Operation>) elemDaModificare.get(LISTA));
-			for (Movement mov : listaMovimenti) {
-				if (mov.equals(obj)) {
+		    for (Movement mov : listaMovimenti) {
+				if (mov==obj) {
 					remove(mov);
-					add(elemDaModificare);
+					addElem(elemDaModificare);
 				}
 			}
 		} else {
@@ -156,7 +174,7 @@ public class MovementsModel extends AbstractModel {
 						a.updateAccounts(op);
 					}
 				} else {
-					throw new InstanceNotFoundException("elemento da eliminare presente in lista");
+					throw new InstanceNotFoundException("elemento da eliminarenon è presente in lista");
 				}
 			}
 		} else {

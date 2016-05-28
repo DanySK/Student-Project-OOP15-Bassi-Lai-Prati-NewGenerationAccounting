@@ -16,9 +16,10 @@ public abstract class AbstractModel {
 	 * 
 	 * @author niky
 	 * @throws InstanceAlreadyExistsException
+	 * @throws InstanceNotFoundException 
 	 */
 
-	public void add(Map<String, Object> elem) throws IllegalArgumentException, InstanceAlreadyExistsException {
+	public void add(Map<String, Object> elem) throws IllegalArgumentException, InstanceAlreadyExistsException, InstanceNotFoundException {
 		addElem(elem);
 	}
 
@@ -35,7 +36,7 @@ public abstract class AbstractModel {
 	 */
 
 	protected abstract void addElem(Map<String, Object> elem)
-			throws IllegalArgumentException, InstanceAlreadyExistsException;
+			throws IllegalArgumentException, InstanceAlreadyExistsException, InstanceNotFoundException;
 
 	/**
 	 * operazione per rimuovere un oggetto dal dataBase

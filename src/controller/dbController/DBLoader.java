@@ -10,12 +10,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.LinkedList;
 
+import dataModel.Account;
 import dataModel.Company;
 import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
 import dataModel.Movement;
 import dataModel.Product;
-import model.AccountsModel;
 import view.AbstractFrame;
 
 /**
@@ -80,7 +80,7 @@ public final class DBLoader extends AbstractDB {
 			}
 		} catch (Exception e) {
 			getView().errorDialog("Errore di IO",
-					"Errore critico di lettura del database. Il database verrà ripristinato allo stato iniziale.");
+					"Errore critico di lettura del database. Il database verrï¿½ ripristinato allo stato iniziale.");
 			return defaultList;
 		}
 		return defaultList;
@@ -91,7 +91,7 @@ public final class DBLoader extends AbstractDB {
 	public void run() {
 		DBDataModel db = getDb();
 		getDBDirectory(db.getPath()).mkdir();
-		db.setAccounts(load(getAccountFile(), AccountsModel.chartOfAccounts()));
+		db.setAccounts(load(getAccountFile(), new LinkedList<Account>()));
 		db.setCustomersSuppliers(load(getCustomersupplierFile(), new LinkedList<Customers_Suppliers>()));
 		db.setMoviments(load(getMovementFile(), new LinkedList<Movement>()));
 		db.setProducts(load(getProductFile(), new LinkedList<Product>()));

@@ -11,13 +11,13 @@ import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 import java.util.UUID;
 
+import dataModel.Account;
 import dataModel.Company;
 import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 import dataModel.Movement;
 import dataModel.Product;
-import model.AccountsModel;
 import view.AbstractFrame;
 
 /**
@@ -30,7 +30,7 @@ public class DBSaver extends AbstractDB {
 
 	public static void addCompany(final UUID uuid) {
 		new DBSaver(uuid.toString(), null,
-				new DBDataModel(AccountsModel.chartOfAccounts(), new LinkedList<Customers_Suppliers>(),
+				new DBDataModel(new LinkedList<Account>(), new LinkedList<Customers_Suppliers>(),
 						new LinkedList<Movement>(), new LinkedList<Product>(), uuid.toString())).start();
 	}
 
