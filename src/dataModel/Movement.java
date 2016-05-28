@@ -23,11 +23,6 @@ public class Movement implements IDataTableModel {
 	}
 
 	private Date data;
-	
-	@Override
-	public String toString() {
-		return "Movement [data=" + data + ", listaConti=" + listaConti + "]";
-	}
 
 	private LinkedList<Operation> listaConti;
 
@@ -45,25 +40,30 @@ public class Movement implements IDataTableModel {
 	}
 
 	@Override
-	public String getValueAt(int column) {
-		switch (column) {
-		case 0:
-			return getData().toString();
-		case 1:
-			for (Operation o : listaConti) {
-				return o.getConto().getName();
+	public Object getValueAt(int column) {
+		String str = "";
+		if (listaConti.size() > 0) {
+			switch (column) {
+			case 0:
+				return getData();
+			case 1:
+				str = String.valueOf(listaConti.get(0).getConto().getName());
+				for (int i = 1; i < listaConti.size(); i++) {
+					str += "\n" + listaConti.get(i).getConto().getName();
+				}
+			case 2:
+				str = String.valueOf(listaConti.get(0).getDare());
+				for (int i = 1; i < listaConti.size(); i++) {
+					str += "\n" + listaConti.get(i).getDare();
+				}
+			case 3:
+				str = String.valueOf(listaConti.get(0).getAvere());
+				for (int i = 1; i < listaConti.size(); i++) {
+					str += "\n" + listaConti.get(i).getAvere();
+				}
 			}
-		case 2:
-			for (Operation o : listaConti) {
-				return Float.toString(o.getDare());
-			}
-		case 3:
-			for (Operation o : listaConti) {
-				return Float.toString(o.getAvere());
-			}
-		default:
-			return "";
 		}
+		return str;
 	}
 
 	public void setData(Date data) {
@@ -72,6 +72,11 @@ public class Movement implements IDataTableModel {
 
 	public void setListaConti(LinkedList<Operation> listaContiUsati) {
 		this.listaConti = listaContiUsati;
+	}
+
+	@Override
+	public String toString() {
+		return "Movement [data=" + data + ", listaConti=" + listaConti + "]";
 	}
 
 }

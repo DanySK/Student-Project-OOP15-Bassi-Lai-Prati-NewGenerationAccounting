@@ -38,6 +38,7 @@ public class MovimentiCellEditor extends AbstractCellEditor implements TableCell
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
 		if (value instanceof Account) {
 			this.account = (Account) value;
+
 		}
 		JComboBox<Account> comboAcc = new JComboBox<Account>();
 		for (Account acc : listAccount) {
@@ -48,7 +49,7 @@ public class MovimentiCellEditor extends AbstractCellEditor implements TableCell
 		if (isSelected) {
 			comboAcc.setBackground(table.getSelectionBackground());
 		} else {
-			comboAcc.setBackground(table.getSelectionForeground());
+			comboAcc.setBackground(table.getBackground());
 		}
 		return comboAcc;
 	}

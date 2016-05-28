@@ -30,10 +30,7 @@ import controller.movimenti.MovimentiCellEditor;
 import controller.movimenti.MovimentiCellRenderer;
 import controller.popup.PopupControllerImpl;
 import dataEnum.IDataEnum;
-import dataEnum.Natures;
-import dataEnum.Sections;
 import dataModel.Account;
-import dataModel.Movement;
 import dataModel.Operation;
 import view.AbstractFrame;
 import view.MyEdiTableModel;
@@ -145,16 +142,15 @@ public class AddEditPopupView extends AbstractFrame {
 
 	private JTable getOperationEdiTable(final List<Operation> operationsList) {
 		final JTable myTable = new JTable();
-		myTable.setPreferredSize(new Dimension(350, 100));
-		//if (operationsList.size() == 0){
-			LinkedList<Operation> lista = new LinkedList<Operation>();
-			lista.add(new Operation(observer.getAccountsList().getFirst(), (float)5.12, (float) 12.14));
-			lista.add(new Operation(observer.getAccountsList().getFirst(), (float)5.12, (float) 12.14));
-			lista.add(new Operation(observer.getAccountsList().getFirst(), (float)5.12, (float) 12.14));
-		//}
+		myTable.setPreferredSize(new Dimension(350, 175));
+		LinkedList<Account> accountList = observer.getAccountsList();
+		for (; operationsList.size() < 10;) {
+			operationsList.add(new Operation(accountList.getFirst(), 0, 0));
+		}
 		final MyEdiTableModel<Operation> tableModel = new MyEdiTableModel<Operation>(Operation.getIntestazione(),
-				lista) {
+				operationsList) {
 			private static final long serialVersionUID = -7742093275061915171L;
+
 			@Override
 			public Class<?> getColumnClass(int column) {
 				return Operation.getColumnClass(column);
@@ -162,7 +158,7 @@ public class AddEditPopupView extends AbstractFrame {
 		};
 		myTable.setModel(tableModel);
 		myTable.setDefaultRenderer(Account.class, new MovimentiCellRenderer());
-		myTable.setDefaultEditor(Account.class, new MovimentiCellEditor(observer.getAccountsList()));
+		myTable.setDefaultEditor(Account.class, new MovimentiCellEditor(accountList));
 		return myTable;
 	}
 }

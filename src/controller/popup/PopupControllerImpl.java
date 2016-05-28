@@ -24,7 +24,6 @@ import dataEnum.PopupMode;
 import dataModel.Account;
 import dataModel.Operation;
 import model.AbstractModel;
-import model.AccountsModel;
 import model.MovementsModel;
 import view.AbstractAnagraficaView;
 import view.popup.AddEditPopupView;
@@ -44,6 +43,7 @@ public class PopupControllerImpl implements IViewObserver {
 	private final AddEditPopupView view;
 	private final PopupMode mode;
 	private final Map<String, Object> mappa;
+	private Account emptyAccount;
 
 	public PopupControllerImpl(final PopupMode mode, final AbstractModel model,
 			final IAnagraficaViewObserver parentController, final AbstractAnagraficaView parentView)
@@ -97,7 +97,9 @@ public class PopupControllerImpl implements IViewObserver {
 
 	public LinkedList<Account> getAccountsList() {
 		if (model instanceof MovementsModel) {
-			return ((MovementsModel) model).getAllAccounts();
+			LinkedList<Account> accounts = ((MovementsModel) model).getAllAccounts();
+			emptyAccount = accounts.getFirst();
+			return accounts;
 		}
 		return null;
 	}
@@ -148,13 +150,15 @@ public class PopupControllerImpl implements IViewObserver {
 			} else if (defaultValue instanceof Enum && defaultValue instanceof IDataEnum
 					&& field instanceof JComboBox) {
 				map.put(key, ((JComboBox<?>) field).getSelectedItem());
-			} else if (defaultValue instanceof LinkedList && field instanceof JTable && defaultValue.getClass().isAssignableFrom(LinkedList.class)){
+			} else if (defaultValue instanceof LinkedList && field instanceof JTable
+					&& defaultValue.getClass().isAssignableFrom(LinkedList.class)) {
 				LinkedList<Operation> operations = new LinkedList<Operation>();
 				TableModel table = ((JTable) field).getModel();
 				for (int i = 0; i < table.getRowCount(); i++) {
 					if (Operation.getColumnClass(0) == table.getValueAt(i, 0).getClass()
 							&& Operation.getColumnClass(1) == table.getValueAt(i, 1).getClass()
-							&& Operation.getColumnClass(2) == table.getValueAt(i, 2).getClass()) {
+							&& Operation.getColumnClass(2) == table.getValueAt(i, 2).getClass()
+							&& !table.getValueAt(i, 0).equals(emptyAccount)) {
 						operations.add(new Operation((Account) table.getValueAt(i, 0), (float) table.getValueAt(i, 1),
 								(float) table.getValueAt(i, 2)));
 					}

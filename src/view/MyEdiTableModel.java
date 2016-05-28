@@ -34,8 +34,9 @@ public abstract class MyEdiTableModel<E extends IEdiTableDataModel> extends MyTa
 		return true;
 	}
 
-	void setValueAt(final Object value, final Operation operation, final int column) {
-		System.out.println("set" + value + "  " + column);
+	@Override
+	public void setValueAt(Object value, int row, int column) {
+		Operation operation = (Operation) objectsList.get(row);
 		if (operation != null) {
 			operation.setValueAt(value, column);
 		}

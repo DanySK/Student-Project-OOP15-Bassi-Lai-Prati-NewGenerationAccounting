@@ -77,7 +77,6 @@ public class Operation implements IEdiTableDataModel {
 
 	@Override
 	public void setValueAt(Object value, int column) throws IllegalArgumentException {
-		System.out.println(value + "  " + column);
 		switch (column) {
 		case 0:
 			if (value instanceof Account) {

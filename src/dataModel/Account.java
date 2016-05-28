@@ -111,7 +111,7 @@ public class Account implements IDataTableModel {
 
 	@Override
 	public String toString() {
-		return "Account [natura=" + natura + ", nome=" + nome + ", saldo=" + saldo + "]";
+		return nome;
 	}
 
 }

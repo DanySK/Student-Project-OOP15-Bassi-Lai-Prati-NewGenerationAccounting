@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
+import dataEnum.Natures;
+import dataEnum.Sections;
 import dataModel.Account;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
@@ -41,13 +43,13 @@ public class MovementsModel extends AbstractModel {
 		if (listaMovimenti.contains(m)) {
 			throw new InstanceAlreadyExistsException("elemento già esistente");
 		}
-		if (m.getData() == null || m.getListaConti().isEmpty()) { 
+		if (m.getData() == null || m.getListaConti().isEmpty()) {
 			throw new IllegalArgumentException("data non valida o lista vuota");
 		}
 		listaMovimenti.add(m);
 		LinkedList<Account> accountList = db.getAccounts();
 		for (Operation op : m.getListaConti()) {
-			//da sistemare in modo sensato.
+			// da sistemare in modo sensato.
 		}
 		db.setAccounts(accountList);
 	}
@@ -68,6 +70,12 @@ public class MovementsModel extends AbstractModel {
 		} else {
 			throw new IllegalArgumentException("l'oggetto passato non è un movimento");
 		}
+	}
+
+	public LinkedList<Account> getAllAccounts() {
+		LinkedList<Account> accounts = db.getAccounts();
+		accounts.add(0, new Account("", Natures.ATTIVITA, Sections.IMMOBILIZZAZIONI_IMMATERIALI, 0));
+		return accounts;
 	}
 
 	@Override
@@ -160,9 +168,5 @@ public class MovementsModel extends AbstractModel {
 	public DBDataModel saveDBAndClose() {
 		db.setMoviments(listaMovimenti);
 		return db;
-	}
-
-	public LinkedList<Account> getAllAccounts() {
-		return db.getAccounts();
 	}
 }

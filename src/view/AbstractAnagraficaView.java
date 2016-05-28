@@ -69,7 +69,8 @@ public abstract class AbstractAnagraficaView<E extends IDataTableModel> extends 
 		footer.add(tasto3);
 		footer.add(tasto4);
 		this.tableModel = new MyTableModel<E>(intestazione, lista);
-		getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setAutoCreateRowSorter(true);
 		final JScrollPane scrollPane = new JScrollPane(table);
 		table.setModel(tableModel);
 		getMyFrame().getContentPane().add(scrollPane, BorderLayout.CENTER);
