@@ -47,19 +47,19 @@ public class Movement implements IDataTableModel {
 			case 0:
 				return getData();
 			case 1:
-				str = String.valueOf(listaConti.get(0).getConto().getName());
+				str = listaConti.get(0).getConto().getName();
 				for (int i = 1; i < listaConti.size(); i++) {
 					str += "\n" + listaConti.get(i).getConto().getName();
 				}
 			case 2:
 				str = String.valueOf(listaConti.get(0).getDare());
 				for (int i = 1; i < listaConti.size(); i++) {
-					str += "\n" + listaConti.get(i).getDare();
+					str += "\n" + String.valueOf(listaConti.get(i).getDare());
 				}
 			case 3:
 				str = String.valueOf(listaConti.get(0).getAvere());
 				for (int i = 1; i < listaConti.size(); i++) {
-					str += "\n" + listaConti.get(i).getAvere();
+					str += "\n" + String.valueOf(listaConti.get(i).getAvere());
 				}
 			}
 		}

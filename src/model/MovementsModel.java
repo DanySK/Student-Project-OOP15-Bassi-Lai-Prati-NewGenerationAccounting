@@ -106,7 +106,7 @@ public class MovementsModel extends AbstractModel {
 
 	@Override
 	public LinkedList<Movement> load() {
-		return new LinkedList<Movement>(db.getMoviments());
+		return listaMovimenti;
 	}
 
 	@Override

@@ -19,7 +19,6 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -110,10 +109,8 @@ public class AddEditPopupView extends AbstractFrame {
 				} else if (item instanceof LinkedList) {
 					if (item.getClass().isAssignableFrom(LinkedList.class)) {
 						final JTable operationTable = getOperationEdiTable((LinkedList<Operation>) item);
-						final JScrollPane scrollpane = new JScrollPane(operationTable);
-						scrollpane.setPreferredSize(new Dimension(325, 100));
 						compoMap.put(campo, operationTable);
-						itemPanel.add(scrollpane);
+						itemPanel.add(operationTable);
 					}
 				}
 				mainPanel.add(itemPanel);
@@ -142,9 +139,9 @@ public class AddEditPopupView extends AbstractFrame {
 
 	private JTable getOperationEdiTable(final List<Operation> operationsList) {
 		final JTable myTable = new JTable();
-		myTable.setPreferredSize(new Dimension(350, 175));
+		myTable.setPreferredSize(new Dimension(325, 150));
 		LinkedList<Account> accountList = observer.getAccountsList();
-		for (; operationsList.size() < 10;) {
+		for (; operationsList.size() < 7;) {
 			operationsList.add(new Operation(accountList.getFirst(), 0, 0));
 		}
 		final MyEdiTableModel<Operation> tableModel = new MyEdiTableModel<Operation>(Operation.getIntestazione(),

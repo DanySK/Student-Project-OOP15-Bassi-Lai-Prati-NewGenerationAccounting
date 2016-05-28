@@ -85,19 +85,17 @@ public class ProductsModel extends AbstractModel {
 	@Override
 	protected void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare)
 			throws InstanceNotFoundException {
-				
-		
+
 		((Product) obj).setNome((String) infoDaModificare.get(nome));
 		((Product) obj).setCod_acquisto((Integer) infoDaModificare.get(codiceA));
-		((Product) obj).setCod_vendita((Integer) infoDaModificare.get(codiceV));		
+		((Product) obj).setCod_vendita((Integer) infoDaModificare.get(codiceV));
 		((Product) obj).setCategoria((String) infoDaModificare.get(categoria));
 		((Product) obj).setDescrizione((String) infoDaModificare.get(descrizione));
 		((Product) obj).setPrezzovendita((Integer) infoDaModificare.get(prezzo));
-		
-		
-				if (trovato == false) {
-					throw new InstanceNotFoundException("Elemento da modificare non presente.");
-				}
+
+		if (trovato == false) {
+			throw new InstanceNotFoundException("Elemento da modificare non presente.");
+		}
 	}
 
 	@Override

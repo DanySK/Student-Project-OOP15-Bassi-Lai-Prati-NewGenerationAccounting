@@ -118,7 +118,7 @@ public class CustomersSuppliersModel extends AbstractModel {
 		if (!listaRapportiC.contains(obj)) {
 			throw new InstanceNotFoundException("Elemento da modificare non presente, riprovare.");
 		} else {
-			
+
 			((Customers_Suppliers) obj).setCf((String) infoDaModificare.get(CF));
 			((Customers_Suppliers) obj).setCitta((String) infoDaModificare.get(Citta));
 			((Customers_Suppliers) obj).setCognome((String) infoDaModificare.get(Cognome));
@@ -130,11 +130,11 @@ public class CustomersSuppliersModel extends AbstractModel {
 			((Customers_Suppliers) obj).setRuolo((KindPerson) infoDaModificare.get(ruolo));
 			((Customers_Suppliers) obj).setSesso((Gender) infoDaModificare.get(sesso));
 
-				}
-				if (trovato == false) {
-					throw new InstanceNotFoundException("Elemento da modificare non presente.");
-				}
-					
+		}
+		if (trovato == false) {
+			throw new InstanceNotFoundException("Elemento da modificare non presente.");
+		}
+
 	}
 
 	@Override

@@ -170,7 +170,6 @@ public class CompanyModel extends AbstractModel {
 	 * Controllo che la password sia giusta
 	 * 
 	 */
-
 	public boolean isPasswordCorrect(final char[] password, final Company company) {
 		return Arrays.equals(password, company.getPassword());
 	}
