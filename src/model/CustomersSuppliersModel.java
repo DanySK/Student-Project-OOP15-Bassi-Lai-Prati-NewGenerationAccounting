@@ -161,8 +161,6 @@ public class CustomersSuppliersModel extends AbstractModel {
 			mappaVuota.put(Debito, new Integer(0));
 			mappaVuota.put(Telefono, new String(""));
 			mappaVuota.put(Ruolostring, KindPerson.CLIENTE);
-			mappaVuota.put(Ruolostring, KindPerson.FORNITORE);
-			mappaVuota.put(Sessostring, Gender.F);
 			mappaVuota.put(Sessostring, Gender.M);
 
 			return mappaVuota;
