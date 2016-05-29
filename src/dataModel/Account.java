@@ -34,7 +34,7 @@ public class Account implements IDataTableModel {
 		this.sezione = sezione;
 	}
 
-	public float decrSaldo(float variazione) {
+	public float decrSaldo(Float variazione) {
 		return this.saldo -= variazione;
 	}
 
@@ -101,7 +101,7 @@ public class Account implements IDataTableModel {
 		this.natura = natura;
 	}
 
-	public void setSaldo(long saldo) {
+	public void setSaldo(float saldo) {
 		this.saldo = saldo;
 	}
 

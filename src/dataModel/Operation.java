@@ -27,9 +27,9 @@ public class Operation implements IEdiTableDataModel {
 
 	private Account conto;
 
-	private float dare;
+	private Float dare;
 
-	private float avere;
+	private Float avere;
 
 	public Operation(Account conto, float dare, float avere) {
 		this.conto = conto;

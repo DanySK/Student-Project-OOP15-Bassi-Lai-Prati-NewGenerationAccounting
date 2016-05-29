@@ -39,20 +39,37 @@ public class MovementsModel extends AbstractModel {
 
 	@Override
 	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException, InstanceNotFoundException {
-		// controllare qui e nella edit che il movimento abbia il saldo dare e
-		// avere uguali
-		// una riga del movimento non può avere dare e avere insieme
-		if (!(elem.get(DATA) instanceof Date)) {
-			throw new IllegalArgumentException("data inserita non valida");
-		}
-		if (!(elem.get(LISTA) instanceof LinkedList)) {
-			throw new IllegalArgumentException("lista inserita non valida");
-		}
-		Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
-		if (listaMovimenti.contains(m)) {
-			throw new InstanceAlreadyExistsException("elemento già esistente");
-		}
-		listaMovimenti.add(m);
+	    float totAvere = 0;
+	    float totDare = 0;
+	    //controllare qui e nella edit che il movimento abbia il saldo dare e avere uguali
+	    // una riga del movimento non può avere dare e avere insieme
+	        if(!(elem.get(DATA) instanceof Date)){
+	            throw new IllegalArgumentException("data inserita non valida");
+	        }
+	        if(!(elem.get(LISTA)instanceof LinkedList)){
+	            throw new IllegalArgumentException("lista inserita non valida");
+	        }
+	        Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
+	        // per ogni operazione in m.getList:
+	        //1) dare e avere != 0 -> NO
+	        //2) dare e avere ==0 -> NO
+	        //in m tot dare e tot avere devono essere uguali
+	        for(Operation op : m.getListaConti()){
+	            if(op.getAvere()!=0){
+	                if(op.getDare() == 0)totAvere = totAvere + op.getAvere();
+	                else throw new IllegalArgumentException("in un'operazione non possono esserci 2 valori > 0");
+	            }
+	            else if(op.getAvere() == 0){
+	                if(op.getDare()!=0) totDare = totDare + op.getDare();
+	                else throw new IllegalArgumentException("in un'operazione non possono esserci 2 valori = 0");
+	            }
+	        }
+	        System.out.println(Float.toString(totDare));
+	        System.out.println("\n"+Float.toString(totAvere));
+	        if(totAvere != totDare){
+	            throw new IllegalArgumentException("totale dare diverso da totale avere");
+	        }
+	        listaMovimenti.add(m);
 		LinkedList<Account> accountList = db.getAccounts();
 		for (Operation op : m.getListaConti()) {
 			if (accountList.contains(op.getConto())) {
@@ -70,9 +87,9 @@ public class MovementsModel extends AbstractModel {
 			} else {
 				throw new InstanceNotFoundException("il conto cercato non è presente in lista");
 			}
-		}
-		db.setAccounts(accountList);
-	}
+		    }
+		    db.setAccounts(accountList);
+	        }
 
 	@Override
 	public void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare)
@@ -161,16 +178,15 @@ public class MovementsModel extends AbstractModel {
 		AccountsModel a = new AccountsModel(db);
 		if (elemDaEliminare instanceof Movement) {
 			Movement m = (Movement) elemDaEliminare;
-			if (m.getData() == null || m.getListaConti().isEmpty()) {
+			if (!(m.getData() instanceof Date) || m.getListaConti().isEmpty()) {
 				throw new IllegalArgumentException("data non valida o lista vuota");
 			} else {
 				if (listaMovimenti.contains(m)) {
 					listaMovimenti.remove(m);
 					for (Operation op : m.getListaConti()) {
-						temp = op.getAvere();
-						op.setAvere(op.getDare());
-						op.setDare(temp);
-						a.updateAccounts(op);
+						//for(Account a : db.getAccounts()){
+						    //finire
+						//}
 					}
 				} else {
 					throw new InstanceNotFoundException("elemento da eliminarenon è presente in lista");
