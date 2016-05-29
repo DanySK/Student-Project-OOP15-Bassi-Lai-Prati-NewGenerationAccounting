@@ -92,11 +92,28 @@ public class MovementsModel implements ModelInterface {
 	        }
 
 	@Override
-	public void edit(IDataTableModel obj, Map<String, Object> elemDaModificare) throws IllegalArgumentException, InstanceNotFoundException, InstanceAlreadyExistsException {
-		if (obj instanceof Movement) {
+	public void edit(IDataTableModel obj, Map<String, Object> elemDaModificare)
+			throws IllegalArgumentException, InstanceNotFoundException, InstanceAlreadyExistsException {
+		System.out.println(obj);
+		Movement m = new Movement((Date) elemDaModificare.get(DATA), (LinkedList<Operation>) elemDaModificare.get(LISTA));
+	    if (obj instanceof Movement) {
+	        for(Operation op : ((Movement) obj).getListaConti()){
+	            for (Operation elem : m.getListaConti()){
+	              if(op.getConto() == elem.getConto()){
+	                  if(op.getAvere()>0 && elem.getAvere() == 0) elem.setAvere(op.getAvere());
+	                  if(op.getDare()>0 && elem.getDare() == 0) elem.setDare(op.getDare());
+	                  
+	              }
+	            }
+	        }
+	        elemDaModificare.remove(DATA);
+	        elemDaModificare.remove(LISTA);
+	        elemDaModificare.put(DATA, m.getData());
+	        elemDaModificare.put(LISTA, m.getListaConti());
 			for (Movement mov : listaMovimenti) {
 				if (mov == obj) {
-					remove(mov);
+				   
+					remove(mov);				
 					add(elemDaModificare);
 				}
 			}
@@ -174,7 +191,6 @@ public class MovementsModel implements ModelInterface {
 
 	@Override
 	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException {
-		AccountsModel a = new AccountsModel(db);
 		if (elemDaEliminare instanceof Movement) {
 			Movement m = (Movement) elemDaEliminare;
 			if (!(m.getData() instanceof Date) || m.getListaConti().isEmpty()) {
@@ -184,11 +200,21 @@ public class MovementsModel implements ModelInterface {
 					listaMovimenti.remove(m);
 					for (Operation op : m.getListaConti()) {
 						for(Account acc : db.getAccounts()){
-						    if (acc.getNatura() == Natures.ATTIVITA || acc.getNatura() == Natures.COSTO) {
-                                                        
-                                                } else if (acc.getNatura() == Natures.PASSIVITA || acc.getNatura() == Natures.RICAVO) {
-                                                        
-                                                }
+						    if(acc == op.getConto()){
+						        if(acc.getNatura() == Natures.ATTIVITA || acc.getNatura() == Natures.COSTO){
+						            if(op.getDare()>0){
+						                acc.decrSaldo(op.getDare());
+						            }
+						            else acc.incrSaldo(op.getAvere());
+						        }
+						        else if(acc.getNatura() == Natures.PASSIVITA || acc.getNatura() == Natures.COSTO){
+						            
+						            if(op.getDare()>0){
+                                                                acc.incrSaldo(op.getDare());
+                                                            }
+                                                            else acc.decrSaldo(op.getAvere());
+						        }
+						    }
 						}
 					}
 				} else {
