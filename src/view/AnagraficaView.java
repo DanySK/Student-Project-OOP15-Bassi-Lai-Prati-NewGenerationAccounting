@@ -35,8 +35,8 @@ public class AnagraficaView<E extends IDataTableModel> extends AbstractFrame {
 
 	private static final long serialVersionUID = -1706093338606827050L;
 
-	private MyTableModel<E> tableModel;
-	protected IAnagraficaViewObserver observer;
+	private final MyTableModel<E> tableModel;
+	private IAnagraficaViewObserver observer;
 	private final JTable table = new JTable();
 	private final JButton tasto0 = new JButton();
 	private final JButton tasto1 = new JButton();
@@ -80,25 +80,25 @@ public class AnagraficaView<E extends IDataTableModel> extends AbstractFrame {
 
 	private void addListeners() {
 		tasto0.addActionListener(e -> {
-			observer.tasto0();
+			getObserver().tasto0();
 		});
 		tasto1.addActionListener(e -> {
-			observer.tasto1();
+			getObserver().tasto1();
 		});
 		tasto2.addActionListener(e -> {
-			observer.tasto2();
+			getObserver().tasto2();
 		});
 		tasto3.addActionListener(e -> {
-			observer.tasto3();
+			getObserver().tasto3();
 		});
 		tasto4.addActionListener(e -> {
-			observer.chiusura();
+			getObserver().chiusura();
 		});
 	}
 
 	@Override
 	protected void chiusura() {
-		observer.chiusura();
+		getObserver().chiusura();
 	}
 
 	protected MyTableModel<E> getModel() {
@@ -124,5 +124,12 @@ public class AnagraficaView<E extends IDataTableModel> extends AbstractFrame {
 
 	public void setObserver(final IAnagraficaViewObserver observer) {
 		this.observer = observer;
+	}
+
+	/**
+	 * @return the observer
+	 */
+	public IAnagraficaViewObserver getObserver() {
+		return observer;
 	}
 }

@@ -3,13 +3,17 @@
  */
 package controller.creaFattura;
 
+import java.util.LinkedList;
+
 import javax.management.InstanceNotFoundException;
+import javax.swing.ComboBoxModel;
 
 import controller.IAnagraficaViewObserver;
 import controller.dbController.DBSaver;
 import controller.main.MainControllerImpl;
 import controller.popup.PopupControllerImpl;
 import dataEnum.PopupMode;
+import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
 import model.CreaFattureModel;
 import view.creaFattura.CreaFatturaView;
@@ -83,5 +87,14 @@ public class CreaFatturaControllerImpl implements IAnagraficaViewObserver {
 			view.errorDialog("Errore", e.getMessage());
 		}
 		refresh();
+	}
+	
+	public ComboBoxModel<Customers_Suppliers> getCustomersList(){	
+		
+		return null;//ComboBoxModel<Customers_Suppliers>;//comboBoxModel(model.getListaclienti());
+	}
+
+	public void create(Customers_Suppliers item) {
+		model.create(item);
 	}
 }

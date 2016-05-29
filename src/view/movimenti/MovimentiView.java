@@ -33,6 +33,11 @@ public class MovimentiView extends AnagraficaView<Movement> {
 		super(lista, Movement.getIntestazione(), title);
 		getTable().getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 344922533977603652L;
+
 			@Override
 			public void setValue(Object value) {
 				setText(new SimpleDateFormat("dd/MM/yyyy").format((Date) value));
@@ -49,7 +54,7 @@ class MultiLineCellRenderer extends JTextArea implements TableCellRenderer {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7815180422642482612L;
 
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,

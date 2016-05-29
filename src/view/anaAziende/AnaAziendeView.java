@@ -51,7 +51,7 @@ public class AnaAziendeView extends AnagraficaView<Company> {
 				errorDialog("Errore", ex.getMessage());
 			}
 			if (item != null) {
-				((AnaAziendeControllerImpl) observer).accedi();
+				((AnaAziendeControllerImpl) getObserver()).accedi();
 			} else {
 				errorDialog("Attenzione, seleziona una riga per continuare!", "nessuna riga selezionata");
 			}

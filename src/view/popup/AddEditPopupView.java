@@ -106,12 +106,11 @@ public class AddEditPopupView extends AbstractFrame {
 					}
 					compoMap.put(campo, jcb);
 					itemPanel.add(jcb);
-				} else if (item instanceof LinkedList) {
-					if (item.getClass().isAssignableFrom(LinkedList.class)) {
-						final JTable operationTable = getOperationEdiTable((LinkedList<Operation>) item);
+				} else if (item instanceof LinkedList && item.getClass().isAssignableFrom(LinkedList.class)) {
+					@SuppressWarnings("unchecked")
+					final JTable operationTable = getOperationEdiTable((LinkedList<Operation>) item);
 						compoMap.put(campo, operationTable);
 						itemPanel.add(operationTable);
-					}
 				}
 				mainPanel.add(itemPanel);
 				itemPanel.setAlignmentX(Component.CENTER_ALIGNMENT);

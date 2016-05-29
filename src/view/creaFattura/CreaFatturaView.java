@@ -7,13 +7,14 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.util.LinkedList;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import controller.anaAziende.AnaAziendeControllerImpl;
+import controller.creaFattura.CreaFatturaControllerImpl;
 import dataModel.Company;
 import dataModel.Customers_Suppliers;
 import dataModel.Item;
@@ -36,7 +37,7 @@ public class CreaFatturaView extends AnagraficaView<Item> {
 	 */
 	public CreaFatturaView(final LinkedList<Item> lista, final String title) {
 		super(lista, Item.getIntestazione(), title);
-		customerField = new JComboBox<Customers_Suppliers>();
+		customerField = new JComboBox<Customers_Suppliers>(((CreaFatturaControllerImpl)getObserver()).getCustomersList());
 		JButton creaButton = new JButton("Accedi");
 		JPanel topPanel = new JPanel(new FlowLayout());
 		topPanel.add(new JLabel("Seleziona il cliente: "));
@@ -45,15 +46,15 @@ public class CreaFatturaView extends AnagraficaView<Item> {
 		getMyFrame().getContentPane().add(topPanel, BorderLayout.NORTH);
 		SwingUtilities.getRootPane(getMyFrame()).setDefaultButton(creaButton);
 		creaButton.addActionListener(e -> {
-			Company item = null;
+			Customers_Suppliers item = null;
 			try {
-				item = (Company) getSelectedItem();
+				item = (Customers_Suppliers) getSelectedItem();
 			} catch (Exception ex) {
 				errorDialog("Errore", ex.getMessage());
 				return;
 			}
 			if (item != null) {
-				((AnaAziendeControllerImpl) observer).accedi();
+				((CreaFatturaControllerImpl)getObserver()).create(item);
 			} else {
 				errorDialog("Attenzione, seleziona una riga per continuare!", "nessuna riga selezionata");
 			}

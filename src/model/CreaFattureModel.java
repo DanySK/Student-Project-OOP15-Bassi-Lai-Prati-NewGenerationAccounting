@@ -162,4 +162,10 @@ public class CreaFattureModel extends AbstractModel {
 		return db;
 	}
 
+	public DBDataModel create(Customers_Suppliers item) {
+		//fai
+		
+		return db;
+	}
+
 }
