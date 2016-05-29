@@ -160,13 +160,19 @@ public class CustomersSuppliersModel extends AbstractModel {
 			mappaVuota.put(Credito, new Integer(0));
 			mappaVuota.put(Debito, new Integer(0));
 			mappaVuota.put(Telefono, new String(""));
-			mappaVuota.put(Ruolostring, KindPerson.CLIENTE);
-			mappaVuota.put(Sessostring, Gender.M);
+			mappaVuota.put(Ruolostring, KindPerson.NESSUNO);
+			mappaVuota.put(Sessostring, Gender.NESSUNO);
 
 			return mappaVuota;
 
 		} else {
-			if (obj instanceof Customers_Suppliers) {
+			if (obj instanceof Customers_Suppliers ) {
+				
+				
+				//controlli :
+				// obj !obj.getRuolo(NESSUNO) 
+				// obj !obj.getSesso(NESSUNO)
+				
 				Map<String, Object> mappaPiena = new HashMap<>();
 				mappaPiena.put(CF, ((Customers_Suppliers) obj).getCf());
 				mappaPiena.put(Citta, ((Customers_Suppliers) obj).getCitta());
