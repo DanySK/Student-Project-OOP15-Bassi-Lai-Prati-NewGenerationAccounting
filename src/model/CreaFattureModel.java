@@ -1,9 +1,12 @@
 package model;
 
+import java.util.AbstractList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import dataEnum.KindPerson;
+import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 import dataModel.Item;
@@ -33,6 +36,11 @@ public class CreaFattureModel extends AbstractModel {
 
 	public CreaFattureModel(DBDataModel db) {
 		this.db = db;
+	}
+	
+	public CreaFattureModel()
+	{
+		LinkedList<Item> listaCarrello;
 	}
 
 	@Override
@@ -112,6 +120,20 @@ public class CreaFattureModel extends AbstractModel {
 		return new LinkedList<Item>(listaCarrello);
 	}
 
+	public  LinkedList<Customers_Suppliers> getListaclienti()
+	{
+		
+		LinkedList<Customers_Suppliers> listaClienti = null;
+		
+		for (Customers_Suppliers controlloCliente : db.getCustomersSuppliers()){
+			if(controlloCliente.getRuolo() == KindPerson.CLIENTE){
+			listaClienti.add(controlloCliente);
+			}
+		}
+		return listaClienti;
+	}
+	
+	
 	@Override
 	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
 		LinkedList<Item> listaFiltrata = new LinkedList<>();
