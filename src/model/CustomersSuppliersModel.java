@@ -20,7 +20,7 @@ import dataModel.IDataTableModel;
  *
  */
 
-public class CustomersSuppliersModel extends AbstractModel {
+public class CustomersSuppliersModel implements ModelInterface {
 
 	private final String CF = "CF";
 	private final String Citta = "Citta'";
@@ -47,14 +47,14 @@ public class CustomersSuppliersModel extends AbstractModel {
 	}
 
 	@Override
-	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException, InstanceAlreadyExistsException { // controllare
+	public void add(Map<String, Object> elem) throws IllegalArgumentException, InstanceAlreadyExistsException { // controllare
 
 		if (elem.get(CF) == "") {
 			throw new IllegalArgumentException("CF non valido. Riprovare.");
 		}
 
 		if (elem.get(Citta) == "") {
-			throw new IllegalArgumentException("Città non valida. Riprovare.");
+			throw new IllegalArgumentException("Cittï¿½ non valida. Riprovare.");
 		}
 
 		if (elem.get(Cognome) == "") {
@@ -112,7 +112,7 @@ public class CustomersSuppliersModel extends AbstractModel {
 	}
 
 	@Override
-	protected void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare)
+	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare)
 			throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException {
 
 		if (!listaRapportiC.contains(obj)) {

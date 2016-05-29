@@ -18,7 +18,7 @@ import dataModel.Product;
  *
  */
 
-public class ProductsModel extends AbstractModel {
+public class ProductsModel implements ModelInterface {
 
 	private final static String nome = "NProdotto";
 	private final static String codiceA = "CodiceAcquisto";
@@ -39,7 +39,7 @@ public class ProductsModel extends AbstractModel {
 	}
 
 	@Override
-	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
+	public void add(Map<String, Object> elem) throws IllegalArgumentException {
 
 		if (elem.get(nome) == "") {
 			throw new IllegalArgumentException("Nome non valido. Riprovare.");
@@ -83,7 +83,7 @@ public class ProductsModel extends AbstractModel {
 	}
 
 	@Override
-	protected void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare)
+	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare)
 			throws InstanceNotFoundException {
 
 		((Product) obj).setNome((String) infoDaModificare.get(nome));

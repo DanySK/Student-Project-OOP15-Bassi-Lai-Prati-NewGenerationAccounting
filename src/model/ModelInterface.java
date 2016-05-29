@@ -9,7 +9,7 @@ import javax.management.InstanceNotFoundException;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 
-public abstract class AbstractModel {
+public interface ModelInterface {
 
 	/**
 	 * funzione di salvataggio dei dati del database
@@ -20,9 +20,7 @@ public abstract class AbstractModel {
 	 */
 
 	public void add(Map<String, Object> elem)
-			throws IllegalArgumentException, InstanceAlreadyExistsException, InstanceNotFoundException {
-		addElem(elem);
-	}
+			throws IllegalArgumentException, InstanceAlreadyExistsException, InstanceNotFoundException;
 
 	/**
 	 * operazione per cercare e modificare un oggetto all'interno del dataBase
@@ -35,9 +33,6 @@ public abstract class AbstractModel {
 	 * @throws InstanceAlreadyExistsException
 	 * @throws InstanceNotFoundException
 	 */
-
-	protected abstract void addElem(Map<String, Object> elem)
-			throws IllegalArgumentException, InstanceAlreadyExistsException, InstanceNotFoundException;
 
 	/**
 	 * operazione per rimuovere un oggetto dal dataBase
@@ -52,11 +47,6 @@ public abstract class AbstractModel {
 	 */
 
 	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare)
-			throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException {
-		editElem(obj, infoDaModificare);
-	}
-
-	protected abstract void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare)
 			throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException;
 
 	public abstract Map<String, Object> getFilterMap();

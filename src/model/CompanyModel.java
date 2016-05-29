@@ -21,7 +21,7 @@ import dataModel.IDataTableModel;
  *
  */
 
-public class CompanyModel extends AbstractModel {
+public class CompanyModel implements ModelInterface {
 
 	private final static String ragione_sociale = "Ragione Sociale";
 	private final static String cap = "CAP";
@@ -42,7 +42,7 @@ public class CompanyModel extends AbstractModel {
 	}
 
 	@Override
-	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
+	public void add(Map<String, Object> elem) throws InstanceAlreadyExistsException {
 
 		if (elem.get(ragione_sociale) == "") {
 			throw new IllegalArgumentException("Ragione sociale non valida. Riprovare.");
@@ -90,7 +90,7 @@ public class CompanyModel extends AbstractModel {
 	}
 
 	@Override
-	public void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare)
+	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare)
 			throws InstanceAlreadyExistsException, InstanceNotFoundException {
 
 		((Company) obj).setRagione_sociale((String) infoDaModificare.get(password));

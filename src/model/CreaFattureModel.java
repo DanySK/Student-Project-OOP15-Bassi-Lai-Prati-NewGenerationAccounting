@@ -20,7 +20,7 @@ import dataModel.Product;
  *
  */
 
-public class CreaFattureModel extends AbstractModel {
+public class CreaFattureModel implements ModelInterface {
 
 	private DBDataModel db;
 
@@ -44,7 +44,7 @@ public class CreaFattureModel extends AbstractModel {
 	}
 
 	@Override
-	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
+	public void add(Map<String, Object> elem) throws IllegalArgumentException {
 
 		if (elem.get(prodotto) == "") {
 			throw new IllegalArgumentException("Nome prodotto non valido. Riprovare.");
@@ -75,7 +75,7 @@ public class CreaFattureModel extends AbstractModel {
 	}
 
 	@Override
-	protected void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare) {
+	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare) {
 		if ((Product) infoDaModificare.get(scorta) != null) {
 
 			((Item) obj).setProdotto((Product) infoDaModificare.get(prodotto));

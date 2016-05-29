@@ -20,7 +20,7 @@ import dataModel.Operation;
  * @author niky
  *
  */
-public class AccountsModel extends AbstractModel {
+public class AccountsModel implements ModelInterface {
 
 	private final static String NATURA = "Natura Conto";
 	private final static String NOME = "Nome Conto";
@@ -37,7 +37,7 @@ public class AccountsModel extends AbstractModel {
 	}
 
 	@Override
-	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
+	public void add(Map<String, Object> elem) throws InstanceAlreadyExistsException {
 		if (elem.get(NOME) == "" || elem.get(NATURA) == Natures.NESSUNO || (Sections) elem.get(SEZIONE) == Sections.NESSUNO) {
 			throw new IllegalArgumentException("nome, natura o sezione non valide");
 		}
@@ -69,7 +69,7 @@ public class AccountsModel extends AbstractModel {
 	}
 
 	@Override
-	protected void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare)
+	public void edit(IDataTableModel obj, Map<String, Object> elemDaModificare)
 			throws InstanceNotFoundException { // modifica elementi
 		trovato = false;
 		if (obj instanceof Account) {

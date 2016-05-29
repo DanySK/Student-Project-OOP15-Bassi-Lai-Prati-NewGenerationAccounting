@@ -22,7 +22,7 @@ import dataModel.Operation;
  * @author niky
  *
  */
-public class MovementsModel extends AbstractModel {
+public class MovementsModel implements ModelInterface {
 
 	private final static String DATA = "Data Movimento";
 	private final static String LISTA = "Lista Conti Mossi";
@@ -38,7 +38,7 @@ public class MovementsModel extends AbstractModel {
 	}
 
 	@Override
-	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException, InstanceNotFoundException {
+	public void add(Map<String, Object> elem) throws InstanceAlreadyExistsException, InstanceNotFoundException {
 	    float totAvere = 0;
 	    float totDare = 0;
 	    //controllare qui e nella edit che il movimento abbia il saldo dare e avere uguali
@@ -92,13 +92,12 @@ public class MovementsModel extends AbstractModel {
 	        }
 
 	@Override
-	public void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare)
-			throws IllegalArgumentException, InstanceNotFoundException, InstanceAlreadyExistsException {
+	public void edit(IDataTableModel obj, Map<String, Object> elemDaModificare) throws IllegalArgumentException, InstanceNotFoundException, InstanceAlreadyExistsException {
 		if (obj instanceof Movement) {
 			for (Movement mov : listaMovimenti) {
 				if (mov == obj) {
 					remove(mov);
-					addElem(elemDaModificare);
+					add(elemDaModificare);
 				}
 			}
 		} else {
@@ -184,9 +183,13 @@ public class MovementsModel extends AbstractModel {
 				if (listaMovimenti.contains(m)) {
 					listaMovimenti.remove(m);
 					for (Operation op : m.getListaConti()) {
-						//for(Account a : db.getAccounts()){
-						    //finire
-						//}
+						for(Account acc : db.getAccounts()){
+						    if (acc.getNatura() == Natures.ATTIVITA || acc.getNatura() == Natures.COSTO) {
+                                                        
+                                                } else if (acc.getNatura() == Natures.PASSIVITA || acc.getNatura() == Natures.RICAVO) {
+                                                        
+                                                }
+						}
 					}
 				} else {
 					throw new InstanceNotFoundException("elemento da eliminarenon è presente in lista");
