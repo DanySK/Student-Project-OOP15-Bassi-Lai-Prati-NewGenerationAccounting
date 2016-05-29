@@ -57,7 +57,7 @@ public class Item implements IDataTableModel {
 	public void setProdotto(Product prodotto) {
 		this.prodotto = prodotto;
 	}
-	
+
 	public void setQuantita(int quantita) {
 		this.quantita = quantita;
 	}

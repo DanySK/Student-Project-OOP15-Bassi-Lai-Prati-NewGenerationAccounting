@@ -6,12 +6,14 @@ package controller.anaProd;
 import javax.management.InstanceNotFoundException;
 
 import controller.IAnagraficaViewObserver;
+import controller.dbController.DBSaver;
 import controller.main.MainControllerImpl;
 import controller.popup.PopupControllerImpl;
 import dataEnum.PopupMode;
 import dataModel.DBDataModel;
+import dataModel.Product;
 import model.ProductsModel;
-import view.anaProd.AnaProdView;
+import view.AnagraficaView;
 
 /**
  * implementazione controller anagrafica prodotti
@@ -21,23 +23,24 @@ import view.anaProd.AnaProdView;
  */
 public class AnaProdControllerImpl implements IAnagraficaViewObserver {
 	private final ProductsModel model;
-	private final AnaProdView view;
+	private final AnagraficaView<Product> view;
 
 	/**
 	 * @param view
 	 */
 	public AnaProdControllerImpl(final DBDataModel db, final String title) {
 		this.model = new ProductsModel(db);
-		this.view = new AnaProdView(model.load(), title);
+		this.view = new AnagraficaView<Product>(model.load(), Product.getIntestazione(), title);
 		this.view.setObserver(this);
 		view.start();
 	}
 
 	@Override
 	public void chiusura() {
+		final DBDataModel db = model.saveDBAndClose();
+		new DBSaver(db.getPath(), view, db).start();
 		view.close();
-		new MainControllerImpl(model.saveDBAndClose());
-
+		new MainControllerImpl(db);
 	}
 
 	@Override

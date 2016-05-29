@@ -23,26 +23,26 @@ import view.AbstractWideView;
 public class MainView extends AbstractWideView {
 
 	class myAction implements ActionListener {
-
 		@Override
 		public void actionPerformed(final ActionEvent e) {
+			MainControllerImpl observer = (MainControllerImpl) getObserver();
 			final String action = e.getActionCommand();
 			if (action.equals(listaBtn[0])) {
-				((MainControllerImpl) observer).btn0(action);
+				observer.btn0(action);
 			} else if (action.equals(listaBtn[1])) {
-				((MainControllerImpl) observer).btn1(action);
+				observer.btn1(action);
 			} else if (action.equals(listaBtn[2])) {
-				((MainControllerImpl) observer).btn2(action);
+				observer.btn2(action);
 			} else if (action.equals(listaBtn[3])) {
-				((MainControllerImpl) observer).btn3(action);
+				observer.btn3(action);
 			} else if (action.equals(listaBtn[4])) {
-				((MainControllerImpl) observer).btn4(action);
+				observer.btn4(action);
 			} else if (action.equals(listaBtn[5])) {
-				((MainControllerImpl) observer).btn5(action);
+				observer.btn5(action);
 			} else if (action.equals(listaBtn[6])) {
-				((MainControllerImpl) observer).btn6(action);
+				observer.btn6(action);
 			} else if (action.equals(listaBtn[7])) {
-				((MainControllerImpl) observer).btn7(action);
+				observer.btn7(action);
 			} else {
 				chiusura();
 			}
@@ -75,6 +75,6 @@ public class MainView extends AbstractWideView {
 
 	@Override
 	protected void chiusura() {
-		observer.chiusura();
+		getObserver().chiusura();
 	}
 }

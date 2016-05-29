@@ -43,6 +43,7 @@ public class MainControllerImpl implements IViewObserver {
 	}
 
 	public void btn1(final String title) {
+		new DBSaver(db.getPath(), view, db).start();
 		view.close();
 		try {
 			new AnaAziendeControllerImpl(DBLoader.loadCompanys());

@@ -208,14 +208,14 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		}
 		return (ricVend - costiAcq) / ricVend;
 	}
-	
-    @Override
-    public String AnalisiFinanziaria() {
-        calcolaIndici_Margini();
-        ArrayList<String> commento = new ArrayList<>();
-        // FINIRE
-        return null;
-    }
+
+	@Override
+	public String AnalisiFinanziaria() {
+		calcolaIndici_Margini();
+		ArrayList<String> commento = new ArrayList<>();
+		// FINIRE
+		return null;
+	}
 
 	private Float getROT() {
 		float scorte = 0;

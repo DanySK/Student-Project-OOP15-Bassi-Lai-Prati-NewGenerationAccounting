@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 
 import dataModel.Movement;
-import view.AbstractAnagraficaView;
+import view.AnagraficaView;
 
 /**
  * la view della finestra di gestione dei movimenti
@@ -22,7 +22,7 @@ import view.AbstractAnagraficaView;
  * @author Pentolo
  *
  */
-public class MovimentiView extends AbstractAnagraficaView<Movement> {
+public class MovimentiView extends AnagraficaView<Movement> {
 
 	private static final long serialVersionUID = -7682380373297678954L;
 
@@ -45,6 +45,11 @@ public class MovimentiView extends AbstractAnagraficaView<Movement> {
 }
 
 class MultiLineCellRenderer extends JTextArea implements TableCellRenderer {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,

@@ -20,9 +20,9 @@ import dataModel.Product;
 public class CreaFattureModel extends AbstractModel {
 
 	private DBDataModel db;
-	
-	private final static String prodotto="Prodotto";
-	private final static String quantita="Quantita'";
+
+	private final static String prodotto = "Prodotto";
+	private final static String quantita = "Quantita'";
 	private final static String scorta = "Scorta";
 	private Product oggetto;
 	// private final int quantita;
@@ -30,14 +30,14 @@ public class CreaFattureModel extends AbstractModel {
 	private int spesa; // Spesa = subtotale
 
 	private LinkedList<Item> listaCarrello;
-	
+
 	public CreaFattureModel(DBDataModel db) {
 		this.db = db;
 	}
 
 	@Override
 	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException {
-		
+
 		if (elem.get(prodotto) == "") {
 			throw new IllegalArgumentException("Nome prodotto non valido. Riprovare.");
 		}
@@ -45,16 +45,15 @@ public class CreaFattureModel extends AbstractModel {
 		if (elem.get(quantita) == null) {
 			throw new IllegalArgumentException("Quantita' non valida. Riprovare.");
 		}
-		
+
 		if (listaCarrello.contains(elem)) {
 			throw new IllegalArgumentException("Elemento gia' esistente!");
 		} else {
-			Item nuovocarrello = new Item((Product)elem.get(prodotto), (Integer) elem.get(quantita));
+			Item nuovocarrello = new Item((Product) elem.get(prodotto), (Integer) elem.get(quantita));
 			listaCarrello.add(nuovocarrello);
-			//db.setProducts(listaCarrello);
+			// db.setProducts(listaCarrello);
 		}
-		
-		
+
 		// if (oggetto.getScorta()<=0){
 		// throw new IllegalArgumentException("Questo prodotto non � pi�
 		// disponibile in magazzino, mi dispiace.");
@@ -69,12 +68,11 @@ public class CreaFattureModel extends AbstractModel {
 
 	@Override
 	protected void editElem(IDataTableModel obj, Map<String, Object> infoDaModificare) {
-		if((Product) infoDaModificare.get(scorta) != null){
-			
-		
-		((Item)obj).setProdotto((Product) infoDaModificare.get(prodotto));
-		((Item)obj).setQuantita((Integer) infoDaModificare.get(quantita));
-		
+		if ((Product) infoDaModificare.get(scorta) != null) {
+
+			((Item) obj).setProdotto((Product) infoDaModificare.get(prodotto));
+			((Item) obj).setQuantita((Integer) infoDaModificare.get(quantita));
+
 		}
 	}
 
@@ -93,7 +91,7 @@ public class CreaFattureModel extends AbstractModel {
 
 			mappaVuota.put(prodotto, new String(""));
 			mappaVuota.put(quantita, new Integer(0));
-			
+
 			return mappaVuota;
 
 		} else {
@@ -131,16 +129,14 @@ public class CreaFattureModel extends AbstractModel {
 	public void remove(IDataTableModel elem) {
 		if (listaCarrello.contains(elem)) {
 			listaCarrello.remove(elem);
-		} else  {
+		} else {
 			throw new IllegalArgumentException("Elemento non trovato.");
-				}
+		}
 	}
-
-	
 
 	@Override
 	public DBDataModel saveDBAndClose() {
-		//db.setProducts(listaCarrello);
+		// db.setProducts(listaCarrello);
 		return db;
 	}
 

@@ -39,37 +39,36 @@ public class MovementsModel extends AbstractModel {
 
 	@Override
 	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException, InstanceNotFoundException {
-	    //controllare qui e nella edit che il movimento abbia il saldo dare e avere uguali
-	    // una riga del movimento non può avere dare e avere insieme
-	        if(!(elem.get(DATA) instanceof Date)){
-	            throw new IllegalArgumentException("data inserita non valida");
-	        }
-	        if(!(elem.get(LISTA)instanceof LinkedList)){
-	            throw new IllegalArgumentException("lista inserita non valida");
-	        }
-	        Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
+		// controllare qui e nella edit che il movimento abbia il saldo dare e
+		// avere uguali
+		// una riga del movimento non può avere dare e avere insieme
+		if (!(elem.get(DATA) instanceof Date)) {
+			throw new IllegalArgumentException("data inserita non valida");
+		}
+		if (!(elem.get(LISTA) instanceof LinkedList)) {
+			throw new IllegalArgumentException("lista inserita non valida");
+		}
+		Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
 		if (listaMovimenti.contains(m)) {
 			throw new InstanceAlreadyExistsException("elemento già esistente");
 		}
 		listaMovimenti.add(m);
 		LinkedList<Account> accountList = db.getAccounts();
 		for (Operation op : m.getListaConti()) {
-			if(accountList.contains(op.getConto())){
-			    for(Account a : accountList){
-			        if (a == op.getConto()){
-			            if (a.getNatura() == Natures.ATTIVITA || a.getNatura() == Natures.COSTO){
-			                a.incrSaldo(op.getDare());
-			                a.decrSaldo(op.getAvere());
-			            }
-			            else if (a.getNatura() == Natures.PASSIVITA || a.getNatura() == Natures.RICAVO){
-			                a.incrSaldo(op.getAvere());
-			                a.decrSaldo(op.getDare());
-			            }
-			        }
-			    }
-			}
-			else{
-			    throw new InstanceNotFoundException("il conto cercato non è presente in lista");
+			if (accountList.contains(op.getConto())) {
+				for (Account a : accountList) {
+					if (a == op.getConto()) {
+						if (a.getNatura() == Natures.ATTIVITA || a.getNatura() == Natures.COSTO) {
+							a.incrSaldo(op.getDare());
+							a.decrSaldo(op.getAvere());
+						} else if (a.getNatura() == Natures.PASSIVITA || a.getNatura() == Natures.RICAVO) {
+							a.incrSaldo(op.getAvere());
+							a.decrSaldo(op.getDare());
+						}
+					}
+				}
+			} else {
+				throw new InstanceNotFoundException("il conto cercato non è presente in lista");
 			}
 		}
 		db.setAccounts(accountList);
@@ -79,8 +78,8 @@ public class MovementsModel extends AbstractModel {
 	public void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare)
 			throws IllegalArgumentException, InstanceNotFoundException, InstanceAlreadyExistsException {
 		if (obj instanceof Movement) {
-		    for (Movement mov : listaMovimenti) {
-				if (mov==obj) {
+			for (Movement mov : listaMovimenti) {
+				if (mov == obj) {
 					remove(mov);
 					addElem(elemDaModificare);
 				}

@@ -26,7 +26,7 @@ public abstract class AbstractWideView extends AbstractFrame {
 	 */
 	private static final long serialVersionUID = -8661356282182241245L;
 
-	protected IViewObserver observer;
+	private IViewObserver observer;
 
 	/**
 	 * @param title
@@ -54,5 +54,9 @@ public abstract class AbstractWideView extends AbstractFrame {
 	 */
 	public void setObserver(final IViewObserver observer) {
 		this.observer = observer;
+	}
+
+	protected IViewObserver getObserver() {
+		return observer;
 	}
 }

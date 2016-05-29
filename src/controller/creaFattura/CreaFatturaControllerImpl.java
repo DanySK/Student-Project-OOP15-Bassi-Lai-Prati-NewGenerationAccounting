@@ -6,6 +6,7 @@ package controller.creaFattura;
 import javax.management.InstanceNotFoundException;
 
 import controller.IAnagraficaViewObserver;
+import controller.dbController.DBSaver;
 import controller.main.MainControllerImpl;
 import controller.popup.PopupControllerImpl;
 import dataEnum.PopupMode;
@@ -36,8 +37,10 @@ public class CreaFatturaControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void chiusura() {
+		final DBDataModel db = model.saveDBAndClose();
+		new DBSaver(db.getPath(), view, db).start();
 		view.close();
-		new MainControllerImpl(model.saveDBAndClose());
+		new MainControllerImpl(db);
 	}
 
 	@Override

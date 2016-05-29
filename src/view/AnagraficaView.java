@@ -19,13 +19,13 @@ import controller.IAnagraficaViewObserver;
 import dataModel.IDataTableModel;
 
 /**
- * classe astratta per le view che rispettano il layout di anagrafica, con i 5
- * tasti nel footer.
+ * classe per le view che rispettano il layout di anagrafica, con i 5 tasti nel
+ * footer.
  * 
  * @author Pentolo
  *
  */
-public abstract class AbstractAnagraficaView<E extends IDataTableModel> extends AbstractFrame {
+public class AnagraficaView<E extends IDataTableModel> extends AbstractFrame {
 
 	private final static String DEFAULT_TASTO_0 = "Cerca";
 	private final static String DEFAULT_TASTO_1 = "Aggiungi";
@@ -49,12 +49,12 @@ public abstract class AbstractAnagraficaView<E extends IDataTableModel> extends 
 	 * @param lm
 	 * @param dimension
 	 */
-	public AbstractAnagraficaView(final LinkedList<E> lista, final String intestazione[], final String title) {
+	public AnagraficaView(final LinkedList<E> lista, final String intestazione[], final String title) {
 		this(lista, intestazione, title, DEFAULT_TASTO_0, DEFAULT_TASTO_1, DEFAULT_TASTO_2, DEFAULT_TASTO_3,
 				DEFAULT_TASTO_4);
 	}
 
-	public AbstractAnagraficaView(final LinkedList<E> lista, final String intestazione[], final String title,
+	public AnagraficaView(final LinkedList<E> lista, final String intestazione[], final String title,
 			final String testo0, final String testo1, final String testo2, final String testo3, final String testo4) {
 		super(title, new Dimension(500, 625));
 		tasto0.setText(testo0);

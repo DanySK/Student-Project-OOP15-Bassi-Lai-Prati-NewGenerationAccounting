@@ -10,9 +10,10 @@ import controller.dbController.DBSaver;
 import controller.main.MainControllerImpl;
 import controller.popup.PopupControllerImpl;
 import dataEnum.PopupMode;
+import dataModel.Account;
 import dataModel.DBDataModel;
 import model.AccountsModel;
-import view.anaConti.AnaContiView;
+import view.AnagraficaView;
 
 /**
  * implementazione controller anagrafica conti
@@ -22,14 +23,14 @@ import view.anaConti.AnaContiView;
  */
 public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	private final AccountsModel model;
-	private final AnaContiView view;
+	private final AnagraficaView<Account> view;
 
 	/**
 	 * @param view
 	 */
 	public AnaContiControllerImpl(final DBDataModel db, final String title) {
 		this.model = new AccountsModel(db);
-		this.view = new AnaContiView(model.load(), title);
+		this.view = new AnagraficaView<Account>(model.load(), Account.getIntestazione(), title);
 		this.view.setObserver(this);
 		view.start();
 	}

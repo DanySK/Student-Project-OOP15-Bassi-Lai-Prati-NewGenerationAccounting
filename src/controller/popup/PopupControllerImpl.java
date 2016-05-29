@@ -25,7 +25,7 @@ import dataModel.Account;
 import dataModel.Operation;
 import model.AbstractModel;
 import model.MovementsModel;
-import view.AbstractAnagraficaView;
+import view.AnagraficaView;
 import view.popup.AddEditPopupView;
 
 /**
@@ -39,14 +39,14 @@ public class PopupControllerImpl implements IViewObserver {
 
 	private final AbstractModel model;
 	private final IAnagraficaViewObserver parentController;
-	private final AbstractAnagraficaView parentView;
+	private final AnagraficaView parentView;
 	private final AddEditPopupView view;
 	private final PopupMode mode;
 	private final Map<String, Object> mappa;
 	private Account emptyAccount;
 
 	public PopupControllerImpl(final PopupMode mode, final AbstractModel model,
-			final IAnagraficaViewObserver parentController, final AbstractAnagraficaView parentView)
+			final IAnagraficaViewObserver parentController, final AnagraficaView parentView)
 			throws InstanceNotFoundException, IllegalArgumentException {
 		this.mode = mode;
 		this.model = model;

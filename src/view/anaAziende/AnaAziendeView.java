@@ -15,7 +15,7 @@ import javax.swing.SwingUtilities;
 
 import controller.anaAziende.AnaAziendeControllerImpl;
 import dataModel.Company;
-import view.AbstractAnagraficaView;
+import view.AnagraficaView;
 
 /**
  * view per la anagrafica aziende
@@ -23,7 +23,7 @@ import view.AbstractAnagraficaView;
  * @author Pentolo
  *
  */
-public class AnaAziendeView extends AbstractAnagraficaView<Company> {
+public class AnaAziendeView extends AnagraficaView<Company> {
 
 	private static final long serialVersionUID = 5859979634610547926L;
 

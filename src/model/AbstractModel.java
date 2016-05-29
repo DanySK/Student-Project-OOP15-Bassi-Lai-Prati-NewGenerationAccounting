@@ -16,10 +16,11 @@ public abstract class AbstractModel {
 	 * 
 	 * @author niky
 	 * @throws InstanceAlreadyExistsException
-	 * @throws InstanceNotFoundException 
+	 * @throws InstanceNotFoundException
 	 */
 
-	public void add(Map<String, Object> elem) throws IllegalArgumentException, InstanceAlreadyExistsException, InstanceNotFoundException {
+	public void add(Map<String, Object> elem)
+			throws IllegalArgumentException, InstanceAlreadyExistsException, InstanceNotFoundException {
 		addElem(elem);
 	}
 

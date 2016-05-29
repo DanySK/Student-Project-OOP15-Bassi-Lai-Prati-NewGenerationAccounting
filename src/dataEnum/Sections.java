@@ -14,7 +14,6 @@ public enum Sections implements IDataEnum { // insieme di tutte le sezioni di SP
 	VALORE_DELLA_PRODUZIONE, PROVENTI_FINANZIARI, RIVALUTAZIONI, PROVENTI_STRAORDINARI,
 	// NON SELEZIONATA
 	NESSUNO;
-	
 
 	public static LinkedList<Sections> getAttivita() {
 		LinkedList<Sections> attivita = new LinkedList<>();

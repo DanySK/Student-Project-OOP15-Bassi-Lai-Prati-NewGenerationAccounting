@@ -166,13 +166,12 @@ public class CustomersSuppliersModel extends AbstractModel {
 			return mappaVuota;
 
 		} else {
-			if (obj instanceof Customers_Suppliers ) {
-				
-				
-				//controlli :
-				// obj !obj.getRuolo(NESSUNO) 
+			if (obj instanceof Customers_Suppliers) {
+
+				// controlli :
+				// obj !obj.getRuolo(NESSUNO)
 				// obj !obj.getSesso(NESSUNO)
-				
+
 				Map<String, Object> mappaPiena = new HashMap<>();
 				mappaPiena.put(CF, ((Customers_Suppliers) obj).getCf());
 				mappaPiena.put(Citta, ((Customers_Suppliers) obj).getCitta());

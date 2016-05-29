@@ -93,7 +93,7 @@ public class ProductsModel extends AbstractModel {
 		((Product) obj).setDescrizione((String) infoDaModificare.get(descrizione));
 		((Product) obj).setPrezzovendita((Integer) infoDaModificare.get(prezzo));
 		((Product) obj).setScorta((Integer) infoDaModificare.get(rimanenze));
-		
+
 		if (trovato == false) {
 			throw new InstanceNotFoundException("Elemento da modificare non presente.");
 		}
