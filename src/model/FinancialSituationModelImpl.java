@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -35,7 +34,7 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 	private float ricVend = 0;
 	private float capSociale = 0;
 	private float ammortamenti = 0;
-
+	
 	public FinancialSituationModelImpl(DBDataModel db) {
 		this.db = db;
 		SP = new LinkedList<Account>();
@@ -50,8 +49,7 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		return null;
 	}
 	
-	@Override
-        public String getCE() {
+        private String getCE() {
 	    String Conto_Economico = new String();
 	    LinkedList<Account> ce = new LinkedList<>();
 	    ce = calcolaCE();
@@ -61,8 +59,7 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
             return Conto_Economico;
         }
 	
-	@Override
-        public String getSP() {
+        private String getSP() {
 	    String Stato_Patrimoniale = new String();
             LinkedList<Account> sp = new LinkedList<>();
             sp = calcolaSP();
@@ -258,5 +255,101 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 
 		return ricVend / (scorte + cassa + crediti + capSociale);
 	}
+
+    @Override
+    public String Attivita() {
+        String Attivita = "<b>CREDITI_VS_SOCI</B>\n";
+        for(int i = 1; i<=9;i++){
+            for(int j = 0; j<db.getAccounts().size(); j++){ // scorro gli elementi della lista originale
+                if(db.getAccounts().get(j).getNatura() == Natures.ATTIVITA &&
+                                db.getAccounts().get(j).getSezione()==Sections.valueOf(Integer.toString(i))){
+                    Attivita += "\n" + db.getAccounts().get(j).getName();
+                }
+            }
+            Attivita+="\n <b>"+ Sections.valueOf(Integer.toString(i+1))+ "</B>\n";
+        }
+        return Attivita;
+    }
+
+    @Override
+    public String Saldi_Attivita() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String Passivita() {
+        String Passivita = "<b>PATRIMONIO_NETTO</B>\n";
+        for(int i = 10; i<=14;i++){
+            for(int j = 0; j<db.getAccounts().size(); j++){ // scorro gli elementi della lista originale
+                if(db.getAccounts().get(j).getNatura() == Natures.PASSIVITA &&
+                                db.getAccounts().get(j).getSezione()==Sections.valueOf(Integer.toString(i))){
+                    Passivita += "\n" + db.getAccounts().get(j).getName();
+                }
+            }
+            Passivita+="\n <b>"+ Sections.valueOf(Integer.toString(i+1))+ "</B>\n";
+        }
+        return Passivita;
+    }
+
+    @Override
+    public String Saldi_Passivita() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String Costi() {
+        String Costi = "<b>COSTI_DELLA_PRODUZIONE</B>\n";
+        for(int i = 15; i<=19;i++){
+            for(int j = 0; j<db.getAccounts().size(); j++){ // scorro gli elementi della lista originale
+                if(db.getAccounts().get(j).getNatura() == Natures.COSTO &&
+                                db.getAccounts().get(j).getSezione()==Sections.valueOf(Integer.toString(i))){
+                    Costi += "\n" + db.getAccounts().get(j).getName();
+                }
+            }
+            Costi+="\n <b>"+ Sections.valueOf(Integer.toString(i+1))+ "</B>\n";
+        }
+        return Costi;
+    }
+
+    @Override
+    public String Saldi_Costi() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String Ricavi() {
+        String Ricavi= "<b>VALORE_DELLA_PRODUZIONE</B>\n";
+        for(int i = 20; i<=23;i++){
+            for(int j = 0; j<db.getAccounts().size(); j++){ // scorro gli elementi della lista originale
+                if(db.getAccounts().get(j).getNatura() == Natures.RICAVO &&
+                                db.getAccounts().get(j).getSezione()==Sections.valueOf(Integer.toString(i))){
+                    Ricavi += "\n" + db.getAccounts().get(j).getName();
+                }
+            }
+            Ricavi+="\n <b>"+ Sections.valueOf(Integer.toString(i+1))+ "</B>\n";
+        }
+        return Ricavi;
+    }
+
+    @Override
+    public String Saldi_Ricavi() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Float getSaldo_Stato_Patr() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Float getSaldo_Conto_Ec() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }
