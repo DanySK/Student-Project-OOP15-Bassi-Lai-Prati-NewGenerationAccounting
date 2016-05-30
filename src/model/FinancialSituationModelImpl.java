@@ -46,11 +46,36 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 	@Override
 	public String AnalisiFinanziaria() {
 		calcolaIndici_Margini();
-		ArrayList<String> commento = new ArrayList<>();
-		// FINIRE
+		String commento = new String();
 		return null;
 	}
+	
+	@Override
+        public String getCE() {
+	    String Conto_Economico = new String();
+	    LinkedList<Account> ce = new LinkedList<>();
+	    ce = calcolaCE();
+	    for(Account a: ce){
+	        Conto_Economico.concat(a.toString() + "\n");
+	    }
+            return Conto_Economico;
+        }
+	
+	@Override
+        public String getSP() {
+	    String Stato_Patrimoniale = new String();
+            LinkedList<Account> sp = new LinkedList<>();
+            sp = calcolaSP();
+            for(Account a: sp){
+                Stato_Patrimoniale.concat(a.toString() + "\n");
+            }
+            return Stato_Patrimoniale;
+        }
 
+        public DBDataModel saveDBAndClose() {
+                return db;
+        }
+        
 	private LinkedList<Account> calcolaCE() {
 
 		for (Account a : contiRegistrati) {
@@ -109,10 +134,6 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		return SP;
 	}
 
-	@Override
-	public LinkedList<Account> getCE() {
-		return calcolaCE();
-	}
 
 	private Float getLeverage() {
 		float totAttivo = 0;
@@ -236,15 +257,6 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		}
 
 		return ricVend / (scorte + cassa + crediti + capSociale);
-	}
-
-	@Override
-	public LinkedList<Account> getSP() {
-		return calcolaSP();
-	}
-
-	public DBDataModel saveDBAndClose() {
-		return db;
 	}
 
 }

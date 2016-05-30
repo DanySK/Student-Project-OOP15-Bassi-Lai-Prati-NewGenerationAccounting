@@ -15,8 +15,8 @@ public interface IFinancialSituationModel {
 
 	public String AnalisiFinanziaria();
 
-	public LinkedList<Account> getCE();
+	public String getCE();
 
-	public LinkedList<Account> getSP();
+	public String getSP();
 
 }
