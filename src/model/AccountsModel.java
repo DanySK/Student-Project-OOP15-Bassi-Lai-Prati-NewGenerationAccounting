@@ -188,7 +188,7 @@ public class AccountsModel implements ModelInterface {
 	}
 
 	@Override
-	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException { // elimina
+	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException,IllegalArgumentException { // elimina
 																							// dati
 		if (elemDaEliminare == null) {
 			throw new IllegalArgumentException("l'elemento da eliminare non si riferisce a nessun oggetto");

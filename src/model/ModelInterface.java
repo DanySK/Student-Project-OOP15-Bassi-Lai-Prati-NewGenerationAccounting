@@ -15,10 +15,18 @@ public interface ModelInterface {
 	 * funzione di salvataggio dei dati del database
 	 * 
 	 * @author niky
-	 * @throws InstanceAlreadyExistsException
-	 * @throws InstanceNotFoundException
 	 */
-
+        public abstract DBDataModel saveDBAndClose();
+    /**
+     * operazione di aggiunta di un nuovo oggetto al dataBase del programma
+     * 
+     * @author niky
+     * @param elem
+     *            mappa contenente le informazioni sull'elemento da aggiungere
+     * @throws InstanceNotFoundException
+     * @throws IllegalArgumentException
+     * @throws InstanceAlreadyExistsException
+     */
 	public void add(Map<String, Object> elem)
 			throws IllegalArgumentException, InstanceAlreadyExistsException, InstanceNotFoundException;
 
@@ -32,8 +40,10 @@ public interface ModelInterface {
 	 *            informazioni
 	 * @throws InstanceAlreadyExistsException
 	 * @throws InstanceNotFoundException
+	 * @throws IllegalArgumentException
 	 */
-
+	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare)
+                        throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException;
 	/**
 	 * operazione per rimuovere un oggetto dal dataBase
 	 * 
@@ -43,39 +53,25 @@ public interface ModelInterface {
 	 *            elemento da modificare
 	 * @throws InstanceNotFoundException
 	 * @throws IllegalArgumentException
-	 * @throws InstanceAlreadyExistsException
 	 */
+	public abstract void remove(IDataTableModel elem) throws InstanceNotFoundException,IllegalArgumentException;
 
-	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare)
-			throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException;
-
-	public abstract Map<String, Object> getFilterMap();
-
-	public abstract Map<String, Object> getMap(IDataTableModel obj);
-
+	/**
+         * operazione per restituire alla view i dati del dataBase da mostrare
+         * all'utente
+         * 
+         * @return ritorna i dati richiesti
+         * 
+         * @author niky
+         */
 	public abstract LinkedList<? extends IDataTableModel> load();
 
-	/**
-	 * operazione di aggiunta di un nuovo oggetto al dataBase del programma
-	 * 
-	 * @author niky
-	 * @param elem
-	 *            mappa contenente le informazioni sull'elemento da aggiungere
-	 * @throws InstanceNotFoundException
-	 */
+
 	public abstract LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro)
 			throws InstanceNotFoundException;
+	
+	public abstract Map<String, Object> getFilterMap();
 
-	/**
-	 * operazione per restituire alla view i dati del dataBase da mostrare
-	 * all'utente
-	 * 
-	 * @return ritorna i dati richiesti
-	 * 
-	 * @author niky
-	 */
+        public abstract Map<String, Object> getMap(IDataTableModel obj);
 
-	public abstract void remove(IDataTableModel elem) throws InstanceNotFoundException;
-
-	public abstract DBDataModel saveDBAndClose();
 }
