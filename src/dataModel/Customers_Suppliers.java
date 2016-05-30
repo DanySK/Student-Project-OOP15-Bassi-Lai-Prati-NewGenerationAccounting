@@ -1,8 +1,15 @@
 package dataModel;
 
 /**
- * Classe per la creazione e gestione del dato Cliente\fornitore\Credito\Debito
+ * Classe per la creazione e Cliente\Fornitore\Credito\Debito.
+ * 
+ * Verrà usato in Customers_SuppliersModel.
+ * 
+ * 
+ * @author Diego
+ * 
  */
+
 import dataEnum.Gender;
 import dataEnum.KindPerson;
 

@@ -69,16 +69,24 @@ public class CreaFattureModel implements ModelInterface {
 	 * 
 	 * 
 	 */
+	
 	public DBDataModel create(Customers_Suppliers item) {
 		
 		// controlli acquisto valido
 		
 		if (listaCarrello.isEmpty()) {//sostituire con i controlli singoli
 			throw new IllegalArgumentException("Acquisto non valido. Riprovare.");
-		}
-		final int subtotale;
+		}else{
+			
+			float totale;
+			
 		for (Item creoSubtotale : listaCarrello) {
-			//subtotale+=creoSubtotale.getProdotto().getPrezzoVendita;
+			//totale+=product.getPrezzovendita() * listaCarrello.getLast().getQuantita();
+
+			}
+		
+		}
+			//subtotale
 			//creoSubtotale=creoSubtotale+listaCarrello.getPrezzovendita();
 //			product.get
 //			(product.getPrezzovendita() * (Integer)listaCarrello.getLast().getQuantita());
@@ -86,18 +94,17 @@ public class CreaFattureModel implements ModelInterface {
 			//Item  creoSubtotale = new Item((Integer) product.getPrezzovendita() * quantita);
 			
 	//	 creoSubtotale.getQuantita() ;
-		}
+		
 		
 		// Product.getScorta - listaCarrello(quantita)
 		
 		
 		// nuovo movimento
 		
-		
 		// debiti verso fornitori = debiti verso fornitori + subtotale
 		
 		item.getDebito();
-		//listaCarrello.add(creoSubtotale);
+		//item.add(creoSubtotale);
 		return db;
 	}
 

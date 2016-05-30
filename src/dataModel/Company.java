@@ -3,7 +3,7 @@ package dataModel;
 import java.util.UUID;
 
 /**
- * classe per la gestione della singola azienda
+ * Classe per la gestione della singola azienda.
  * 
  * @author Pentolo
  *

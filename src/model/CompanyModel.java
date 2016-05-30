@@ -30,7 +30,7 @@ public class CompanyModel implements ModelInterface {
 	private final static String indirizzo = "Indirizzo";
 	private final static String telefono = "Telefono";
 	private final static String p_iva = "P.IVA";
-	private final static String password = "Password";// chiavi mappe
+	private final static String password = "Password";
 
 	private Company nuovaazienda;
 	private boolean trovato = false;
@@ -41,6 +41,14 @@ public class CompanyModel implements ModelInterface {
 		listaAziende = linkedList;
 	}
 
+	/**
+	 * Metodo per la creazione di una nuova azienda.
+	 * 
+	 * @author Diego
+	 *
+	 */
+	
+	
 	@Override
 	public void add(Map<String, Object> elem) throws InstanceAlreadyExistsException {
 
@@ -90,6 +98,14 @@ public class CompanyModel implements ModelInterface {
 		listaAziende.add(nuovaazienda);
 	}
 
+	/**
+	 * Metodo per modificare una azienda già esistente.
+	 * 
+	 * @author Diego
+	 *
+	 */
+	
+	
 	@Override
 	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare)
 			throws InstanceAlreadyExistsException, InstanceNotFoundException {
@@ -109,6 +125,13 @@ public class CompanyModel implements ModelInterface {
 
 	}
 
+	/**
+	 * Metodo per la creazione dei filtri di ricerca per le aziende presenti.
+	 * 
+	 * @author Diego
+	 *
+	 */
+	
 	@Override
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
@@ -117,6 +140,14 @@ public class CompanyModel implements ModelInterface {
 		return mappaFiltro;
 	}
 
+	
+	/**
+	 * Metodo per individuare l'ultimo codice UUID(Codice_azienda) utilizzato.
+	 * 
+	 * @author Diego
+	 *
+	 */
+	
 	public UUID getLastAddedItemCode() {
 		if (nuovaazienda != null && nuovaazienda.getCodice_azienda() != null
 				&& nuovaazienda.getCodice_azienda() instanceof UUID) {
@@ -126,10 +157,16 @@ public class CompanyModel implements ModelInterface {
 	}
 
 	/**
-	 * Restituisco la mappa delle aziende
+	 * Restituisco la mappa delle aziende, con o senza dati.
+	 * 
+	 * 
 	 * 
 	 * @param iDataTableModel
+	 * 
+	 * @author Diego
+	 * 
 	 */
+	
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
 
@@ -168,18 +205,35 @@ public class CompanyModel implements ModelInterface {
 	}
 
 	/**
-	 * Controllo che la password sia giusta
+	 * Controlla che la password inserita dall'utente corrisponda a quella del DB.
+	 * 
+	 * @author Diego
 	 * 
 	 */
+	
 	public boolean isPasswordCorrect(final char[] password, final Company company) {
 		return Arrays.equals(password, company.getPassword());
 	}
 
+	/**
+	 * Restituisce listaAziende.
+	 * 
+	 * @author Diego
+	 * 
+	 */
+	
 	@Override
 	public LinkedList<Company> load() {
 		return new LinkedList<Company>(listaAziende);
 	}
 
+	/**
+	 * Creazione mappe filtrate.
+	 * 
+	 * @author Diego
+	 * 
+	 */
+	
 	@Override
 	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro)
 			throws InstanceNotFoundException {
@@ -212,6 +266,14 @@ public class CompanyModel implements ModelInterface {
 		return null;
 	}
 
+	
+	/**
+	 * Metodo che permette l'eliminazione di una azienda già esistente.
+	 * 
+	 * @author Diego
+	 * 
+	 */
+	
 	@Override
 	public void remove(IDataTableModel elem) {
 		if (listaAziende.contains(elem)) {
@@ -222,7 +284,15 @@ public class CompanyModel implements ModelInterface {
 	}
 
 	/**
+	 * 
+	 * Metodo per spostare i dati dalla lista interna al database e restituire quest'ultimo.
+	 * 
+	 * Utilizzato in questo caso al posto di saveDBAndClose.
+	 * 
 	 * saveCompanyAndClose = saveDBAndClose senza l'utilizzo del DB.
+	 * 
+	 * @author Diego
+	 * 
 	 */
 
 	public LinkedList<Company> saveCompanysAndClose() {
@@ -230,8 +300,14 @@ public class CompanyModel implements ModelInterface {
 	}
 
 	/**
-	 * metodo inutilizzabile. usare saveCompanysAndClose()
-	 */
+	 * 
+	 * Metodo per spostare i dati dalla lista interna al database e restituire quest'ultimo.
+	 * 
+	 * In questo caso il metodo risulta inutilizzabile. Al suo posto si usa saveCompanysAndClose().
+	 * 
+	 * @author Diego
+	*/
+	 
 
 	@Override
 	public DBDataModel saveDBAndClose() {

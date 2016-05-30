@@ -46,6 +46,12 @@ public class CustomersSuppliersModel implements ModelInterface {
 		this.db = db;
 	}
 
+	/*
+	 * Metodo per la creazione di un nuovo cliente o fornitore .
+	 * 
+	 * @author Diego
+	*/
+	
 	@Override
 	public void add(Map<String, Object> elem) throws IllegalArgumentException, InstanceAlreadyExistsException { // controllare
 
@@ -54,7 +60,7 @@ public class CustomersSuppliersModel implements ModelInterface {
 		}
 
 		if (elem.get(Citta) == "") {
-			throw new IllegalArgumentException("Cittï¿½ non valida. Riprovare.");
+			throw new IllegalArgumentException("Citta' non valida. Riprovare.");
 		}
 
 		if (elem.get(Cognome) == "") {
@@ -70,32 +76,31 @@ public class CustomersSuppliersModel implements ModelInterface {
 			throw new IllegalArgumentException("Indirizzo non valido. Riprovare.");
 
 		}
-		if (elem.get(CAP) == null) {
+		if ((Integer)elem.get(CAP) == null) {
 			throw new IllegalArgumentException("CAP non valido. Riprovare.");
 
 		}
 
-		if (elem.get(Credito) == null) {
-			throw new IllegalArgumentException("Credito non valido. Riprovare.");
-
-		}
-
-		if (elem.get(Debito) == null) {
-			throw new IllegalArgumentException("Debito non valido. Riprovare.");
-
-		}
+//		if (elem.get(Credito) == null) {
+//			throw new IllegalArgumentException("Credito non valido. Riprovare."); 
+//
+//		}
+//
+//		if (elem.get(Debito) == null) {
+//			throw new IllegalArgumentException("Debito non valido. Riprovare.");
+//
+//		}
 
 		if (elem.get(Telefono) == "") {
 			throw new IllegalArgumentException("Numero di telefono non valido. Riprovare.");
-
 		}
 
-		if (elem.get(Ruolostring) == "") {
+		if (elem.get(Ruolostring) == KindPerson.NESSUNO) {
 			throw new IllegalArgumentException("Ruolo non valido. Riprovare.");
 
 		}
 
-		if (elem.get(Sessostring) == "") {
+		if (elem.get(Sessostring) == Gender.NESSUNO) {
 			throw new IllegalArgumentException("Gender non valido. Riprovare.");
 
 		}
@@ -111,6 +116,13 @@ public class CustomersSuppliersModel implements ModelInterface {
 		listaRapportiC.add(rapportoC);
 	}
 
+	/*
+	 * Metodo che permette di modificare i dati di un cliente o di un fornitore.
+	 * 
+	 * @author Diego
+	*/
+	
+	
 	@Override
 	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare)
 			throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException {
@@ -129,7 +141,7 @@ public class CustomersSuppliersModel implements ModelInterface {
 //			((Customers_Suppliers) obj).setDebito((Integer) infoDaModificare.get(Debito));
 			((Customers_Suppliers) obj).setRuolo((KindPerson) infoDaModificare.get(ruolo));
 			((Customers_Suppliers) obj).setSesso((Gender) infoDaModificare.get(sesso));
-
+			((Customers_Suppliers) obj).setTelefono((String) infoDaModificare.get(Telefono));
 		}
 		if (trovato == false) {
 			throw new InstanceNotFoundException("Elemento da modificare non presente.");
@@ -137,6 +149,13 @@ public class CustomersSuppliersModel implements ModelInterface {
 
 	}
 
+	/*
+	 * Metodo per la creazione di filtri per i clienti o fornitori, seconda il Codice Fiscale o la città.
+	 * 
+	 * @author Diego
+	*/
+	
+	
 	@Override
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
@@ -145,6 +164,14 @@ public class CustomersSuppliersModel implements ModelInterface {
 		return mappaFiltro;
 	}
 
+	
+	/*
+	 * Metodo per la creazione delle mappe, sia con che senza valori.
+	 * 
+	 * @author Diego
+	*/
+	
+	
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
 
@@ -193,6 +220,12 @@ public class CustomersSuppliersModel implements ModelInterface {
 
 	}
 
+	/*
+	 * Metodo per la restituzione di una LinkedList di Customers_Suppliers.
+	 * 
+	 * @author Diego
+	*/
+	
 	@Override
 	public LinkedList<Customers_Suppliers> load() {
 
@@ -250,10 +283,16 @@ public class CustomersSuppliersModel implements ModelInterface {
 		}
 	}
 
+	/*
+	 * Metodo per spostare i dati dalla lista interna al database e restituire quest'ultimo.
+	 * 
+	 * @author Diego
+	*/
+	
 	@Override
 	public DBDataModel saveDBAndClose() {
-		db.setCustomersSuppliers(listaRapportiC); // Sposto i dati dalla lista
-													// interna al DB
-		return db;// e restituisco
+		db.setCustomersSuppliers(listaRapportiC); 
+													
+		return db;
 	}
 }
