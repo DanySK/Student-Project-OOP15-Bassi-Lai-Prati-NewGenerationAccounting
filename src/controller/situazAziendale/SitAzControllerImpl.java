@@ -24,7 +24,8 @@ public class SitAzControllerImpl implements IViewObserver {
 	private final SitAzView view;
 
 	/**
-	 * 
+	 * @param db il database
+	 * @param title il titolo della finestra
 	 */
 	public SitAzControllerImpl(final DBDataModel db, final String title) {
 		this.view = new SitAzView(title, new Dimension(400, 500));

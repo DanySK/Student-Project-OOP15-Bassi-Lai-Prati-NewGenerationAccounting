@@ -25,8 +25,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
 
-import controller.movimenti.MovimentiCellEditor;
-import controller.movimenti.MovimentiCellRenderer;
+import controller.movimenti.OperationCellEditor;
+import controller.movimenti.OperationCellRenderer;
 import controller.popup.PopupControllerImpl;
 import dataEnum.IDataEnum;
 import dataModel.Account;
@@ -39,18 +39,15 @@ import view.MyEdiTableModel;
  *
  */
 public class AddEditPopupView extends AbstractFrame {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2412389895309056834L;
 	private PopupControllerImpl observer;
 	private final HashMap<String, JComponent> compoMap;
 
 	/**
-	 * @param title
-	 * @param dimension
-	 * @param popupControllerImpl
+	 * @param title titolo della finestra
+	 * @param dimension dimensione della view
+	 * @param mappa mappa dei campi
+	 * @param observer il controller
 	 */
 	public AddEditPopupView(final String title, final Dimension dimension, final Map<String, Object> mappa,
 			PopupControllerImpl observer) {
@@ -109,8 +106,8 @@ public class AddEditPopupView extends AbstractFrame {
 				} else if (item instanceof LinkedList && item.getClass().isAssignableFrom(LinkedList.class)) {
 					@SuppressWarnings("unchecked")
 					final JTable operationTable = getOperationEdiTable((LinkedList<Operation>) item);
-						compoMap.put(campo, operationTable);
-						itemPanel.add(operationTable);
+					compoMap.put(campo, operationTable);
+					itemPanel.add(operationTable);
 				}
 				mainPanel.add(itemPanel);
 				itemPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -136,6 +133,10 @@ public class AddEditPopupView extends AbstractFrame {
 		observer.chiusura();
 	}
 
+	/**
+	 * @param operationsList lista delle operazioni del movimento
+	 * @return JTable per la gestione delle operazioni nella add/edit dei movimenti
+	 */
 	private JTable getOperationEdiTable(final List<Operation> operationsList) {
 		final JTable myTable = new JTable();
 		myTable.setPreferredSize(new Dimension(325, 150));
@@ -153,8 +154,8 @@ public class AddEditPopupView extends AbstractFrame {
 			}
 		};
 		myTable.setModel(tableModel);
-		myTable.setDefaultRenderer(Account.class, new MovimentiCellRenderer());
-		myTable.setDefaultEditor(Account.class, new MovimentiCellEditor(accountList));
+		myTable.setDefaultRenderer(Account.class, new OperationCellRenderer());
+		myTable.setDefaultEditor(Account.class, new OperationCellEditor(accountList));
 		return myTable;
 	}
 }

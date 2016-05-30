@@ -7,5 +7,8 @@ package controller;
  *
  */
 public interface IViewObserver {
+	/**
+	 * definisce cosa deve fare alla chiusura la classe
+	 */
 	void chiusura();
 }

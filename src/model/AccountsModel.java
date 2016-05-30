@@ -38,7 +38,8 @@ public class AccountsModel implements ModelInterface {
 
 	@Override
 	public void add(Map<String, Object> elem) throws InstanceAlreadyExistsException {
-		if (elem.get(NOME) == "" || elem.get(NATURA) == Natures.NESSUNO || (Sections) elem.get(SEZIONE) == Sections.NESSUNO) {
+		if (elem.get(NOME) == "" || elem.get(NATURA) == Natures.NESSUNO
+				|| (Sections) elem.get(SEZIONE) == Sections.NESSUNO) {
 			throw new IllegalArgumentException("nome, natura o sezione non valide");
 		}
 		Account a = new Account((String) elem.get(NOME), (Natures) elem.get(NATURA), (Sections) elem.get(SEZIONE), 0);
@@ -69,8 +70,8 @@ public class AccountsModel implements ModelInterface {
 	}
 
 	@Override
-	public void edit(IDataTableModel obj, Map<String, Object> elemDaModificare)
-			throws InstanceNotFoundException { // modifica elementi
+	public void edit(IDataTableModel obj, Map<String, Object> elemDaModificare) throws InstanceNotFoundException { // modifica
+																													// elementi
 		trovato = false;
 		if (obj instanceof Account) {
 			Account a = (Account) obj;
@@ -126,7 +127,9 @@ public class AccountsModel implements ModelInterface {
 	}
 
 	@Override
-	public LinkedList<Account> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {// carica																							// filtri
+	public LinkedList<Account> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {// carica
+																										// //
+																										// filtri
 		LinkedList<Account> listaFiltrata = new LinkedList<>();
 		if (!mappaFiltro.get(NOME).toString().isEmpty()) { // controllo il nome
 			for (Account a : listaaccount) {
@@ -135,7 +138,9 @@ public class AccountsModel implements ModelInterface {
 			}
 		}
 		// nome = null o nome != null
-		if (mappaFiltro.get(NATURA) instanceof Natures && mappaFiltro.get(NATURA) != Natures.NESSUNO) { // controllo la natura
+		if (mappaFiltro.get(NATURA) instanceof Natures && mappaFiltro.get(NATURA) != Natures.NESSUNO) { // controllo
+																										// la
+																										// natura
 			if (listaFiltrata.isEmpty()) {
 				for (Account a : listaaccount) { // singolo filtro su natura
 					if (a.getNatura() == mappaFiltro.get(NATURA))
@@ -148,8 +153,9 @@ public class AccountsModel implements ModelInterface {
 				}
 
 			}
-			if (mappaFiltro.get(SEZIONE) != Sections.NESSUNO) { // controllo se la sezione
-													// appartiene alla nature
+			if (mappaFiltro.get(SEZIONE) != Sections.NESSUNO) { // controllo se
+																// la sezione
+				// appartiene alla nature
 				if ((checkSection((Natures) mappaFiltro.get(NATURA), (Sections) mappaFiltro.get(SEZIONE)))) {
 					for (Account a : listaFiltrata) { // doppio filtro sez + nat
 						if (a.getSezione() != mappaFiltro.get(SEZIONE))

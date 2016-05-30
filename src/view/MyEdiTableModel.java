@@ -9,18 +9,16 @@ import dataModel.IEdiTableDataModel;
 import dataModel.Operation;
 
 /**
+ * classe astratta che estende MyTableModel per la gestione delle JTable modificabili
  * @author Pentolo
- *
  */
 public abstract class MyEdiTableModel<E extends IEdiTableDataModel> extends MyTableModel<E> {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 423854890085035434L;
 
+	
 	/**
-	 * 
+	 * @param headerList intestazioni delle colonne
+	 * @param list lista degli elementi
 	 */
 	public MyEdiTableModel(final String headerList[], final List<E> list) {
 		super(headerList, list);

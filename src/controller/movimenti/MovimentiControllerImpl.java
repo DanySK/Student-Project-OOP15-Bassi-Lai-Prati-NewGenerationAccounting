@@ -25,7 +25,8 @@ public class MovimentiControllerImpl implements IAnagraficaViewObserver {
 	private final MovimentiView view;
 
 	/**
-	 * @param view
+	 * @param db il database
+	 * @param title il titolo della finestra
 	 */
 	public MovimentiControllerImpl(final DBDataModel db, final String title) {
 		this.model = new MovementsModel(db);

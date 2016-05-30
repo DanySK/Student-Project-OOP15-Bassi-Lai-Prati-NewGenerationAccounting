@@ -18,13 +18,13 @@ import dataModel.IDataTableModel;
  *
  */
 public class MyTableModel<E extends IDataTableModel> extends AbstractTableModel {
-
 	private static final long serialVersionUID = -9056625553908580890L;
 	private final String headerList[];
 	protected List<E> objectsList;
 
 	/**
-	 * 
+	 * @param headerList array di intestazioni
+	 * @param list lista degli elementi
 	 */
 	public MyTableModel(final String headerList[], final List<E> list) {
 		this.objectsList = list;
@@ -41,6 +41,11 @@ public class MyTableModel<E extends IDataTableModel> extends AbstractTableModel 
 		return headerList[col];
 	}
 
+	/**
+	 * ritorna l'oggetto data la riga della tabella
+	 * @param row la riga
+	 * @return l'oggetto presente
+	 */
 	public E getObjectAt(final int row) {
 		return objectsList.get(row);
 	}
@@ -55,6 +60,10 @@ public class MyTableModel<E extends IDataTableModel> extends AbstractTableModel 
 		return objectsList.get(row).getValueAt(column);
 	}
 
+	/**
+	 * setta la lista degli oggetti e aggiorna la JTable
+	 * @param objectsList lista degli oggetti
+	 */
 	public void setList(final List<E> objectsList) {
 		this.objectsList = objectsList;
 		fireTableDataChanged();

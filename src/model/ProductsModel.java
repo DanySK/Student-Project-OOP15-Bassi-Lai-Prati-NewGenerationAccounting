@@ -83,8 +83,7 @@ public class ProductsModel implements ModelInterface {
 	}
 
 	@Override
-	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare)
-			throws InstanceNotFoundException {
+	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare) throws InstanceNotFoundException {
 
 		((Product) obj).setNome((String) infoDaModificare.get(nome));
 		((Product) obj).setCod_acquisto((Integer) infoDaModificare.get(codiceA));

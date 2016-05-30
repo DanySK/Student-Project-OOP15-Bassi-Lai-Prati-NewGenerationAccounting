@@ -1,6 +1,5 @@
 package model;
 
-import java.util.AbstractList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -37,9 +36,8 @@ public class CreaFattureModel implements ModelInterface {
 	public CreaFattureModel(DBDataModel db) {
 		this.db = db;
 	}
-	
-	public CreaFattureModel()
-	{
+
+	public CreaFattureModel() {
 		LinkedList<Item> listaCarrello;
 	}
 
@@ -120,20 +118,18 @@ public class CreaFattureModel implements ModelInterface {
 		return new LinkedList<Item>(listaCarrello);
 	}
 
-	public  LinkedList<Customers_Suppliers> getListaclienti()
-	{
-		
+	public LinkedList<Customers_Suppliers> getListaclienti() {
+
 		LinkedList<Customers_Suppliers> listaClienti = null;
-		
-		for (Customers_Suppliers controlloCliente : db.getCustomersSuppliers()){
-			if(controlloCliente.getRuolo() == KindPerson.CLIENTE){
-			listaClienti.add(controlloCliente);
+
+		for (Customers_Suppliers controlloCliente : db.getCustomersSuppliers()) {
+			if (controlloCliente.getRuolo() == KindPerson.CLIENTE) {
+				listaClienti.add(controlloCliente);
 			}
 		}
 		return listaClienti;
 	}
-	
-	
+
 	@Override
 	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
 		LinkedList<Item> listaFiltrata = new LinkedList<>();
@@ -163,8 +159,8 @@ public class CreaFattureModel implements ModelInterface {
 	}
 
 	public DBDataModel create(Customers_Suppliers item) {
-		//fai
-		
+		// fai
+
 		return db;
 	}
 

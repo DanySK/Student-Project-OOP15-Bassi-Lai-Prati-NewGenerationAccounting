@@ -7,7 +7,6 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.util.LinkedList;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -15,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import controller.creaFattura.CreaFatturaControllerImpl;
-import dataModel.Company;
 import dataModel.Customers_Suppliers;
 import dataModel.Item;
 import view.AnagraficaView;
@@ -27,17 +25,17 @@ import view.AnagraficaView;
  *
  */
 public class CreaFatturaView extends AnagraficaView<Item> {
-
 	private final JComboBox<Customers_Suppliers> customerField;
-
 	private static final long serialVersionUID = 1573273884755541097L;
 
 	/**
-	 * 
+	 * @param list lista dei valori da inserire nella JTable
+	 * @param title titolo della finestra
 	 */
-	public CreaFatturaView(final LinkedList<Item> lista, final String title) {
-		super(lista, Item.getIntestazione(), title);
-		customerField = new JComboBox<Customers_Suppliers>(((CreaFatturaControllerImpl)getObserver()).getCustomersList());
+	public CreaFatturaView(final LinkedList<Item> list, final String title) {
+		super(list, Item.getIntestazione(), title);
+		customerField = new JComboBox<Customers_Suppliers>(
+				((CreaFatturaControllerImpl) getObserver()).getCustomersList());
 		JButton creaButton = new JButton("Accedi");
 		JPanel topPanel = new JPanel(new FlowLayout());
 		topPanel.add(new JLabel("Seleziona il cliente: "));
@@ -54,7 +52,7 @@ public class CreaFatturaView extends AnagraficaView<Item> {
 				return;
 			}
 			if (item != null) {
-				((CreaFatturaControllerImpl)getObserver()).create(item);
+				((CreaFatturaControllerImpl) getObserver()).create(item);
 			} else {
 				errorDialog("Attenzione, seleziona una riga per continuare!", "nessuna riga selezionata");
 			}

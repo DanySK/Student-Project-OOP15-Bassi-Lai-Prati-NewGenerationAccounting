@@ -39,37 +39,41 @@ public class MovementsModel implements ModelInterface {
 
 	@Override
 	public void add(Map<String, Object> elem) throws InstanceAlreadyExistsException, InstanceNotFoundException {
-	    float totAvere = 0;
-	    float totDare = 0;
-	    //controllare qui e nella edit che il movimento abbia il saldo dare e avere uguali
-	    // una riga del movimento non può avere dare e avere insieme
-	        if(!(elem.get(DATA) instanceof Date)){
-	            throw new IllegalArgumentException("data inserita non valida");
-	        }
-	        if(!(elem.get(LISTA)instanceof LinkedList)){
-	            throw new IllegalArgumentException("lista inserita non valida");
-	        }
-	        Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
-	        // per ogni operazione in m.getList:
-	        //1) dare e avere != 0 -> NO
-	        //2) dare e avere ==0 -> NO
-	        //in m tot dare e tot avere devono essere uguali
-	        for(Operation op : m.getListaConti()){
-	            if(op.getAvere()!=0){
-	                if(op.getDare() == 0)totAvere = totAvere + op.getAvere();
-	                else throw new IllegalArgumentException("in un'operazione non possono esserci 2 valori > 0");
-	            }
-	            else if(op.getAvere() == 0){
-	                if(op.getDare()!=0) totDare = totDare + op.getDare();
-	                else throw new IllegalArgumentException("in un'operazione non possono esserci 2 valori = 0");
-	            }
-	        }
-	        System.out.println(Float.toString(totDare));
-	        System.out.println("\n"+Float.toString(totAvere));
-	        if(totAvere != totDare){
-	            throw new IllegalArgumentException("totale dare diverso da totale avere");
-	        }
-	        listaMovimenti.add(m);
+		float totAvere = 0;
+		float totDare = 0;
+		// controllare qui e nella edit che il movimento abbia il saldo dare e
+		// avere uguali
+		// una riga del movimento non può avere dare e avere insieme
+		if (!(elem.get(DATA) instanceof Date)) {
+			throw new IllegalArgumentException("data inserita non valida");
+		}
+		if (!(elem.get(LISTA) instanceof LinkedList)) {
+			throw new IllegalArgumentException("lista inserita non valida");
+		}
+		Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
+		// per ogni operazione in m.getList:
+		// 1) dare e avere != 0 -> NO
+		// 2) dare e avere ==0 -> NO
+		// in m tot dare e tot avere devono essere uguali
+		for (Operation op : m.getListaConti()) {
+			if (op.getAvere() != 0) {
+				if (op.getDare() == 0)
+					totAvere = totAvere + op.getAvere();
+				else
+					throw new IllegalArgumentException("in un'operazione non possono esserci 2 valori > 0");
+			} else if (op.getAvere() == 0) {
+				if (op.getDare() != 0)
+					totDare = totDare + op.getDare();
+				else
+					throw new IllegalArgumentException("in un'operazione non possono esserci 2 valori = 0");
+			}
+		}
+		System.out.println(Float.toString(totDare));
+		System.out.println("\n" + Float.toString(totAvere));
+		if (totAvere != totDare) {
+			throw new IllegalArgumentException("totale dare diverso da totale avere");
+		}
+		listaMovimenti.add(m);
 		LinkedList<Account> accountList = db.getAccounts();
 		for (Operation op : m.getListaConti()) {
 			if (accountList.contains(op.getConto())) {
@@ -87,33 +91,36 @@ public class MovementsModel implements ModelInterface {
 			} else {
 				throw new InstanceNotFoundException("il conto cercato non è presente in lista");
 			}
-		    }
-		    db.setAccounts(accountList);
-	        }
+		}
+		db.setAccounts(accountList);
+	}
 
 	@Override
 	public void edit(IDataTableModel obj, Map<String, Object> elemDaModificare)
 			throws IllegalArgumentException, InstanceNotFoundException, InstanceAlreadyExistsException {
 		System.out.println(obj);
-		Movement m = new Movement((Date) elemDaModificare.get(DATA), (LinkedList<Operation>) elemDaModificare.get(LISTA));
-	    if (obj instanceof Movement) {
-	        for(Operation op : ((Movement) obj).getListaConti()){
-	            for (Operation elem : m.getListaConti()){
-	              if(op.getConto() == elem.getConto()){
-	                  if(op.getAvere()>0 && elem.getAvere() == 0) elem.setAvere(op.getAvere());
-	                  if(op.getDare()>0 && elem.getDare() == 0) elem.setDare(op.getDare());
-	                  
-	              }
-	            }
-	        }
-	        elemDaModificare.remove(DATA);
-	        elemDaModificare.remove(LISTA);
-	        elemDaModificare.put(DATA, m.getData());
-	        elemDaModificare.put(LISTA, m.getListaConti());
+		Movement m = new Movement((Date) elemDaModificare.get(DATA),
+				(LinkedList<Operation>) elemDaModificare.get(LISTA));
+		if (obj instanceof Movement) {
+			for (Operation op : ((Movement) obj).getListaConti()) {
+				for (Operation elem : m.getListaConti()) {
+					if (op.getConto() == elem.getConto()) {
+						if (op.getAvere() > 0 && elem.getAvere() == 0)
+							elem.setAvere(op.getAvere());
+						if (op.getDare() > 0 && elem.getDare() == 0)
+							elem.setDare(op.getDare());
+
+					}
+				}
+			}
+			elemDaModificare.remove(DATA);
+			elemDaModificare.remove(LISTA);
+			elemDaModificare.put(DATA, m.getData());
+			elemDaModificare.put(LISTA, m.getListaConti());
 			for (Movement mov : listaMovimenti) {
 				if (mov == obj) {
-				   
-					remove(mov);				
+
+					remove(mov);
 					add(elemDaModificare);
 				}
 			}
@@ -199,22 +206,21 @@ public class MovementsModel implements ModelInterface {
 				if (listaMovimenti.contains(m)) {
 					listaMovimenti.remove(m);
 					for (Operation op : m.getListaConti()) {
-						for(Account acc : db.getAccounts()){
-						    if(acc == op.getConto()){
-						        if(acc.getNatura() == Natures.ATTIVITA || acc.getNatura() == Natures.COSTO){
-						            if(op.getDare()>0){
-						                acc.decrSaldo(op.getDare());
-						            }
-						            else acc.incrSaldo(op.getAvere());
-						        }
-						        else if(acc.getNatura() == Natures.PASSIVITA || acc.getNatura() == Natures.COSTO){
-						            
-						            if(op.getDare()>0){
-                                                                acc.incrSaldo(op.getDare());
-                                                            }
-                                                            else acc.decrSaldo(op.getAvere());
-						        }
-						    }
+						for (Account acc : db.getAccounts()) {
+							if (acc == op.getConto()) {
+								if (acc.getNatura() == Natures.ATTIVITA || acc.getNatura() == Natures.COSTO) {
+									if (op.getDare() > 0) {
+										acc.decrSaldo(op.getDare());
+									} else
+										acc.incrSaldo(op.getAvere());
+								} else if (acc.getNatura() == Natures.PASSIVITA || acc.getNatura() == Natures.COSTO) {
+
+									if (op.getDare() > 0) {
+										acc.incrSaldo(op.getDare());
+									} else
+										acc.decrSaldo(op.getAvere());
+								}
+							}
 						}
 					}
 				} else {

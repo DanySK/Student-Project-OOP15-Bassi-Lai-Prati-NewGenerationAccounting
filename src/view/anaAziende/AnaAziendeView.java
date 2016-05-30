@@ -26,15 +26,21 @@ import view.AnagraficaView;
 public class AnaAziendeView extends AnagraficaView<Company> {
 
 	private static final long serialVersionUID = 5859979634610547926L;
-
 	private final JPasswordField passwordField;
 
+	/**
+	 * @param lista delle aziende
+	 */
 	public AnaAziendeView(final LinkedList<Company> lista) {
 		this(lista, "Benvenuto in NGA");
 	}
 
-	public AnaAziendeView(final LinkedList<Company> lista, final String title) {
-		super(lista, Company.getIntestazione(), title);
+	/**
+	 * @param list lista delle aziende
+	 * @param title titolo della view
+	 */
+	public AnaAziendeView(final LinkedList<Company> list, final String title) {
+		super(list, Company.getIntestazione(), title);
 		passwordField = new JPasswordField(15);
 		JButton accediButton = new JButton("Accedi");
 		JPanel topPanel = new JPanel(new FlowLayout());
@@ -58,6 +64,9 @@ public class AnaAziendeView extends AnagraficaView<Company> {
 		});
 	}
 
+	/**
+	 * @return the password
+	 */
 	public char[] getInputPassword() {
 		return passwordField.getPassword();
 	}

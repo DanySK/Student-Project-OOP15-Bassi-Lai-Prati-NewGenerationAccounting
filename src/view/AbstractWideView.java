@@ -29,8 +29,8 @@ public abstract class AbstractWideView extends AbstractFrame {
 	private IViewObserver observer;
 
 	/**
-	 * @param title
-	 * @param dimension
+	 * @param title of the view
+	 * @param dimension of the view
 	 */
 	public AbstractWideView(final String title, final Dimension dimension) {
 		super(title, dimension);
@@ -56,6 +56,10 @@ public abstract class AbstractWideView extends AbstractFrame {
 		this.observer = observer;
 	}
 
+	/**
+	 * restituisce il controller
+	 * @return the observer
+	 */
 	protected IViewObserver getObserver() {
 		return observer;
 	}

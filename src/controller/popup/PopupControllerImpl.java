@@ -23,7 +23,7 @@ import dataEnum.IDataEnum;
 import dataEnum.PopupMode;
 import dataModel.Account;
 import dataModel.Operation;
-import model.AbstractModel;
+import model.ModelInterface;
 import model.MovementsModel;
 import view.AnagraficaView;
 import view.popup.AddEditPopupView;
@@ -37,7 +37,7 @@ import view.popup.AddEditPopupView;
 @SuppressWarnings("rawtypes")
 public class PopupControllerImpl implements IViewObserver {
 
-	private final AbstractModel model;
+	private final ModelInterface model;
 	private final IAnagraficaViewObserver parentController;
 	private final AnagraficaView parentView;
 	private final AddEditPopupView view;
@@ -45,7 +45,7 @@ public class PopupControllerImpl implements IViewObserver {
 	private final Map<String, Object> mappa;
 	private Account emptyAccount;
 
-	public PopupControllerImpl(final PopupMode mode, final AbstractModel model,
+	public PopupControllerImpl(final PopupMode mode, final ModelInterface model,
 			final IAnagraficaViewObserver parentController, final AnagraficaView parentView)
 			throws InstanceNotFoundException, IllegalArgumentException {
 		this.mode = mode;

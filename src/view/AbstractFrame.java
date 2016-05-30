@@ -28,8 +28,6 @@ public abstract class AbstractFrame extends JFrame {
 	 * 
 	 * @param title
 	 *            titolo della finestra
-	 * @param lm
-	 *            LayoutManager
 	 * @param dimension
 	 *            dimensione finestra
 	 */

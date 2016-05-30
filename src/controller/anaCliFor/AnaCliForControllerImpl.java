@@ -26,6 +26,10 @@ public class AnaCliForControllerImpl implements IAnagraficaViewObserver {
 	private final CustomersSuppliersModel model;
 	private final AnagraficaView<Customers_Suppliers> view;
 
+	/**
+	 * @param db il database
+	 * @param title il titolo della finestra
+	 */
 	public AnaCliForControllerImpl(final DBDataModel db, final String title) {
 		this.model = new CustomersSuppliersModel(db);
 		this.view = new AnagraficaView<Customers_Suppliers>(model.load(), Customers_Suppliers.getIntestazione(), title);

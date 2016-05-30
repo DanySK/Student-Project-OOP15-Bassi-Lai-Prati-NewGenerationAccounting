@@ -26,7 +26,8 @@ public class AnaContiControllerImpl implements IAnagraficaViewObserver {
 	private final AnagraficaView<Account> view;
 
 	/**
-	 * @param view
+	 * @param db il database
+	 * @param title il titolo della finestra
 	 */
 	public AnaContiControllerImpl(final DBDataModel db, final String title) {
 		this.model = new AccountsModel(db);

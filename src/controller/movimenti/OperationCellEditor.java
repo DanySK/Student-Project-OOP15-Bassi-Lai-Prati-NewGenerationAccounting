@@ -12,13 +12,13 @@ import javax.swing.table.TableCellEditor;
 
 import dataModel.Account;
 
-public class MovimentiCellEditor extends AbstractCellEditor implements TableCellEditor, ActionListener {
+public class OperationCellEditor extends AbstractCellEditor implements TableCellEditor, ActionListener {
 
 	private static final long serialVersionUID = -118000933929622110L;
 	private Account account;
 	private LinkedList<Account> listAccount;
 
-	public MovimentiCellEditor(LinkedList<Account> linkedList) {
+	public OperationCellEditor(LinkedList<Account> linkedList) {
 		this.listAccount = linkedList;
 	}
 
