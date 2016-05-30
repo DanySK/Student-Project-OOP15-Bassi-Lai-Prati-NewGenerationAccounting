@@ -155,7 +155,7 @@ public class CreaFattureModel implements ModelInterface {
 	 * 
 	 * Funzione per l'aggiornamento del DB dopo la creazione della fattura.
 	 * 
-	 * Crea un movimento, più debiti, meno scorte della merce richiesta.
+	 * Crea un movimento, più debiti verso fornitori, meno scorte della merce richiesta.
 	 * 
 	 * 
 	 * 
@@ -167,6 +167,7 @@ public class CreaFattureModel implements ModelInterface {
 		if (listaCarrello.isEmpty()) {//sostituire con i controlli singoli
 			throw new IllegalArgumentException("Acquisto non valido. Riprovare.");
 		}
+		
 		for (Item creoSubtotale : listaCarrello) {
 			 // il prodotto ha un nome ed un prezzo di vendita , devo utilizzare lo stesso
 			//Item  creoSubtotale = new Item((Integer) product.getPrezzovendita() * quantita);

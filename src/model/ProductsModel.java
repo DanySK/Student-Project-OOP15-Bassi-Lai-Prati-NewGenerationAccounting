@@ -8,6 +8,7 @@ import javax.management.InstanceNotFoundException;
 
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
+
 import dataModel.Product;
 
 /**
@@ -20,7 +21,7 @@ import dataModel.Product;
 
 public class ProductsModel implements ModelInterface {
 
-	private final static String nome = "NProdotto";
+	private final static String nome = "Nome Prodotto";
 	private final static String codiceA = "CodiceAcquisto";
 	private final static String codiceV = "CodiceVendita";
 	private final static String categoria = "Categoria";
@@ -30,8 +31,7 @@ public class ProductsModel implements ModelInterface {
 	private int scorta;
 	private boolean trovato = false;
 
-	LinkedList<Product> listaProdotti;
-
+	private LinkedList<Product> listaProdotti = new LinkedList<Product>();
 	private DBDataModel db;
 
 	public ProductsModel(DBDataModel db) {
@@ -45,11 +45,11 @@ public class ProductsModel implements ModelInterface {
 			throw new IllegalArgumentException("Nome non valido. Riprovare.");
 		}
 
-		if (elem.get(codiceA) == "") {
+		if (elem.get(codiceA) == null) {
 			throw new IllegalArgumentException("Codice Acquisto non valido. Riprovare.");
 		}
 
-		if (elem.get(codiceV) == "") {
+		if (elem.get(codiceV) == null) {
 			throw new IllegalArgumentException("Codice Vendita non valido. Riprovare.");
 		}
 
@@ -61,15 +61,14 @@ public class ProductsModel implements ModelInterface {
 			throw new IllegalArgumentException("Descrizione non valida. Riprovare.");
 		}
 
-		if (elem.get(prezzo) == "") {
+		if (elem.get(prezzo) == null) {
 			throw new IllegalArgumentException("Prezzo non valido. Riprovare.");
 		}
 
-		// if (elem.get(rimanenze) == "" ){
+		// if (elem.get(rimanenze) == null ){
 		// throw new IllegalArgumentException("Rimanenze non valide.
 		// Riprovare.");
 		// }
-		//
 
 		if (listaProdotti.contains(elem)) {
 			throw new IllegalArgumentException("Elemento gia' esistente!");
@@ -121,6 +120,7 @@ public class ProductsModel implements ModelInterface {
 			mappaVuota.put(descrizione, new String(""));
 			mappaVuota.put(prezzo, new Integer(0));
 			mappaVuota.put(rimanenze, new Integer(0));
+			
 			return mappaVuota;
 
 		} else {
@@ -133,6 +133,7 @@ public class ProductsModel implements ModelInterface {
 				mappaPiena.put(descrizione, ((Product) obj).getDescrizione());
 				mappaPiena.put(prezzo, ((Product) obj).getPrezzovendita());
 				mappaPiena.put(rimanenze, ((Product) obj).getScorta());
+				
 				return mappaPiena;
 			} else {
 				throw new IllegalArgumentException("Valori non validi, riprovare.");
@@ -205,7 +206,7 @@ public class ProductsModel implements ModelInterface {
 	@Override
 	public void remove(IDataTableModel elem) {
 		if (listaProdotti.contains(elem)) {
-			// controllo scorta = 0? -> Y = ok cancella N = errore
+			//  controllo scorta = 0? -> Y = ok cancella N = errore 
 			if ((listaProdotti.contains(scorta > 0))) {
 				throw new IllegalArgumentException(
 						"Hai ancora rimanenze in magazzino di questo prodotto, non puoi eliminarlo.");
