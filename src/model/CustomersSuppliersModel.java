@@ -70,17 +70,17 @@ public class CustomersSuppliersModel implements ModelInterface {
 			throw new IllegalArgumentException("Indirizzo non valido. Riprovare.");
 
 		}
-		if (elem.get(CAP) == "") {
+		if (elem.get(CAP) == null) {
 			throw new IllegalArgumentException("CAP non valido. Riprovare.");
 
 		}
 
-		if (elem.get(Credito) == "") {
+		if (elem.get(Credito) == null) {
 			throw new IllegalArgumentException("Credito non valido. Riprovare.");
 
 		}
 
-		if (elem.get(Debito) == "") {
+		if (elem.get(Debito) == null) {
 			throw new IllegalArgumentException("Debito non valido. Riprovare.");
 
 		}
@@ -125,8 +125,8 @@ public class CustomersSuppliersModel implements ModelInterface {
 			((Customers_Suppliers) obj).setNome((String) infoDaModificare.get(Nome));
 			((Customers_Suppliers) obj).setIndirizzo((String) infoDaModificare.get(Indirizzo));
 			((Customers_Suppliers) obj).setCap((Integer) infoDaModificare.get(CAP));
-			((Customers_Suppliers) obj).setCredito((Integer) infoDaModificare.get(Credito));
-			((Customers_Suppliers) obj).setDebito((Integer) infoDaModificare.get(Debito));
+//			((Customers_Suppliers) obj).setCredito((Integer) infoDaModificare.get(Credito));
+//			((Customers_Suppliers) obj).setDebito((Integer) infoDaModificare.get(Debito));
 			((Customers_Suppliers) obj).setRuolo((KindPerson) infoDaModificare.get(ruolo));
 			((Customers_Suppliers) obj).setSesso((Gender) infoDaModificare.get(sesso));
 
@@ -157,8 +157,8 @@ public class CustomersSuppliersModel implements ModelInterface {
 			mappaVuota.put(Nome, new String(""));
 			mappaVuota.put(Indirizzo, new String(""));
 			mappaVuota.put(CAP, new String(""));
-			mappaVuota.put(Credito, new Integer(0));
-			mappaVuota.put(Debito, new Integer(0));
+//			mappaVuota.put(Credito, new Integer(0));
+//			mappaVuota.put(Debito, new Integer(0));
 			mappaVuota.put(Telefono, new String(""));
 			mappaVuota.put(Ruolostring, KindPerson.NESSUNO);
 			mappaVuota.put(Sessostring, Gender.NESSUNO);
@@ -179,8 +179,8 @@ public class CustomersSuppliersModel implements ModelInterface {
 				mappaPiena.put(Nome, ((Customers_Suppliers) obj).getNome());
 				mappaPiena.put(Indirizzo, ((Customers_Suppliers) obj).getIndirizzo());
 				mappaPiena.put(CAP, ((Customers_Suppliers) obj).getCap());
-				mappaPiena.put(Credito, ((Customers_Suppliers) obj).getCredito());
-				mappaPiena.put(Debito, ((Customers_Suppliers) obj).getDebito());
+//				mappaPiena.put(Credito, ((Customers_Suppliers) obj).getCredito());
+//				mappaPiena.put(Debito, ((Customers_Suppliers) obj).getDebito());
 				mappaPiena.put(Telefono, ((Customers_Suppliers) obj).getTelefono());
 				mappaPiena.put(Ruolostring, ((Customers_Suppliers) obj).getRuolo());
 				mappaPiena.put(Sessostring, ((Customers_Suppliers) obj).getSesso());

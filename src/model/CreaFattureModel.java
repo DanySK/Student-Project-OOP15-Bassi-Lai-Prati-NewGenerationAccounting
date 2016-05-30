@@ -22,13 +22,10 @@ import dataModel.Product;
 public class CreaFattureModel implements ModelInterface {
 
 	private final static String prodotto = "Prodotto";
-
 	private final static String quantita = "Quantita'";
 	private final static String scorta = "Scorta";
-	private final static String subtotale = "Subtotale"; // importo da
+	private final static String subtotale = "Subtotale"; // importo da inserire in debiti vs fornitori
 	private DBDataModel db;
-	// addebitare ai
-	// clienti
 	private Product product;
 
 	private final LinkedList<Item> listaCarrello = new LinkedList<Item>();
@@ -37,6 +34,11 @@ public class CreaFattureModel implements ModelInterface {
 		this.db = db;
 	}
 
+/*
+ * Funzione per la creazione di un nuovo carrello , con conseguente possibilità di acquistare prodotti.
+ * 
+ * @author Diego
+*/
 	@Override
 	public void add(Map<String, Object> elem) throws IllegalArgumentException {
 
@@ -68,33 +70,43 @@ public class CreaFattureModel implements ModelInterface {
 	 * 
 	 */
 	public DBDataModel create(Customers_Suppliers item) {
-
+		
 		// controlli acquisto valido
-
-		if (listaCarrello.isEmpty()) {// sostituire con i controlli singoli
+		
+		if (listaCarrello.isEmpty()) {//sostituire con i controlli singoli
 			throw new IllegalArgumentException("Acquisto non valido. Riprovare.");
 		}
-
+		final int subtotale;
 		for (Item creoSubtotale : listaCarrello) {
-			// il prodotto ha un nome ed un prezzo di vendita , devo utilizzare
-			// lo stesso
-			// Item creoSubtotale = new Item((Integer)
-			// product.getPrezzovendita() * quantita);
-
-			// creoSubtotale.getQuantita() ;
+			//subtotale+=creoSubtotale.getProdotto().getPrezzoVendita;
+			//creoSubtotale=creoSubtotale+listaCarrello.getPrezzovendita();
+//			product.get
+//			(product.getPrezzovendita() * (Integer)listaCarrello.getLast().getQuantita());
+//			 // il prodotto ha un nome ed un prezzo di vendita , devo utilizzare lo stesso
+			//Item  creoSubtotale = new Item((Integer) product.getPrezzovendita() * quantita);
+			
+	//	 creoSubtotale.getQuantita() ;
 		}
-
+		
 		// Product.getScorta - listaCarrello(quantita)
-
+		
+		
 		// nuovo movimento
-
+		
+		
 		// debiti verso fornitori = debiti verso fornitori + subtotale
-
+		
 		item.getDebito();
-		// listaCarrello.add(creoSubtotale);
+		//listaCarrello.add(creoSubtotale);
 		return db;
 	}
 
+	/*
+	 * Funzione per la modifica del carrello d'acquisto.
+	 * 
+	 * @author Diego
+	*/	
+	
 	@Override
 	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare) {
 		if ((Product) infoDaModificare.get(scorta) != null) {
@@ -105,6 +117,12 @@ public class CreaFattureModel implements ModelInterface {
 		}
 	}
 
+	/*
+	 * Funzione per la creazione di un filtro per i prodotti.
+	 * 
+	 * @author Diego
+	*/	
+	
 	@Override
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
@@ -112,6 +130,12 @@ public class CreaFattureModel implements ModelInterface {
 		return mappaFiltro;
 	}
 
+	/*
+	 * Funzione per ottenere tra tutte le persone, solo i clienti.
+	 * 
+	 * @author Diego
+	*/
+	
 	public LinkedList<Customers_Suppliers> getListaclienti() {
 
 		final LinkedList<Customers_Suppliers> listaClienti = new LinkedList<Customers_Suppliers>();
@@ -124,6 +148,12 @@ public class CreaFattureModel implements ModelInterface {
 		return listaClienti;
 	}
 
+	/*
+	 * Funzione per la creazione di una nuova mappa di classe, sia che sia ricevuta vuota o con valori al suo interno.
+	 * 
+	 * @author Diego
+	*/
+	
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
 
@@ -148,11 +178,23 @@ public class CreaFattureModel implements ModelInterface {
 
 	}
 
+	/*
+	 * Funzione per la creazione di listaCarrello.
+	 * 
+	 * @author Diego
+	*/	
+	
 	@Override
 	public LinkedList<Item> load() {
 		return new LinkedList<Item>(listaCarrello);
 	}
 
+	/*
+	 * Funzione per la creazione di un nuovo carrello , con conseguente possibilità di acquistare prodotti.
+	 * 
+	 * @author Diego
+	*/	
+	
 	@Override
 	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
 		LinkedList<Item> listaFiltrata = new LinkedList<>();
@@ -165,7 +207,11 @@ public class CreaFattureModel implements ModelInterface {
 		}
 		return null;
 	}
-
+	/*
+	 * Funzione per rimozione di un elemento dal carrello.
+	 * 
+	 * @author Diego
+	*/
 	@Override
 	public void remove(IDataTableModel elem) {
 		if (listaCarrello.contains(elem)) {
@@ -175,6 +221,12 @@ public class CreaFattureModel implements ModelInterface {
 		}
 	}
 
+	/*
+	 * Funzione per restituzione del DB.
+	 * 
+	 * @author Diego
+	*/
+	
 	@Override
 	public DBDataModel saveDBAndClose() {
 		// db.setProducts(listaCarrello);
