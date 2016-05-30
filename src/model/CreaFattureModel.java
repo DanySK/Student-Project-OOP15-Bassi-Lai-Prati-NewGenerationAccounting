@@ -1,12 +1,12 @@
 package model;
 
-import java.util.AbstractList;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
 import dataEnum.KindPerson;
-import dataModel.Company;
+
 import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
@@ -29,15 +29,13 @@ public class CreaFattureModel implements ModelInterface {
 	private final static String quantita = "Quantita'";
 	private final static String scorta = "Scorta";
 	private final static String subtotale = "Subtotale"; //importo da addebitare ai clienti
-	
-	private Product oggetto;
-	// private final int quantita;
+	private Product product;
 
 	
 	
 	
-	private final LinkedList<Item> listaCarrello = new LinkedList<Item>();
 	
+	private final LinkedList<Item> listaCarrello = new LinkedList<Item>();
 	
 	public CreaFattureModel(DBDataModel db) {
 		this.db = db;
@@ -59,14 +57,15 @@ public class CreaFattureModel implements ModelInterface {
 		if (listaCarrello.contains(elem)) {
 			throw new IllegalArgumentException("Elemento gia' esistente!");
 		} else {
-			Item nuovocarrello = new Item((Product) elem.get(prodotto), (Integer) elem.get(quantita));
+			Item nuovocarrello = new Item((Product) elem.get(prodotto), (Integer) elem.get(quantita)/*, (Integer)elem.get(subtotale)*/);
 			listaCarrello.add(nuovocarrello);
 		}
 	}
 
 	@Override
 	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare) {
-		if ((Product) infoDaModificare.get(scorta) != null) {
+		if ((Product) infoDaModificare.get(scorta) != null) { 
+			
 
 			((Item) obj).setProdotto((Product) infoDaModificare.get(prodotto));
 			((Item) obj).setQuantita((Integer) infoDaModificare.get(quantita));
@@ -168,6 +167,12 @@ public class CreaFattureModel implements ModelInterface {
 		if (listaCarrello.isEmpty()) {//sostituire con i controlli singoli
 			throw new IllegalArgumentException("Acquisto non valido. Riprovare.");
 		}
+		for (Item creoSubtotale : listaCarrello) {
+			 // il prodotto ha un nome ed un prezzo di vendita , devo utilizzare lo stesso
+			//Item  creoSubtotale = new Item((Integer) product.getPrezzovendita() * quantita);
+			
+	//	 creoSubtotale.getQuantita() ;
+		}
 		
 		// Product.getScorta - listaCarrello(quantita)
 		
@@ -177,8 +182,8 @@ public class CreaFattureModel implements ModelInterface {
 		
 		// debiti verso fornitori = debiti verso fornitori + subtotale
 		
-		
-		
+		item.getDebito();
+		//listaCarrello.add(creoSubtotale);
 		return db;
 	}
 
