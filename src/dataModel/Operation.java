@@ -102,11 +102,9 @@ public class Operation implements IEdiTableDataModel {
 		}
 	}
 
-    @Override
-    public String toString() {
-        return "Operation [conto=" + conto + ", dare=" + dare + ", avere=" + avere + "]";
-    }
-	
-	
+	@Override
+	public String toString() {
+		return "Operation [conto=" + conto + ", dare=" + dare + ", avere=" + avere + "]";
+	}
 
 }

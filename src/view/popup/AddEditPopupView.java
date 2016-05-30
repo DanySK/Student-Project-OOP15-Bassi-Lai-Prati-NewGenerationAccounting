@@ -44,10 +44,14 @@ public class AddEditPopupView extends AbstractFrame {
 	private final HashMap<String, JComponent> compoMap;
 
 	/**
-	 * @param title titolo della finestra
-	 * @param dimension dimensione della view
-	 * @param mappa mappa dei campi
-	 * @param observer il controller
+	 * @param title
+	 *            titolo della finestra
+	 * @param dimension
+	 *            dimensione della view
+	 * @param mappa
+	 *            mappa dei campi
+	 * @param observer
+	 *            il controller
 	 */
 	public AddEditPopupView(final String title, final Dimension dimension, final Map<String, Object> mappa,
 			PopupControllerImpl observer) {
@@ -134,8 +138,10 @@ public class AddEditPopupView extends AbstractFrame {
 	}
 
 	/**
-	 * @param operationsList lista delle operazioni del movimento
-	 * @return JTable per la gestione delle operazioni nella add/edit dei movimenti
+	 * @param operationsList
+	 *            lista delle operazioni del movimento
+	 * @return JTable per la gestione delle operazioni nella add/edit dei
+	 *         movimenti
 	 */
 	private JTable getOperationEdiTable(final List<Operation> operationsList) {
 		final JTable myTable = new JTable();

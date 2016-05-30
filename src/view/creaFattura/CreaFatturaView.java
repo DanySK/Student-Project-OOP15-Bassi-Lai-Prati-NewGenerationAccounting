@@ -25,12 +25,14 @@ import view.AnagraficaView;
  *
  */
 public class CreaFatturaView extends AnagraficaView<Item> {
-	private final JComboBox<Customers_Suppliers> customerField;
 	private static final long serialVersionUID = 1573273884755541097L;
+	private final JComboBox<Customers_Suppliers> customerField;
 
 	/**
-	 * @param list lista dei valori da inserire nella JTable
-	 * @param title titolo della finestra
+	 * @param list
+	 *            lista dei valori da inserire nella JTable
+	 * @param title
+	 *            titolo della finestra
 	 */
 	public CreaFatturaView(final LinkedList<Item> list, final String title) {
 		super(list, Item.getIntestazione(), title);
@@ -68,7 +70,7 @@ public class CreaFatturaView extends AnagraficaView<Item> {
 			return null;
 		}
 		if (item != null) {
-			return (Customers_Suppliers) item;
+			return item;
 		} else {
 			errorDialog("Attenzione, seleziona una riga per continuare!", "nessuna riga selezionata");
 			return null;

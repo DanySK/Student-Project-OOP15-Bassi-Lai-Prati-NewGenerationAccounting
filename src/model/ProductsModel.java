@@ -8,7 +8,6 @@ import javax.management.InstanceNotFoundException;
 
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
-
 import dataModel.Product;
 
 /**
@@ -120,7 +119,7 @@ public class ProductsModel implements ModelInterface {
 			mappaVuota.put(descrizione, new String(""));
 			mappaVuota.put(prezzo, new Integer(0));
 			mappaVuota.put(rimanenze, new Integer(0));
-			
+
 			return mappaVuota;
 
 		} else {
@@ -133,7 +132,7 @@ public class ProductsModel implements ModelInterface {
 				mappaPiena.put(descrizione, ((Product) obj).getDescrizione());
 				mappaPiena.put(prezzo, ((Product) obj).getPrezzovendita());
 				mappaPiena.put(rimanenze, ((Product) obj).getScorta());
-				
+
 				return mappaPiena;
 			} else {
 				throw new IllegalArgumentException("Valori non validi, riprovare.");
@@ -206,7 +205,7 @@ public class ProductsModel implements ModelInterface {
 	@Override
 	public void remove(IDataTableModel elem) {
 		if (listaProdotti.contains(elem)) {
-			//  controllo scorta = 0? -> Y = ok cancella N = errore 
+			// controllo scorta = 0? -> Y = ok cancella N = errore
 			if ((listaProdotti.contains(scorta > 0))) {
 				throw new IllegalArgumentException(
 						"Hai ancora rimanenze in magazzino di questo prodotto, non puoi eliminarlo.");

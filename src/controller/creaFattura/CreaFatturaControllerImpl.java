@@ -27,8 +27,10 @@ public class CreaFatturaControllerImpl implements IAnagraficaViewObserver {
 	private final CreaFatturaView view;
 
 	/**
-	 * @param db il database
-	 * @param title il titolo della finestra
+	 * @param db
+	 *            il database
+	 * @param title
+	 *            il titolo della finestra
 	 */
 	public CreaFatturaControllerImpl(final DBDataModel db, final String title) {
 		this.model = new CreaFattureModel(db);
@@ -43,6 +45,28 @@ public class CreaFatturaControllerImpl implements IAnagraficaViewObserver {
 		new DBSaver(db.getPath(), view, db).start();
 		view.close();
 		new MainControllerImpl(db);
+	}
+
+	/**
+	 * crea la fattura
+	 * 
+	 * @param item
+	 *            il cliente selezionato
+	 */
+	public void create(Customers_Suppliers item) {
+		final DBDataModel db = model.create(item);
+		new DBSaver(db.getPath(), view, db).start();
+		view.close();
+		new MainControllerImpl(db);
+	}
+
+	/**
+	 * ritorna la lista dei clienti
+	 * 
+	 * @return lista dei clienti
+	 */
+	public Customers_Suppliers[] getCustomersList() {
+		return (Customers_Suppliers[]) model.getListaclienti().toArray();
 	}
 
 	@Override
@@ -85,22 +109,5 @@ public class CreaFatturaControllerImpl implements IAnagraficaViewObserver {
 			view.errorDialog("Errore", e.getMessage());
 		}
 		refresh();
-	}
-
-	
-	/**
-	 * ritorna la lista dei clienti
-	 * @return lista dei clienti
-	 */
-	public Customers_Suppliers[] getCustomersList() {
-		return (Customers_Suppliers[]) model.getListaclienti().toArray();
-	}
-
-	/**
-	 * crea la fattura
-	 * @param item il cliente selezionato
-	 */
-	public void create(Customers_Suppliers item) {
-		model.create(item);
 	}
 }

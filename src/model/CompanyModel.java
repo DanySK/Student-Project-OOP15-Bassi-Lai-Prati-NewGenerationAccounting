@@ -79,7 +79,7 @@ public class CompanyModel implements ModelInterface {
 			throw new IllegalArgumentException("Numero di telefono non valido. Riprovare.");
 
 		}
-		
+
 		nuovaazienda = new Company(UUID.randomUUID(), (char[]) elem.get(password), (String) elem.get(ragione_sociale),
 				(String) elem.get(p_iva), (String) elem.get(indirizzo), (String) elem.get(citta), (int) elem.get(cap),
 				(String) elem.get(provincia), (String) elem.get(telefono));

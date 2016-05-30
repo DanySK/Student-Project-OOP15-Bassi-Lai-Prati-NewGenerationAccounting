@@ -45,9 +45,12 @@ public class AnagraficaView<E extends IDataTableModel> extends AbstractFrame {
 	private final JButton tasto4 = new JButton();
 
 	/**
-	 * @param lista lista degli elementi
-	 * @param intestazione intestazione delle colonne
-	 * @param title titolo della finestra
+	 * @param lista
+	 *            lista degli elementi
+	 * @param intestazione
+	 *            intestazione delle colonne
+	 * @param title
+	 *            titolo della finestra
 	 */
 	public AnagraficaView(final LinkedList<E> lista, final String intestazione[], final String title) {
 		this(lista, intestazione, title, DEFAULT_TASTO_0, DEFAULT_TASTO_1, DEFAULT_TASTO_2, DEFAULT_TASTO_3,
@@ -55,14 +58,22 @@ public class AnagraficaView<E extends IDataTableModel> extends AbstractFrame {
 	}
 
 	/**
-	 * @param lista lista degli elementi
-	 * @param intestazione intestazione delle colonne
-	 * @param title titolo della finestra
-	 * @param testo0 stringa tasto
-	 * @param testo1 stringa tasto
-	 * @param testo2 stringa tasto
-	 * @param testo3 stringa tasto
-	 * @param testo4 stringa tasto
+	 * @param lista
+	 *            lista degli elementi
+	 * @param intestazione
+	 *            intestazione delle colonne
+	 * @param title
+	 *            titolo della finestra
+	 * @param testo0
+	 *            stringa tasto
+	 * @param testo1
+	 *            stringa tasto
+	 * @param testo2
+	 *            stringa tasto
+	 * @param testo3
+	 *            stringa tasto
+	 * @param testo4
+	 *            stringa tasto
 	 */
 	public AnagraficaView(final LinkedList<E> lista, final String intestazione[], final String title,
 			final String testo0, final String testo1, final String testo2, final String testo3, final String testo4) {
@@ -112,16 +123,21 @@ public class AnagraficaView<E extends IDataTableModel> extends AbstractFrame {
 	}
 
 	/**
-	 * @return the table model
+	 * restituisce il controller
+	 * 
+	 * @return the observer
 	 */
-	protected MyTableModel<E> getTableModel() {
-		return tableModel;
+	public IAnagraficaViewObserver getObserver() {
+		return observer;
 	}
 
 	/**
-	 * restituisce l'elemento attualmente selezionato nella tabella. se niente è selezionato solleva una InstanceNotFoundException
+	 * restituisce l'elemento attualmente selezionato nella tabella. se niente è
+	 * selezionato solleva una InstanceNotFoundException
+	 * 
 	 * @return l'elemtno selezioanto
-	 * @throws InstanceNotFoundException quando nulla è selezionato
+	 * @throws InstanceNotFoundException
+	 *             quando nulla è selezionato
 	 */
 	public IDataTableModel getSelectedItem() throws InstanceNotFoundException {
 		final int row = getTable().getSelectedRow();
@@ -140,7 +156,15 @@ public class AnagraficaView<E extends IDataTableModel> extends AbstractFrame {
 	}
 
 	/**
+	 * @return the table model
+	 */
+	protected MyTableModel<E> getTableModel() {
+		return tableModel;
+	}
+
+	/**
 	 * setta la lista degli item
+	 * 
 	 * @param lista
 	 */
 	public void setList(final LinkedList<E> lista) {
@@ -149,17 +173,11 @@ public class AnagraficaView<E extends IDataTableModel> extends AbstractFrame {
 
 	/**
 	 * setta l'observer (controller) nella view
-	 * @param observer il controller
+	 * 
+	 * @param observer
+	 *            il controller
 	 */
 	public void setObserver(final IAnagraficaViewObserver observer) {
 		this.observer = observer;
-	}
-
-	/**
-	 * restituisce il controller
-	 * @return the observer
-	 */
-	public IAnagraficaViewObserver getObserver() {
-		return observer;
 	}
 }

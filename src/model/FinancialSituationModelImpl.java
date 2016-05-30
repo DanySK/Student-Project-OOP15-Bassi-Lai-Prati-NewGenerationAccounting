@@ -43,6 +43,14 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		contiRegistrati = db.getAccounts();
 	}
 
+	@Override
+	public String AnalisiFinanziaria() {
+		calcolaIndici_Margini();
+		ArrayList<String> commento = new ArrayList<>();
+		// FINIRE
+		return null;
+	}
+
 	private LinkedList<Account> calcolaCE() {
 
 		for (Account a : contiRegistrati) {
@@ -207,14 +215,6 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 			}
 		}
 		return (ricVend - costiAcq) / ricVend;
-	}
-
-	@Override
-	public String AnalisiFinanziaria() {
-		calcolaIndici_Margini();
-		ArrayList<String> commento = new ArrayList<>();
-		// FINIRE
-		return null;
 	}
 
 	private Float getROT() {

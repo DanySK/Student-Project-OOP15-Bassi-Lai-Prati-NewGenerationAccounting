@@ -18,7 +18,8 @@ import view.anaAziende.AnaAziendeView;
 
 /**
  * implementazione del controller della anagrafica aziende
-  * @author Pentolo
+ * 
+ * @author Pentolo
  *
  */
 public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
@@ -26,7 +27,8 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	private final CompanyModel model;
 
 	/**
-	 * @param linkedList lista delle aziende
+	 * @param linkedList
+	 *            lista delle aziende
 	 */
 	public AnaAziendeControllerImpl(final LinkedList<Company> linkedList) {
 		this.model = new CompanyModel(linkedList);
@@ -53,7 +55,9 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 
 	/**
 	 * metodo del controller che controlla che la password inserita sia corretta
-	 * @param company l'azienda selezionata
+	 * 
+	 * @param company
+	 *            l'azienda selezionata
 	 * @return booleano true se la password è corretta. altrimenti false
 	 */
 	private boolean checkPwd(final Company company) {
@@ -69,7 +73,9 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	}
 
 	/**
-	 * ritorna l'azienda selezionata nella JTable. se nessuna è selezionata apre una finestra di dialogo con l'errore
+	 * ritorna l'azienda selezionata nella JTable. se nessuna è selezionata apre
+	 * una finestra di dialogo con l'errore
+	 * 
 	 * @return azienda selezionata
 	 */
 	private Company getSelectedCompany() {
@@ -155,7 +161,8 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 	}
 
 	/**
-	 * metodo che apre una finestra di dialogo in cui visualizza un messaggio di errore nel caso di password errata
+	 * metodo che apre una finestra di dialogo in cui visualizza un messaggio di
+	 * errore nel caso di password errata
 	 */
 	private void wrongPwd() {
 		view.errorDialog("Password Errata", "Attenzione! La password inserita è errata. riprovare.");

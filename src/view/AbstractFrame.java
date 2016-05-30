@@ -50,7 +50,8 @@ public abstract class AbstractFrame extends JFrame {
 	protected abstract void chiusura();
 
 	public void close() {
-		this.myFrame.setVisible(false);
+		myFrame.setVisible(false);
+		myFrame.dispose();
 	}
 
 	public boolean confirmDialog(final String question, final String title) {

@@ -31,7 +31,8 @@ public class MainControllerImpl implements IViewObserver {
 	private final MainView view;
 
 	/**
-	 * @param db il database
+	 * @param db
+	 *            il database
 	 */
 	public MainControllerImpl(final DBDataModel db) {
 		this.view = new MainView();

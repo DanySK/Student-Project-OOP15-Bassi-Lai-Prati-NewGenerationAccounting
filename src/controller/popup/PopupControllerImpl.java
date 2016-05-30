@@ -98,6 +98,7 @@ public class PopupControllerImpl implements IViewObserver {
 	public LinkedList<Account> getAccountsList() {
 		if (model instanceof MovementsModel) {
 			LinkedList<Account> accounts = ((MovementsModel) model).getAllAccounts();
+
 			emptyAccount = accounts.getFirst();
 			return accounts;
 		}

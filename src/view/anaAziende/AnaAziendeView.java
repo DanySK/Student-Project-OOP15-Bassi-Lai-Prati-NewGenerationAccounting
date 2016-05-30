@@ -29,15 +29,18 @@ public class AnaAziendeView extends AnagraficaView<Company> {
 	private final JPasswordField passwordField;
 
 	/**
-	 * @param lista delle aziende
+	 * @param lista
+	 *            delle aziende
 	 */
 	public AnaAziendeView(final LinkedList<Company> lista) {
 		this(lista, "Benvenuto in NGA");
 	}
 
 	/**
-	 * @param list lista delle aziende
-	 * @param title titolo della view
+	 * @param list
+	 *            lista delle aziende
+	 * @param title
+	 *            titolo della view
 	 */
 	public AnaAziendeView(final LinkedList<Company> list, final String title) {
 		super(list, Company.getIntestazione(), title);

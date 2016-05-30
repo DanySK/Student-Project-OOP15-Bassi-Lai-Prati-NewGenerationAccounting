@@ -26,8 +26,10 @@ public class AnaProdControllerImpl implements IAnagraficaViewObserver {
 	private final AnagraficaView<Product> view;
 
 	/**
-	 * @param db il database
-	 * @param title il titolo della finestra
+	 * @param db
+	 *            il database
+	 * @param title
+	 *            il titolo della finestra
 	 */
 	public AnaProdControllerImpl(final DBDataModel db, final String title) {
 		this.model = new ProductsModel(db);

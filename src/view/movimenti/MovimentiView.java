@@ -27,8 +27,10 @@ public class MovimentiView extends AnagraficaView<Movement> {
 	private static final long serialVersionUID = -7682380373297678954L;
 
 	/**
-	 * @param list lista dei valori da inserire nella JTable
-	 * @param title titolo della finestra
+	 * @param list
+	 *            lista dei valori da inserire nella JTable
+	 * @param title
+	 *            titolo della finestra
 	 */
 	public MovimentiView(final LinkedList<Movement> list, final String title) {
 		super(list, Movement.getIntestazione(), title);
