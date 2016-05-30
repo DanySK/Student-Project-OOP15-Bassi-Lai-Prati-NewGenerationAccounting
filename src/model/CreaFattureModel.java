@@ -1,10 +1,12 @@
 package model;
 
+import java.util.AbstractList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
 import dataEnum.KindPerson;
+import dataModel.Company;
 import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
@@ -26,20 +28,22 @@ public class CreaFattureModel implements ModelInterface {
 	private final static String prodotto = "Prodotto";
 	private final static String quantita = "Quantita'";
 	private final static String scorta = "Scorta";
+	private final static String subtotale = "Subtotale"; //importo da addebitare ai clienti
+	
 	private Product oggetto;
 	// private final int quantita;
 
-	private int spesa; // Spesa = subtotale
-
-	private LinkedList<Item> listaCarrello;
-
+	
+	
+	
+	private final LinkedList<Item> listaCarrello = new LinkedList<Item>();
+	
+	
 	public CreaFattureModel(DBDataModel db) {
 		this.db = db;
 	}
+	
 
-	public CreaFattureModel() {
-		LinkedList<Item> listaCarrello;
-	}
 
 	@Override
 	public void add(Map<String, Object> elem) throws IllegalArgumentException {
@@ -57,19 +61,7 @@ public class CreaFattureModel implements ModelInterface {
 		} else {
 			Item nuovocarrello = new Item((Product) elem.get(prodotto), (Integer) elem.get(quantita));
 			listaCarrello.add(nuovocarrello);
-			// db.setProducts(listaCarrello);
 		}
-
-		// if (oggetto.getScorta()<=0){
-		// throw new IllegalArgumentException("Questo prodotto non ï¿½ piï¿½
-		// disponibile in magazzino, mi dispiace.");
-		// }else{
-
-		// Item nuovoCarrello = new Item (oggetto, quantita);
-		// }
-
-		// listaCarrello.add(nuovoCarrello);
-
 	}
 
 	@Override
@@ -118,18 +110,20 @@ public class CreaFattureModel implements ModelInterface {
 		return new LinkedList<Item>(listaCarrello);
 	}
 
-	public LinkedList<Customers_Suppliers> getListaclienti() {
-
-		LinkedList<Customers_Suppliers> listaClienti = null;
-
-		for (Customers_Suppliers controlloCliente : db.getCustomersSuppliers()) {
-			if (controlloCliente.getRuolo() == KindPerson.CLIENTE) {
-				listaClienti.add(controlloCliente);
+	public  LinkedList<Customers_Suppliers> getListaclienti()
+	{
+		
+		final LinkedList<Customers_Suppliers> listaClienti = new LinkedList<Customers_Suppliers>();
+		
+		for (Customers_Suppliers controlloCliente : db.getCustomersSuppliers()){
+			if(controlloCliente.getRuolo() == KindPerson.CLIENTE){
+			listaClienti.add(controlloCliente);
 			}
 		}
 		return listaClienti;
 	}
-
+	
+	
 	@Override
 	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
 		LinkedList<Item> listaFiltrata = new LinkedList<>();
@@ -158,9 +152,33 @@ public class CreaFattureModel implements ModelInterface {
 		return db;
 	}
 
+	/**
+	 * 
+	 * Funzione per l'aggiornamento del DB dopo la creazione della fattura.
+	 * 
+	 * Crea un movimento, più debiti, meno scorte della merce richiesta.
+	 * 
+	 * 
+	 * 
+	*/
 	public DBDataModel create(Customers_Suppliers item) {
-		// fai
-
+	
+		// controlli acquisto valido
+		
+		if (listaCarrello.isEmpty()) {//sostituire con i controlli singoli
+			throw new IllegalArgumentException("Acquisto non valido. Riprovare.");
+		}
+		
+		// Product.getScorta - listaCarrello(quantita)
+		
+		
+		// nuovo movimento
+		
+		
+		// debiti verso fornitori = debiti verso fornitori + subtotale
+		
+		
+		
 		return db;
 	}
 
