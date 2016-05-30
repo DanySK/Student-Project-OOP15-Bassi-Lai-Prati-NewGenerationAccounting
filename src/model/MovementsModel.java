@@ -70,7 +70,7 @@ public class MovementsModel implements ModelInterface {
             }
         }
         System.out.println(Float.toString(totDare));
-        System.out.println("\n" + Float.toString(totAvere));
+        System.out.println(Float.toString(totAvere));
         if (totAvere != totDare) {
             throw new IllegalArgumentException("totale dare diverso da totale avere");
         }
@@ -99,32 +99,14 @@ public class MovementsModel implements ModelInterface {
     @Override
     public void edit(IDataTableModel obj, Map<String, Object> elemDaModificare)
                     throws IllegalArgumentException, InstanceNotFoundException, InstanceAlreadyExistsException {
+        System.out.println("\n"+"sono obj" + obj + "\n");
+        System.out.println("sono elemDamoficare" + elemDaModificare.toString());
         if (!(elemDaModificare.get(DATA) instanceof Date)) {
             throw new IllegalArgumentException("data non valida");
         } else if (!(elemDaModificare.get(LISTA) instanceof LinkedList)) {
             throw new IllegalArgumentException("lista non valida");
-        } else { // trasformo la mappa in un movimento per confrontarlo con il
-                 // vecchio movimento
-            Movement m = new Movement((Date) elemDaModificare.get(DATA),
-                            (LinkedList<Operation>) elemDaModificare.get(LISTA));
-            LinkedList<Operation> nuovaLista = new LinkedList<Operation>();
+        }
             if (obj instanceof Movement) {
-                for (Operation op : ((Movement) obj).getListaConti()) { // vecchio
-                                                                        // movimento
-                    for (Operation elem : m.getListaConti()) { // nuovo
-                                                               // movimento
-                        if (op.getConto().getName() == elem.getConto().getName()) {
-                            nuovaLista.add(elem);
-                        }
-                        else{
-                            nuovaLista.add(op);
-                        }
-                    }
-                }
-                System.out.println(elemDaModificare);
-                elemDaModificare.remove(LISTA);
-                elemDaModificare.put(LISTA, nuovaLista);
-                System.out.println(elemDaModificare);
                 if (listaMovimenti.contains(obj)) {
                     for(Movement mov : listaMovimenti){
                         if(mov == obj){
@@ -140,7 +122,6 @@ public class MovementsModel implements ModelInterface {
                 throw new IllegalArgumentException("l'oggetto passato come paramentro non è un movimento");
             }
         }
-    }
 
     public LinkedList<Account> getAllAccounts() {
         LinkedList<Account> accounts = db.getAccounts();
@@ -167,7 +148,12 @@ public class MovementsModel implements ModelInterface {
             if (obj instanceof Movement) {
                 Map<String, Object> mappaPiena = new HashMap<>();
                 mappaPiena.put(DATA, ((Movement) obj).getData());
-                mappaPiena.put(LISTA, ((Movement) obj).getListaConti());
+                LinkedList<Operation> lista = new LinkedList<Operation>();
+                for(Operation op : ((Movement) obj).getListaConti()){
+                    lista.add(new Operation(op.getConto(),op.getDare(),op.getAvere()));
+                }
+                mappaPiena.put(LISTA, lista);
+                System.out.println("sono la getMap" + mappaPiena);
                 return mappaPiena;
             } else
                 throw new IllegalArgumentException("l'oggetto inserito non è un movimento");

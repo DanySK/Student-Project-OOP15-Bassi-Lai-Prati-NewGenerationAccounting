@@ -67,7 +67,7 @@ public class PopupControllerImpl implements IViewObserver {
 			mappa = model.getFilterMap();
 			break;
 		default:
-			throw new IllegalArgumentException("Modalità non consentita.");
+			throw new IllegalArgumentException("Modalitï¿½ non consentita.");
 		}
 		Dimension dim = new Dimension(350, 150 + 50 * mappa.size());
 		view = new AddEditPopupView(titolo, dim, mappa, this);
