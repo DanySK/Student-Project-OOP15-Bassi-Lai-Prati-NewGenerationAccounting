@@ -25,7 +25,6 @@ public class Item implements IDataTableModel {
 	private Product prodotto;
 	private int quantita;
 
-
 	public Item(Product prodotto, int quantita) {
 
 		this.prodotto = prodotto;
@@ -34,13 +33,13 @@ public class Item implements IDataTableModel {
 	}
 
 	public Product getProdotto() {
-		return prodotto;//.getNome();
+		return prodotto;// .getNome();
 	}
-	
-	public int getPrezzo(){//prova, non sarebbe necessario
+
+	public int getPrezzo() {// prova, non sarebbe necessario
 		return prodotto.getPrezzovendita();
 	}
-	
+
 	public int getQuantita() {
 		return quantita;
 	}
@@ -66,7 +65,7 @@ public class Item implements IDataTableModel {
 	public void setPrezzo(Product prodotto) {
 		this.prodotto = prodotto;
 	}
-	
+
 	public void setQuantita(int quantita) {
 		this.quantita = quantita;
 	}

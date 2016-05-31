@@ -34,10 +34,9 @@ public class CreaFatturaView extends AnagraficaView<Item> {
 	 * @param title
 	 *            titolo della finestra
 	 */
-	public CreaFatturaView(final LinkedList<Item> list, final String title) {
+	public CreaFatturaView(final LinkedList<Item> list, final String title, final Customers_Suppliers[] custoList) {
 		super(list, Item.getIntestazione(), title);
-		customerField = new JComboBox<Customers_Suppliers>(
-				((CreaFatturaControllerImpl) getObserver()).getCustomersList());
+		customerField = new JComboBox<Customers_Suppliers>(custoList);
 		JButton creaButton = new JButton("Accedi");
 		JPanel topPanel = new JPanel(new FlowLayout());
 		topPanel.add(new JLabel("Seleziona il cliente: "));

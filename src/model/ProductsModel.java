@@ -29,10 +29,10 @@ public class ProductsModel implements ModelInterface {
 	private final static String prezzo = "Prezzo";
 	private final static String rimanenze = "Rimanenze"; // string di scorta
 	private int scorta;
-	//private boolean trovato = false;
+	// private boolean trovato = false;
 
 	private LinkedList<Product> listaProdotti = new LinkedList<Product>();
-	
+
 	private DBDataModel db;
 
 	public ProductsModel(DBDataModel db) {
@@ -43,9 +43,8 @@ public class ProductsModel implements ModelInterface {
 	 * Metodo per la creazione di un nuovo prodotto.
 	 * 
 	 * @author Diego
-	*/
-	
-	
+	 */
+
 	@Override
 	public void add(Map<String, Object> elem) throws IllegalArgumentException {
 
@@ -56,7 +55,7 @@ public class ProductsModel implements ModelInterface {
 		if (elem.get(codiceP) == null) {
 			throw new IllegalArgumentException("Codice Prodotto non valido. Riprovare.");
 		}
-		
+
 		if (elem.get(codiceA) == null) {
 			throw new IllegalArgumentException("Codice Acquisto non valido. Riprovare.");
 		}
@@ -76,9 +75,9 @@ public class ProductsModel implements ModelInterface {
 		if (listaProdotti.contains(elem)) {
 			throw new IllegalArgumentException("Elemento gia' esistente!");
 		} else {
-			Product nuovoprodotto = new Product(elem.get(nome).toString(), (Integer) elem.get(codiceP), (Integer) elem.get(codiceA),
-					(Integer) elem.get(codiceV), (Integer) elem.get(rimanenze), elem.get(descrizione).toString(),
-					elem.get(categoria).toString(), (Integer) elem.get(prezzo));
+			Product nuovoprodotto = new Product(elem.get(nome).toString(), (Integer) elem.get(codiceP),
+					(Integer) elem.get(codiceA), (Integer) elem.get(codiceV), (Integer) elem.get(rimanenze),
+					elem.get(descrizione).toString(), elem.get(categoria).toString(), (Integer) elem.get(prezzo));
 			listaProdotti.add(nuovoprodotto);
 			db.setProducts(listaProdotti);
 		}
@@ -88,8 +87,8 @@ public class ProductsModel implements ModelInterface {
 	 * Metodo per la modifica di un prodotto.
 	 * 
 	 * @author Diego
-	*/
-	
+	 */
+
 	@Override
 	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare) throws InstanceNotFoundException {
 
@@ -108,8 +107,8 @@ public class ProductsModel implements ModelInterface {
 	 * Metodo per la creazione di filtri di ricerca per i prodotti.
 	 * 
 	 * @author Diego
-	*/
-	
+	 */
+
 	@Override
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
@@ -121,11 +120,12 @@ public class ProductsModel implements ModelInterface {
 	}
 
 	/*
-	 * Metodo per la creazione di un nuove mappe e la loro restituzione, sia con valori vuoti che con quelli definiti.
+	 * Metodo per la creazione di un nuove mappe e la loro restituzione, sia con
+	 * valori vuoti che con quelli definiti.
 	 * 
 	 * @author Diego
-	*/
-	
+	 */
+
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
 
@@ -167,8 +167,8 @@ public class ProductsModel implements ModelInterface {
 	 * Metodo per la restituzione listaProdotti
 	 * 
 	 * @author Diego
-	*/
-	
+	 */
+
 	@Override
 	public LinkedList<Product> load() {
 		return new LinkedList<Product>(listaProdotti);
@@ -178,14 +178,14 @@ public class ProductsModel implements ModelInterface {
 	 * Metodo per la creazione della mappa filtrata.
 	 * 
 	 * @author Diego
-	*/
-	
+	 */
+
 	@Override
 	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro)
 			throws InstanceNotFoundException {
-		
+
 		LinkedList<Product> listaFiltrata = new LinkedList<>();
-		
+
 		if (mappaFiltro.get(nome) != null) {
 			for (Product controllofiltro : listaProdotti) {
 				if (controllofiltro.getNome().contentEquals(nome)) {
@@ -242,8 +242,8 @@ public class ProductsModel implements ModelInterface {
 	 * Metodo per rimuovere un prodotto esistente.
 	 * 
 	 * @author Diego
-	*/	
-	
+	 */
+
 	@Override
 	public void remove(IDataTableModel elem) {
 		if (listaProdotti.contains(elem)) {
@@ -259,15 +259,16 @@ public class ProductsModel implements ModelInterface {
 	}
 
 	/*
-	 * Metodo per spostare i dati dalla lista interna al database e restituire quest'ultimo.
+	 * Metodo per spostare i dati dalla lista interna al database e restituire
+	 * quest'ultimo.
 	 * 
 	 * @author Diego
-	*/
-	
+	 */
+
 	@Override
 	public DBDataModel saveDBAndClose() {
 		db.setProducts(listaProdotti);
-										
+
 		return db;
 	}
 

@@ -51,8 +51,8 @@ public class CustomersSuppliersModel implements ModelInterface {
 	 * Metodo per la creazione di un nuovo cliente o fornitore .
 	 * 
 	 * @author Diego
-	*/
-	
+	 */
+
 	@Override
 	public void add(Map<String, Object> elem) throws IllegalArgumentException, InstanceAlreadyExistsException { // controllare
 
@@ -82,15 +82,15 @@ public class CustomersSuppliersModel implements ModelInterface {
 
 		}
 
-//		if (elem.get(Credito) == null) {
-//			throw new IllegalArgumentException("Credito non valido. Riprovare."); 
-//
-//		}
-//
-//		if (elem.get(Debito) == null) {
-//			throw new IllegalArgumentException("Debito non valido. Riprovare.");
-//
-//		}
+		// if (elem.get(Credito) == null) {
+		// throw new IllegalArgumentException("Credito non valido. Riprovare.");
+		//
+		// }
+		//
+		// if (elem.get(Debito) == null) {
+		// throw new IllegalArgumentException("Debito non valido. Riprovare.");
+		//
+		// }
 
 		if (elem.get(Telefono) == "") {
 			throw new IllegalArgumentException("Numero di telefono non valido. Riprovare.");
@@ -106,10 +106,10 @@ public class CustomersSuppliersModel implements ModelInterface {
 
 		}
 
-		Customers_Suppliers rapportoC = new Customers_Suppliers((String)elem.get(Nome), (String) elem.get(Cognome),
-				(String)elem.get(CF), (String)elem.get(Indirizzo), (String)elem.get(Citta),
-				(int) elem.get(CAP), (String)elem.get(Telefono), (Gender) elem.get(sesso),
-				(KindPerson) elem.get(ruolo), (int) elem.get(Debito), (int) elem.get(Credito));
+		Customers_Suppliers rapportoC = new Customers_Suppliers((String) elem.get(Nome), (String) elem.get(Cognome),
+				(String) elem.get(CF), (String) elem.get(Indirizzo), (String) elem.get(Citta), (int) elem.get(CAP),
+				(String) elem.get(Telefono), (Gender) elem.get(sesso), (KindPerson) elem.get(ruolo),
+				(int) elem.get(Debito), (int) elem.get(Credito));
 
 		if (listaRapportiC.contains(rapportoC)) {
 			throw new InstanceAlreadyExistsException("L'elemento e' gia' presente.");
@@ -121,9 +121,8 @@ public class CustomersSuppliersModel implements ModelInterface {
 	 * Metodo che permette di modificare i dati di un cliente o di un fornitore.
 	 * 
 	 * @author Diego
-	*/
-	
-	
+	 */
+
 	@Override
 	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare)
 			throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException {
@@ -138,8 +137,10 @@ public class CustomersSuppliersModel implements ModelInterface {
 			((Customers_Suppliers) obj).setNome((String) infoDaModificare.get(Nome));
 			((Customers_Suppliers) obj).setIndirizzo((String) infoDaModificare.get(Indirizzo));
 			((Customers_Suppliers) obj).setCap((Integer) infoDaModificare.get(CAP));
-//			((Customers_Suppliers) obj).setCredito((Integer) infoDaModificare.get(Credito));
-//			((Customers_Suppliers) obj).setDebito((Integer) infoDaModificare.get(Debito));
+			// ((Customers_Suppliers) obj).setCredito((Integer)
+			// infoDaModificare.get(Credito));
+			// ((Customers_Suppliers) obj).setDebito((Integer)
+			// infoDaModificare.get(Debito));
 			((Customers_Suppliers) obj).setRuolo((KindPerson) infoDaModificare.get(ruolo));
 			((Customers_Suppliers) obj).setSesso((Gender) infoDaModificare.get(sesso));
 			((Customers_Suppliers) obj).setTelefono((String) infoDaModificare.get(Telefono));
@@ -151,28 +152,26 @@ public class CustomersSuppliersModel implements ModelInterface {
 	}
 
 	/*
-	 * Metodo per la creazione di filtri per i clienti o fornitori, seconda il Codice Fiscale o la città.
+	 * Metodo per la creazione di filtri per i clienti o fornitori, seconda il
+	 * Codice Fiscale o la città.
 	 * 
 	 * @author Diego
-	*/
-	
-	
+	 */
+
 	@Override
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
 		mappaFiltro.put(CF, new String(""));
-		//mappaFiltro.put(Citta, new String(""));
+		// mappaFiltro.put(Citta, new String(""));
 		return mappaFiltro;
 	}
 
-	
 	/*
 	 * Metodo per la creazione delle mappe, sia con che senza valori.
 	 * 
 	 * @author Diego
-	*/
-	
-	
+	 */
+
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
 
@@ -185,8 +184,8 @@ public class CustomersSuppliersModel implements ModelInterface {
 			mappaVuota.put(Nome, new String(""));
 			mappaVuota.put(Indirizzo, new String(""));
 			mappaVuota.put(CAP, new String(""));
-//			mappaVuota.put(Credito, new Integer(0));
-//			mappaVuota.put(Debito, new Integer(0));
+			// mappaVuota.put(Credito, new Integer(0));
+			// mappaVuota.put(Debito, new Integer(0));
 			mappaVuota.put(Telefono, new String(""));
 			mappaVuota.put(Ruolostring, KindPerson.NESSUNO);
 			mappaVuota.put(Sessostring, Gender.NESSUNO);
@@ -207,8 +206,10 @@ public class CustomersSuppliersModel implements ModelInterface {
 				mappaPiena.put(Nome, ((Customers_Suppliers) obj).getNome());
 				mappaPiena.put(Indirizzo, ((Customers_Suppliers) obj).getIndirizzo());
 				mappaPiena.put(CAP, ((Customers_Suppliers) obj).getCap());
-//				mappaPiena.put(Credito, ((Customers_Suppliers) obj).getCredito());
-//				mappaPiena.put(Debito, ((Customers_Suppliers) obj).getDebito());
+				// mappaPiena.put(Credito, ((Customers_Suppliers)
+				// obj).getCredito());
+				// mappaPiena.put(Debito, ((Customers_Suppliers)
+				// obj).getDebito());
 				mappaPiena.put(Telefono, ((Customers_Suppliers) obj).getTelefono());
 				mappaPiena.put(Ruolostring, ((Customers_Suppliers) obj).getRuolo());
 				mappaPiena.put(Sessostring, ((Customers_Suppliers) obj).getSesso());
@@ -225,11 +226,11 @@ public class CustomersSuppliersModel implements ModelInterface {
 	 * Metodo per la restituzione di una LinkedList di Customers_Suppliers.
 	 * 
 	 * @author Diego
-	*/
-	
+	 */
+
 	@Override
 	public LinkedList<Customers_Suppliers> load() {
-		
+
 		LinkedList<Customers_Suppliers> lcs = new LinkedList<Customers_Suppliers>();
 		lcs.add(new Customers_Suppliers(CF, Citta, Cognome, Indirizzo, Nome, 0, CAP, sesso, ruolo, 0, 0));
 
@@ -237,9 +238,8 @@ public class CustomersSuppliersModel implements ModelInterface {
 	}
 
 	@Override
-	public LinkedList<Customers_Suppliers> load(Map<String, Object> mappaFiltro)
-			throws InstanceNotFoundException {
-		
+	public LinkedList<Customers_Suppliers> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {
+
 		LinkedList<Customers_Suppliers> listaFiltrata = new LinkedList<>();
 
 		if (mappaFiltro.get(CF) != null) {
@@ -250,14 +250,14 @@ public class CustomersSuppliersModel implements ModelInterface {
 			}
 		}
 
-//		if (mappaFiltro.get(Citta) != null) {
-//			for (Customers_Suppliers controllofiltro : listaRapportiC) {
-//				if (controllofiltro.getCitta().contentEquals(Citta)) {
-//					listaFiltrata.add(controllofiltro);
-//				}
-//			}
-//
-//		}
+		// if (mappaFiltro.get(Citta) != null) {
+		// for (Customers_Suppliers controllofiltro : listaRapportiC) {
+		// if (controllofiltro.getCitta().contentEquals(Citta)) {
+		// listaFiltrata.add(controllofiltro);
+		// }
+		// }
+		//
+		// }
 		if (listaFiltrata.isEmpty()) {
 			throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri.");
 		}
@@ -289,15 +289,16 @@ public class CustomersSuppliersModel implements ModelInterface {
 	}
 
 	/*
-	 * Metodo per spostare i dati dalla lista interna al database e restituire quest'ultimo.
+	 * Metodo per spostare i dati dalla lista interna al database e restituire
+	 * quest'ultimo.
 	 * 
 	 * @author Diego
-	*/
-	
+	 */
+
 	@Override
 	public DBDataModel saveDBAndClose() {
-		db.setCustomersSuppliers(listaRapportiC); 
-													
+		db.setCustomersSuppliers(listaRapportiC);
+
 		return db;
 	}
 }

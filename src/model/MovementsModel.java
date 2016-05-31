@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-
 import javax.management.InstanceNotFoundException;
 
 import dataEnum.Natures;
@@ -96,7 +95,7 @@ public class MovementsModel implements ModelInterface {
 
 	@Override
 	public void edit(IDataTableModel obj, Map<String, Object> elemDaModificare)
-			throws IllegalArgumentException, InstanceNotFoundException{
+			throws IllegalArgumentException, InstanceNotFoundException {
 		System.out.println("\n" + "sono obj" + obj + "\n");
 		System.out.println("sono elemDamoficare" + elemDaModificare.toString());
 		if (!(elemDaModificare.get(DATA) instanceof Date)) {
@@ -135,7 +134,7 @@ public class MovementsModel implements ModelInterface {
 	}
 
 	@Override
-	public Map<String, Object> getMap(IDataTableModel obj)throws IllegalArgumentException {
+	public Map<String, Object> getMap(IDataTableModel obj) throws IllegalArgumentException {
 		if (obj == null) {
 			Map<String, Object> mappaVuota = new HashMap<>();
 			mappaVuota.put(DATA, new Date());
@@ -163,7 +162,7 @@ public class MovementsModel implements ModelInterface {
 	}
 
 	@Override
-	public LinkedList<Movement> load(Map<String, Object> mappaFiltro)throws IllegalArgumentException {
+	public LinkedList<Movement> load(Map<String, Object> mappaFiltro) throws IllegalArgumentException {
 		LinkedList<Movement> listaFiltrata = new LinkedList<>();
 		Date da = (Date) mappaFiltro.get(DA);
 		Date a = (Date) mappaFiltro.get(A);
@@ -193,7 +192,7 @@ public class MovementsModel implements ModelInterface {
 	}
 
 	@Override
-	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException,IllegalArgumentException {
+	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException, IllegalArgumentException {
 		if (elemDaEliminare instanceof Movement) {
 			Movement m = (Movement) elemDaEliminare;
 			if (!(m.getData() instanceof Date) || m.getListaConti().isEmpty()) {

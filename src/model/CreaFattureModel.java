@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-import dataEnum.Gender;
 import dataEnum.KindPerson;
 import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
@@ -25,9 +24,8 @@ public class CreaFattureModel implements ModelInterface {
 	private final static String prodotto = "Prodotto";
 	private final static String quantita = "Quantita'";
 	private final static String scorta = "Scorta";
-	
+
 	private DBDataModel db;
-	
 
 	private final LinkedList<Item> listaCarrello = new LinkedList<Item>();
 
@@ -35,17 +33,15 @@ public class CreaFattureModel implements ModelInterface {
 		this.db = db;
 	}
 
-/*
- * Funzione per la creazione di un nuovo carrello , con conseguente possibilità di acquistare prodotti.
- * 
- * @author Diego
-*/
+	/*
+	 * Funzione per la creazione di un nuovo carrello , con conseguente
+	 * possibilità di acquistare prodotti.
+	 * 
+	 * @author Diego
+	 */
 	@Override
 	public void add(Map<String, Object> elem) throws IllegalArgumentException {
 
-		
-		
-		
 		if (elem.get(prodotto) == "") {
 			throw new IllegalArgumentException("Nome prodotto non valido. Riprovare.");
 		}
@@ -57,8 +53,7 @@ public class CreaFattureModel implements ModelInterface {
 		if (listaCarrello.contains(elem)) {
 			throw new IllegalArgumentException("Elemento gia' esistente!");
 		} else {
-			Item nuovocarrello = new Item((Product) elem.get(prodotto), (Integer) elem
-					.get(quantita));
+			Item nuovocarrello = new Item((Product) elem.get(prodotto), (Integer) elem.get(quantita));
 			listaCarrello.add(nuovocarrello);
 		}
 	}
@@ -73,33 +68,29 @@ public class CreaFattureModel implements ModelInterface {
 	 * 
 	 * 
 	 */
-	
+
 	public DBDataModel create(Customers_Suppliers item) {
-		
-		int totale=0;
-		
-		
+
+		int totale = 0;
+
 		if (listaCarrello.isEmpty()) {
 			throw new IllegalArgumentException("Acquisto non valido. Riprovare.");
-		}else{
-			
-			
-			
-		for (Item riga : listaCarrello) {
-			totale+=riga.getProdotto().getPrezzovendita() * riga.getQuantita();
-			riga.getProdotto().setScorta(riga.getProdotto().getScorta()-riga.getQuantita());
-		
+		} else {
+
+			for (Item riga : listaCarrello) {
+				totale += riga.getProdotto().getPrezzovendita() * riga.getQuantita();
+				riga.getProdotto().setScorta(riga.getProdotto().getScorta() - riga.getQuantita());
+
 			}
 		}
-		item.setDebito(totale);//Addebito il totale
-		
+		item.setDebito(totale);// Addebito il totale
+
 		LinkedList<Customers_Suppliers> cs = db.getCustomersSuppliers();
-		
+
 		cs.addLast(item);
-		
-	
-		db.setCustomersSuppliers(cs);//aggiorno prodotti
-		
+
+		db.setCustomersSuppliers(cs);// aggiorno prodotti
+
 		return db;
 	}
 
@@ -107,8 +98,8 @@ public class CreaFattureModel implements ModelInterface {
 	 * Funzione per la modifica del carrello d'acquisto.
 	 * 
 	 * @author Diego
-	*/	
-	
+	 */
+
 	@Override
 	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare) {
 		if ((Product) infoDaModificare.get(scorta) != null) {
@@ -123,8 +114,8 @@ public class CreaFattureModel implements ModelInterface {
 	 * Funzione per la creazione di un filtro per i prodotti.
 	 * 
 	 * @author Diego
-	*/	
-	
+	 */
+
 	@Override
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
@@ -136,30 +127,27 @@ public class CreaFattureModel implements ModelInterface {
 	 * Funzione per ottenere tra tutte le persone, solo i clienti.
 	 * 
 	 * @author Diego
-	*/
-	
-	public LinkedList<Customers_Suppliers> getListaclienti() {
+	 */
 
-		final LinkedList<Customers_Suppliers> listaClienti = new LinkedList<Customers_Suppliers>();
-
+	public Customers_Suppliers[] getListaclienti() {
+		final Customers_Suppliers listaClienti[] = {};
+		int i = 0;
 		for (Customers_Suppliers controlloCliente : db.getCustomersSuppliers()) {
 			if (controlloCliente.getRuolo() == KindPerson.CLIENTE) {
-				listaClienti.add(controlloCliente);
+				listaClienti[i] = controlloCliente;
+				i++;
 			}
 		}
-		
-		
-		listaClienti.add(new Customers_Suppliers("1", "C", "Cognome", "Indirizzo", "Nome", 0, "CAP", Gender.M ,KindPerson.CLIENTE, 0, 0));
-		
 		return listaClienti;
 	}
 
 	/*
-	 * Funzione per la creazione di una nuova mappa di classe, sia che sia ricevuta vuota o con valori al suo interno.
+	 * Funzione per la creazione di una nuova mappa di classe, sia che sia
+	 * ricevuta vuota o con valori al suo interno.
 	 * 
 	 * @author Diego
-	*/
-	
+	 */
+
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
 
@@ -188,25 +176,25 @@ public class CreaFattureModel implements ModelInterface {
 	 * Funzione per la creazione di listaCarrello.
 	 * 
 	 * @author Diego
-	*/	
-	
+	 */
+
 	@Override
 	public LinkedList<Item> load() {
 		LinkedList<Item> l = new LinkedList<Item>();
-		l.add(new Item(new Product("Prodotto Bello", 1, 3, 5, 7, "Categoria",
-				"Bellissimo", 1000),0));
-		for (Product prodotto : this.db.getProducts()){
-			l.add(new Item(prodotto,0));
+		l.add(new Item(new Product("Prodotto Bello", 1, 3, 5, 7, "Categoria", "Bellissimo", 1000), 0));
+		for (Product prodotto : this.db.getProducts()) {
+			l.add(new Item(prodotto, 0));
 		}
 		return l;
 	}
 
 	/*
-	 * Funzione per la creazione di un nuovo carrello , con conseguente possibilità di acquistare prodotti.
+	 * Funzione per la creazione di un nuovo carrello , con conseguente
+	 * possibilità di acquistare prodotti.
 	 * 
 	 * @author Diego
-	*/	
-	
+	 */
+
 	@Override
 	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
 		LinkedList<Item> listaFiltrata = new LinkedList<>();
@@ -219,11 +207,12 @@ public class CreaFattureModel implements ModelInterface {
 		}
 		return null;
 	}
+
 	/*
 	 * Funzione per rimozione di un elemento dal carrello.
 	 * 
 	 * @author Diego
-	*/
+	 */
 	@Override
 	public void remove(IDataTableModel elem) {
 		if (listaCarrello.contains(elem)) {
@@ -237,11 +226,10 @@ public class CreaFattureModel implements ModelInterface {
 	 * Funzione per restituzione del DB.
 	 * 
 	 * @author Diego
-	*/
-	
+	 */
+
 	@Override
 	public DBDataModel saveDBAndClose() {
-		// db.setProducts(listaCarrello);
 		return db;
 	}
 

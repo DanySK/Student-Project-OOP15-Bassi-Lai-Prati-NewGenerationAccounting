@@ -1,7 +1,6 @@
 package model;
 
 import java.util.LinkedList;
-
 import java.util.Map;
 
 import javax.management.InstanceAlreadyExistsException;
@@ -11,8 +10,9 @@ import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 
 /**
- * interfaccia che elenca i metodi comuni alle classi AccountsModel, CompanyModel,CreaFattureModel,CostumersSuppliers,
- * MovementsModel, ProductsModel,ReceivablesPayablesModel
+ * interfaccia che elenca i metodi comuni alle classi AccountsModel,
+ * CompanyModel,CreaFattureModel,CostumersSuppliers, MovementsModel,
+ * ProductsModel,ReceivablesPayablesModel
  * 
  * @author niky
  *
@@ -46,13 +46,17 @@ public interface ModelInterface {
 			throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException;
 
 	/**
-	 * funzione per creare la mappa da passare alla load e applicare dei filtri alla ricerca
+	 * funzione per creare la mappa da passare alla load e applicare dei filtri
+	 * alla ricerca
+	 * 
 	 * @return la mappa con le informazioni dei filtri
 	 */
 	public abstract Map<String, Object> getFilterMap();
 
 	/**
-	 * funzione che crea la mappa da far compilare all'utente per aggiungere / modificare un'oggetto della lista
+	 * funzione che crea la mappa da far compilare all'utente per aggiungere /
+	 * modificare un'oggetto della lista
+	 * 
 	 * @param obj
 	 * @return mappa con le informazioni per le funzioni
 	 */

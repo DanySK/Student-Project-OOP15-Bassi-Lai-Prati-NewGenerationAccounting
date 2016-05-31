@@ -36,7 +36,7 @@ public class AccountsModel implements ModelInterface {
 	}
 
 	@Override
-	public void add(Map<String, Object> elem) throws InstanceAlreadyExistsException,IllegalArgumentException {
+	public void add(Map<String, Object> elem) throws InstanceAlreadyExistsException, IllegalArgumentException {
 		if (elem.get(NOME) == "" || elem.get(NATURA) == Natures.NESSUNO
 				|| (Sections) elem.get(SEZIONE) == Sections.NESSUNO) {
 			throw new IllegalArgumentException("nome, natura o sezione non valide");
@@ -69,8 +69,9 @@ public class AccountsModel implements ModelInterface {
 	}
 
 	@Override
-	public void edit(IDataTableModel obj, Map<String, Object> elemDaModificare) throws InstanceNotFoundException,IllegalArgumentException { // modifica
-																													// elementi
+	public void edit(IDataTableModel obj, Map<String, Object> elemDaModificare)
+			throws InstanceNotFoundException, IllegalArgumentException { // modifica
+		// elementi
 		trovato = false;
 		if (obj instanceof Account) {
 			Account a = (Account) obj;
@@ -126,9 +127,10 @@ public class AccountsModel implements ModelInterface {
 	}
 
 	@Override
-	public LinkedList<Account> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException,IllegalArgumentException {// carica
-																										// //
-																										// filtri
+	public LinkedList<Account> load(Map<String, Object> mappaFiltro)
+			throws InstanceNotFoundException, IllegalArgumentException {// carica
+		// //
+		// filtri
 		LinkedList<Account> listaFiltrata = new LinkedList<>();
 		if (!mappaFiltro.get(NOME).toString().isEmpty()) { // controllo il nome
 			for (Account a : listaaccount) {

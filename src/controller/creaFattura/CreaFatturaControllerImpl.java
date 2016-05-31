@@ -34,7 +34,7 @@ public class CreaFatturaControllerImpl implements IAnagraficaViewObserver {
 	 */
 	public CreaFatturaControllerImpl(final DBDataModel db, final String title) {
 		this.model = new CreaFattureModel(db);
-		this.view = new CreaFatturaView(model.load(), title);
+		this.view = new CreaFatturaView(model.load(), title, model.getListaclienti());
 		this.view.setObserver(this);
 		view.start();
 	}
@@ -58,15 +58,6 @@ public class CreaFatturaControllerImpl implements IAnagraficaViewObserver {
 		new DBSaver(db.getPath(), view, db).start();
 		view.close();
 		new MainControllerImpl(db);
-	}
-
-	/**
-	 * ritorna la lista dei clienti
-	 * 
-	 * @return lista dei clienti
-	 */
-	public Customers_Suppliers[] getCustomersList() {
-		return (Customers_Suppliers[]) model.getListaclienti().toArray();
 	}
 
 	@Override

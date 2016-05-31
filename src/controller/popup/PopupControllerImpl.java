@@ -138,7 +138,7 @@ public class PopupControllerImpl implements IViewObserver {
 			} else if (defaultValue instanceof Date && field instanceof JSpinner) {
 				map.put(key, ((JSpinner) field).getValue());
 			} else if (defaultValue instanceof Number && field instanceof JSpinner) {
-				Number numero = (Number) ((JSpinner) field).getValue();
+				final Number numero = (Number) ((JSpinner) field).getValue();
 				if (defaultValue instanceof Float) {
 					map.put(key, numero.floatValue());
 				} else if (defaultValue instanceof Double) {
@@ -151,10 +151,9 @@ public class PopupControllerImpl implements IViewObserver {
 			} else if (defaultValue instanceof Enum && defaultValue instanceof IDataEnum
 					&& field instanceof JComboBox) {
 				map.put(key, ((JComboBox<?>) field).getSelectedItem());
-			} else if (defaultValue instanceof LinkedList && field instanceof JTable
-					&& defaultValue.getClass().isAssignableFrom(LinkedList.class)) {
-				LinkedList<Operation> operations = new LinkedList<Operation>();
-				TableModel table = ((JTable) field).getModel();
+			} else if (defaultValue instanceof LinkedList && field instanceof JTable) {
+				final LinkedList<Operation> operations = new LinkedList<Operation>();
+				final TableModel table = ((JTable) field).getModel();
 				for (int i = 0; i < table.getRowCount(); i++) {
 					if (Operation.getColumnClass(0) == table.getValueAt(i, 0).getClass()
 							&& Operation.getColumnClass(1) == table.getValueAt(i, 1).getClass()

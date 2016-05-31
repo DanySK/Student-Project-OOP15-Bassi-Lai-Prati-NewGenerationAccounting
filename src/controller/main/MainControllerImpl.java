@@ -15,7 +15,6 @@ import controller.dbController.DBLoader;
 import controller.dbController.DBSaver;
 import controller.movimenti.MovimentiControllerImpl;
 import controller.situazAziendale.SitAzControllerImpl;
-import controller.situazCreditiDebiti.SitCredDebControllerImpl;
 import dataModel.DBDataModel;
 import view.main.MainView;
 
@@ -77,8 +76,9 @@ public class MainControllerImpl implements IViewObserver {
 	}
 
 	public void btn6(final String title) {
-		view.close();
-		new SitCredDebControllerImpl(db, title);
+		view.errorDialog("Funzione presto disponibile", "Questa funzione non è ancora disponibile.");
+		// view.close();
+		// new SitCredDebControllerImpl(db, title);
 	}
 
 	public void btn7(final String title) {
