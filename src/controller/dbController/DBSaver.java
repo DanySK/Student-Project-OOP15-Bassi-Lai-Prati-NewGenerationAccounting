@@ -25,7 +25,7 @@ import view.AbstractFrame;
  * @author Pentolo
  *
  */
-public class DBSaver extends AbstractDB implements IDBSaver {
+public class DBSaver extends AbstractDB {
 
 	public static void addCompany(final UUID uuid) {
 		new DBSaver(uuid.toString(), null, new DBDataModel(loadDefaultAcconts(), new LinkedList<Customers_Suppliers>(),
