@@ -69,18 +69,9 @@ public class ProductsModel implements ModelInterface {
 			throw new IllegalArgumentException("Categoria non valida. Riprovare.");
 		}
 
-		if (elem.get(descrizione) == "") { // indispensabile?
-			throw new IllegalArgumentException("Descrizione non valida. Riprovare.");
-		}
-
 		if (elem.get(prezzo) == null) {
 			throw new IllegalArgumentException("Prezzo non valido. Riprovare.");
 		}
-
-		// if (elem.get(rimanenze) == null ){
-		// throw new IllegalArgumentException("Rimanenze non valide.
-		// Riprovare.");
-		// }
 
 		if (listaProdotti.contains(elem)) {
 			throw new IllegalArgumentException("Elemento gia' esistente!");
@@ -103,6 +94,7 @@ public class ProductsModel implements ModelInterface {
 	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare) throws InstanceNotFoundException {
 
 		((Product) obj).setNome((String) infoDaModificare.get(nome));
+		((Product) obj).setCodice_Prodotto((Integer) infoDaModificare.get(codiceP));
 		((Product) obj).setCod_acquisto((Integer) infoDaModificare.get(codiceA));
 		((Product) obj).setCod_vendita((Integer) infoDaModificare.get(codiceV));
 		((Product) obj).setCategoria((String) infoDaModificare.get(categoria));
@@ -144,6 +136,7 @@ public class ProductsModel implements ModelInterface {
 			Map<String, Object> mappaVuota = new HashMap<>();
 
 			mappaVuota.put(nome, new String(""));
+			mappaVuota.put(codiceP, new Integer(0));
 			mappaVuota.put(codiceA, new Integer(0));
 			mappaVuota.put(codiceV, new Integer(0));
 			mappaVuota.put(categoria, new String(""));
@@ -157,6 +150,7 @@ public class ProductsModel implements ModelInterface {
 			if (obj instanceof Product) {
 				Map<String, Object> mappaPiena = new HashMap<>();
 				mappaPiena.put(nome, ((Product) obj).getNome());
+				mappaPiena.put(codiceP, ((Product) obj).getCodice_Prodotto());
 				mappaPiena.put(codiceA, ((Product) obj).getCod_acquisto());
 				mappaPiena.put(codiceV, ((Product) obj).getCod_vendita());
 				mappaPiena.put(categoria, ((Product) obj).getCategoria());
@@ -192,7 +186,9 @@ public class ProductsModel implements ModelInterface {
 	@Override
 	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro)
 			throws InstanceNotFoundException {
+		
 		LinkedList<Product> listaFiltrata = new LinkedList<>();
+		
 		if (mappaFiltro.get(nome) != null) {
 			for (Product controllofiltro : listaProdotti) {
 				if (controllofiltro.getNome().contentEquals(nome)) {
@@ -242,7 +238,7 @@ public class ProductsModel implements ModelInterface {
 			throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri.");
 		}
 
-		return null;
+		return listaFiltrata;
 	}
 
 	/*

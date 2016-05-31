@@ -77,25 +77,26 @@ public class CreaFattureModel implements ModelInterface {
 	public DBDataModel create(Customers_Suppliers item) {
 		
 		int totale=0;
-		// controlli acquisto valido
 		
-		if (listaCarrello.isEmpty()) {//sostituire con i controlli singoli
+		
+		if (listaCarrello.isEmpty()) {
 			throw new IllegalArgumentException("Acquisto non valido. Riprovare.");
 		}else{
 			
-			//float totale;
+			
 			
 		for (Item riga : listaCarrello) {
 			totale+=riga.getProdotto().getPrezzovendita() * riga.getQuantita();
 			riga.getProdotto().setScorta(riga.getProdotto().getScorta()-riga.getQuantita());
-			}
 		
+			}
 		}
 		item.setDebito(totale);//Addebito il totale
 		
 		LinkedList<Customers_Suppliers> cs = db.getCustomersSuppliers();
+		
 		cs.addLast(item);
-		//db.setProducts(db.getProducts());
+		
 	
 		db.setCustomersSuppliers(cs);//aggiorno prodotti
 		

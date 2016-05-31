@@ -9,9 +9,12 @@ import java.util.UUID;
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
+
 import dataModel.Company;
+
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
+
 
 /**
  * Classe implementativa per la gestione dell'anagrafica aziende e la creazione
@@ -236,61 +239,28 @@ public class CompanyModel implements ModelInterface {
 	 * 
 	 */
 	
+	
+	
 	@Override
 	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro)
 			throws InstanceNotFoundException {
 		
 		LinkedList<Company> listaFiltrata = new LinkedList<>();
+		//Continua ad escludere ciò che cerco di filtrare.
 		if (mappaFiltro.get(ragione_sociale) != null) {
 			for (Company controllofiltro : listaAziende) {
-				if (controllofiltro.getRagione_sociale().equals(ragione_sociale)) {
+				if (controllofiltro.getRagione_sociale().contentEquals(ragione_sociale)) {
 					listaFiltrata.add(controllofiltro);
 				}
 			}
 		}
-//
-//	if (mappaFiltro.get(ragione_sociale) instanceof Company) { 
-//			
-//		
-//		if (listaFiltrata.isEmpty()) {
-//			for (Company controllofiltro : listaAziende) { // singolo filtro su p_iva
-//				if (controllofiltro.getPartita_iva() == mappaFiltro.get(p_iva))
-//					listaFiltrata.add(controllofiltro);
-//			}
-//		} else { // doppio filtro tra ragione_s e p_iva
-//			for (Company controllofiltro : listaFiltrata) {
-//				if (controllofiltro.getPartita_iva() != mappaFiltro.get(p_iva))
-//					listaFiltrata.remove(controllofiltro);
-//					}
-//
-//				}
-//		}	
-//		
-//		
-//		
-//	if (mappaFiltro.get(p_iva) != null) {
-//		for (Company controllofiltro : listaAziende) {
-//			if (controllofiltro.getPartita_iva() == mappaFiltro.get(p_iva)) {
-//				listaFiltrata.add(controllofiltro);
-//			} else {
-//				for (Company doppiofiltro : listaFiltrata) {
-//					if (doppiofiltro.getPartita_iva() != mappaFiltro.get(p_iva)) {
-//						listaFiltrata.remove(doppiofiltro);
-//					}
-//				}
-//			}
-//			}
-//		
-	//	}
-			if (listaFiltrata.isEmpty()) {
-				throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri.");
-			}else{
-				return listaFiltrata;
-			}
-		
-	}
 
+		
+			return listaFiltrata;
+				
+		}
 	
+
 	/**
 	 * Metodo che permette l'eliminazione di una azienda già esistente.
 	 * 
