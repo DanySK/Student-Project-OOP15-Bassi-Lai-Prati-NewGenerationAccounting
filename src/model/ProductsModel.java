@@ -42,7 +42,8 @@ public class ProductsModel implements ModelInterface {
 
 	/**
 	 * Metodo per la creazione di un nuovo prodotto.
-	 * @throws InstanceAlreadyExistsException 
+	 * 
+	 * @throws InstanceAlreadyExistsException
 	 * 
 	 * 
 	 */
@@ -74,20 +75,19 @@ public class ProductsModel implements ModelInterface {
 			throw new IllegalArgumentException("Prezzo non valido. Riprovare.");
 		}
 
-//		if (listaProdotti.contains(elem)) {
-//			throw new IllegalArgumentException("Elemento gia' esistente!");
-//		} else {
-			Product nuovoprodotto = new Product(elem.get(nome).toString(), (int) elem.get(codiceP),
-					(Integer) elem.get(codiceA), (Integer) elem.get(codiceV), (int) elem.get(rimanenze),
-					elem.get(descrizione).toString(), elem.get(categoria).toString(), (int) elem.get(prezzo));
-			
-			
-			if (listaProdotti.contains(nuovoprodotto)) {
-				throw new InstanceAlreadyExistsException("L'elemento e' gia' presente.");
-			}
-			listaProdotti.add(nuovoprodotto);
-			
-		//}
+		// if (listaProdotti.contains(elem)) {
+		// throw new IllegalArgumentException("Elemento gia' esistente!");
+		// } else {
+		Product nuovoprodotto = new Product(elem.get(nome).toString(), (int) elem.get(codiceP),
+				(Integer) elem.get(codiceA), (Integer) elem.get(codiceV), (int) elem.get(rimanenze),
+				elem.get(descrizione).toString(), elem.get(categoria).toString(), (int) elem.get(prezzo));
+
+		if (listaProdotti.contains(nuovoprodotto)) {
+			throw new InstanceAlreadyExistsException("L'elemento e' gia' presente.");
+		}
+		listaProdotti.add(nuovoprodotto);
+
+		// }
 	}
 
 	/**

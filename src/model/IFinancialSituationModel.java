@@ -1,5 +1,7 @@
 package model;
 
+import dataEnum.Natures;
+
 /**
  * interfaccia delle operazioni per la destione di stato patrimoniale conto
  * economico e analisi per margini e indici
@@ -15,7 +17,7 @@ public interface IFinancialSituationModel {
 	 * 
 	 * @return il commento agli indici di bilancio
 	 */
-	public String AnalisiFinanziaria();
+	String AnalisiFinanziaria();
 
 	/**
 	 * funzione per popolare la colonna di nomi e sezioni dello stato
@@ -24,7 +26,7 @@ public interface IFinancialSituationModel {
 	 * @return la stringa da inserire nel prospetto dello stato patrimoniale per
 	 *         le attività
 	 */
-	public String Attivita();
+	String Attivita();
 
 	/**
 	 * funzione per popolare la colonna di nomi e sezioni del Conto Economico
@@ -33,21 +35,14 @@ public interface IFinancialSituationModel {
 	 * @return la stringa da inserire nel prospetto del Conto Economico per i
 	 *         Costi
 	 */
-	public String Costi();
+	String Costi();
 
 	/**
-	 * funzione per calcolare il totale del Conto Economico
+	 * funzione per calcolare il totale delle colonne
 	 * 
 	 * @return la stringa con il saldo
 	 */
-	public Float getSaldo_Conto_Ec();
-
-	/**
-	 * funzione per calcolare il totale dello stato patrimoniale
-	 * 
-	 * @return la stringa con il saldo
-	 */
-	public Float getSaldo_Stato_Patr();
+	Float getTot(Natures natura);
 
 	/**
 	 * funzione per popolare la colonna di nomi e sezioni dello stato
@@ -56,7 +51,7 @@ public interface IFinancialSituationModel {
 	 * @return la stringa da inserire nel prospetto dello stato patrimoniale per
 	 *         le passività
 	 */
-	public String Passivita();
+	String Passivita();
 
 	/**
 	 * funzione per popolare la colonna di nomi e sezioni del Conto Economico
@@ -65,7 +60,7 @@ public interface IFinancialSituationModel {
 	 * @return la stringa da inserire nel prospetto del Conto Economico per i
 	 *         Ricavi
 	 */
-	public String Ricavi();
+	String Ricavi();
 
 	/**
 	 * funzione per inserire saldi singoli e totali sezione al fianco di ogni
@@ -73,7 +68,7 @@ public interface IFinancialSituationModel {
 	 * 
 	 * @return la stringa con i saldi
 	 */
-	public String Saldi_Attivita();
+	String Saldi_Attivita();
 
 	/**
 	 * funzione per inserire saldi singoli e totali sezione al fianco di ogni
@@ -81,7 +76,7 @@ public interface IFinancialSituationModel {
 	 * 
 	 * @return la stringa con i saldi
 	 */
-	public String Saldi_Costi();
+	String Saldi_Costi();
 
 	/**
 	 * funzione per inserire saldi singoli e totali sezione al fianco di ogni
@@ -89,7 +84,7 @@ public interface IFinancialSituationModel {
 	 * 
 	 * @return la stringa con i saldi
 	 */
-	public String Saldi_Passivita();
+	String Saldi_Passivita();
 
 	/**
 	 * funzione per inserire saldi singoli e totali sezione al fianco di ogni
@@ -97,6 +92,6 @@ public interface IFinancialSituationModel {
 	 * 
 	 * @return la stringa con i saldi
 	 */
-	public String Saldi_Ricavi();
+	String Saldi_Ricavi();
 
 }

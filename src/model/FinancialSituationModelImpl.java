@@ -289,7 +289,7 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 			for (Account a : contiRegistrati) {
 				if (a.getNatura().equals(natura) && a.getSezione().equals(elem)) {
 					totSezione += a.getSaldo();
-					saldo += a.getSaldo() + "<br/>";
+					saldo += "<br/>" + a.getSaldo();
 				}
 			}
 			saldo += "<br/><b>" + totSezione + "</b><br/>";
@@ -299,36 +299,14 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 	}
 
 	@Override
-	public Float getSaldo_Conto_Ec() {
-		float totCosti = 0;
-		float totRicavi = 0;
-		for (Account a : contiRegistrati) {
-			if (a.getNatura() == Natures.COSTO && Sections.getCosti().contains(a.getSezione())) {
-				totCosti += a.getSaldo();
-			} else if (a.getNatura() == Natures.PASSIVITA && Sections.getRicavi().contains(a.getSezione())) {
-				totRicavi += a.getSaldo();
-			}
+	public Float getTot(Natures natura) {
+		float tot = 0;
+		for (Account conto : contiRegistrati) {
+			if (conto.getNatura().equals(natura)) {
+				tot += conto.getSaldo();
+			} 
 		}
-		return totRicavi - totCosti;
-	}
-
-	@Override
-	public Float getSaldo_Stato_Patr() {
-		float totAtt = 0;
-		float totPass = 0;
-		for (Account a : contiRegistrati) {
-			if (a.getNatura() == Natures.ATTIVITA && Sections.getAttivita().contains(a.getSezione())) {
-				totAtt += a.getSaldo();
-			} else if (a.getNatura() == Natures.PASSIVITA && Sections.getPassivita().contains(a.getSezione())) {
-				totPass += a.getSaldo();
-			}
-		}
-		if (totAtt != totPass) {
-			throw new IllegalArgumentException("saldo attività != saldo passività");
-		} else {
-			return totAtt;
-		}
-
+		return tot;
 	}
 
 	@Override

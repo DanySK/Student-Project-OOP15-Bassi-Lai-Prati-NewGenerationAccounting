@@ -43,18 +43,22 @@ public class SitAzView extends AbstractWideView {
 	private final String Saldi_Costi;
 	private final String Ricavi;
 	private final String Saldi_Ricavi;
-	private final Float Saldo_Stato_Patr;
-	private final Float Saldo_Conto_Ec;
+	private final float totAttiv;
+	private final float totPassiv;
+	private final float totCosti;
+	private final float totRicavi;
 
 	/**
 	 * @param title
 	 *            titolo della finestra
+	 * @param totRicavi
+	 * @param totCosti
 	 * @param Dimension
 	 *            dimensione della finestra
 	 */
 	public SitAzView(String title, Dimension dimension, String analisiFinanziaria, String attivita,
 			String saldi_Attivita, String passivita, String saldi_Passivita, String costi, String saldi_Costi,
-			String ricavi, String saldi_Ricavi, Float saldo_Stato_Patr, Float saldo_Conto_Ec) {
+			String ricavi, String saldi_Ricavi, float totAttiv, float totPassiv, float totCosti, float totRicavi) {
 		super(title, dimension);
 		AnalisiFinanziaria = analisiFinanziaria;
 		Attivita = attivita;
@@ -65,8 +69,10 @@ public class SitAzView extends AbstractWideView {
 		Saldi_Costi = saldi_Costi;
 		Ricavi = ricavi;
 		Saldi_Ricavi = saldi_Ricavi;
-		Saldo_Stato_Patr = saldo_Stato_Patr;
-		Saldo_Conto_Ec = saldo_Conto_Ec;
+		this.totAttiv = totAttiv;
+		this.totPassiv = totPassiv;
+		this.totCosti = totCosti;
+		this.totRicavi = totRicavi;
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		addToPanel(panel, new JScrollPane(getSP()));
@@ -111,12 +117,19 @@ public class SitAzView extends AbstractWideView {
 		return panel;
 	}
 
-	private JPanel getPane(final String text, final String intestaz) {
-		if (intestaz.equals(COLSALDO)) {
-			if (intestaz.equals(ATTIVITA) || intestaz.equals(PASSIVITA)) {
-				return getPane(text, DEFAULTSALDO, "2", intestaz, true, Saldo_Stato_Patr);
-			} else {
-				return getPane(text, DEFAULTSALDO, "2", intestaz, true, Saldo_Conto_Ec);
+	private JPanel getPane(final String text, final String intestaz, final boolean isSaldo) {
+		if (isSaldo) {
+			switch (intestaz) {
+			case ATTIVITA:
+				return getPane(text, DEFAULTSALDO, "2", COLSALDO, true, totAttiv);
+			case PASSIVITA:
+				return getPane(text, DEFAULTSALDO, "2", COLSALDO, true, totPassiv);
+			case COSTI:
+				return getPane(text, DEFAULTSALDO, "2", COLSALDO, true, totCosti);
+			case RICAVI:
+				return getPane(text, DEFAULTSALDO, "2", COLSALDO, true, totRicavi);
+			default:
+				return new JPanel();
 			}
 		} else {
 			return getPane(text, DEFAULT, "2", intestaz, false, new Float(0));
@@ -125,19 +138,19 @@ public class SitAzView extends AbstractWideView {
 
 	private JPanel getSE() {
 		JPanel panel = new JPanel(new FlowLayout());
-		panel.add(getPane(Costi, COSTI));
-		panel.add(getPane(Saldi_Costi, COLSALDO));
-		panel.add(getPane(Ricavi, RICAVI));
-		panel.add(getPane(Saldi_Ricavi, COLSALDO));
+		panel.add(getPane(Costi, COSTI, false));
+		panel.add(getPane(Saldi_Costi, COSTI, true));
+		panel.add(getPane(Ricavi, RICAVI, false));
+		panel.add(getPane(Saldi_Ricavi, RICAVI, true));
 		return panel;
 	}
 
 	private JPanel getSP() {
 		JPanel panel = new JPanel(new FlowLayout());
-		panel.add(getPane(Attivita, ATTIVITA));
-		panel.add(getPane(Saldi_Attivita, COLSALDO));
-		panel.add(getPane(Passivita, PASSIVITA));
-		panel.add(getPane(Saldi_Passivita, COLSALDO));
+		panel.add(getPane(Attivita, ATTIVITA, false));
+		panel.add(getPane(Saldi_Attivita, ATTIVITA, true));
+		panel.add(getPane(Passivita, PASSIVITA, false));
+		panel.add(getPane(Saldi_Passivita, PASSIVITA, true));
 		return panel;
 	}
 }
