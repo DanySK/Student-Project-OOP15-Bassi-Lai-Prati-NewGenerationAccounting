@@ -40,6 +40,22 @@ public abstract class AbstractDB extends Thread {
 		return new File(DB_PATH + SEPARATOR + path);
 	}
 
+	@SuppressWarnings("unchecked")
+	protected static LinkedList<Account> loadDefaultAcconts() {
+		try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(
+				Thread.currentThread().getContextClassLoader().getResourceAsStream(ACCOUNT_FILENAME)))) {
+			final Object readElem = ois.readObject();
+			if (readElem instanceof LinkedList) {
+				return (LinkedList<Account>) readElem;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return new LinkedList<Account>();
+	}
+
 	private final String path;
 
 	private final AbstractFrame view;
@@ -96,21 +112,5 @@ public abstract class AbstractDB extends Thread {
 	 */
 	protected final AbstractFrame getView() {
 		return view;
-	}
-
-	@SuppressWarnings("unchecked")
-	protected static LinkedList<Account> loadDefaultAcconts() {
-		try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(
-				Thread.currentThread().getContextClassLoader().getResourceAsStream(ACCOUNT_FILENAME)))) {
-			final Object readElem = ois.readObject();
-			if (readElem instanceof LinkedList) {
-				return (LinkedList<Account>) readElem;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return new LinkedList<Account>();
 	}
 }

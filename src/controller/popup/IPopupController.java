@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.swing.JComponent;
 
 import dataModel.Account;
+import dataModel.Product;
 
 public interface IPopupController {
 
@@ -15,6 +16,8 @@ public interface IPopupController {
 	void filterList(Map<String, Object> mappa);
 
 	LinkedList<Account> getAccountsList();
+
+	LinkedList<Product> getProductsList();
 
 	void go(HashMap<String, JComponent> compoMap);
 

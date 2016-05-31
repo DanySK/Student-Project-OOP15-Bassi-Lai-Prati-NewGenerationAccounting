@@ -22,6 +22,7 @@ public class Product implements IDataTableModel {
 	}
 
 	private String categoria;
+
 	private int cod_acquisto;
 	private int cod_vendita;
 	private int codice_prodotto;
@@ -125,6 +126,11 @@ public class Product implements IDataTableModel {
 
 	public void setScorta(int scorta) {
 		this.scorta = scorta;
+	}
+
+	@Override
+	public String toString() {
+		return nome + " - " + categoria;
 	}
 
 }

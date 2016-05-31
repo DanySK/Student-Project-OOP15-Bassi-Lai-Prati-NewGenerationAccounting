@@ -56,9 +56,10 @@ public class SitAzView extends AbstractWideView {
 	 * @param Dimension
 	 *            dimensione della finestra
 	 */
-	public SitAzView(String title, Dimension dimension, String analisiFinanziaria, String attivita,
-			String saldi_Attivita, String passivita, String saldi_Passivita, String costi, String saldi_Costi,
-			String ricavi, String saldi_Ricavi, float totAttiv, float totPassiv, float totCosti, float totRicavi) {
+	public SitAzView(final String title, final Dimension dimension, final String analisiFinanziaria,
+			final String attivita, final String saldi_Attivita, final String passivita, final String saldi_Passivita,
+			final String costi, final String saldi_Costi, final String ricavi, final String saldi_Ricavi,
+			final float totAttiv, final float totPassiv, final float totCosti, final float totRicavi) {
 		super(title, dimension);
 		AnalisiFinanziaria = analisiFinanziaria;
 		Attivita = attivita;
@@ -73,7 +74,7 @@ public class SitAzView extends AbstractWideView {
 		this.totPassiv = totPassiv;
 		this.totCosti = totCosti;
 		this.totRicavi = totRicavi;
-		JPanel panel = new JPanel();
+		final JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		addToPanel(panel, new JScrollPane(getSP()));
 		addToPanel(panel, new JScrollPane(getSE()));
@@ -81,17 +82,17 @@ public class SitAzView extends AbstractWideView {
 		getMyFrame().getContentPane().add(panel, BorderLayout.CENTER);
 	}
 
-	private void addToPanel(JPanel panel, JComponent comp) {
+	private void addToPanel(final JPanel panel, final JComponent comp) {
 		comp.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel.add(comp);
 		// panel.add(Box.createRigidArea(new Dimension(0, 5)));
 	}
 
 	private JComponent getComment() {
-		JEditorPane editorPane = new JEditorPane();
+		final JEditorPane editorPane = new JEditorPane();
 		editorPane.setEditable(false);
 		editorPane.setContentType("text/html");
-		String htmlText = "<font size=3>" + AnalisiFinanziaria.replaceAll("(\r\n|\n)", "<br/>") + "</font>";
+		final String htmlText = "<font size=3>" + AnalisiFinanziaria.replaceAll("(\r\n|\n)", "<br/>") + "</font>";
 		editorPane.setText(htmlText);
 		editorPane.setPreferredSize(new Dimension(650, 75));
 		return editorPane;
@@ -99,13 +100,13 @@ public class SitAzView extends AbstractWideView {
 
 	private JPanel getPane(final String text, final Dimension dim, final String fontSize, final String intestaz,
 			final boolean isSaldo, final Float saldo) {
-		JPanel panel = new JPanel();
+		final JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		addToPanel(panel, new JLabel(intestaz));
-		JEditorPane editorPane = new JEditorPane();
+		final JEditorPane editorPane = new JEditorPane();
 		editorPane.setEditable(false);
 		editorPane.setContentType("text/html");
-		String htmlText = "<font size=" + fontSize + ">" + text.replaceAll("(\r\n|\n)", "<br/>") + "</font>";
+		final String htmlText = "<font size=" + fontSize + ">" + text.replaceAll("(\r\n|\n)", "<br/>") + "</font>";
 		editorPane.setText(htmlText);
 		editorPane.setPreferredSize(dim);
 		addToPanel(panel, editorPane);
@@ -137,7 +138,7 @@ public class SitAzView extends AbstractWideView {
 	}
 
 	private JPanel getSE() {
-		JPanel panel = new JPanel(new FlowLayout());
+		final JPanel panel = new JPanel(new FlowLayout());
 		panel.add(getPane(Costi, COSTI, false));
 		panel.add(getPane(Saldi_Costi, COSTI, true));
 		panel.add(getPane(Ricavi, RICAVI, false));
@@ -146,7 +147,7 @@ public class SitAzView extends AbstractWideView {
 	}
 
 	private JPanel getSP() {
-		JPanel panel = new JPanel(new FlowLayout());
+		final JPanel panel = new JPanel(new FlowLayout());
 		panel.add(getPane(Attivita, ATTIVITA, false));
 		panel.add(getPane(Saldi_Attivita, ATTIVITA, true));
 		panel.add(getPane(Passivita, PASSIVITA, false));

@@ -121,7 +121,7 @@ public class MovementsModel implements ModelInterface {
 
 	public LinkedList<Account> getAllAccounts() {
 		LinkedList<Account> accounts = db.getAccounts();
-		accounts.add(0, new Account("", Natures.ATTIVITA, Sections.IMMOBILIZZAZIONI_IMMATERIALI, 0));
+		accounts.add(0, new Account("", Natures.NESSUNO, Sections.NESSUNO, 0));
 		return accounts;
 	}
 

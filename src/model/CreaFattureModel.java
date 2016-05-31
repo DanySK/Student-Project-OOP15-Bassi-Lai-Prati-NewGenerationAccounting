@@ -26,7 +26,7 @@ public class CreaFattureModel implements ModelInterface {
 	private final static String scorta = "Scorta";
 
 	private DBDataModel db;
-
+	private final Product emptyProduct = new Product("", 0, 0, 0, 0, "", "", 0);
 	private final LinkedList<Item> listaCarrello = new LinkedList<Item>();
 
 	public CreaFattureModel(DBDataModel db) {
@@ -117,6 +117,12 @@ public class CreaFattureModel implements ModelInterface {
 		}
 	}
 
+	public LinkedList<Product> getAllProducts() {
+		LinkedList<Product> products = db.getProducts();
+		products.add(0, emptyProduct);
+		return products;
+	}
+
 	/**
 	 * Funzione per la creazione di un filtro per i prodotti.
 	 * 
@@ -126,7 +132,7 @@ public class CreaFattureModel implements ModelInterface {
 	@Override
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
-		mappaFiltro.put(prodotto, new String(""));
+		mappaFiltro.put(prodotto, emptyProduct);
 		return mappaFiltro;
 	}
 
@@ -160,8 +166,7 @@ public class CreaFattureModel implements ModelInterface {
 
 		if (obj == null) {
 			Map<String, Object> mappaVuota = new HashMap<>();
-
-			mappaVuota.put(prodotto, new String(""));
+			mappaVuota.put(prodotto, emptyProduct);
 			mappaVuota.put(quantita, new Integer(0));
 
 			return mappaVuota;

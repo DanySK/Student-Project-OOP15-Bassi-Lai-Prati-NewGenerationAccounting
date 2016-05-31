@@ -31,6 +31,7 @@ import controller.popup.PopupControllerImpl;
 import dataEnum.IDataEnum;
 import dataModel.Account;
 import dataModel.Operation;
+import dataModel.Product;
 import view.AbstractFrame;
 import view.MyEdiTableModel;
 
@@ -102,6 +103,16 @@ public class AddEditPopupView extends AbstractFrame {
 					itemPanel.add(js);
 				} else if (item instanceof Enum && item instanceof IDataEnum) {
 					final JComboBox<Enum<?>> jcb = new JComboBox<Enum<?>>(((IDataEnum) item).getEnumValues());
+					if (item != null) {
+						jcb.setSelectedItem(item);
+					}
+					compoMap.put(campo, jcb);
+					itemPanel.add(jcb);
+				} else if (item instanceof Product) {
+					final JComboBox<Product> jcb = new JComboBox<Product>();
+					for (Product prodotto : observer.getProductsList()) {
+						jcb.addItem(prodotto);
+					}
 					if (item != null) {
 						jcb.setSelectedItem(item);
 					}

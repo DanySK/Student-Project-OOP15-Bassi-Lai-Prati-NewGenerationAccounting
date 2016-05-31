@@ -23,6 +23,8 @@ import dataEnum.IDataEnum;
 import dataEnum.PopupMode;
 import dataModel.Account;
 import dataModel.Operation;
+import dataModel.Product;
+import model.CreaFattureModel;
 import model.ModelInterface;
 import model.MovementsModel;
 import view.AnagraficaView;
@@ -44,6 +46,7 @@ public class PopupControllerImpl implements IViewObserver, IPopupController {
 	private final PopupMode mode;
 	private final Map<String, Object> mappa;
 	private Account emptyAccount;
+	private Product emptyProduct;
 
 	public PopupControllerImpl(final PopupMode mode, final ModelInterface model,
 			final IAnagraficaViewObserver parentController, final AnagraficaView parentView)
@@ -67,9 +70,9 @@ public class PopupControllerImpl implements IViewObserver, IPopupController {
 			mappa = model.getFilterMap();
 			break;
 		default:
-			throw new IllegalArgumentException("Modalit� non consentita.");
+			throw new IllegalArgumentException("Modalita non consentita.");
 		}
-		Dimension dim = new Dimension(350, 150 + 50 * mappa.size());
+		final Dimension dim = new Dimension(350, 150 + 50 * mappa.size());
 		view = new AddEditPopupView(titolo, dim, mappa, this);
 		view.start();
 		parentView.disableView();
@@ -107,6 +110,16 @@ public class PopupControllerImpl implements IViewObserver, IPopupController {
 	}
 
 	@Override
+	public LinkedList<Product> getProductsList() {
+		if (model instanceof CreaFattureModel) {
+			LinkedList<Product> products = ((CreaFattureModel) model).getAllProducts();
+			emptyProduct = products.getFirst();
+			return products;
+		}
+		return null;
+	}
+
+	@Override
 	public void go(final HashMap<String, JComponent> compoMap) {
 		try {
 			switch (mode) {
@@ -128,6 +141,7 @@ public class PopupControllerImpl implements IViewObserver, IPopupController {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, Object> populateMap(final HashMap<String, JComponent> compoMap) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -154,6 +168,8 @@ public class PopupControllerImpl implements IViewObserver, IPopupController {
 			} else if (defaultValue instanceof Enum && defaultValue instanceof IDataEnum
 					&& field instanceof JComboBox) {
 				map.put(key, ((JComboBox<?>) field).getSelectedItem());
+			} else if (defaultValue instanceof Product && field instanceof JComboBox) {
+				map.put(key, ((JComboBox<Product>) field).getSelectedItem());
 			} else if (defaultValue instanceof LinkedList && field instanceof JTable) {
 				final LinkedList<Operation> operations = new LinkedList<Operation>();
 				final TableModel table = ((JTable) field).getModel();
