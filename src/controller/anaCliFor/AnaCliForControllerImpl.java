@@ -21,7 +21,7 @@ import view.AnagraficaView;
  * @author Pentolo
  *
  */
-public class AnaCliForControllerImpl implements IAnagraficaViewObserver {
+public class AnaCliForControllerImpl implements IAnagraficaViewObserver, IAnaCliForController {
 
 	private final CustomersSuppliersModel model;
 	private final AnagraficaView<Customers_Suppliers> view;

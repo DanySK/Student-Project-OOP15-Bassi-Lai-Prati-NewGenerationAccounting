@@ -19,7 +19,7 @@ import view.movimenti.MovimentiView;
  * @author Pentolo
  *
  */
-public class MovimentiControllerImpl implements IAnagraficaViewObserver {
+public class MovimentiControllerImpl implements IAnagraficaViewObserver, IAnaMovimentiController {
 
 	private final MovementsModel model;
 	private final MovimentiView view;

@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import controller.creaFattura.CreaFatturaControllerImpl;
+import controller.creaFattura.ICreaFatturaController;
 import dataModel.Customers_Suppliers;
 import dataModel.Item;
 import view.AnagraficaView;
@@ -53,7 +53,7 @@ public class CreaFatturaView extends AnagraficaView<Item> {
 				return;
 			}
 			if (item != null) {
-				((CreaFatturaControllerImpl) getObserver()).create(item);
+				((ICreaFatturaController) getObserver()).create(item);
 			} else {
 				errorDialog("Attenzione, seleziona una riga per continuare!", "nessuna riga selezionata");
 			}

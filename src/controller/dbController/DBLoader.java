@@ -24,7 +24,7 @@ import view.AbstractFrame;
  * @author Pentolo
  *
  */
-public final class DBLoader extends AbstractDB {
+public final class DBLoader extends AbstractDB implements IDBLoader {
 
 	@SuppressWarnings("unchecked")
 	public static LinkedList<Company> loadCompanys() throws IOException {

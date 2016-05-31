@@ -26,5 +26,6 @@ public class SitAzView extends AbstractWideView {
 	 */
 	public SitAzView(final String title, final Dimension dimension) {
 		super(title, dimension);
+
 	}
 }

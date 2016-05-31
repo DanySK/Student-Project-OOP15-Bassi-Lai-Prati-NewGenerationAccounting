@@ -22,7 +22,7 @@ import view.anaAziende.AnaAziendeView;
  * @author Pentolo
  *
  */
-public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
+public class AnaAziendeControllerImpl implements IAnagraficaViewObserver, IAnaAziendeController {
 	private final AnaAziendeView view;
 	private final CompanyModel model;
 
@@ -37,9 +37,7 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 		view.start();
 	}
 
-	/**
-	 * programmazione tasto accedi
-	 */
+	@Override
 	public void accedi() {
 		final Company company = getSelectedCompany();
 		if (company != null) {

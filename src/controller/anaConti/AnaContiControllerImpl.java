@@ -21,7 +21,7 @@ import view.AnagraficaView;
  * @author Pentolo
  *
  */
-public class AnaContiControllerImpl implements IAnagraficaViewObserver {
+public class AnaContiControllerImpl implements IAnagraficaViewObserver, IAnaContiController {
 	private final AccountsModel model;
 	private final AnagraficaView<Account> view;
 

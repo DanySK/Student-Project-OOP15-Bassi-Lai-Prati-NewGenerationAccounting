@@ -12,7 +12,6 @@ public class ReceivablesPayablesModel {
 	}
 
 	public DBDataModel saveDBAndClose() {
-		// TODO Auto-generated method stub
-		return null;
+		return db;
 	}
 }

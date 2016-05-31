@@ -21,7 +21,7 @@ import view.AnagraficaView;
  * @author Pentolo
  *
  */
-public class AnaProdControllerImpl implements IAnagraficaViewObserver {
+public class AnaProdControllerImpl implements IAnagraficaViewObserver, IAnaProdController {
 	private final ProductsModel model;
 	private final AnagraficaView<Product> view;
 

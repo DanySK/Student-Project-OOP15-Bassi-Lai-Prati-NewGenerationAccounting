@@ -10,10 +10,8 @@ import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
 import dataModel.Company;
-
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
-
 
 /**
  * Classe implementativa per la gestione dell'anagrafica aziende e la creazione
@@ -49,13 +47,12 @@ public class CompanyModel implements ModelInterface {
 	 * @author Diego
 	 *
 	 */
-	
-	
+
 	@Override
 	public void add(Map<String, Object> elem) throws InstanceAlreadyExistsException {
 
 		System.out.print(elem);
-		
+
 		if (elem.get(ragione_sociale) == "") {
 			throw new IllegalArgumentException("Ragione sociale non valida. Riprovare.");
 		}
@@ -108,8 +105,7 @@ public class CompanyModel implements ModelInterface {
 	 * @author Diego
 	 *
 	 */
-	
-	
+
 	@Override
 	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare)
 			throws InstanceAlreadyExistsException, InstanceNotFoundException {
@@ -135,7 +131,7 @@ public class CompanyModel implements ModelInterface {
 	 * @author Diego
 	 *
 	 */
-	
+
 	@Override
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
@@ -144,14 +140,13 @@ public class CompanyModel implements ModelInterface {
 		return mappaFiltro;
 	}
 
-	
 	/**
 	 * Metodo per individuare l'ultimo codice UUID(Codice_azienda) utilizzato.
 	 * 
 	 * 
 	 *
 	 */
-	
+
 	public UUID getLastAddedItemCode() {
 		if (nuovaazienda != null && nuovaazienda.getCodice_azienda() != null
 				&& nuovaazienda.getCodice_azienda() instanceof UUID) {
@@ -170,7 +165,7 @@ public class CompanyModel implements ModelInterface {
 	 * 
 	 * 
 	 */
-	
+
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
 
@@ -201,7 +196,7 @@ public class CompanyModel implements ModelInterface {
 				mappaPiena.put(indirizzo, ((Company) obj).getIndirizzo());
 
 				return mappaPiena;
-				
+
 			} else {
 				throw new IllegalArgumentException("Valori non validi, riprovare.");
 			}
@@ -210,12 +205,13 @@ public class CompanyModel implements ModelInterface {
 	}
 
 	/**
-	 * Controlla che la password inserita dall'utente corrisponda a quella del DB.
+	 * Controlla che la password inserita dall'utente corrisponda a quella del
+	 * DB.
 	 * 
 	 * 
 	 * 
 	 */
-	
+
 	public boolean isPasswordCorrect(final char[] password, final Company company) {
 		return Arrays.equals(password, company.getPassword());
 	}
@@ -226,7 +222,7 @@ public class CompanyModel implements ModelInterface {
 	 * 
 	 * 
 	 */
-	
+
 	@Override
 	public LinkedList<Company> load() {
 		return new LinkedList<Company>(listaAziende);
@@ -238,55 +234,51 @@ public class CompanyModel implements ModelInterface {
 	 * 
 	 * 
 	 */
-	
-	
-	
+
 	@Override
 	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro)
 			throws InstanceNotFoundException {
-		
+
 		LinkedList<Company> listaFiltrata = new LinkedList<>();
-		//Continua ad escludere ciò che cerco di filtrare.
-		
-		
-		if (mappaFiltro.get(ragione_sociale) instanceof Company) { 
-		
-		if (!((String) mappaFiltro.get(ragione_sociale)).isEmpty()) {
-			for (Company a : listaAziende) {
-				if (a.getRagione_sociale().contentEquals((String)mappaFiltro.get(ragione_sociale)) ){ //modificato
-					listaFiltrata.add(a);
+		// Continua ad escludere ciò che cerco di filtrare.
+
+		if (mappaFiltro.get(ragione_sociale) instanceof Company) {
+
+			if (!((String) mappaFiltro.get(ragione_sociale)).isEmpty()) {
+				for (Company a : listaAziende) {
+					if (a.getRagione_sociale().contentEquals((String) mappaFiltro.get(ragione_sociale))) { // modificato
+						listaFiltrata.add(a);
+					}
+				}
+
+				if (mappaFiltro.get(p_iva) instanceof Company) {
+
+					if (listaFiltrata.isEmpty()) {
+						for (Company a : listaAziende) { // singolo filtro su
+															// p_iva
+							if (a.getPartita_iva() == mappaFiltro.get(p_iva)) {
+								listaFiltrata.add(a);
+							}
+						}
+					} else { // doppio filtro tra ragione sociale e p_iva
+						for (Company a : listaFiltrata) {
+							if (a.getPartita_iva() != mappaFiltro.get(p_iva)) {
+								listaFiltrata.remove(a);
+							}
+						}
+
+					} // parentesi ultimo else
 				}
 			}
-			
-			if (mappaFiltro.get(p_iva) instanceof Company ) {
-				
-				if (listaFiltrata.isEmpty()) {
-					for (Company a : listaAziende) { // singolo filtro su p_iva
-						if (a.getPartita_iva() == mappaFiltro.get(p_iva)){
-							listaFiltrata.add(a);
-						}
-					}
-				} else { // doppio filtro tra ragione sociale e p_iva
-					for (Company a : listaFiltrata) {
-						if (a.getPartita_iva() != mappaFiltro.get(p_iva)){
-							listaFiltrata.remove(a);
-						}
-					}
+		}
+		// if (listaFiltrata.isEmpty()) {
+		// throw new InstanceNotFoundException("Nella lista non sono presenti
+		// elementi che soddisfano i filtri");
+		// } else
 
-				}//parentesi ultimo else
-			    }
-				}			
-		}
-//			if (listaFiltrata.isEmpty()) {
-//				throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri");
-//			} else
-				
-				return listaFiltrata;
-		
-		
-		}
-		
-	
+		return listaFiltrata;
+
+	}
 
 	/**
 	 * Metodo che permette l'eliminazione di una azienda già esistente.
@@ -294,7 +286,7 @@ public class CompanyModel implements ModelInterface {
 	 *
 	 * 
 	 */
-	
+
 	@Override
 	public void remove(IDataTableModel elem) {
 		if (listaAziende.contains(elem)) {
@@ -306,7 +298,8 @@ public class CompanyModel implements ModelInterface {
 
 	/**
 	 * 
-	 * Metodo per spostare i dati dalla lista interna al database e restituire quest'ultimo.
+	 * Metodo per spostare i dati dalla lista interna al database e restituire
+	 * quest'ultimo.
 	 * 
 	 * Utilizzato in questo caso al posto di saveDBAndClose.
 	 * 
@@ -322,14 +315,15 @@ public class CompanyModel implements ModelInterface {
 
 	/**
 	 * 
-	 * Metodo per spostare i dati dalla lista interna al database e restituire quest'ultimo.
+	 * Metodo per spostare i dati dalla lista interna al database e restituire
+	 * quest'ultimo.
 	 * 
-	 * In questo caso il metodo risulta inutilizzabile. Al suo posto si usa saveCompanysAndClose().
+	 * In questo caso il metodo risulta inutilizzabile. Al suo posto si usa
+	 * saveCompanysAndClose().
 	 * 
 	 * 
 	 * 
-	*/
-	 
+	 */
 
 	@Override
 	public DBDataModel saveDBAndClose() {

@@ -11,7 +11,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import controller.main.MainControllerImpl;
+import controller.main.IMainMenuController;
 import view.AbstractWideView;
 
 /**
@@ -25,7 +25,7 @@ public class MainView extends AbstractWideView {
 	class myAction implements ActionListener {
 		@Override
 		public void actionPerformed(final ActionEvent e) {
-			MainControllerImpl observer = (MainControllerImpl) getObserver();
+			IMainMenuController observer = (IMainMenuController) getObserver();
 			final String action = e.getActionCommand();
 			if (action.equals(listaBtn[0])) {
 				observer.btn0(action);

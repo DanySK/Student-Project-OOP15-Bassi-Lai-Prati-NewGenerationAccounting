@@ -35,7 +35,7 @@ import view.popup.AddEditPopupView;
  *
  */
 @SuppressWarnings("rawtypes")
-public class PopupControllerImpl implements IViewObserver {
+public class PopupControllerImpl implements IViewObserver, IPopupController {
 
 	private final ModelInterface model;
 	private final IAnagraficaViewObserver parentController;
@@ -86,6 +86,7 @@ public class PopupControllerImpl implements IViewObserver {
 		view.close();
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public void filterList(final Map<String, Object> mappa) {
 		try {
@@ -95,6 +96,7 @@ public class PopupControllerImpl implements IViewObserver {
 		}
 	}
 
+	@Override
 	public LinkedList<Account> getAccountsList() {
 		if (model instanceof MovementsModel) {
 			LinkedList<Account> accounts = ((MovementsModel) model).getAllAccounts();
@@ -105,6 +107,7 @@ public class PopupControllerImpl implements IViewObserver {
 		return null;
 	}
 
+	@Override
 	public void go(final HashMap<String, JComponent> compoMap) {
 		try {
 			switch (mode) {
@@ -126,6 +129,7 @@ public class PopupControllerImpl implements IViewObserver {
 		}
 	}
 
+	@Override
 	public Map<String, Object> populateMap(final HashMap<String, JComponent> compoMap) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		for (String key : mappa.keySet()) {

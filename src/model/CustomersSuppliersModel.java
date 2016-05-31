@@ -53,7 +53,6 @@ public class CustomersSuppliersModel implements ModelInterface {
 	 * 
 	 */
 
-	
 	@Override
 	public void add(Map<String, Object> elem) throws IllegalArgumentException, InstanceAlreadyExistsException { // controllare
 
@@ -179,8 +178,6 @@ public class CustomersSuppliersModel implements ModelInterface {
 
 		} else {
 			if (obj instanceof Customers_Suppliers) {
-
-
 
 				Map<String, Object> mappaPiena = new HashMap<>();
 				mappaPiena.put(CF, ((Customers_Suppliers) obj).getCf());

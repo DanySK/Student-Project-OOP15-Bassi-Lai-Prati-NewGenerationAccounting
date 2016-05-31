@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.SwingUtilities;
 
-import controller.anaAziende.AnaAziendeControllerImpl;
+import controller.anaAziende.IAnaAziendeController;
 import dataModel.Company;
 import view.AnagraficaView;
 
@@ -60,7 +60,7 @@ public class AnaAziendeView extends AnagraficaView<Company> {
 				errorDialog("Errore", ex.getMessage());
 			}
 			if (item != null) {
-				((AnaAziendeControllerImpl) getObserver()).accedi();
+				((IAnaAziendeController) getObserver()).accedi();
 			} else {
 				errorDialog("Attenzione, seleziona una riga per continuare!", "nessuna riga selezionata");
 			}

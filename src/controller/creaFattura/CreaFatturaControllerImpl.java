@@ -21,7 +21,7 @@ import view.creaFattura.CreaFatturaView;
  * @author Pentolo
  *
  */
-public class CreaFatturaControllerImpl implements IAnagraficaViewObserver {
+public class CreaFatturaControllerImpl implements IAnagraficaViewObserver, ICreaFatturaController {
 
 	private final CreaFattureModel model;
 	private final CreaFatturaView view;
@@ -53,6 +53,7 @@ public class CreaFatturaControllerImpl implements IAnagraficaViewObserver {
 	 * @param item
 	 *            il cliente selezionato
 	 */
+	@Override
 	public void create(Customers_Suppliers item) {
 		final DBDataModel db = model.create(item);
 		new DBSaver(db.getPath(), view, db).start();

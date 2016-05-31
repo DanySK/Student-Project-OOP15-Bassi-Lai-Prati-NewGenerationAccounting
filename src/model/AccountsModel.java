@@ -70,7 +70,8 @@ public class AccountsModel implements ModelInterface {
 
 	@Override
 	public void edit(IDataTableModel obj, Map<String, Object> elemDaModificare)
-			throws InstanceNotFoundException, IllegalArgumentException { // modifica elementi
+			throws InstanceNotFoundException, IllegalArgumentException { // modifica
+																			// elementi
 		trovato = false;
 		if (obj instanceof Account) {
 			Account a = (Account) obj;
@@ -124,10 +125,11 @@ public class AccountsModel implements ModelInterface {
 	public LinkedList<Account> load() { // carica tutti i dati
 		return new LinkedList<Account>(listaaccount);
 	}
-	
+
 	@Override
-	public LinkedList<Account> load(Map<String, Object> mappaFiltro)throws InstanceNotFoundException, IllegalArgumentException {// carica
-	    //carica dati in base ai filtri
+	public LinkedList<Account> load(Map<String, Object> mappaFiltro)
+			throws InstanceNotFoundException, IllegalArgumentException {// carica
+		// carica dati in base ai filtri
 		LinkedList<Account> listaFiltrata = new LinkedList<>();
 		if (!mappaFiltro.get(NOME).toString().isEmpty()) { // controllo il nome
 			for (Account a : listaaccount) {
@@ -184,27 +186,28 @@ public class AccountsModel implements ModelInterface {
 	}
 
 	@Override
-	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException, IllegalArgumentException { // elimina dati
-			if (elemDaEliminare instanceof Account) {
-				Account a = (Account) elemDaEliminare;
-				for (Account elem : listaaccount) {
-					if (elem.getName().equals(a.getName())) {
-						trovato = true;
-						if (elem.getSaldo() == 0) {
-							listaaccount.remove(elem);
-							db.setAccounts(listaaccount);
-						} else {
-							throw new IllegalArgumentException("non posso eliminare l'elemento perchè ha saldo > 0");
-						}
+	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException, IllegalArgumentException { // elimina
+																														// dati
+		if (elemDaEliminare instanceof Account) {
+			Account a = (Account) elemDaEliminare;
+			for (Account elem : listaaccount) {
+				if (elem.getName().equals(a.getName())) {
+					trovato = true;
+					if (elem.getSaldo() == 0) {
+						listaaccount.remove(elem);
+						db.setAccounts(listaaccount);
+					} else {
+						throw new IllegalArgumentException("non posso eliminare l'elemento perchè ha saldo > 0");
 					}
 				}
-				if (trovato == false) {
-					throw new InstanceNotFoundException("elemento da eliminare non trovato");
-				}
-			} else {
-				throw new IllegalArgumentException("l'elemento da eliminare NON è un conto");
 			}
+			if (trovato == false) {
+				throw new InstanceNotFoundException("elemento da eliminare non trovato");
+			}
+		} else {
+			throw new IllegalArgumentException("l'elemento da eliminare NON è un conto");
 		}
+	}
 
 	@Override
 	public DBDataModel saveDBAndClose() { // salva i dati sul database
