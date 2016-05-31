@@ -5,14 +5,11 @@ package controller.dbController;
 
 import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.LinkedList;
-import java.util.Set;
 
 import dataModel.Account;
-import dataModel.Company;
 import dataModel.DBDataModel;
 import view.AbstractFrame;
 
@@ -48,22 +45,6 @@ public abstract class AbstractDB extends Thread {
 	private final AbstractFrame view;
 
 	private final DBDataModel db;
-
-	@SuppressWarnings("unchecked")
-	protected LinkedList<Account> loadDefaultAcconts() {
-		try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(
-				Thread.currentThread().getContextClassLoader().getResourceAsStream(ACCOUNT_FILENAME)))) {
-			final Object readElem = ois.readObject();
-			if (readElem instanceof LinkedList) {
-				return (LinkedList<Account>) readElem;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return new LinkedList<Account>();
-	}
 
 	protected AbstractDB(final String path, final AbstractFrame view, final DBDataModel db) {
 		this.path = path;
@@ -115,5 +96,21 @@ public abstract class AbstractDB extends Thread {
 	 */
 	protected final AbstractFrame getView() {
 		return view;
+	}
+
+	@SuppressWarnings("unchecked")
+	protected LinkedList<Account> loadDefaultAcconts() {
+		try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(
+				Thread.currentThread().getContextClassLoader().getResourceAsStream(ACCOUNT_FILENAME)))) {
+			final Object readElem = ois.readObject();
+			if (readElem instanceof LinkedList) {
+				return (LinkedList<Account>) readElem;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return new LinkedList<Account>();
 	}
 }

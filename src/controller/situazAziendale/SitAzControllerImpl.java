@@ -32,7 +32,7 @@ public class SitAzControllerImpl implements IViewObserver {
 	public SitAzControllerImpl(final DBDataModel db, final String title) {
 		this.model = new FinancialSituationModelImpl(db);
 		this.view = new SitAzView(title, new Dimension(700, 750), model.AnalisiFinanziaria(), model.Attivita(),
-				model.Saldi_Attivita(), model.Passivita(), model.Saldi_Attivita(), model.Costi(), model.Saldi_Costi(),
+				model.Saldi_Attivita(), model.Passivita(), model.Saldi_Passivita(), model.Costi(), model.Saldi_Costi(),
 				model.Ricavi(), model.Saldi_Ricavi(), model.getSaldo_Stato_Patr(), model.getSaldo_Conto_Ec());
 		this.view.setObserver(this);
 		view.start();

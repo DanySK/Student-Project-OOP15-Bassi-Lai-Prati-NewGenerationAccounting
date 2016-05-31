@@ -33,16 +33,15 @@ public class Item implements IDataTableModel {
 	}
 
 	// prove, non sarebbero necessari
-	
+
+	public String getNome() {
+		return prodotto.getNome();
+	}
+
 	public int getPrezzo() {
 		return prodotto.getPrezzovendita();
 	}
-	
-	public String getNome()
-	{
-		return prodotto.getNome();
-	}
-	
+
 	public Product getProdotto() {
 		return prodotto;
 	}
@@ -65,14 +64,14 @@ public class Item implements IDataTableModel {
 		}
 	}
 
+	public void setNome(Product prodotto) {
+		this.prodotto = prodotto;
+	}
+
 	public void setPrezzo(Product prodotto) {
 		this.prodotto = prodotto;
 	}
 
-	public void setNome(Product prodotto) {
-		this.prodotto = prodotto;
-	}
-	
 	public void setProdotto(Product prodotto) {
 		this.prodotto = prodotto;
 	}

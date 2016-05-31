@@ -82,7 +82,8 @@ public class CreaFattureModel implements ModelInterface {
 
 			}
 		}
-		item.setDebito(item.getDebito()+totale);// Addebito il totale al debito pregresso
+		item.setDebito(item.getDebito() + totale);// Addebito il totale al
+													// debito pregresso
 
 		LinkedList<Customers_Suppliers> cs = db.getCustomersSuppliers();
 		cs.addLast(item);
@@ -93,7 +94,7 @@ public class CreaFattureModel implements ModelInterface {
 	}
 
 	/**
-
+	 * 
 	 * Funzione per la modifica del carrello d'acquisto.
 	 * 
 	 * 
@@ -103,7 +104,14 @@ public class CreaFattureModel implements ModelInterface {
 	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare) {
 		if ((Product) infoDaModificare.get(scorta) != null) {
 
-			((Item) obj).setNome((Product) infoDaModificare.get(prodotto)); //vado a prendere il prodotto tramite il nome
+			((Item) obj).setNome((Product) infoDaModificare.get(prodotto)); // vado
+																			// a
+																			// prendere
+																			// il
+																			// prodotto
+																			// tramite
+																			// il
+																			// nome
 			((Item) obj).setQuantita((Integer) infoDaModificare.get(quantita));
 
 		}

@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.LinkedList;
 
-import dataModel.Account;
 import dataModel.Company;
 import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
