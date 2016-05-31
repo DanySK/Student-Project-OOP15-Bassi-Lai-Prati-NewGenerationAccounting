@@ -56,24 +56,24 @@ public class CustomersSuppliersModel implements ModelInterface {
 	@Override
 	public void add(Map<String, Object> elem) throws IllegalArgumentException, InstanceAlreadyExistsException { // controllare
 
-		if (elem.get(CF) == "") {
+		if (elem.get(CF).equals("")) {
 			throw new IllegalArgumentException("CF non valido. Riprovare.");
 		}
 
-		if (elem.get(Citta) == "") {
+		if (elem.get(Citta).equals("")) {
 			throw new IllegalArgumentException("Citta' non valida. Riprovare.");
 		}
 
-		if (elem.get(Cognome) == "") {
+		if (elem.get(Cognome).equals("")) {
 			throw new IllegalArgumentException("Cognome non valido. Riprovare.");
 		}
 
-		if (elem.get(Nome) == "") {
+		if (elem.get(Nome).equals("")) {
 			throw new IllegalArgumentException("Nome non valido. Riprovare.");
 
 		}
 
-		if (elem.get(Indirizzo) == "") {
+		if (elem.get(Indirizzo).equals("")) {
 			throw new IllegalArgumentException("Indirizzo non valido. Riprovare.");
 
 		}
@@ -82,12 +82,19 @@ public class CustomersSuppliersModel implements ModelInterface {
 		} else {
 			throw new IllegalArgumentException("Il CAP non è int. Riprovare.");
 		}
-		if (elem.get(CAP) == null) {
+		
+		if (elem.get(CAP).equals(null)) {
 			throw new IllegalArgumentException("CAP non valido. Riprovare.");
-
 		}
-
-		if (elem.get(Telefono) == "") {
+		
+		if (elem.get(Telefono) instanceof String )
+		{
+			System.out.println("Telefono is a String");
+		}else{
+			throw new IllegalArgumentException("Telefono non è String. Riprovare.");
+		}
+		
+		if (elem.get(Telefono).equals("")) {
 			throw new IllegalArgumentException("Numero di telefono non valido. Riprovare.");
 		}
 
@@ -104,12 +111,13 @@ public class CustomersSuppliersModel implements ModelInterface {
 		Customers_Suppliers rapportoC = new Customers_Suppliers((String) elem.get(Nome), (String) elem.get(Cognome),
 				(String) elem.get(CF), (String) elem.get(Indirizzo), (String) elem.get(Citta), (int) elem.get(CAP),
 				(String) elem.get(Telefono), (Gender) elem.get(sesso), (KindPerson) elem.get(ruolo),
-				(int) elem.get(Debito), (int) elem.get(Credito));
+				0, 0);
 
 		if (listaRapportiC.contains(rapportoC)) {
 			throw new InstanceAlreadyExistsException("L'elemento e' gia' presente.");
-		}
-		listaRapportiC.add(rapportoC);
+			
+		}else listaRapportiC.add(rapportoC);
+		
 	}
 
 	/**
@@ -125,21 +133,14 @@ public class CustomersSuppliersModel implements ModelInterface {
 		if (!listaRapportiC.contains(obj)) {
 			throw new InstanceNotFoundException("Elemento da modificare non presente, riprovare.");
 		} else {
-
 			((Customers_Suppliers) obj).setCf((String) infoDaModificare.get(CF));
 			((Customers_Suppliers) obj).setCitta((String) infoDaModificare.get(Citta));
 			((Customers_Suppliers) obj).setCognome((String) infoDaModificare.get(Cognome));
 			((Customers_Suppliers) obj).setNome((String) infoDaModificare.get(Nome));
 			((Customers_Suppliers) obj).setIndirizzo((String) infoDaModificare.get(Indirizzo));
 			((Customers_Suppliers) obj).setCap((Integer) infoDaModificare.get(CAP));
-			((Customers_Suppliers) obj).setRuolo((KindPerson) infoDaModificare.get(ruolo));
-			((Customers_Suppliers) obj).setSesso((Gender) infoDaModificare.get(sesso));
 			((Customers_Suppliers) obj).setTelefono((String) infoDaModificare.get(Telefono));
 		}
-		if (trovato == false) {
-			throw new InstanceNotFoundException("Elemento da modificare non presente.");
-		}
-
 	}
 
 	/**
@@ -178,7 +179,8 @@ public class CustomersSuppliersModel implements ModelInterface {
 			mappaVuota.put(Telefono, new String(""));
 			mappaVuota.put(Ruolostring, KindPerson.NESSUNO);
 			mappaVuota.put(Sessostring, Gender.NESSUNO);
-
+			
+			
 			return mappaVuota;
 
 		} else {
@@ -194,6 +196,7 @@ public class CustomersSuppliersModel implements ModelInterface {
 				mappaPiena.put(Telefono, ((Customers_Suppliers) obj).getTelefono());
 				mappaPiena.put(Ruolostring, ((Customers_Suppliers) obj).getRuolo());
 				mappaPiena.put(Sessostring, ((Customers_Suppliers) obj).getSesso());
+				
 
 				return mappaPiena;
 			} else {
