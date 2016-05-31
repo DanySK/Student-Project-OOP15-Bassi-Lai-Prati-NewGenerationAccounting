@@ -77,7 +77,7 @@ public class ProductsModel implements ModelInterface {
 			throw new IllegalArgumentException("Elemento gia' esistente!");
 		} else {
 			Product nuovoprodotto = new Product(elem.get(nome).toString(), (Integer) elem.get(codiceP), (Integer) elem.get(codiceA),
-					(Integer) elem.get(codiceV), (Integer) elem.get(scorta), elem.get(descrizione).toString(),
+					(Integer) elem.get(codiceV), (Integer) elem.get(rimanenze), elem.get(descrizione).toString(),
 					elem.get(categoria).toString(), (Integer) elem.get(prezzo));
 			listaProdotti.add(nuovoprodotto);
 			db.setProducts(listaProdotti);

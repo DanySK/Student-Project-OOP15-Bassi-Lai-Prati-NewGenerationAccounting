@@ -9,7 +9,9 @@ import java.util.UUID;
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
-
+import dataEnum.Natures;
+import dataEnum.Sections;
+import dataModel.Account;
 import dataModel.Company;
 
 import dataModel.DBDataModel;
@@ -141,7 +143,7 @@ public class CompanyModel implements ModelInterface {
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
 		mappaFiltro.put(ragione_sociale, new String(""));
-		//mappaFiltro.put(p_iva, new String(""));
+		mappaFiltro.put(p_iva, new String(""));
 		return mappaFiltro;
 	}
 
@@ -247,18 +249,41 @@ public class CompanyModel implements ModelInterface {
 		
 		LinkedList<Company> listaFiltrata = new LinkedList<>();
 		//Continua ad escludere ciò che cerco di filtrare.
-		if (mappaFiltro.get(ragione_sociale) != null) {
-			for (Company controllofiltro : listaAziende) {
-				if (controllofiltro.getRagione_sociale().contentEquals(ragione_sociale)) {
-					listaFiltrata.add(controllofiltro);
+		if (!((String) mappaFiltro.get(ragione_sociale)).isEmpty()) {
+			for (Company a : listaAziende) {
+				if (a.getRagione_sociale().contentEquals(ragione_sociale)) {
+					listaFiltrata.add(a);
 				}
 			}
-		}
-
-		
-			return listaFiltrata;
+			
+			if (mappaFiltro.get(p_iva) instanceof Company ) {
 				
+				if (listaFiltrata.isEmpty()) {
+					for (Company a : listaAziende) { // singolo filtro su p_iva
+						if (a.getPartita_iva() == mappaFiltro.get(p_iva)){
+							listaFiltrata.add(a);
+						}
+					}
+				} else { // doppio filtro tra ragione sociale e p_iva
+					for (Company a : listaFiltrata) {
+						if (a.getPartita_iva() != mappaFiltro.get(p_iva)){
+							listaFiltrata.remove(a);
+						}
+					}
+
+				}//parentesi ultimo else
+				
+				}			
 		}
+			if (listaFiltrata.isEmpty()) {
+				throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri");
+			} else
+				
+				return listaFiltrata;
+		
+		
+		}
+		
 	
 
 	/**
