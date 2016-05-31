@@ -39,10 +39,10 @@ public class ProductsModel implements ModelInterface {
 		this.db = db;
 	}
 
-	/*
+	/**
 	 * Metodo per la creazione di un nuovo prodotto.
 	 * 
-	 * @author Diego
+	 * 
 	 */
 
 	@Override
@@ -83,10 +83,10 @@ public class ProductsModel implements ModelInterface {
 		}
 	}
 
-	/*
+	/**
 	 * Metodo per la modifica di un prodotto.
 	 * 
-	 * @author Diego
+	 * 
 	 */
 
 	@Override
@@ -103,10 +103,10 @@ public class ProductsModel implements ModelInterface {
 
 	}
 
-	/*
+	/**
 	 * Metodo per la creazione di filtri di ricerca per i prodotti.
 	 * 
-	 * @author Diego
+	 * 
 	 */
 
 	@Override
@@ -119,11 +119,11 @@ public class ProductsModel implements ModelInterface {
 		return mappaFiltro;
 	}
 
-	/*
+	/**
 	 * Metodo per la creazione di un nuove mappe e la loro restituzione, sia con
 	 * valori vuoti che con quelli definiti.
 	 * 
-	 * @author Diego
+	 * 
 	 */
 
 	@Override
@@ -163,10 +163,10 @@ public class ProductsModel implements ModelInterface {
 
 	}
 
-	/*
+	/**
 	 * Metodo per la restituzione listaProdotti
 	 * 
-	 * @author Diego
+	 * 
 	 */
 
 	@Override
@@ -174,10 +174,10 @@ public class ProductsModel implements ModelInterface {
 		return new LinkedList<Product>(listaProdotti);
 	}
 
-	/*
+	/**
 	 * Metodo per la creazione della mappa filtrata.
 	 * 
-	 * @author Diego
+	 * 
 	 */
 
 	@Override
@@ -238,10 +238,10 @@ public class ProductsModel implements ModelInterface {
 		return listaFiltrata;
 	}
 
-	/*
+	/**
 	 * Metodo per rimuovere un prodotto esistente.
 	 * 
-	 * @author Diego
+	 * 
 	 */
 
 	@Override
@@ -258,11 +258,11 @@ public class ProductsModel implements ModelInterface {
 		}
 	}
 
-	/*
+	/**
 	 * Metodo per spostare i dati dalla lista interna al database e restituire
 	 * quest'ultimo.
 	 * 
-	 * @author Diego
+	 * 
 	 */
 
 	@Override

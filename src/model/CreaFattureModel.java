@@ -33,11 +33,11 @@ public class CreaFattureModel implements ModelInterface {
 		this.db = db;
 	}
 
-	/*
+	/**
 	 * Funzione per la creazione di un nuovo carrello , con conseguente
 	 * possibilità di acquistare prodotti.
 	 * 
-	 * @author Diego
+	 * 
 	 */
 	@Override
 	public void add(Map<String, Object> elem) throws IllegalArgumentException {
@@ -94,10 +94,10 @@ public class CreaFattureModel implements ModelInterface {
 		return db;
 	}
 
-	/*
+	/**
 	 * Funzione per la modifica del carrello d'acquisto.
 	 * 
-	 * @author Diego
+	 * 
 	 */
 
 	@Override
@@ -110,10 +110,10 @@ public class CreaFattureModel implements ModelInterface {
 		}
 	}
 
-	/*
+	/**
 	 * Funzione per la creazione di un filtro per i prodotti.
 	 * 
-	 * @author Diego
+	 * 
 	 */
 
 	@Override
@@ -123,10 +123,10 @@ public class CreaFattureModel implements ModelInterface {
 		return mappaFiltro;
 	}
 
-	/*
+	/**
 	 * Funzione per ottenere tra tutte le persone, solo i clienti.
 	 * 
-	 * @author Diego
+	 * 
 	 */
 
 	public Customers_Suppliers[] getListaclienti() {
@@ -141,11 +141,11 @@ public class CreaFattureModel implements ModelInterface {
 		return listaClienti;
 	}
 
-	/*
+	/**
 	 * Funzione per la creazione di una nuova mappa di classe, sia che sia
 	 * ricevuta vuota o con valori al suo interno.
 	 * 
-	 * @author Diego
+	 * 
 	 */
 
 	@Override
@@ -172,10 +172,10 @@ public class CreaFattureModel implements ModelInterface {
 
 	}
 
-	/*
+	/**
 	 * Funzione per la creazione di listaCarrello.
 	 * 
-	 * @author Diego
+	 * 
 	 */
 
 	@Override
@@ -188,11 +188,11 @@ public class CreaFattureModel implements ModelInterface {
 		return l;
 	}
 
-	/*
+	/**
 	 * Funzione per la creazione di un nuovo carrello , con conseguente
 	 * possibilità di acquistare prodotti.
 	 * 
-	 * @author Diego
+	 *
 	 */
 
 	@Override
@@ -208,10 +208,11 @@ public class CreaFattureModel implements ModelInterface {
 		return null;
 	}
 
-	/*
+	/**
 	 * Funzione per rimozione di un elemento dal carrello.
 	 * 
-	 * @author Diego
+	 * 
+	 * 
 	 */
 	@Override
 	public void remove(IDataTableModel elem) {
@@ -222,10 +223,10 @@ public class CreaFattureModel implements ModelInterface {
 		}
 	}
 
-	/*
+	/**
 	 * Funzione per restituzione del DB.
 	 * 
-	 * @author Diego
+	 * 
 	 */
 
 	@Override
