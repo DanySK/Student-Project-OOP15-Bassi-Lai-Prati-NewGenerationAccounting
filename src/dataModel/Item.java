@@ -33,8 +33,8 @@ public class Item implements IDataTableModel {
 
 	}
 
-	public String getProdotto() {
-		return prodotto.getNome();
+	public Product getProdotto() {
+		return prodotto;//.getNome();
 	}
 	
 	public int getPrezzo(){//prova, non sarebbe necessario

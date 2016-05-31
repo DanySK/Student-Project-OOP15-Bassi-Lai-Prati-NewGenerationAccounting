@@ -44,6 +44,7 @@ public class CustomersSuppliersModel implements ModelInterface {
 
 	public CustomersSuppliersModel(DBDataModel db) {
 		this.db = db;
+		this.listaRapportiC = db.getCustomersSuppliers();
 	}
 
 	/*
@@ -76,7 +77,7 @@ public class CustomersSuppliersModel implements ModelInterface {
 			throw new IllegalArgumentException("Indirizzo non valido. Riprovare.");
 
 		}
-		if ((Integer)elem.get(CAP) == null) {
+		if (elem.get(CAP) == null) {
 			throw new IllegalArgumentException("CAP non valido. Riprovare.");
 
 		}
@@ -105,10 +106,10 @@ public class CustomersSuppliersModel implements ModelInterface {
 
 		}
 
-		Customers_Suppliers rapportoC = new Customers_Suppliers(elem.get(Nome).toString(), elem.get(Cognome).toString(),
-				elem.get(CF).toString(), elem.get(Indirizzo).toString(), elem.get(Citta).toString(),
-				(Integer) elem.get(CAP), elem.get(Telefono).toString(), (Gender) elem.get(sesso),
-				(KindPerson) elem.get(ruolo), (Integer) elem.get(Credito), (Integer) elem.get(Debito));
+		Customers_Suppliers rapportoC = new Customers_Suppliers((String)elem.get(Nome), (String) elem.get(Cognome),
+				(String)elem.get(CF), (String)elem.get(Indirizzo), (String)elem.get(Citta),
+				(int) elem.get(CAP), (String)elem.get(Telefono), (Gender) elem.get(sesso),
+				(KindPerson) elem.get(ruolo), (int) elem.get(Debito), (int) elem.get(Credito));
 
 		if (listaRapportiC.contains(rapportoC)) {
 			throw new InstanceAlreadyExistsException("L'elemento e' gia' presente.");
@@ -160,7 +161,7 @@ public class CustomersSuppliersModel implements ModelInterface {
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
 		mappaFiltro.put(CF, new String(""));
-		mappaFiltro.put(Citta, new String(""));
+		//mappaFiltro.put(Citta, new String(""));
 		return mappaFiltro;
 	}
 
@@ -228,13 +229,17 @@ public class CustomersSuppliersModel implements ModelInterface {
 	
 	@Override
 	public LinkedList<Customers_Suppliers> load() {
+		
+		LinkedList<Customers_Suppliers> lcs = new LinkedList<Customers_Suppliers>();
+		lcs.add(new Customers_Suppliers(CF, Citta, Cognome, Indirizzo, Nome, 0, CAP, sesso, ruolo, 0, 0));
 
-		return new LinkedList<Customers_Suppliers>();
+		return new LinkedList<Customers_Suppliers>(listaRapportiC);
 	}
 
 	@Override
-	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro)
+	public LinkedList<Customers_Suppliers> load(Map<String, Object> mappaFiltro)
 			throws InstanceNotFoundException {
+		
 		LinkedList<Customers_Suppliers> listaFiltrata = new LinkedList<>();
 
 		if (mappaFiltro.get(CF) != null) {
@@ -245,18 +250,18 @@ public class CustomersSuppliersModel implements ModelInterface {
 			}
 		}
 
-		if (mappaFiltro.get(Citta) != null) {
-			for (Customers_Suppliers controllofiltro : listaRapportiC) {
-				if (controllofiltro.getCitta().contentEquals(Citta)) {
-					listaFiltrata.add(controllofiltro);
-				}
-			}
-
-		}
+//		if (mappaFiltro.get(Citta) != null) {
+//			for (Customers_Suppliers controllofiltro : listaRapportiC) {
+//				if (controllofiltro.getCitta().contentEquals(Citta)) {
+//					listaFiltrata.add(controllofiltro);
+//				}
+//			}
+//
+//		}
 		if (listaFiltrata.isEmpty()) {
 			throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri.");
 		}
-		return null;
+		return listaFiltrata;
 	}
 
 	@Override

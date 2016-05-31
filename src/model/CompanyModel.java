@@ -52,6 +52,8 @@ public class CompanyModel implements ModelInterface {
 	@Override
 	public void add(Map<String, Object> elem) throws InstanceAlreadyExistsException {
 
+		System.out.print(elem);
+		
 		if (elem.get(ragione_sociale) == "") {
 			throw new IllegalArgumentException("Ragione sociale non valida. Riprovare.");
 		}
@@ -136,7 +138,7 @@ public class CompanyModel implements ModelInterface {
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
 		mappaFiltro.put(ragione_sociale, new String(""));
-		mappaFiltro.put(p_iva, new String(""));
+		//mappaFiltro.put(p_iva, new String(""));
 		return mappaFiltro;
 	}
 
@@ -237,33 +239,55 @@ public class CompanyModel implements ModelInterface {
 	@Override
 	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro)
 			throws InstanceNotFoundException {
+		
 		LinkedList<Company> listaFiltrata = new LinkedList<>();
 		if (mappaFiltro.get(ragione_sociale) != null) {
 			for (Company controllofiltro : listaAziende) {
-				if (controllofiltro.getRagione_sociale().contentEquals(ragione_sociale)) {
+				if (controllofiltro.getRagione_sociale().equals(ragione_sociale)) {
 					listaFiltrata.add(controllofiltro);
 				}
 			}
 		}
-
-		if (mappaFiltro.get(p_iva) != null) {
-			for (Company controllofiltro : listaAziende) {
-				if (controllofiltro.getPartita_iva() == mappaFiltro.get(p_iva)) {
-					listaFiltrata.add(controllofiltro);
-				} else {
-					for (Company doppiofiltro : listaFiltrata) {
-						if (doppiofiltro.getPartita_iva() != mappaFiltro.get(p_iva)) {
-							listaFiltrata.remove(doppiofiltro);
-						}
-					}
-				}
-			}
+//
+//	if (mappaFiltro.get(ragione_sociale) instanceof Company) { 
+//			
+//		
+//		if (listaFiltrata.isEmpty()) {
+//			for (Company controllofiltro : listaAziende) { // singolo filtro su p_iva
+//				if (controllofiltro.getPartita_iva() == mappaFiltro.get(p_iva))
+//					listaFiltrata.add(controllofiltro);
+//			}
+//		} else { // doppio filtro tra ragione_s e p_iva
+//			for (Company controllofiltro : listaFiltrata) {
+//				if (controllofiltro.getPartita_iva() != mappaFiltro.get(p_iva))
+//					listaFiltrata.remove(controllofiltro);
+//					}
+//
+//				}
+//		}	
+//		
+//		
+//		
+//	if (mappaFiltro.get(p_iva) != null) {
+//		for (Company controllofiltro : listaAziende) {
+//			if (controllofiltro.getPartita_iva() == mappaFiltro.get(p_iva)) {
+//				listaFiltrata.add(controllofiltro);
+//			} else {
+//				for (Company doppiofiltro : listaFiltrata) {
+//					if (doppiofiltro.getPartita_iva() != mappaFiltro.get(p_iva)) {
+//						listaFiltrata.remove(doppiofiltro);
+//					}
+//				}
+//			}
+//			}
+//		
+	//	}
 			if (listaFiltrata.isEmpty()) {
 				throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri.");
+			}else{
+				return listaFiltrata;
 			}
-
-		}
-		return null;
+		
 	}
 
 	
@@ -306,6 +330,7 @@ public class CompanyModel implements ModelInterface {
 	 * In questo caso il metodo risulta inutilizzabile. Al suo posto si usa saveCompanysAndClose().
 	 * 
 	 * @author Diego
+	 * 
 	*/
 	 
 

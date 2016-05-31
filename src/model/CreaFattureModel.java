@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import dataEnum.Gender;
 import dataEnum.KindPerson;
 import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
@@ -24,9 +25,9 @@ public class CreaFattureModel implements ModelInterface {
 	private final static String prodotto = "Prodotto";
 	private final static String quantita = "Quantita'";
 	private final static String scorta = "Scorta";
-	private final static String subtotale = "Subtotale"; // importo da inserire in debiti vs fornitori
+	
 	private DBDataModel db;
-	private Product product;
+	
 
 	private final LinkedList<Item> listaCarrello = new LinkedList<Item>();
 
@@ -42,6 +43,9 @@ public class CreaFattureModel implements ModelInterface {
 	@Override
 	public void add(Map<String, Object> elem) throws IllegalArgumentException {
 
+		
+		
+		
 		if (elem.get(prodotto) == "") {
 			throw new IllegalArgumentException("Nome prodotto non valido. Riprovare.");
 		}
@@ -54,7 +58,7 @@ public class CreaFattureModel implements ModelInterface {
 			throw new IllegalArgumentException("Elemento gia' esistente!");
 		} else {
 			Item nuovocarrello = new Item((Product) elem.get(prodotto), (Integer) elem
-					.get(quantita)/* , (Integer)elem.get(subtotale) */);
+					.get(quantita));
 			listaCarrello.add(nuovocarrello);
 		}
 	}
@@ -72,39 +76,29 @@ public class CreaFattureModel implements ModelInterface {
 	
 	public DBDataModel create(Customers_Suppliers item) {
 		
+		int totale=0;
 		// controlli acquisto valido
 		
 		if (listaCarrello.isEmpty()) {//sostituire con i controlli singoli
 			throw new IllegalArgumentException("Acquisto non valido. Riprovare.");
 		}else{
 			
-			float totale;
+			//float totale;
 			
-		for (Item creoSubtotale : listaCarrello) {
-			//totale+=product.getPrezzovendita() * listaCarrello.getLast().getQuantita();
-
+		for (Item riga : listaCarrello) {
+			totale+=riga.getProdotto().getPrezzovendita() * riga.getQuantita();
+			riga.getProdotto().setScorta(riga.getProdotto().getScorta()-riga.getQuantita());
 			}
 		
 		}
-			//subtotale
-			//creoSubtotale=creoSubtotale+listaCarrello.getPrezzovendita();
-//			product.get
-//			(product.getPrezzovendita() * (Integer)listaCarrello.getLast().getQuantita());
-//			 // il prodotto ha un nome ed un prezzo di vendita , devo utilizzare lo stesso
-			//Item  creoSubtotale = new Item((Integer) product.getPrezzovendita() * quantita);
-			
-	//	 creoSubtotale.getQuantita() ;
+		item.setDebito(totale);//Addebito il totale
 		
+		LinkedList<Customers_Suppliers> cs = db.getCustomersSuppliers();
+		cs.addLast(item);
+		//db.setProducts(db.getProducts());
+	
+		db.setCustomersSuppliers(cs);//aggiorno prodotti
 		
-		// Product.getScorta - listaCarrello(quantita)
-		
-		
-		// nuovo movimento
-		
-		// debiti verso fornitori = debiti verso fornitori + subtotale
-		
-		item.getDebito();
-		//item.add(creoSubtotale);
 		return db;
 	}
 
@@ -152,6 +146,10 @@ public class CreaFattureModel implements ModelInterface {
 				listaClienti.add(controlloCliente);
 			}
 		}
+		
+		
+		listaClienti.add(new Customers_Suppliers("1", "C", "Cognome", "Indirizzo", "Nome", 0, "CAP", Gender.M ,KindPerson.CLIENTE, 0, 0));
+		
 		return listaClienti;
 	}
 
@@ -193,7 +191,13 @@ public class CreaFattureModel implements ModelInterface {
 	
 	@Override
 	public LinkedList<Item> load() {
-		return new LinkedList<Item>(listaCarrello);
+		LinkedList<Item> l = new LinkedList<Item>();
+		l.add(new Item(new Product("Prodotto Bello", 1, 3, 5, 7, "Categoria",
+				"Bellissimo", 1000),0));
+		for (Product prodotto : this.db.getProducts()){
+			l.add(new Item(prodotto,0));
+		}
+		return l;
 	}
 
 	/*
@@ -207,7 +211,7 @@ public class CreaFattureModel implements ModelInterface {
 		LinkedList<Item> listaFiltrata = new LinkedList<>();
 		if (mappaFiltro.get(prodotto) != null) {
 			for (Item controllofiltro : listaCarrello) {
-				if (controllofiltro.getProdotto().contentEquals(prodotto)) {
+				if (controllofiltro.getProdotto().getNome().equals(prodotto)) {
 					listaFiltrata.add(controllofiltro);
 				}
 			}

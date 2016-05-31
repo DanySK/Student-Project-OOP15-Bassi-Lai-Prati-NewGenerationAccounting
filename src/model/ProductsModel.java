@@ -21,6 +21,7 @@ import dataModel.Product;
 public class ProductsModel implements ModelInterface {
 
 	private final static String nome = "Nome Prodotto";
+	private final static String codiceP = "Codice Prodotto";
 	private final static String codiceA = "CodiceAcquisto";
 	private final static String codiceV = "CodiceVendita";
 	private final static String categoria = "Categoria";
@@ -31,6 +32,7 @@ public class ProductsModel implements ModelInterface {
 	private boolean trovato = false;
 
 	private LinkedList<Product> listaProdotti = new LinkedList<Product>();
+	
 	private DBDataModel db;
 
 	public ProductsModel(DBDataModel db) {
@@ -51,6 +53,10 @@ public class ProductsModel implements ModelInterface {
 			throw new IllegalArgumentException("Nome non valido. Riprovare.");
 		}
 
+		if (elem.get(codiceP) == null) {
+			throw new IllegalArgumentException("Codice Prodotto non valido. Riprovare.");
+		}
+		
 		if (elem.get(codiceA) == null) {
 			throw new IllegalArgumentException("Codice Acquisto non valido. Riprovare.");
 		}
@@ -79,8 +85,8 @@ public class ProductsModel implements ModelInterface {
 		if (listaProdotti.contains(elem)) {
 			throw new IllegalArgumentException("Elemento gia' esistente!");
 		} else {
-			Product nuovoprodotto = new Product(elem.get(nome).toString(), (Integer) elem.get(codiceA),
-					(Integer) elem.get(codiceV), (Integer) elem.get(scorta), 0, elem.get(descrizione).toString(),
+			Product nuovoprodotto = new Product(elem.get(nome).toString(), (Integer) elem.get(codiceP), (Integer) elem.get(codiceA),
+					(Integer) elem.get(codiceV), (Integer) elem.get(scorta), elem.get(descrizione).toString(),
 					elem.get(categoria).toString(), (Integer) elem.get(prezzo));
 			listaProdotti.add(nuovoprodotto);
 			db.setProducts(listaProdotti);

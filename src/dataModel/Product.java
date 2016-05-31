@@ -55,7 +55,7 @@ public class Product implements IDataTableModel {
 		return cod_vendita;
 	}
 
-	public int getCodice_Product() {
+	public int getCodice_Prodotto() {
 		return codice_prodotto;
 	}
 
@@ -107,7 +107,7 @@ public class Product implements IDataTableModel {
 		this.cod_vendita = cod_vendita;
 	}
 
-	public void setCodice_Product(int codice_prodotto) {
+	public void setCodice_Prodotto(int codice_prodotto) {
 		this.codice_prodotto = codice_prodotto;
 	}
 
