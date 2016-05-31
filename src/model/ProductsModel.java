@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
 import dataModel.DBDataModel;
@@ -30,22 +31,24 @@ public class ProductsModel implements ModelInterface {
 	private final static String rimanenze = "Rimanenze"; // string di scorta
 	// private boolean trovato = false;
 	private int scorta;
-	private LinkedList<Product> listaProdotti = new LinkedList<Product>();
+	LinkedList<Product> listaProdotti;
 
 	private DBDataModel db;
 
 	public ProductsModel(DBDataModel db) {
 		this.db = db;
+		this.listaProdotti = db.getProducts();
 	}
 
 	/**
 	 * Metodo per la creazione di un nuovo prodotto.
+	 * @throws InstanceAlreadyExistsException 
 	 * 
 	 * 
 	 */
 
 	@Override
-	public void add(Map<String, Object> elem) throws IllegalArgumentException {
+	public void add(Map<String, Object> elem) throws IllegalArgumentException, InstanceAlreadyExistsException {
 
 		if (elem.get(nome).equals("")) {
 			throw new IllegalArgumentException("Nome non valido. Riprovare.");
@@ -71,15 +74,20 @@ public class ProductsModel implements ModelInterface {
 			throw new IllegalArgumentException("Prezzo non valido. Riprovare.");
 		}
 
-		if (listaProdotti.contains(elem)) {
-			throw new IllegalArgumentException("Elemento gia' esistente!");
-		} else {
+//		if (listaProdotti.contains(elem)) {
+//			throw new IllegalArgumentException("Elemento gia' esistente!");
+//		} else {
 			Product nuovoprodotto = new Product(elem.get(nome).toString(), (int) elem.get(codiceP),
 					(Integer) elem.get(codiceA), (Integer) elem.get(codiceV), (int) elem.get(rimanenze),
 					elem.get(descrizione).toString(), elem.get(categoria).toString(), (int) elem.get(prezzo));
+			
+			
+			if (listaProdotti.contains(nuovoprodotto)) {
+				throw new InstanceAlreadyExistsException("L'elemento e' gia' presente.");
+			}
 			listaProdotti.add(nuovoprodotto);
-			db.setProducts(listaProdotti);
-		}
+			
+		//}
 	}
 
 	/**

@@ -80,17 +80,18 @@ public class CustomersSuppliersModel implements ModelInterface {
 		} else {
 			throw new IllegalArgumentException("Il CAP non è int. Riprovare.");
 		}
-
+		
 		if (elem.get(CAP).equals(null)) {
 			throw new IllegalArgumentException("CAP non valido. Riprovare.");
 		}
-
-		if (elem.get(Telefono) instanceof String) {
+		
+		if (elem.get(Telefono) instanceof String )
+		{
 			System.out.println("Telefono is a String");
-		} else {
+		}else{
 			throw new IllegalArgumentException("Telefono non è String. Riprovare.");
 		}
-
+		
 		if (elem.get(Telefono).equals("")) {
 			throw new IllegalArgumentException("Numero di telefono non valido. Riprovare.");
 		}
@@ -107,14 +108,15 @@ public class CustomersSuppliersModel implements ModelInterface {
 
 		Customers_Suppliers rapportoC = new Customers_Suppliers((String) elem.get(Nome), (String) elem.get(Cognome),
 				(String) elem.get(CF), (String) elem.get(Indirizzo), (String) elem.get(Citta), (int) elem.get(CAP),
-				(String) elem.get(Telefono), (Gender) elem.get(sesso), (KindPerson) elem.get(ruolo), 0, 0);
+				(String) elem.get(Telefono), (Gender) elem.get(sesso), (KindPerson) elem.get(ruolo),
+				0, 0);
 
 		if (listaRapportiC.contains(rapportoC)) {
 			throw new InstanceAlreadyExistsException("L'elemento e' gia' presente.");
-
-		} else
-			listaRapportiC.add(rapportoC);
-
+			
+		}
+		listaRapportiC.add(rapportoC);
+		
 	}
 
 	/**
@@ -176,7 +178,8 @@ public class CustomersSuppliersModel implements ModelInterface {
 			mappaVuota.put(Telefono, new String(""));
 			mappaVuota.put(Ruolostring, KindPerson.NESSUNO);
 			mappaVuota.put(Sessostring, Gender.NESSUNO);
-
+			
+			
 			return mappaVuota;
 
 		} else {
@@ -190,6 +193,8 @@ public class CustomersSuppliersModel implements ModelInterface {
 				mappaPiena.put(Indirizzo, ((Customers_Suppliers) obj).getIndirizzo());
 				mappaPiena.put(CAP, ((Customers_Suppliers) obj).getCap());
 				mappaPiena.put(Telefono, ((Customers_Suppliers) obj).getTelefono());
+				
+				
 
 				return mappaPiena;
 			} else {
