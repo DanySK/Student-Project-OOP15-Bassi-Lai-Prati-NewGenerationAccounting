@@ -42,11 +42,11 @@ public class CreaFattureModel implements ModelInterface {
 	@Override
 	public void add(Map<String, Object> elem) throws IllegalArgumentException {
 
-		if (elem.get(prodotto) == "") {
+		if (elem.get(prodotto).equals("")) {
 			throw new IllegalArgumentException("Nome prodotto non valido. Riprovare.");
 		}
 
-		if (elem.get(quantita) == null) {
+		if (elem.get(quantita).equals("")) {
 			throw new IllegalArgumentException("Quantita' non valida. Riprovare.");
 		}
 
@@ -82,10 +82,9 @@ public class CreaFattureModel implements ModelInterface {
 
 			}
 		}
-		item.setDebito(totale);// Addebito il totale
+		item.setDebito(item.getDebito()+totale);// Addebito il totale al debito pregresso
 
 		LinkedList<Customers_Suppliers> cs = db.getCustomersSuppliers();
-
 		cs.addLast(item);
 
 		db.setCustomersSuppliers(cs);// aggiorno prodotti
@@ -94,6 +93,7 @@ public class CreaFattureModel implements ModelInterface {
 	}
 
 	/**
+
 	 * Funzione per la modifica del carrello d'acquisto.
 	 * 
 	 * 
@@ -103,7 +103,7 @@ public class CreaFattureModel implements ModelInterface {
 	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare) {
 		if ((Product) infoDaModificare.get(scorta) != null) {
 
-			((Item) obj).setProdotto((Product) infoDaModificare.get(prodotto));
+			((Item) obj).setNome((Product) infoDaModificare.get(prodotto)); //vado a prendere il prodotto tramite il nome
 			((Item) obj).setQuantita((Integer) infoDaModificare.get(quantita));
 
 		}

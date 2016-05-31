@@ -47,27 +47,27 @@ public class ProductsModel implements ModelInterface {
 	@Override
 	public void add(Map<String, Object> elem) throws IllegalArgumentException {
 
-		if (elem.get(nome) == "") {
+		if (elem.get(nome).equals("")) {
 			throw new IllegalArgumentException("Nome non valido. Riprovare.");
 		}
 
-		if (elem.get(codiceP) == null) {
+		if (elem.get(codiceP).equals(null)) {
 			throw new IllegalArgumentException("Codice Prodotto non valido. Riprovare.");
 		}
 
-		if (elem.get(codiceA) == null) {
+		if (elem.get(codiceA).equals(null)) {
 			throw new IllegalArgumentException("Codice Acquisto non valido. Riprovare.");
 		}
 
-		if (elem.get(codiceV) == null) {
+		if (elem.get(codiceV).equals(null)) {
 			throw new IllegalArgumentException("Codice Vendita non valido. Riprovare.");
 		}
 
-		if (elem.get(categoria) == "") {
+		if (elem.get(categoria).equals(null)) {
 			throw new IllegalArgumentException("Categoria non valida. Riprovare.");
 		}
 
-		if (elem.get(prezzo) == null) {
+		if (elem.get(prezzo).equals(null)) {
 			throw new IllegalArgumentException("Prezzo non valido. Riprovare.");
 		}
 
@@ -267,7 +267,6 @@ public class ProductsModel implements ModelInterface {
 	@Override
 	public DBDataModel saveDBAndClose() {
 		db.setProducts(listaProdotti);
-
 		return db;
 	}
 

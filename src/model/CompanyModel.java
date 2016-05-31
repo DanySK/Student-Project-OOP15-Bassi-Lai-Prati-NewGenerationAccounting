@@ -52,38 +52,38 @@ public class CompanyModel implements ModelInterface {
 
 		System.out.print(elem);
 
-		if (elem.get(ragione_sociale) == "") {
+		if (elem.get(ragione_sociale).equals("")) {
 			throw new IllegalArgumentException("Ragione sociale non valida. Riprovare.");
 		}
 
-		if (elem.get(password) == "") {
+		if (elem.get(password).equals("")) {
 			throw new IllegalArgumentException("Password non valida. Riprovare.");
 		}
 
-		if (elem.get(p_iva) == "") {
+		if (elem.get(p_iva).equals("")) {
 			throw new IllegalArgumentException("PartitaIVA non valida. Riprovare.");
 		}
 
-		if (elem.get(cap) == null) {
+		if (elem.get(cap).equals(null)) {
 			throw new IllegalArgumentException("CAP non valido. Riprovare.");
 
 		}
 
-		if (elem.get(citta) == "") {
+		if (elem.get(citta).equals("")) {
 			throw new IllegalArgumentException("Citta' non valida. Riprovare.");
 
 		}
-		if (elem.get(provincia) == "") {
+		if (elem.get(provincia).equals("")) {
 			throw new IllegalArgumentException("Provincia non valida. Riprovare.");
 
 		}
 
-		if (elem.get(indirizzo) == "") {
+		if (elem.get(indirizzo).equals("")) {
 			throw new IllegalArgumentException("Indirizzo non valido. Riprovare.");
 
 		}
 
-		if (elem.get(telefono) == "") {
+		if (elem.get(telefono).equals("")) {
 			throw new IllegalArgumentException("Numero di telefono non valido. Riprovare.");
 
 		}
