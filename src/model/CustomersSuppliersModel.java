@@ -28,8 +28,6 @@ public class CustomersSuppliersModel implements ModelInterface {
 	private final String Nome = "Nome";
 	private final String Indirizzo = "Indirizzo";
 	private final String CAP = "Cap";
-	private final String Credito = "Credito";
-	private final String Debito = "Debito";
 	private final String Telefono = "Telefono";
 	private final String Ruolostring = "RuoloString";
 	private final String Sessostring = "SessoString";
@@ -194,8 +192,7 @@ public class CustomersSuppliersModel implements ModelInterface {
 				mappaPiena.put(Indirizzo, ((Customers_Suppliers) obj).getIndirizzo());
 				mappaPiena.put(CAP, ((Customers_Suppliers) obj).getCap());
 				mappaPiena.put(Telefono, ((Customers_Suppliers) obj).getTelefono());
-				mappaPiena.put(Ruolostring, ((Customers_Suppliers) obj).getRuolo());
-				mappaPiena.put(Sessostring, ((Customers_Suppliers) obj).getSesso());
+				
 				
 
 				return mappaPiena;
