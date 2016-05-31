@@ -39,7 +39,7 @@ public class Item implements IDataTableModel {
 	}
 
 	public int getPrezzo() {
-		return prodotto.getPrezzovendita();
+		return this.getProdotto().getPrezzovendita();
 	}
 
 	public Product getProdotto() {
@@ -64,12 +64,13 @@ public class Item implements IDataTableModel {
 		}
 	}
 
-	public void setNome(Product prodotto) {
-		this.prodotto = prodotto;
+	public void setNome(String nomeProdotto) {
+		
+		this.getProdotto().setNome(nomeProdotto);
 	}
 
-	public void setPrezzo(Product prodotto) {
-		this.prodotto = prodotto;
+	public void setPrezzo(int prezzo) {
+		this.getProdotto().setPrezzovendita(prezzo);
 	}
 
 	public void setProdotto(Product prodotto) {

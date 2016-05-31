@@ -25,7 +25,7 @@ public class CreaFattureModel implements ModelInterface {
 
 	private final static String prodotto = "Prodotto";
 	private final static String quantita = "Quantita'";
-	private final static String scorta = "Scorta";
+	
 
 	private DBDataModel db;
 	private final Product emptyProduct = new Product("", 0, 0, 0, 0, "", "", 0);
@@ -104,9 +104,12 @@ public class CreaFattureModel implements ModelInterface {
 
 	@Override
 	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare) {
-		if ((Product) infoDaModificare.get(scorta) != null) {
+		if ((Product) infoDaModificare.get(prodotto) != null) {
 
-			((Item) obj).setNome((Product) infoDaModificare.get(prodotto)); 
+			
+			//split = divide la stringa in array di stringhe usando l'argomento.
+			((Item) obj).setNome(infoDaModificare.get(prodotto).toString().split("-")[0].trim());
+			((Item) obj).setPrezzo(((Item) obj).getPrezzo()); //Purtroppo prende prezzo vecchio.
 			((Item) obj).setQuantita((Integer) infoDaModificare.get(quantita));
 
 		}
@@ -206,7 +209,7 @@ public class CreaFattureModel implements ModelInterface {
 
 		if (mappaFiltro.get(prodotto) != null) {
 			for (Item controllofiltro : listaCarrello) {
-				if (controllofiltro.getNome().equals(mappaFiltro.get(prodotto))) {
+				if (controllofiltro.getNome().equals(mappaFiltro.get(prodotto).toString().split("-")[0].trim())) {
 					listaFiltrata.add(controllofiltro);
 				
 				}
