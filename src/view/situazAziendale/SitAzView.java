@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -24,6 +25,8 @@ import view.AbstractWideView;
  */
 public class SitAzView extends AbstractWideView {
 
+	private static final Dimension DEFAULT = new Dimension(200, 300);
+	private static final Dimension DEFAULTSALDO = new Dimension(100, 300);
 	private static final long serialVersionUID = -8573556973965470550L;
 	private final String AnalisiFinanziaria;
 	private final String Attivita;
@@ -74,34 +77,42 @@ public class SitAzView extends AbstractWideView {
 
 	private JPanel getComment() {
 		JPanel panel = new JPanel(new BorderLayout());
-		panel.add(getPane(AnalisiFinanziaria), BorderLayout.CENTER);
+		panel.add(getPane(AnalisiFinanziaria, new Dimension(600, 100)), BorderLayout.CENTER);
 		return panel;
 	}
 
-	private JEditorPane getPane(String text) {
+	private JEditorPane getPane(final String text, final Dimension dim) {
 		JEditorPane editorPane = new JEditorPane();
 		editorPane.setEditable(false);
 		editorPane.setContentType("text/html");
 		editorPane.setText(text);
+		editorPane.setPreferredSize(dim);
+		editorPane.setFont(new Font("Calibri", Font.PLAIN, 8));;
 		return editorPane;
+	}
+	
+	private JEditorPane getPane(final String text, final boolean primaColonna) {
+		if (primaColonna)
+			return getPane(text, DEFAULT);
+		else
+			return getPane(text, DEFAULTSALDO);
 	}
 
 	private JPanel getSE() {
 		JPanel panel = new JPanel(new FlowLayout());
-		panel.add(getPane(Ricavi));
-		panel.add(getPane(Saldi_Ricavi));
-		panel.add(getPane(Costi));
-		panel.add(getPane(Saldi_Costi));
-
+		panel.add(getPane(Ricavi, true));
+		panel.add(getPane(Saldi_Ricavi, false));
+		panel.add(getPane(Costi, true));
+		panel.add(getPane(Saldi_Costi, false));
 		return panel;
 	}
 
 	private JPanel getSP() {
 		JPanel panel = new JPanel(new FlowLayout());
-		panel.add(getPane(Attivita));
-		panel.add(getPane(Saldi_Attivita));
-		panel.add(getPane(Passivita));
-		panel.add(getPane(Saldi_Passivita));
+		panel.add(getPane(Attivita, true));
+		panel.add(getPane(Saldi_Attivita, false));
+		panel.add(getPane(Passivita, true));
+		panel.add(getPane(Saldi_Passivita, false));
 		return panel;
 	}
 }
