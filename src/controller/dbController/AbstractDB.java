@@ -99,7 +99,7 @@ public abstract class AbstractDB extends Thread {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected LinkedList<Account> loadDefaultAcconts() {
+	protected static LinkedList<Account> loadDefaultAcconts() {
 		try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(
 				Thread.currentThread().getContextClassLoader().getResourceAsStream(ACCOUNT_FILENAME)))) {
 			final Object readElem = ois.readObject();

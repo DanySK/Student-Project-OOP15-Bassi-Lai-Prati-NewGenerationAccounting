@@ -100,7 +100,6 @@ public class PopupControllerImpl implements IViewObserver, IPopupController {
 	public LinkedList<Account> getAccountsList() {
 		if (model instanceof MovementsModel) {
 			LinkedList<Account> accounts = ((MovementsModel) model).getAllAccounts();
-
 			emptyAccount = accounts.getFirst();
 			return accounts;
 		}
@@ -173,7 +172,6 @@ public class PopupControllerImpl implements IViewObserver, IPopupController {
 						"Errore di conversione del dato " + key + " correggere e riprovare.");
 			}
 		}
-		System.out.println(map);
 		return map;
 	}
 }

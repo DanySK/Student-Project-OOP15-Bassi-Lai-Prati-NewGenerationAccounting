@@ -11,7 +11,6 @@ import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 import java.util.UUID;
 
-import dataModel.Account;
 import dataModel.Company;
 import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
@@ -29,9 +28,8 @@ import view.AbstractFrame;
 public class DBSaver extends AbstractDB implements IDBSaver {
 
 	public static void addCompany(final UUID uuid) {
-		new DBSaver(uuid.toString(), null,
-				new DBDataModel(new LinkedList<Account>(), new LinkedList<Customers_Suppliers>(),
-						new LinkedList<Movement>(), new LinkedList<Product>(), uuid.toString())).start();
+		new DBSaver(uuid.toString(), null, new DBDataModel(loadDefaultAcconts(), new LinkedList<Customers_Suppliers>(),
+				new LinkedList<Movement>(), new LinkedList<Product>(), uuid.toString())).start();
 	}
 
 	private static void deleteDirectory(final File path) {

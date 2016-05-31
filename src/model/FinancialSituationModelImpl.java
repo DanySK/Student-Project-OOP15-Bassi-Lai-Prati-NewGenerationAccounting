@@ -304,7 +304,7 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		for (Account conto : contiRegistrati) {
 			if (conto.getNatura().equals(natura)) {
 				tot += conto.getSaldo();
-			} 
+			}
 		}
 		return tot;
 	}
