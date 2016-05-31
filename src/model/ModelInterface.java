@@ -72,7 +72,7 @@ public interface ModelInterface {
 	public abstract LinkedList<? extends IDataTableModel> load();
 
 	public abstract LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro)
-			throws InstanceNotFoundException,IllegalArgumentException;
+			throws InstanceNotFoundException, IllegalArgumentException;
 
 	/**
 	 * operazione per rimuovere un oggetto dal dataBase

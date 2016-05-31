@@ -65,7 +65,7 @@ public class Item implements IDataTableModel {
 	}
 
 	public void setNome(String nomeProdotto) {
-		
+
 		this.getProdotto().setNome(nomeProdotto);
 	}
 

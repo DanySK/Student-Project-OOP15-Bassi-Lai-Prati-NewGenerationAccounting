@@ -13,7 +13,6 @@ import dataModel.Company;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 
-
 /**
  * Classe implementativa per la gestione dell'anagrafica aziende e la creazione
  * di quest'ultime.
@@ -132,7 +131,7 @@ public class CompanyModel implements ModelInterface {
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
 		mappaFiltro.put(ragione_sociale, new String(""));
-	
+
 		return mappaFiltro;
 	}
 
@@ -234,21 +233,21 @@ public class CompanyModel implements ModelInterface {
 	@Override
 	public LinkedList<Company> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {
 
-			LinkedList<Company> listaFiltrata = new LinkedList<>();
-	
-			if (mappaFiltro.get(ragione_sociale) != null) {
-				for (Company controllofiltro : listaAziende) {
-					if (controllofiltro.getRagione_sociale().equals(mappaFiltro.get(ragione_sociale))) {
-						listaFiltrata.add(controllofiltro);
-					}
+		LinkedList<Company> listaFiltrata = new LinkedList<>();
+
+		if (mappaFiltro.get(ragione_sociale) != null) {
+			for (Company controllofiltro : listaAziende) {
+				if (controllofiltro.getRagione_sociale().equals(mappaFiltro.get(ragione_sociale))) {
+					listaFiltrata.add(controllofiltro);
 				}
 			}
-			if (listaFiltrata.isEmpty()) {
-				throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri.");
-			}
-			return listaFiltrata;
 		}
-		
+		if (listaFiltrata.isEmpty()) {
+			throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri.");
+		}
+		return listaFiltrata;
+	}
+
 	/**
 	 * Metodo che permette l'eliminazione di una azienda già esistente.
 	 * 

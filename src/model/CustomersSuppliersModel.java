@@ -9,7 +9,6 @@ import javax.management.InstanceNotFoundException;
 
 import dataEnum.Gender;
 import dataEnum.KindPerson;
-
 import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
@@ -215,7 +214,7 @@ public class CustomersSuppliersModel implements ModelInterface {
 	public LinkedList<Customers_Suppliers> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {
 
 		LinkedList<Customers_Suppliers> listaFiltrata = new LinkedList<>();
-		
+
 		if (mappaFiltro.get(CF) != null) {
 			for (Customers_Suppliers controllofiltro : listaRapportiC) {
 				if (controllofiltro.getCf().equals(mappaFiltro.get(CF))) {

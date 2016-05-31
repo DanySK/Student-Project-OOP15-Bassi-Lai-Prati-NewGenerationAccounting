@@ -25,7 +25,6 @@ public class CreaFattureModel implements ModelInterface {
 
 	private final static String prodotto = "Prodotto";
 	private final static String quantita = "Quantita'";
-	
 
 	private DBDataModel db;
 	private final Product emptyProduct = new Product("", 0, 0, 0, 0, "", "", 0);
@@ -106,10 +105,12 @@ public class CreaFattureModel implements ModelInterface {
 	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare) {
 		if ((Product) infoDaModificare.get(prodotto) != null) {
 
-			
-			//split = divide la stringa in array di stringhe usando l'argomento.
+			// split = divide la stringa in array di stringhe usando
+			// l'argomento.
 			((Item) obj).setNome(infoDaModificare.get(prodotto).toString().split("-")[0].trim());
-			((Item) obj).setPrezzo(((Item) obj).getPrezzo()); //Purtroppo prende prezzo vecchio.
+			((Item) obj).setPrezzo(((Item) obj).getPrezzo()); // Purtroppo
+																// prende prezzo
+																// vecchio.
 			((Item) obj).setQuantita((Integer) infoDaModificare.get(quantita));
 
 		}
@@ -196,22 +197,23 @@ public class CreaFattureModel implements ModelInterface {
 	/**
 	 * Funzione per la creazione di un nuovo carrello , con conseguente
 	 * possibilità di acquistare prodotti.
-	 * @throws InstanceNotFoundException 
+	 * 
+	 * @throws InstanceNotFoundException
 	 * 
 	 *
 	 */
 
 	@Override
-	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {
-		
+	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro)
+			throws InstanceNotFoundException {
+
 		LinkedList<Item> listaFiltrata = new LinkedList<>();
-		
 
 		if (mappaFiltro.get(prodotto) != null) {
 			for (Item controllofiltro : listaCarrello) {
 				if (controllofiltro.getNome().equals(mappaFiltro.get(prodotto).toString().split("-")[0].trim())) {
 					listaFiltrata.add(controllofiltro);
-				
+
 				}
 			}
 		}

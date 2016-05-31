@@ -188,13 +188,12 @@ public class ProductsModel implements ModelInterface {
 			throws InstanceNotFoundException {
 
 		LinkedList<Product> listaFiltrata = new LinkedList<>();
-	
 
 		if (mappaFiltro.get(nome) != null) {
 			for (Product controllofiltro : listaProdotti) {
 				if (controllofiltro.getNome().equals(mappaFiltro.get(nome))) {
 					listaFiltrata.add(controllofiltro);
-				
+
 				}
 			}
 		}

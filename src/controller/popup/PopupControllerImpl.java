@@ -46,7 +46,6 @@ public class PopupControllerImpl implements IViewObserver, IPopupController {
 	private final PopupMode mode;
 	private final Map<String, Object> mappa;
 	private Account emptyAccount;
-	private Product emptyProduct;
 
 	public PopupControllerImpl(final PopupMode mode, final ModelInterface model,
 			final IAnagraficaViewObserver parentController, final AnagraficaView parentView)
@@ -112,9 +111,7 @@ public class PopupControllerImpl implements IViewObserver, IPopupController {
 	@Override
 	public LinkedList<Product> getProductsList() {
 		if (model instanceof CreaFattureModel) {
-			LinkedList<Product> products = ((CreaFattureModel) model).getAllProducts();
-			emptyProduct = products.getFirst();
-			return products;
+			return ((CreaFattureModel) model).getAllProducts();
 		}
 		return null;
 	}
