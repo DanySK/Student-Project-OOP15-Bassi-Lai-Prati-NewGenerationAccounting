@@ -103,18 +103,16 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 
 	@Override
 	public String Attivita() {
-		String Attivita = "<b>CREDITI_VS_SOCI</B>\n";
-		for (int i = 1; i <= 9; i++) {
-			for (int j = 0; j < contiRegistrati.size(); j++) { // scorro gli
-																// elementi
-																// della lista
-																// originale
+		String Attivita = "";
+		for (Sections s : Sections.getAttivita()) {
+		    Attivita += "<b>" + s + "</B>\n"; 
+			for (int j = 0; j < contiRegistrati.size(); j++) {
+			    // scorro gli elementi della lista originale
 				if (contiRegistrati.get(j).getNatura() == Natures.ATTIVITA
-						&& contiRegistrati.get(j).getSezione() == Sections.valueOf(Integer.toString(i))) {
+						&& contiRegistrati.get(j).getSezione() == s) {
 					Attivita += "\n" + contiRegistrati.get(j).getName();
 				}
 			}
-			Attivita += "\n <b>" + Sections.valueOf(Integer.toString(i + 1)) + "</B>\n";
 		}
 		return Attivita;
 	}
@@ -134,15 +132,15 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 
 	@Override
 	public String Costi() {
-		String Costi = "<b>COSTI_DELLA_PRODUZIONE</B>\n";
-		for (int i = 15; i <= 19; i++) {
+		String Costi = "";
+		for (Sections s : Sections.getCosti()) {
+		    Costi+="<b>"+s+"</B>\n";
 			for (int j = 0; j < contiRegistrati.size(); j++) {
 				if (contiRegistrati.get(j).getNatura() == Natures.COSTO
-						&& contiRegistrati.get(j).getSezione() == Sections.valueOf(Integer.toString(i))) {
+						&& contiRegistrati.get(j).getSezione() == s) {
 					Costi += "\n" + contiRegistrati.get(j).getName();
 				}
 			}
-			Costi += "\n <b>" + Sections.valueOf(Integer.toString(i + 1)) + "</B>\n";
 		}
 		return Costi;
 	}
@@ -306,33 +304,31 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 
 	@Override
 	public String Passivita() {
-		String Passivita = "<b>PATRIMONIO_NETTO</B>\n";
-		for (int i = 10; i <= 14; i++) {
-			for (int j = 0; j < contiRegistrati.size(); j++) { // scorro gli
-																// elementi
-																// della lista
-																// originale
-				if (contiRegistrati.get(j).getNatura() == Natures.PASSIVITA
-						&& contiRegistrati.get(j).getSezione() == Sections.valueOf(Integer.toString(i))) {
+		String Passivita = "";
+		for (Sections s : Sections.getPassivita()) {
+		    Passivita += "<b>"+s+"</B>\n";
+			for (int j = 0; j < contiRegistrati.size(); j++) { 
+			 // scorro gli elementi della lista principale
+                           if (contiRegistrati.get(j).getNatura() == Natures.PASSIVITA
+					&& contiRegistrati.get(j).getSezione() == s) {
 					Passivita += "\n" + contiRegistrati.get(j).getName();
 				}
 			}
-			Passivita += "\n <b>" + Sections.valueOf(Integer.toString(i + 1)) + "</B>\n";
 		}
 		return Passivita;
 	}
 
 	@Override
 	public String Ricavi() {
-		String Ricavi = "<b>VALORE_DELLA_PRODUZIONE</B>\n";
-		for (int i = 20; i <= 23; i++) {
+		String Ricavi = "";
+		for (Sections s : Sections.getRicavi()) {
+		    Ricavi += "<b>"+s+"</B>\n";
 			for (int j = 0; j < contiRegistrati.size(); j++) {
 				if (contiRegistrati.get(j).getNatura() == Natures.RICAVO
-						&& contiRegistrati.get(j).getSezione() == Sections.valueOf(Integer.toString(i))) {
+						&& contiRegistrati.get(j).getSezione() == s) {
 					Ricavi += "\n" + contiRegistrati.get(j).getName();
 				}
 			}
-			Ricavi += "\n <b>" + Sections.valueOf(Integer.toString(i + 1)) + "</B>\n";
 		}
 		return Ricavi;
 	}
