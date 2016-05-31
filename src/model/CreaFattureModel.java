@@ -64,8 +64,7 @@ public class CreaFattureModel implements ModelInterface {
 	 * 
 	 * Crea un movimento, più debiti verso fornitori, meno scorte della merce
 	 * richiesta.
-	 * 
-	 * 
+	 *  
 	 * 
 	 */
 
@@ -180,12 +179,7 @@ public class CreaFattureModel implements ModelInterface {
 
 	@Override
 	public LinkedList<Item> load() {
-		LinkedList<Item> l = new LinkedList<Item>();
-		l.add(new Item(new Product("Prodotto Bello", 1, 3, 5, 7, "Categoria", "Bellissimo", 1000), 0));
-		for (Product prodotto : this.db.getProducts()) {
-			l.add(new Item(prodotto, 0));
-		}
-		return l;
+		return new LinkedList<Item>(listaCarrello);
 	}
 
 	/**

@@ -28,9 +28,8 @@ public class ProductsModel implements ModelInterface {
 	private final static String descrizione = "Descrizione";
 	private final static String prezzo = "Prezzo";
 	private final static String rimanenze = "Rimanenze"; // string di scorta
-	private int scorta;
 	// private boolean trovato = false;
-
+	private int scorta;
 	private LinkedList<Product> listaProdotti = new LinkedList<Product>();
 
 	private DBDataModel db;
@@ -75,9 +74,9 @@ public class ProductsModel implements ModelInterface {
 		if (listaProdotti.contains(elem)) {
 			throw new IllegalArgumentException("Elemento gia' esistente!");
 		} else {
-			Product nuovoprodotto = new Product(elem.get(nome).toString(), (Integer) elem.get(codiceP),
-					(Integer) elem.get(codiceA), (Integer) elem.get(codiceV), (Integer) elem.get(rimanenze),
-					elem.get(descrizione).toString(), elem.get(categoria).toString(), (Integer) elem.get(prezzo));
+			Product nuovoprodotto = new Product(elem.get(nome).toString(), (int) elem.get(codiceP),
+					(Integer) elem.get(codiceA), (Integer) elem.get(codiceV), (int) elem.get(rimanenze),
+					elem.get(descrizione).toString(), elem.get(categoria).toString(), (int) elem.get(prezzo));
 			listaProdotti.add(nuovoprodotto);
 			db.setProducts(listaProdotti);
 		}

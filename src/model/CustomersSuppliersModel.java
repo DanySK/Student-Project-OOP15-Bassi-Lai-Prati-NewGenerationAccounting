@@ -77,6 +77,12 @@ public class CustomersSuppliersModel implements ModelInterface {
 			throw new IllegalArgumentException("Indirizzo non valido. Riprovare.");
 
 		}
+		if (elem.get(CAP) instanceof Integer )
+		{
+			System.out.println("CAP is an Integer");
+		}else{
+			throw new IllegalArgumentException("Il CAP non è int. Riprovare.");
+		}
 		if (elem.get(CAP) == null) {
 			throw new IllegalArgumentException("CAP non valido. Riprovare.");
 
