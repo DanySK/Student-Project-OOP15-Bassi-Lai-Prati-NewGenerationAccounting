@@ -7,12 +7,13 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JEditorPane;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import view.AbstractWideView;
 
@@ -25,8 +26,13 @@ import view.AbstractWideView;
  */
 public class SitAzView extends AbstractWideView {
 
-	private static final Dimension DEFAULT = new Dimension(200, 300);
-	private static final Dimension DEFAULTSALDO = new Dimension(100, 300);
+	private static final Dimension DEFAULT = new Dimension(245, 300);
+	private static final Dimension DEFAULTSALDO = new Dimension(70, 300);
+	private static final String ATTIVITA = "ATTIVITA";
+	private static final String PASSIVITA = "PASSIVITA";
+	private static final String COSTI = "COSTI";
+	private static final String RICAVI = "RICAVI";
+	private static final String COLSALDO = "€";
 	private static final long serialVersionUID = -8573556973965470550L;
 	private final String AnalisiFinanziaria;
 	private final String Attivita;
@@ -63,56 +69,75 @@ public class SitAzView extends AbstractWideView {
 		Saldo_Conto_Ec = saldo_Conto_Ec;
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		addToPanel(panel, getSP());
-		addToPanel(panel, getSE());
-		addToPanel(panel, getComment());
+		addToPanel(panel, new JScrollPane(getSP()));
+		addToPanel(panel, new JScrollPane(getSE()));
+		addToPanel(panel, new JScrollPane(getComment()));
 		getMyFrame().getContentPane().add(panel, BorderLayout.CENTER);
 	}
 
-	private void addToPanel(JPanel panel, JPanel comp) {
+	private void addToPanel(JPanel panel, JComponent comp) {
 		comp.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel.add(comp);
-		panel.add(Box.createRigidArea(new Dimension(0, 10)));
+		// panel.add(Box.createRigidArea(new Dimension(0, 5)));
 	}
 
-	private JPanel getComment() {
-		JPanel panel = new JPanel(new BorderLayout());
-		panel.add(getPane(AnalisiFinanziaria, new Dimension(600, 100)), BorderLayout.CENTER);
-		return panel;
-	}
-
-	private JEditorPane getPane(final String text, final Dimension dim) {
+	private JComponent getComment() {
 		JEditorPane editorPane = new JEditorPane();
 		editorPane.setEditable(false);
 		editorPane.setContentType("text/html");
-		editorPane.setText(text);
-		editorPane.setPreferredSize(dim);
-		editorPane.setFont(new Font("Calibri", Font.PLAIN, 8));;
+		String htmlText = "<font size=3>" + AnalisiFinanziaria.replaceAll("(\r\n|\n)", "<br/>") + "</font>";
+		editorPane.setText(htmlText);
+		editorPane.setPreferredSize(new Dimension(650, 75));
 		return editorPane;
 	}
-	
-	private JEditorPane getPane(final String text, final boolean primaColonna) {
-		if (primaColonna)
-			return getPane(text, DEFAULT);
-		else
-			return getPane(text, DEFAULTSALDO);
+
+	private JPanel getPane(final String text, final Dimension dim, final String fontSize, final String intestaz,
+			final boolean isSaldo, final Float saldo) {
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		addToPanel(panel, new JLabel(intestaz));
+		JEditorPane editorPane = new JEditorPane();
+		editorPane.setEditable(false);
+		editorPane.setContentType("text/html");
+		String htmlText = "<font size=" + fontSize + ">" + text.replaceAll("(\r\n|\n)", "<br/>") + "</font>";
+		editorPane.setText(htmlText);
+		editorPane.setPreferredSize(dim);
+		addToPanel(panel, editorPane);
+		if (isSaldo) {
+			addToPanel(panel, new JLabel(String.valueOf(saldo)));
+		} else {
+			addToPanel(panel, new JLabel("TOTALE " + intestaz + ":"));
+		}
+		return panel;
+	}
+
+	private JPanel getPane(final String text, final String intestaz) {
+		if (intestaz.equals(COLSALDO)) {
+			if (intestaz.equals(ATTIVITA) || intestaz.equals(PASSIVITA)) {
+				return getPane(text, DEFAULTSALDO, "2", intestaz, true, Saldo_Stato_Patr);
+			} else {
+				return getPane(text, DEFAULTSALDO, "2", intestaz, true, Saldo_Conto_Ec);
+			}
+		} else {
+			return getPane(text, DEFAULT, "2", intestaz, false, new Float(0));
+		}
 	}
 
 	private JPanel getSE() {
 		JPanel panel = new JPanel(new FlowLayout());
-		panel.add(getPane(Ricavi, true));
-		panel.add(getPane(Saldi_Ricavi, false));
-		panel.add(getPane(Costi, true));
-		panel.add(getPane(Saldi_Costi, false));
+		panel.add(getPane(Costi, COSTI));
+		panel.add(getPane(Saldi_Costi, COLSALDO));
+		panel.add(getPane(Ricavi, RICAVI));
+		panel.add(getPane(Saldi_Ricavi, COLSALDO));
 		return panel;
 	}
 
 	private JPanel getSP() {
 		JPanel panel = new JPanel(new FlowLayout());
-		panel.add(getPane(Attivita, true));
-		panel.add(getPane(Saldi_Attivita, false));
-		panel.add(getPane(Passivita, true));
-		panel.add(getPane(Saldi_Passivita, false));
+		panel.add(getPane(Attivita, ATTIVITA));
+		panel.add(getPane(Saldi_Attivita, COLSALDO));
+		panel.add(getPane(Passivita, PASSIVITA));
+		panel.add(getPane(Saldi_Passivita, COLSALDO));
 		return panel;
 	}
 }

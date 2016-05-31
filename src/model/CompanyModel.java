@@ -33,7 +33,7 @@ public class CompanyModel implements ModelInterface {
 	private final static String password = "Password";
 
 	private Company nuovaazienda;
-	
+
 	private final LinkedList<Company> listaAziende;
 
 	public CompanyModel(final LinkedList<Company> linkedList) {
@@ -117,10 +117,8 @@ public class CompanyModel implements ModelInterface {
 		((Company) obj).setCap((Integer) infoDaModificare.get(cap));
 		((Company) obj).setProvincia((String) infoDaModificare.get(provincia));
 		((Company) obj).setTel((String) infoDaModificare.get(telefono));
-		
 
 	}
-
 
 	/**
 	 * Metodo per individuare l'ultimo codice UUID(Codice_azienda) utilizzato.
@@ -153,7 +151,7 @@ public class CompanyModel implements ModelInterface {
 
 		if (obj == null) {
 			Map<String, Object> mappaVuota = new HashMap<>();
-			
+
 			mappaVuota.put(password, new char[] {});
 			mappaVuota.put(ragione_sociale, new String());
 			mappaVuota.put(p_iva, new String(""));
@@ -176,7 +174,7 @@ public class CompanyModel implements ModelInterface {
 				mappaPiena.put(cap, ((Company) obj).getCap());
 				mappaPiena.put(provincia, ((Company) obj).getProvincia());
 				mappaPiena.put(telefono, ((Company) obj).getTel());
-				
+
 				return mappaPiena;
 
 			} else {
@@ -210,8 +208,6 @@ public class CompanyModel implements ModelInterface {
 		return new LinkedList<Company>(listaAziende);
 	}
 
-	
-
 	/**
 	 * Metodo per la creazione dei filtri di ricerca per le aziende presenti.
 	 * 
@@ -223,60 +219,62 @@ public class CompanyModel implements ModelInterface {
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
 		mappaFiltro.put(ragione_sociale, new String(""));
-		//mappaFiltro.put(p_iva, new String(""));
+		// mappaFiltro.put(p_iva, new String(""));
 		return mappaFiltro;
-	}	
-	
+	}
+
 	/**
 	 * Creazione liste filtrate.
 	 * 
 	 * 
 	 * 
 	 */
-//? extends IDataTableModel
+	// ? extends IDataTableModel
 	@Override
-	public LinkedList<Company> load(Map<String, Object> mappaFiltro)
-			throws InstanceNotFoundException {
+	public LinkedList<Company> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {
 
 		LinkedList<Company> listaFiltrata = new LinkedList<>();
 		// Continua ad escludere ciò che cerco di filtrare.
 
-		//if (mappaFiltro.get(ragione_sociale) instanceof String) {
+		// if (mappaFiltro.get(ragione_sociale) instanceof String) {
 
-			//if (!((String) mappaFiltro.get(ragione_sociale)).isEmpty()) {
-		if (!mappaFiltro.get(ragione_sociale).toString().isEmpty()){
-				for (Company a : listaAziende) {
-					if (a.getRagione_sociale().contentEquals(ragione_sociale)) { //l'errore è qui!
-						listaFiltrata.add(a);
-					}
-					
+		// if (!((String) mappaFiltro.get(ragione_sociale)).isEmpty()) {
+		if (!mappaFiltro.get(ragione_sociale).toString().isEmpty()) {
+			for (Company a : listaAziende) {
+				if (a.getRagione_sociale().contentEquals(ragione_sociale)) { // l'errore
+																				// è
+																				// qui!
+					listaFiltrata.add(a);
 				}
-			}
 
-//				if (mappaFiltro.get(p_iva) instanceof Company) {
-//
-//					if (listaFiltrata.isEmpty()) {
-//						for (Company a : listaAziende) { // singolo filtro su
-//															// p_iva
-//							if (a.getPartita_iva() == mappaFiltro.get(p_iva)) {
-//								listaFiltrata.add(a);
-//							}
-//						}
-//					} else { // doppio filtro tra ragione sociale e p_iva
-//						for (Company a : listaFiltrata) {
-//							if (a.getPartita_iva() != mappaFiltro.get(p_iva)) {
-//								listaFiltrata.remove(a);
-//							}
-//						}
-//
-//					} // parentesi ultimo else
-//				}
-			//}
-		//}else{
-			
-//			throw new InstanceNotFoundException("In listaFiltrata non sta entrando nulla");
-//		}
-		
+			}
+		}
+
+		// if (mappaFiltro.get(p_iva) instanceof Company) {
+		//
+		// if (listaFiltrata.isEmpty()) {
+		// for (Company a : listaAziende) { // singolo filtro su
+		// // p_iva
+		// if (a.getPartita_iva() == mappaFiltro.get(p_iva)) {
+		// listaFiltrata.add(a);
+		// }
+		// }
+		// } else { // doppio filtro tra ragione sociale e p_iva
+		// for (Company a : listaFiltrata) {
+		// if (a.getPartita_iva() != mappaFiltro.get(p_iva)) {
+		// listaFiltrata.remove(a);
+		// }
+		// }
+		//
+		// } // parentesi ultimo else
+		// }
+		// }
+		// }else{
+
+		// throw new InstanceNotFoundException("In listaFiltrata non sta
+		// entrando nulla");
+		// }
+
 		// if (listaFiltrata.isEmpty()) {
 		// throw new InstanceNotFoundException("Nella lista non sono presenti
 		// elementi che soddisfano i filtri");

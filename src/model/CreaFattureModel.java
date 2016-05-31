@@ -64,7 +64,7 @@ public class CreaFattureModel implements ModelInterface {
 	 * 
 	 * Crea un movimento, più debiti verso fornitori, meno scorte della merce
 	 * richiesta.
-	 *  
+	 * 
 	 * 
 	 */
 

@@ -105,9 +105,9 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 	public String Attivita() {
 		String Attivita = "";
 		for (Sections s : Sections.getAttivita()) {
-		    Attivita += "<b>" + s + "</B>\n"; 
+			Attivita += "<b>" + s + "</B>\n";
 			for (int j = 0; j < contiRegistrati.size(); j++) {
-			    // scorro gli elementi della lista originale
+				// scorro gli elementi della lista originale
 				if (contiRegistrati.get(j).getNatura() == Natures.ATTIVITA
 						&& contiRegistrati.get(j).getSezione() == s) {
 					Attivita += "\n" + contiRegistrati.get(j).getName();
@@ -134,10 +134,9 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 	public String Costi() {
 		String Costi = "";
 		for (Sections s : Sections.getCosti()) {
-		    Costi+="<b>"+s+"</B>\n";
+			Costi += "<b>" + s + "</B>\n";
 			for (int j = 0; j < contiRegistrati.size(); j++) {
-				if (contiRegistrati.get(j).getNatura() == Natures.COSTO
-						&& contiRegistrati.get(j).getSezione() == s) {
+				if (contiRegistrati.get(j).getNatura() == Natures.COSTO && contiRegistrati.get(j).getSezione() == s) {
 					Costi += "\n" + contiRegistrati.get(j).getName();
 				}
 			}
@@ -306,11 +305,11 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 	public String Passivita() {
 		String Passivita = "";
 		for (Sections s : Sections.getPassivita()) {
-		    Passivita += "<b>"+s+"</B>\n";
-			for (int j = 0; j < contiRegistrati.size(); j++) { 
-			 // scorro gli elementi della lista principale
-                           if (contiRegistrati.get(j).getNatura() == Natures.PASSIVITA
-					&& contiRegistrati.get(j).getSezione() == s) {
+			Passivita += "<b>" + s + "</B>\n";
+			for (int j = 0; j < contiRegistrati.size(); j++) {
+				// scorro gli elementi della lista principale
+				if (contiRegistrati.get(j).getNatura() == Natures.PASSIVITA
+						&& contiRegistrati.get(j).getSezione() == s) {
 					Passivita += "\n" + contiRegistrati.get(j).getName();
 				}
 			}
@@ -322,10 +321,9 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 	public String Ricavi() {
 		String Ricavi = "";
 		for (Sections s : Sections.getRicavi()) {
-		    Ricavi += "<b>"+s+"</B>\n";
+			Ricavi += "<b>" + s + "</B>\n";
 			for (int j = 0; j < contiRegistrati.size(); j++) {
-				if (contiRegistrati.get(j).getNatura() == Natures.RICAVO
-						&& contiRegistrati.get(j).getSezione() == s) {
+				if (contiRegistrati.get(j).getNatura() == Natures.RICAVO && contiRegistrati.get(j).getSezione() == s) {
 					Ricavi += "\n" + contiRegistrati.get(j).getName();
 				}
 			}
