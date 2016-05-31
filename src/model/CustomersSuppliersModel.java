@@ -9,6 +9,7 @@ import javax.management.InstanceNotFoundException;
 
 import dataEnum.Gender;
 import dataEnum.KindPerson;
+
 import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
@@ -151,7 +152,6 @@ public class CustomersSuppliersModel implements ModelInterface {
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
 		mappaFiltro.put(CF, new String(""));
-		// mappaFiltro.put(Citta, new String(""));
 		return mappaFiltro;
 	}
 
@@ -215,23 +215,14 @@ public class CustomersSuppliersModel implements ModelInterface {
 	public LinkedList<Customers_Suppliers> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {
 
 		LinkedList<Customers_Suppliers> listaFiltrata = new LinkedList<>();
-
+		
 		if (mappaFiltro.get(CF) != null) {
 			for (Customers_Suppliers controllofiltro : listaRapportiC) {
-				if (controllofiltro.getCf().contentEquals(CF)) {
+				if (controllofiltro.getCf().equals(mappaFiltro.get(CF))) {
 					listaFiltrata.add(controllofiltro);
 				}
 			}
 		}
-
-		// if (mappaFiltro.get(Citta) != null) {
-		// for (Customers_Suppliers controllofiltro : listaRapportiC) {
-		// if (controllofiltro.getCitta().contentEquals(Citta)) {
-		// listaFiltrata.add(controllofiltro);
-		// }
-		// }
-		//
-		// }
 		if (listaFiltrata.isEmpty()) {
 			throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri.");
 		}

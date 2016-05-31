@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import javax.management.InstanceNotFoundException;
+
 import dataEnum.KindPerson;
 import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
@@ -104,14 +106,7 @@ public class CreaFattureModel implements ModelInterface {
 	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare) {
 		if ((Product) infoDaModificare.get(scorta) != null) {
 
-			((Item) obj).setNome((Product) infoDaModificare.get(prodotto)); // vado
-																			// a
-																			// prendere
-																			// il
-																			// prodotto
-																			// tramite
-																			// il
-																			// nome
+			((Item) obj).setNome((Product) infoDaModificare.get(prodotto)); 
 			((Item) obj).setQuantita((Integer) infoDaModificare.get(quantita));
 
 		}
@@ -193,21 +188,30 @@ public class CreaFattureModel implements ModelInterface {
 	/**
 	 * Funzione per la creazione di un nuovo carrello , con conseguente
 	 * possibilità di acquistare prodotti.
+	 * @throws InstanceNotFoundException 
 	 * 
 	 *
 	 */
 
 	@Override
-	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) {
+	public LinkedList<? extends IDataTableModel> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {
+		
 		LinkedList<Item> listaFiltrata = new LinkedList<>();
+		
+
 		if (mappaFiltro.get(prodotto) != null) {
 			for (Item controllofiltro : listaCarrello) {
-				if (controllofiltro.getProdotto().getNome().equals(prodotto)) {
+				if (controllofiltro.getNome().equals(mappaFiltro.get(prodotto))) {
 					listaFiltrata.add(controllofiltro);
+				
 				}
 			}
 		}
-		return null;
+		if (listaFiltrata.isEmpty()) {
+			throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri.");
+		}
+
+		return listaFiltrata;
 	}
 
 	/**
