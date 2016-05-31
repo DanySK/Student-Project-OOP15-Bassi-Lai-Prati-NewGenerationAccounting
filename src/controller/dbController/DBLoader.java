@@ -91,7 +91,7 @@ public final class DBLoader extends AbstractDB implements IDBLoader {
 	public void run() {
 		DBDataModel db = getDb();
 		getDBDirectory(db.getPath()).mkdir();
-		db.setAccounts(load(getAccountFile(), new LinkedList<Account>()));
+		db.setAccounts(load(getAccountFile(), loadDefaultAcconts()));
 		db.setCustomersSuppliers(load(getCustomersupplierFile(), new LinkedList<Customers_Suppliers>()));
 		db.setMoviments(load(getMovementFile(), new LinkedList<Movement>()));
 		db.setProducts(load(getProductFile(), new LinkedList<Product>()));
