@@ -3,18 +3,14 @@
  */
 package controller.movimenti;
 
-import java.awt.Dimension;
-import java.util.Map;
-
-import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
 import controller.IAnagraficaViewObserver;
 import controller.main.MainControllerImpl;
+import controller.popup.PopupControllerImpl;
+import dataEnum.PopupMode;
 import dataModel.DBDataModel;
-import dataModel.IDataTableModel;
 import model.MovementsModel;
-import view.AddEditPopupView;
 import view.movimenti.MovimentiView;
 
 /**
@@ -23,13 +19,16 @@ import view.movimenti.MovimentiView;
  * @author Pentolo
  *
  */
-public class MovimentiControllerImpl implements IAnagraficaViewObserver {
+public class MovimentiControllerImpl implements IAnagraficaViewObserver, IAnaMovimentiController {
 
 	private final MovementsModel model;
 	private final MovimentiView view;
 
 	/**
-	 * @param view
+	 * @param db
+	 *            il database
+	 * @param title
+	 *            il titolo della finestra
 	 */
 	public MovimentiControllerImpl(final DBDataModel db, final String title) {
 		this.model = new MovementsModel(db);
@@ -39,28 +38,9 @@ public class MovimentiControllerImpl implements IAnagraficaViewObserver {
 	}
 
 	@Override
-	public void add(Map<String, Object> mappa) throws InstanceAlreadyExistsException, IllegalArgumentException {
-		model.add(mappa);
-	}
-
-	@Override
 	public void chiusura() {
 		view.close();
 		new MainControllerImpl(model.saveDBAndClose());
-	}
-
-	@Override
-	public void edit(Map<String, Object> mappa) throws InstanceNotFoundException {
-		try {
-			model.edit(view.getSelectedItem(), mappa);
-		} catch (InstanceAlreadyExistsException | IllegalArgumentException e) {
-			view.errorDialog("Errore", e.getMessage());
-		}
-	}
-
-	@Override
-	public Map<String, Object> getMap(IDataTableModel obj) {
-		return model.getMap(obj);
 	}
 
 	@Override
@@ -70,20 +50,27 @@ public class MovimentiControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void tasto0() {
-		// TODO Auto-generated method stub
-
+		try {
+			new PopupControllerImpl(PopupMode.FIND, model, this, view);
+		} catch (InstanceNotFoundException | IllegalArgumentException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
 	}
 
 	@Override
 	public void tasto1() {
-		new AddEditPopupView(null, view.getTitle(), new Dimension(300, 400), this, view).start();
+		try {
+			new PopupControllerImpl(PopupMode.ADD, model, this, view);
+		} catch (InstanceNotFoundException | IllegalArgumentException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
 	}
 
 	@Override
 	public void tasto2() {
 		try {
-			new AddEditPopupView(view.getSelectedItem(), view.getTitle(), new Dimension(300, 400), this, view).start();
-		} catch (InstanceNotFoundException e) {
+			new PopupControllerImpl(PopupMode.EDIT, model, this, view);
+		} catch (InstanceNotFoundException | IllegalArgumentException e) {
 			view.errorDialog("Errore", e.getMessage());
 		}
 	}

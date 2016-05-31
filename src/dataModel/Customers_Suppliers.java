@@ -1,14 +1,21 @@
 package dataModel;
 
 /**
- * Classe per la creazione e gestione del dato Cliente\fornitore\Credito\Debito
+ * Classe per la creazione e Cliente\Fornitore\Credito\Debito.
+ * 
+ * Verrà usato in Customers_SuppliersModel.
+ * 
+ * 
+ * @author Diego
+ * 
  */
+
 import dataEnum.Gender;
 import dataEnum.KindPerson;
 
 public class Customers_Suppliers implements IDataTableModel {
 
-	private static final String[] INTESTAZIONE = { "CAP", "Credito", "Debito" };
+	private static final String[] INTESTAZIONE = { "Codice Fiscale", "Credito", "Debito" };
 	// Nota personale : GUARDA BOOKMARK.
 
 	private static final long serialVersionUID = 9254381L;
@@ -93,7 +100,7 @@ public class Customers_Suppliers implements IDataTableModel {
 	public String getValueAt(int column) {
 		switch (column) {
 		case 0:
-			return Integer.toString(cap);
+			return getCf();
 		case 1:
 			return Integer.toString(credito);
 		case 2:

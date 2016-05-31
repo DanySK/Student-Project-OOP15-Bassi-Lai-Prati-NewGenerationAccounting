@@ -3,12 +3,19 @@
  */
 package controller.dbController;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.LinkedList;
 
+import dataModel.Account;
 import dataModel.DBDataModel;
 import view.AbstractFrame;
 
 /**
+ * classe astratta per tutte le classi che interagiranno con il DataBase
+ * 
  * @author Pentolo
  *
  */
@@ -29,14 +36,32 @@ public abstract class AbstractDB extends Thread {
 		return new File(DB_PATH + SEPARATOR + COMPANY_FILENAME);
 	}
 
+	protected static File getDBDirectory(final String path) {
+		return new File(DB_PATH + SEPARATOR + path);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected static LinkedList<Account> loadDefaultAcconts() {
+		try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(
+				Thread.currentThread().getContextClassLoader().getResourceAsStream(ACCOUNT_FILENAME)))) {
+			final Object readElem = ois.readObject();
+			if (readElem instanceof LinkedList) {
+				return (LinkedList<Account>) readElem;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return new LinkedList<Account>();
+	}
+
 	private final String path;
+
 	private final AbstractFrame view;
 
 	private final DBDataModel db;
 
-	/**
-	 * 
-	 */
 	protected AbstractDB(final String path, final AbstractFrame view, final DBDataModel db) {
 		this.path = path;
 		this.view = view;
@@ -64,7 +89,7 @@ public abstract class AbstractDB extends Thread {
 		return db;
 	}
 
-	private File getFile(String fileName) {
+	private File getFile(final String fileName) {
 		return new File(DB_PATH + SEPARATOR + path + SEPARATOR + fileName);
 	}
 

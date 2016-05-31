@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Movement implements IDataTableModel {
 
-	private static final String[] INTESTAZIONE = { "Data", "Nome" };
+	private static final String[] INTESTAZIONE = { "Data", "Nome Conto", "Dare", "Avere" };
 
 	/**
 	 * 
@@ -23,7 +23,8 @@ public class Movement implements IDataTableModel {
 	}
 
 	private Date data;
-	private List<Operation> listaConti;
+
+	private LinkedList<Operation> listaConti;
 
 	public Movement(Date data, LinkedList<Operation> object) {
 		this.data = data;
@@ -39,25 +40,46 @@ public class Movement implements IDataTableModel {
 	}
 
 	@Override
-	public String getValueAt(int column) {
-		switch (column) {
-		case 0:
-			return getData().toString();
-		case 1:
-			for (Operation o : listaConti) {
-				return o.getConto().getName() + o.getDare() + o.getAvere();
+	public Object getValueAt(int column) {
+		String str = "";
+		if (listaConti.size() > 0) {
+			switch (column) {
+			case 0:
+				return getData();
+			case 1:
+				str = listaConti.get(0).getConto().getName();
+				for (int i = 1; i < listaConti.size(); i++) {
+					str += "\n" + listaConti.get(i).getConto().getName();
+				}
+				break;
+			case 2:
+				str = String.valueOf(listaConti.get(0).getDare());
+				for (int i = 1; i < listaConti.size(); i++) {
+					str += "\n" + String.valueOf(listaConti.get(i).getDare());
+				}
+				break;
+			case 3:
+				str = String.valueOf(listaConti.get(0).getAvere());
+				for (int i = 1; i < listaConti.size(); i++) {
+					str += "\n" + String.valueOf(listaConti.get(i).getAvere());
+				}
+				break;
 			}
-		default:
-			return "";
 		}
+		return str;
 	}
 
 	public void setData(Date data) {
 		this.data = data;
 	}
 
-	public void setListaConti(List<Operation> listaContiUsati) {
+	public void setListaConti(LinkedList<Operation> listaContiUsati) {
 		this.listaConti = listaContiUsati;
+	}
+
+	@Override
+	public String toString() {
+		return "Movement [data=" + data + ", listaConti=" + listaConti + "]";
 	}
 
 }

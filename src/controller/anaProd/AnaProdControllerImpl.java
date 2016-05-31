@@ -3,19 +3,17 @@
  */
 package controller.anaProd;
 
-import java.awt.Dimension;
-import java.util.Map;
-
-import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
 import controller.IAnagraficaViewObserver;
+import controller.dbController.DBSaver;
 import controller.main.MainControllerImpl;
+import controller.popup.PopupControllerImpl;
+import dataEnum.PopupMode;
 import dataModel.DBDataModel;
-import dataModel.IDataTableModel;
+import dataModel.Product;
 import model.ProductsModel;
-import view.AddEditPopupView;
-import view.anaProd.AnaProdView;
+import view.AnagraficaView;
 
 /**
  * implementazione controller anagrafica prodotti
@@ -23,44 +21,29 @@ import view.anaProd.AnaProdView;
  * @author Pentolo
  *
  */
-public class AnaProdControllerImpl implements IAnagraficaViewObserver {
+public class AnaProdControllerImpl implements IAnagraficaViewObserver, IAnaProdController {
 	private final ProductsModel model;
-	private final AnaProdView view;
+	private final AnagraficaView<Product> view;
 
 	/**
-	 * @param view
+	 * @param db
+	 *            il database
+	 * @param title
+	 *            il titolo della finestra
 	 */
 	public AnaProdControllerImpl(final DBDataModel db, final String title) {
 		this.model = new ProductsModel(db);
-		this.view = new AnaProdView(model.load(), title);
+		this.view = new AnagraficaView<Product>(model.load(), Product.getIntestazione(), title);
 		this.view.setObserver(this);
 		view.start();
 	}
 
 	@Override
-	public void add(Map<String, Object> mappa) throws InstanceAlreadyExistsException, IllegalArgumentException {
-		model.add(mappa);
-	}
-
-	@Override
 	public void chiusura() {
+		final DBDataModel db = model.saveDBAndClose();
+		new DBSaver(db.getPath(), view, db).start();
 		view.close();
-		new MainControllerImpl(model.saveDBAndClose());
-
-	}
-
-	@Override
-	public void edit(Map<String, Object> mappa) throws InstanceNotFoundException {
-		try {
-			model.edit(view.getSelectedItem(), mappa);
-		} catch (InstanceAlreadyExistsException | IllegalArgumentException e) {
-			view.errorDialog("Errore", e.getMessage());
-		}
-	}
-
-	@Override
-	public Map<String, Object> getMap(IDataTableModel obj) {
-		return model.getMap(obj);
+		new MainControllerImpl(db);
 	}
 
 	@Override
@@ -70,20 +53,27 @@ public class AnaProdControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void tasto0() {
-		// TODO Auto-generated method stub
-
+		try {
+			new PopupControllerImpl(PopupMode.FIND, model, this, view);
+		} catch (InstanceNotFoundException | IllegalArgumentException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
 	}
 
 	@Override
 	public void tasto1() {
-		new AddEditPopupView(null, view.getTitle(), new Dimension(300, 400), this, view).start();
+		try {
+			new PopupControllerImpl(PopupMode.ADD, model, this, view);
+		} catch (InstanceNotFoundException | IllegalArgumentException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
 	}
 
 	@Override
 	public void tasto2() {
 		try {
-			new AddEditPopupView(view.getSelectedItem(), view.getTitle(), new Dimension(300, 400), this, view).start();
-		} catch (InstanceNotFoundException e) {
+			new PopupControllerImpl(PopupMode.EDIT, model, this, view);
+		} catch (InstanceNotFoundException | IllegalArgumentException e) {
 			view.errorDialog("Errore", e.getMessage());
 		}
 	}

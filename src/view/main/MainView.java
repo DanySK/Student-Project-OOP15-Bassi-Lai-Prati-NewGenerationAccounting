@@ -11,7 +11,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import controller.main.MainControllerImpl;
+import controller.main.IMainMenuController;
 import view.AbstractWideView;
 
 /**
@@ -23,26 +23,26 @@ import view.AbstractWideView;
 public class MainView extends AbstractWideView {
 
 	class myAction implements ActionListener {
-
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			String action = e.getActionCommand();
+		public void actionPerformed(final ActionEvent e) {
+			IMainMenuController observer = (IMainMenuController) getObserver();
+			final String action = e.getActionCommand();
 			if (action.equals(listaBtn[0])) {
-				((MainControllerImpl) observer).btn0(action);
+				observer.btn0(action);
 			} else if (action.equals(listaBtn[1])) {
-				((MainControllerImpl) observer).btn1(action);
+				observer.btn1(action);
 			} else if (action.equals(listaBtn[2])) {
-				((MainControllerImpl) observer).btn2(action);
+				observer.btn2(action);
 			} else if (action.equals(listaBtn[3])) {
-				((MainControllerImpl) observer).btn3(action);
+				observer.btn3(action);
 			} else if (action.equals(listaBtn[4])) {
-				((MainControllerImpl) observer).btn4(action);
+				observer.btn4(action);
 			} else if (action.equals(listaBtn[5])) {
-				((MainControllerImpl) observer).btn5(action);
+				observer.btn5(action);
 			} else if (action.equals(listaBtn[6])) {
-				((MainControllerImpl) observer).btn6(action);
+				observer.btn6(action);
 			} else if (action.equals(listaBtn[7])) {
-				((MainControllerImpl) observer).btn7(action);
+				observer.btn7(action);
 			} else {
 				chiusura();
 			}
@@ -51,18 +51,18 @@ public class MainView extends AbstractWideView {
 
 	private static final long serialVersionUID = 8496684753244767160L;
 
-	private String[] listaBtn;
+	private final String[] listaBtn;
 
 	public MainView() {
 		super(Messages.getString("MainView.8"), new Dimension(290, 375));
-		int maxBtn = Integer.parseInt(Messages.getString("MainView.500"));
+		final int maxBtn = Integer.parseInt(Messages.getString("MainView.500"));
 		listaBtn = new String[maxBtn];
-		JPanel panel = new JPanel();
-		myAction actionEvent = new myAction();
+		final JPanel panel = new JPanel();
+		final myAction actionEvent = new myAction();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		for (int i = 0; i < maxBtn; i++) {
 			panel.add(Box.createRigidArea(new Dimension(0, 10)));
-			String tmpStr = Messages.getString("MainView." + i);
+			final String tmpStr = Messages.getString("MainView." + i);
 			listaBtn[i] = tmpStr;
 			final JButton tmpBtn = new JButton(tmpStr);
 			tmpBtn.setActionCommand(tmpStr);
@@ -70,11 +70,11 @@ public class MainView extends AbstractWideView {
 			tmpBtn.addActionListener(actionEvent);
 			panel.add(tmpBtn);
 		}
-		MyFrame.getContentPane().add(panel, BorderLayout.CENTER);
+		getMyFrame().getContentPane().add(panel, BorderLayout.CENTER);
 	}
 
 	@Override
 	protected void chiusura() {
-		observer.chiusura();
+		getObserver().chiusura();
 	}
 }

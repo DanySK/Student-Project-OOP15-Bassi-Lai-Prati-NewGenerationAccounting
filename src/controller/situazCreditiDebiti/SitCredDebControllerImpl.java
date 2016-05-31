@@ -23,7 +23,10 @@ public class SitCredDebControllerImpl implements IViewObserver {
 	private final SitCredDebView view;
 
 	/**
-	 * 
+	 * @param db
+	 *            il database
+	 * @param title
+	 *            il titolo della finestra
 	 */
 	public SitCredDebControllerImpl(final DBDataModel db, final String title) {
 		this.model = new ReceivablesPayablesModel(db);

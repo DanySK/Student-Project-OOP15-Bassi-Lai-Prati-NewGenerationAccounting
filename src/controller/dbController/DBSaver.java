@@ -9,24 +9,49 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.LinkedList;
+import java.util.UUID;
 
 import dataModel.Company;
+import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
+import dataModel.Movement;
+import dataModel.Product;
 import view.AbstractFrame;
 
 /**
+ * classe che gestisce l'output su DataBase
+ * 
  * @author Pentolo
  *
  */
 public class DBSaver extends AbstractDB {
 
+	public static void addCompany(final UUID uuid) {
+		new DBSaver(uuid.toString(), null, new DBDataModel(loadDefaultAcconts(), new LinkedList<Customers_Suppliers>(),
+				new LinkedList<Movement>(), new LinkedList<Product>(), uuid.toString())).start();
+	}
+
+	private static void deleteDirectory(final File path) {
+		if (path.exists()) {
+			for (final File file : path.listFiles()) {
+				if (file.isDirectory()) {
+					deleteDirectory(file);
+				} else {
+					file.delete();
+				}
+			}
+			path.delete();
+		}
+	}
+
+	public static void removeCompany(final String path) {
+		deleteDirectory(getDBDirectory(path));
+	}
+
 	private static void save(final boolean mustbeSaved, final File file,
 			final LinkedList<? extends IDataTableModel> linkedList) throws IOException {
 		boolean save = mustbeSaved;
-		if (file.getParentFile().mkdir()) {
-			save = true;
-		}
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
@@ -57,6 +82,7 @@ public class DBSaver extends AbstractDB {
 	public void run() {
 		final DBDataModel db = getDb();
 		try {
+			getDBDirectory(db.getPath()).mkdir();
 			save(db.isAccountsModified(), getAccountFile(), db.getAccounts());
 			save(db.isCustomersSuppliersModified(), getCustomersupplierFile(), db.getCustomersSuppliers());
 			save(db.isMovimentsModified(), getMovementFile(), db.getMoviments());

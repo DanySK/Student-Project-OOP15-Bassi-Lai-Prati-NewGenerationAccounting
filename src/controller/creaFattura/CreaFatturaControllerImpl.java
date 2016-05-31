@@ -3,18 +3,16 @@
  */
 package controller.creaFattura;
 
-import java.awt.Dimension;
-import java.util.Map;
-
-import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
 import controller.IAnagraficaViewObserver;
+import controller.dbController.DBSaver;
 import controller.main.MainControllerImpl;
+import controller.popup.PopupControllerImpl;
+import dataEnum.PopupMode;
+import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
-import dataModel.IDataTableModel;
 import model.CreaFattureModel;
-import view.AddEditPopupView;
 import view.creaFattura.CreaFatturaView;
 
 /**
@@ -23,44 +21,44 @@ import view.creaFattura.CreaFatturaView;
  * @author Pentolo
  *
  */
-public class CreaFatturaControllerImpl implements IAnagraficaViewObserver {
+public class CreaFatturaControllerImpl implements IAnagraficaViewObserver, ICreaFatturaController {
 
 	private final CreaFattureModel model;
 	private final CreaFatturaView view;
 
 	/**
-	 * @param view
+	 * @param db
+	 *            il database
+	 * @param title
+	 *            il titolo della finestra
 	 */
 	public CreaFatturaControllerImpl(final DBDataModel db, final String title) {
 		this.model = new CreaFattureModel(db);
-		this.view = new CreaFatturaView(model.load(), title);
+		this.view = new CreaFatturaView(model.load(), title, model.getListaclienti());
 		this.view.setObserver(this);
 		view.start();
 	}
 
 	@Override
-	public void add(Map<String, Object> mappa) throws InstanceAlreadyExistsException, IllegalArgumentException {
-		model.add(mappa);
-	}
-
-	@Override
 	public void chiusura() {
+		final DBDataModel db = model.saveDBAndClose();
+		new DBSaver(db.getPath(), view, db).start();
 		view.close();
-		new MainControllerImpl(model.saveDBAndClose());
+		new MainControllerImpl(db);
 	}
 
+	/**
+	 * crea la fattura
+	 * 
+	 * @param item
+	 *            il cliente selezionato
+	 */
 	@Override
-	public void edit(Map<String, Object> mappa) throws InstanceNotFoundException {
-		try {
-			model.edit(view.getSelectedItem(), mappa);
-		} catch (InstanceAlreadyExistsException | IllegalArgumentException e) {
-			view.errorDialog("Errore", e.getMessage());
-		}
-	}
-
-	@Override
-	public Map<String, Object> getMap(IDataTableModel obj) {
-		return model.getMap(obj);
+	public void create(Customers_Suppliers item) {
+		final DBDataModel db = model.create(item);
+		new DBSaver(db.getPath(), view, db).start();
+		view.close();
+		new MainControllerImpl(db);
 	}
 
 	@Override
@@ -70,20 +68,27 @@ public class CreaFatturaControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void tasto0() {
-		// TODO Auto-generated method stub
-
+		try {
+			new PopupControllerImpl(PopupMode.FIND, model, this, view);
+		} catch (InstanceNotFoundException | IllegalArgumentException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
 	}
 
 	@Override
 	public void tasto1() {
-		new AddEditPopupView(null, view.getTitle(), new Dimension(300, 400), this, view).start();
+		try {
+			new PopupControllerImpl(PopupMode.ADD, model, this, view);
+		} catch (InstanceNotFoundException | IllegalArgumentException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
 	}
 
 	@Override
 	public void tasto2() {
 		try {
-			new AddEditPopupView(view.getSelectedItem(), view.getTitle(), new Dimension(300, 400), this, view).start();
-		} catch (InstanceNotFoundException e) {
+			new PopupControllerImpl(PopupMode.EDIT, model, this, view);
+		} catch (InstanceNotFoundException | IllegalArgumentException e) {
 			view.errorDialog("Errore", e.getMessage());
 		}
 	}

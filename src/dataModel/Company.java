@@ -3,7 +3,7 @@ package dataModel;
 import java.util.UUID;
 
 /**
- * classe per la gestione della singola azienda
+ * Classe per la gestione della singola azienda.
  * 
  * @author Pentolo
  *
@@ -26,25 +26,24 @@ public class Company implements IDataTableModel {
 	private String citta;
 	private UUID codice;
 	private String indirizzo;
-	private long partita_iva;
+	private String p_iva;
 	private char[] password;
 	private String provincia;
 	private String ragione_sociale;
 	private String tel;
 
-	public Company(final UUID codice, final char[] password, final String ragione_sociale,
-		final long partita_iva, final String indirizzo, final String citta, final int cap, final String provincia,
-			final String tel) {
-		
+	public Company(final UUID codice, final char[] password, final String ragione_sociale, final String p_iva,
+			final String indirizzo, final String citta, final int cap, final String provincia, final String tel) {
+
 		this.codice = codice;
 		this.password = password;
 		this.ragione_sociale = ragione_sociale;
-		this.partita_iva = partita_iva;
 		this.indirizzo = indirizzo;
 		this.citta = citta;
 		this.cap = cap;
 		this.provincia = provincia;
 		this.tel = tel;
+		this.p_iva = p_iva;
 
 	}
 
@@ -64,8 +63,8 @@ public class Company implements IDataTableModel {
 		return indirizzo;
 	}
 
-	public long getPartita_iva() {
-		return partita_iva;
+	public String getPartita_iva() {
+		return p_iva;
 	}
 
 	public char[] getPassword() {
@@ -90,7 +89,7 @@ public class Company implements IDataTableModel {
 		case 0:
 			return getRagione_sociale();
 		case 1:
-			return Long.toString(getPartita_iva());
+			return getPartita_iva();
 		default:
 			return "";
 		}
@@ -112,8 +111,8 @@ public class Company implements IDataTableModel {
 		this.indirizzo = indirizzo;
 	}
 
-	public void setPartita_iva(final long partita_iva) {
-		this.partita_iva = partita_iva;
+	public void setPartita_iva(final String p_iva) {
+		this.p_iva = p_iva;
 	}
 
 	public void setPassword(final char[] password) {

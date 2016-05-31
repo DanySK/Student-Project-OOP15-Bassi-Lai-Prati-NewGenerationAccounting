@@ -12,7 +12,7 @@ package dataModel;
 
 public class Item implements IDataTableModel {
 
-	private static final String[] INTESTAZIONE = { "Prodotto", "Quantit�", "Subtotale" };
+	private static final String[] INTESTAZIONE = { "Prodotto", "Quantita'", "Subtotale" };
 	/**
 	 * 
 	 */
@@ -22,7 +22,7 @@ public class Item implements IDataTableModel {
 		return INTESTAZIONE;
 	}
 
-	private final Product prodotto;
+	private Product prodotto;
 	private int quantita;
 
 	public Item(Product prodotto, int quantita) {
@@ -32,8 +32,18 @@ public class Item implements IDataTableModel {
 
 	}
 
-	public String getProdotto() {
+	// prove, non sarebbero necessari
+
+	public String getNome() {
 		return prodotto.getNome();
+	}
+
+	public int getPrezzo() {
+		return this.getProdotto().getPrezzovendita();
+	}
+
+	public Product getProdotto() {
+		return prodotto;
 	}
 
 	public int getQuantita() {
@@ -52,6 +62,19 @@ public class Item implements IDataTableModel {
 		default:
 			return "";
 		}
+	}
+
+	public void setNome(String nomeProdotto) {
+
+		this.getProdotto().setNome(nomeProdotto);
+	}
+
+	public void setPrezzo(int prezzo) {
+		this.getProdotto().setPrezzovendita(prezzo);
+	}
+
+	public void setProdotto(Product prodotto) {
+		this.prodotto = prodotto;
 	}
 
 	public void setQuantita(int quantita) {

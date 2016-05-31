@@ -15,17 +15,19 @@ import dataModel.Customers_Suppliers;
 import dataModel.DBDataModel;
 import dataModel.Movement;
 import dataModel.Product;
-import model.AccountsModel;
 import view.AbstractFrame;
 
 /**
+ * classe che gestisce l'input da DataBase
+ * 
  * @author Pentolo
  *
  */
-public class DBLoader extends AbstractDB {
+public final class DBLoader extends AbstractDB {
 
+	@SuppressWarnings("unchecked")
 	public static LinkedList<Company> loadCompanys() throws IOException {
-		File file = getCompanyFile();
+		final File file = getCompanyFile();
 		file.getParentFile().mkdir();
 		if (!file.exists()) {
 			try {
@@ -36,8 +38,8 @@ public class DBLoader extends AbstractDB {
 			}
 		}
 		try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
-			Object readElem = ois.readObject();
-			if (readElem instanceof java.util.LinkedList) {
+			final Object readElem = ois.readObject();
+			if (readElem instanceof LinkedList) {
 				return (LinkedList<Company>) readElem;
 			}
 		} catch (Exception e) {
@@ -47,7 +49,7 @@ public class DBLoader extends AbstractDB {
 	}
 
 	public static DBDataModel loadDB(final String path, final AbstractFrame view) {
-		DBDataModel db = new DBDataModel(path);
+		final DBDataModel db = new DBDataModel(path);
 		new DBLoader(path, view, db).start();
 		return db;
 	}
@@ -59,8 +61,8 @@ public class DBLoader extends AbstractDB {
 		super(path, view, db);
 	}
 
-	private LinkedList load(File file, LinkedList defaultList) {
-		file.getParentFile().mkdir();
+	@SuppressWarnings("rawtypes")
+	private LinkedList load(final File file, final LinkedList defaultList) {
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
@@ -71,22 +73,24 @@ public class DBLoader extends AbstractDB {
 			}
 		}
 		try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
-			Object readElem = ois.readObject();
-			if (!readElem.equals(null) && readElem instanceof java.util.LinkedList) {
+			final Object readElem = ois.readObject();
+			if (readElem instanceof LinkedList) {
 				return (LinkedList) readElem;
 			}
 		} catch (Exception e) {
 			getView().errorDialog("Errore di IO",
-					"Errore critico di lettura del database. Il database verrà ripristinato allo stato iniziale.");
+					"Errore critico di lettura del database. Il database verrï¿½ ripristinato allo stato iniziale.");
 			return defaultList;
 		}
 		return defaultList;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
 		DBDataModel db = getDb();
-		db.setAccounts(load(getAccountFile(), AccountsModel.chartOfAccounts()));
+		getDBDirectory(db.getPath()).mkdir();
+		db.setAccounts(load(getAccountFile(), loadDefaultAcconts()));
 		db.setCustomersSuppliers(load(getCustomersupplierFile(), new LinkedList<Customers_Suppliers>()));
 		db.setMoviments(load(getMovementFile(), new LinkedList<Movement>()));
 		db.setProducts(load(getProductFile(), new LinkedList<Product>()));

@@ -2,9 +2,9 @@ package model;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
+import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
 import dataEnum.Gender;
@@ -20,7 +20,7 @@ import dataModel.IDataTableModel;
  *
  */
 
-public class CustomersSuppliersModel extends AbstractModel {
+public class CustomersSuppliersModel implements ModelInterface {
 
 	private final String CF = "CF";
 	private final String Citta = "Citta'";
@@ -28,16 +28,13 @@ public class CustomersSuppliersModel extends AbstractModel {
 	private final String Nome = "Nome";
 	private final String Indirizzo = "Indirizzo";
 	private final String CAP = "Cap";
-	private final String Credito = "Credito";
-	private final String Debito = "Debito";
 	private final String Telefono = "Telefono";
 	private final String Ruolostring = "RuoloString";
 	private final String Sessostring = "SessoString";
 	private KindPerson ruolo;
 	private Gender sesso;
-	private boolean trovato=false;
-	
-	
+	private boolean trovato = false;
+
 	private DBDataModel db;
 
 	/* listaRapportiC = lista rapporti commerciali */
@@ -45,51 +42,145 @@ public class CustomersSuppliersModel extends AbstractModel {
 
 	public CustomersSuppliersModel(DBDataModel db) {
 		this.db = db;
+		this.listaRapportiC = db.getCustomersSuppliers();
 	}
 
+	/**
+	 * Metodo per la creazione di un nuovo cliente o fornitore .
+	 * 
+	 * 
+	 */
+
 	@Override
-	protected void addElem(Map<String, Object> elem) throws IllegalArgumentException { // controllare
-																						// il
-																						// CF?
-		Customers_Suppliers rapportoC = new Customers_Suppliers(elem.get(Nome).toString(), elem.get(Cognome).toString(),
-				elem.get(CF).toString(), elem.get(Indirizzo).toString(), elem.get(Citta).toString(),
-				(Integer) elem.get(CAP), elem.get(Telefono).toString(), (Gender) elem.get(sesso),
-				(KindPerson) elem.get(ruolo), (Integer) elem.get(Credito), (Integer) elem.get(Debito));
+	public void add(Map<String, Object> elem) throws IllegalArgumentException, InstanceAlreadyExistsException { // controllare
+
+		if (elem.get(CF).equals("")) {
+			throw new IllegalArgumentException("CF non valido. Riprovare.");
+		}
+
+		if (elem.get(Citta).equals("")) {
+			throw new IllegalArgumentException("Citta' non valida. Riprovare.");
+		}
+
+		if (elem.get(Cognome).equals("")) {
+			throw new IllegalArgumentException("Cognome non valido. Riprovare.");
+		}
+
+		if (elem.get(Nome).equals("")) {
+			throw new IllegalArgumentException("Nome non valido. Riprovare.");
+
+		}
+
+		if (elem.get(Indirizzo).equals("")) {
+			throw new IllegalArgumentException("Indirizzo non valido. Riprovare.");
+
+		}
+		if (elem.get(CAP) instanceof Integer) {
+			System.out.println("CAP is an Integer");
+		} else {
+			throw new IllegalArgumentException("Il CAP non è int. Riprovare.");
+		}
+
+		if (elem.get(CAP).equals(null)) {
+			throw new IllegalArgumentException("CAP non valido. Riprovare.");
+		}
+
+		if (elem.get(Telefono) instanceof String) {
+			System.out.println("Telefono is a String");
+		} else {
+			throw new IllegalArgumentException("Telefono non è String. Riprovare.");
+		}
+
+		if (elem.get(Telefono).equals("")) {
+			throw new IllegalArgumentException("Numero di telefono non valido. Riprovare.");
+		}
+
+		if (elem.get(Ruolostring) == KindPerson.NESSUNO) {
+			throw new IllegalArgumentException("Ruolo non valido. Riprovare.");
+
+		}
+
+		if (elem.get(Sessostring) == Gender.NESSUNO) {
+			throw new IllegalArgumentException("Gender non valido. Riprovare.");
+
+		}
+
+		Customers_Suppliers rapportoC = new Customers_Suppliers((String) elem.get(Nome), (String) elem.get(Cognome),
+				(String) elem.get(CF), (String) elem.get(Indirizzo), (String) elem.get(Citta), (int) elem.get(CAP),
+				(String) elem.get(Telefono), (Gender) elem.get(sesso), (KindPerson) elem.get(ruolo), 0, 0);
+
+		if (listaRapportiC.contains(rapportoC)) {
+			throw new InstanceAlreadyExistsException("L'elemento e' gia' presente.");
+
+		}
 		listaRapportiC.add(rapportoC);
+
 	}
+
+	/**
+	 * Metodo che permette di modificare i dati di un cliente o di un fornitore.
+	 * 
+	 * 
+	 */
 
 	@Override
-	protected void editElem(IDataTableModel obj, Map<String, Object> ifoDaModificare) {
-		listaRapportiC.remove(obj);
+	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare)
+			throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException {
 
-		addElem(ifoDaModificare);
-
+		if (!listaRapportiC.contains(obj)) {
+			throw new InstanceNotFoundException("Elemento da modificare non presente, riprovare.");
+		} else {
+			((Customers_Suppliers) obj).setCf((String) infoDaModificare.get(CF));
+			((Customers_Suppliers) obj).setCitta((String) infoDaModificare.get(Citta));
+			((Customers_Suppliers) obj).setCognome((String) infoDaModificare.get(Cognome));
+			((Customers_Suppliers) obj).setNome((String) infoDaModificare.get(Nome));
+			((Customers_Suppliers) obj).setIndirizzo((String) infoDaModificare.get(Indirizzo));
+			((Customers_Suppliers) obj).setCap((Integer) infoDaModificare.get(CAP));
+			((Customers_Suppliers) obj).setTelefono((String) infoDaModificare.get(Telefono));
+		}
 	}
+
+	/**
+	 * Metodo per la creazione di filtri per i clienti o fornitori, seconda il
+	 * Codice Fiscale o la città.
+	 * 
+	 * 
+	 */
+
+	@Override
+	public Map<String, Object> getFilterMap() {
+		Map<String, Object> mappaFiltro = new HashMap<>();
+		mappaFiltro.put(CF, new String(""));
+		return mappaFiltro;
+	}
+
+	/**
+	 * Metodo per la creazione delle mappe, sia con che senza valori.
+	 * 
+	 * 
+	 */
 
 	@Override
 	public Map<String, Object> getMap(IDataTableModel obj) {
 
 		if (obj == null) {
-			Map<String, Object> mappaVuota= new HashMap<>();	
-			
+			Map<String, Object> mappaVuota = new HashMap<>();
+
 			mappaVuota.put(CF, new String(""));
 			mappaVuota.put(Citta, new String(""));
 			mappaVuota.put(Cognome, new String(""));
 			mappaVuota.put(Nome, new String(""));
 			mappaVuota.put(Indirizzo, new String(""));
-			mappaVuota.put(CAP, new String(""));
-			mappaVuota.put(Credito, new Integer(0));
-			mappaVuota.put(Debito, new Integer(0));
+			mappaVuota.put(CAP, new Integer(0));
 			mappaVuota.put(Telefono, new String(""));
-			mappaVuota.put(Ruolostring, KindPerson.CLIENTE);
-			mappaVuota.put(Ruolostring, KindPerson.FORNITORE);
-			mappaVuota.put(Sessostring, Gender.F);
-			mappaVuota.put(Sessostring, Gender.M);
-			
+			mappaVuota.put(Ruolostring, KindPerson.NESSUNO);
+			mappaVuota.put(Sessostring, Gender.NESSUNO);
+
 			return mappaVuota;
-			
+
 		} else {
-			if (obj instanceof Customers_Suppliers){
+			if (obj instanceof Customers_Suppliers) {
+
 				Map<String, Object> mappaPiena = new HashMap<>();
 				mappaPiena.put(CF, ((Customers_Suppliers) obj).getCf());
 				mappaPiena.put(Citta, ((Customers_Suppliers) obj).getCitta());
@@ -97,42 +188,48 @@ public class CustomersSuppliersModel extends AbstractModel {
 				mappaPiena.put(Nome, ((Customers_Suppliers) obj).getNome());
 				mappaPiena.put(Indirizzo, ((Customers_Suppliers) obj).getIndirizzo());
 				mappaPiena.put(CAP, ((Customers_Suppliers) obj).getCap());
-				mappaPiena.put(Credito, ((Customers_Suppliers) obj).getCredito());
-				mappaPiena.put(Debito, ((Customers_Suppliers) obj).getDebito());
 				mappaPiena.put(Telefono, ((Customers_Suppliers) obj).getTelefono());
-				mappaPiena.put(Ruolostring, ((Customers_Suppliers) obj).getRuolo());
-				mappaPiena.put(Sessostring, ((Customers_Suppliers) obj).getSesso());
 
-				
 				return mappaPiena;
-			}else {
+			} else {
 				throw new IllegalArgumentException("Valori non validi, riprovare.");
 			}
 		}
-			
+
 	}
+
+	/**
+	 * Metodo per la restituzione di una LinkedList di Customers_Suppliers.
+	 * 
+	 * 
+	 */
+
 	@Override
 	public LinkedList<Customers_Suppliers> load() {
 
-		return new LinkedList<Customers_Suppliers>();
+		return new LinkedList<Customers_Suppliers>(listaRapportiC);
 	}
 
-	public List<? extends IDataTableModel> load(String Cf) throws Exception { 																			// natura
-		LinkedList<Customers_Suppliers> filtroCF = new LinkedList<Customers_Suppliers>();
-		if (Cf.equals(null)) {
-			throw new Exception("Cf non valido.");
-		} else
-			for (Customers_Suppliers filtra : listaRapportiC) {
-				if (filtra.getCf().equals(Cf)) {
-					filtroCF.add(filtra);
+	@Override
+	public LinkedList<Customers_Suppliers> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {
+
+		LinkedList<Customers_Suppliers> listaFiltrata = new LinkedList<>();
+
+		if (mappaFiltro.get(CF) != null) {
+			for (Customers_Suppliers controllofiltro : listaRapportiC) {
+				if (controllofiltro.getCf().equals(mappaFiltro.get(CF))) {
+					listaFiltrata.add(controllofiltro);
 				}
 			}
-		return filtroCF;
+		}
+		if (listaFiltrata.isEmpty()) {
+			throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri.");
+		}
+		return listaFiltrata;
 	}
-	
-	
+
 	@Override
-	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException {																												// dati
+	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException { // dati
 		if (elemDaEliminare.getClass().equals(Customers_Suppliers.class)) {
 			Customers_Suppliers rimuovi = (Customers_Suppliers) elemDaEliminare;
 			for (Customers_Suppliers elem : listaRapportiC) {
@@ -142,7 +239,8 @@ public class CustomersSuppliersModel extends AbstractModel {
 						listaRapportiC.remove(elem);
 						db.setCustomersSuppliers(listaRapportiC);
 					} else {
-						throw new IllegalArgumentException("Esiste ancora un credito o un debito verso questa persona, dunque rimozione non effettuabile.");
+						throw new IllegalArgumentException(
+								"Esiste ancora un credito o un debito verso questa persona, dunque rimozione non effettuabile.");
 					}
 				}
 			}
@@ -154,10 +252,17 @@ public class CustomersSuppliersModel extends AbstractModel {
 		}
 	}
 
+	/**
+	 * Metodo per spostare i dati dalla lista interna al database e restituire
+	 * quest'ultimo.
+	 * 
+	 * 
+	 */
+
 	@Override
 	public DBDataModel saveDBAndClose() {
-		db.setCustomersSuppliers(listaRapportiC); // Sposto i dati dalla lista
-													// interna al DB
-		return db;// e restituisco
+		db.setCustomersSuppliers(listaRapportiC);
+
+		return db;
 	}
 }

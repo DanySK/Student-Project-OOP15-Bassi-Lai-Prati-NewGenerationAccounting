@@ -21,24 +21,22 @@ public abstract class AbstractFrame extends JFrame {
 
 	private static final long serialVersionUID = 638596561545905264L;
 
-	protected JFrame MyFrame;
+	private final JFrame myFrame;
 
 	/**
 	 * frame generico del progetto NGA
 	 * 
 	 * @param title
 	 *            titolo della finestra
-	 * @param lm
-	 *            LayoutManager
 	 * @param dimension
 	 *            dimensione finestra
 	 */
 	public AbstractFrame(final String title, final Dimension dimension) {
-		MyFrame = new JFrame("NGA - " + title);
-		MyFrame.setSize(dimension);
-		MyFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		MyFrame.getContentPane().add(new JPanel(new BorderLayout()));
-		MyFrame.addWindowListener(new WindowAdapter() {
+		myFrame = new JFrame("NGA - " + title);
+		myFrame.setSize(dimension);
+		myFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		myFrame.getContentPane().add(new JPanel(new BorderLayout()));
+		myFrame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				chiusura();
@@ -46,25 +44,41 @@ public abstract class AbstractFrame extends JFrame {
 		});
 		int x = (int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - dimension.getWidth()) / 2);
 		int y = (int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - dimension.getHeight()) / 2);
-		MyFrame.setLocation(x, y);
+		myFrame.setLocation(x, y);
 	}
 
 	protected abstract void chiusura();
 
 	public void close() {
-		this.MyFrame.setVisible(false);
+		myFrame.setVisible(false);
+		myFrame.dispose();
 	}
 
 	public boolean confirmDialog(final String question, final String title) {
-		return JOptionPane.showConfirmDialog(MyFrame, question, title,
+		return JOptionPane.showConfirmDialog(myFrame, question, title,
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
 	}
 
+	public void disableView() {
+		this.myFrame.setEnabled(false);
+	}
+
+	public void enableView() {
+		this.myFrame.setEnabled(true);
+	}
+
 	public void errorDialog(final String title, final String message) {
-		JOptionPane.showMessageDialog(MyFrame, message, title, JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(myFrame, message, title, JOptionPane.ERROR_MESSAGE);
+	}
+
+	/**
+	 * @return the myFrame
+	 */
+	protected final JFrame getMyFrame() {
+		return myFrame;
 	}
 
 	public void start() {
-		this.MyFrame.setVisible(true);
+		this.myFrame.setVisible(true);
 	}
 }

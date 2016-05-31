@@ -8,7 +8,7 @@ package dataEnum;
  *
  */
 public enum KindPerson implements IDataEnum {
-	CLIENTE, FORNITORE;
+	CLIENTE, FORNITORE, NESSUNO;
 
 	@Override
 	public Enum<?>[] getEnumValues() {

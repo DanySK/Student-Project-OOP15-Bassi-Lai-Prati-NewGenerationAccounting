@@ -1,53 +1,65 @@
 package controller.anaAziende;
 
-import java.awt.Dimension;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.Map;
+import java.util.UUID;
 
-import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
 import controller.IAnagraficaViewObserver;
 import controller.dbController.DBLoader;
 import controller.dbController.DBSaver;
 import controller.main.MainControllerImpl;
+import controller.popup.PopupControllerImpl;
+import dataEnum.PopupMode;
 import dataModel.Company;
-import dataModel.IDataTableModel;
 import model.CompanyModel;
-import view.AddEditPopupView;
 import view.anaAziende.AnaAziendeView;
 
-public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
+/**
+ * implementazione del controller della anagrafica aziende
+ * 
+ * @author Pentolo
+ *
+ */
+public class AnaAziendeControllerImpl implements IAnagraficaViewObserver, IAnaAziendeController {
 	private final AnaAziendeView view;
 	private final CompanyModel model;
 
-	public AnaAziendeControllerImpl(LinkedList<Company> linkedList) {
+	/**
+	 * @param linkedList
+	 *            lista delle aziende
+	 */
+	public AnaAziendeControllerImpl(final LinkedList<Company> linkedList) {
 		this.model = new CompanyModel(linkedList);
 		this.view = new AnaAziendeView(model.load());
 		this.view.setObserver(this);
 		view.start();
 	}
 
-	public void accedi(final char[] password) {
-		Company item = null;
-		try {
-			item = (Company) view.getSelectedItem();
-		} catch (InstanceNotFoundException e) {
-			view.errorDialog("Errore", e.getMessage());
-		}
-		if (item != null && model.isPasswordCorrect(password, item)) {
-			saveCompanysList();
-			view.close();
-			new MainControllerImpl(DBLoader.loadDB(item.getCodice_azienda().toString(), view));
-		} else {
-			view.errorDialog("Password errata", "Password Errata, riprovare.");
+	@Override
+	public void accedi() {
+		final Company company = getSelectedCompany();
+		if (company != null) {
+			if (checkPwd(company)) {
+				saveCompanysList();
+				view.close();
+				new MainControllerImpl(DBLoader.loadDB(company.getCodice_azienda().toString(), view));
+			} else {
+				wrongPwd();
+			}
 		}
 	}
 
-	@Override
-	public void add(Map<String, Object> mappa) throws InstanceAlreadyExistsException, IllegalArgumentException {
-		model.add(mappa);
+	/**
+	 * metodo del controller che controlla che la password inserita sia corretta
+	 * 
+	 * @param company
+	 *            l'azienda selezionata
+	 * @return booleano true se la password è corretta. altrimenti false
+	 */
+	private boolean checkPwd(final Company company) {
+		return model.isPasswordCorrect(view.getInputPassword(), company);
 	}
 
 	@Override
@@ -58,20 +70,20 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 		}
 	}
 
-	@Override
-	public void edit(Map<String, Object> mappa) throws InstanceNotFoundException {
+	/**
+	 * ritorna l'azienda selezionata nella JTable. se nessuna è selezionata apre
+	 * una finestra di dialogo con l'errore
+	 * 
+	 * @return azienda selezionata
+	 */
+	private Company getSelectedCompany() {
+		Company company = null;
 		try {
-			model.edit(view.getSelectedItem(), mappa);
-		} catch (InstanceAlreadyExistsException e) {
-			view.errorDialog("Errore", e.getMessage());
-		} catch (IllegalArgumentException e) {
+			company = (Company) view.getSelectedItem();
+		} catch (InstanceNotFoundException e) {
 			view.errorDialog("Errore", e.getMessage());
 		}
-	}
-
-	@Override
-	public Map<String, Object> getMap(IDataTableModel obj) {
-		return model.getMap(obj);
+		return company;
 	}
 
 	@Override
@@ -79,6 +91,9 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 		view.setList(model.load());
 	}
 
+	/**
+	 * salva su disco la lista aziende
+	 */
 	private void saveCompanysList() {
 		try {
 			DBSaver.saveCompanys(model.saveCompanysAndClose());
@@ -89,36 +104,66 @@ public class AnaAziendeControllerImpl implements IAnagraficaViewObserver {
 
 	@Override
 	public void tasto0() {
-
+		try {
+			new PopupControllerImpl(PopupMode.FIND, model, this, view);
+		} catch (InstanceNotFoundException | IllegalArgumentException e) {
+			view.errorDialog("Errore", e.getMessage());
+		}
 	}
 
 	@Override
 	public void tasto1() {
 		try {
-			model.add(null);
-		} catch (InstanceAlreadyExistsException | IllegalArgumentException e) {
+			new PopupControllerImpl(PopupMode.ADD, model, this, view) {
+				@Override
+				protected void beforeCloseActions() {
+					final UUID codice = model.getLastAddedItemCode();
+					if (codice != null) {
+						DBSaver.addCompany(codice);
+					}
+				}
+			};
+		} catch (InstanceNotFoundException | IllegalArgumentException e) {
 			view.errorDialog("Errore", e.getMessage());
 		}
-
 	}
 
 	@Override
 	public void tasto2() {
-		try {
-			new AddEditPopupView(view.getSelectedItem(), view.getTitle(), new Dimension(300, 400), this, view).start();
-		} catch (InstanceNotFoundException e) {
-			view.errorDialog("Errore", e.getMessage());
+		final Company company = getSelectedCompany();
+		if (company != null) {
+			if (checkPwd(company)) {
+				try {
+					new PopupControllerImpl(PopupMode.EDIT, model, this, view);
+				} catch (InstanceNotFoundException | IllegalArgumentException e) {
+					view.errorDialog("Errore", e.getMessage());
+				}
+			} else {
+				wrongPwd();
+			}
 		}
 	}
 
 	@Override
 	public void tasto3() {
-		try {
-			model.remove(view.getSelectedItem());
-		} catch (InstanceNotFoundException e) {
-			view.errorDialog("Errore", e.getMessage());
+		final Company company = getSelectedCompany();
+		if (company != null) {
+			if (checkPwd(company)) {
+				DBSaver.removeCompany(company.getCodice_azienda().toString());
+				model.remove(company);
+				refresh();
+			} else {
+				wrongPwd();
+			}
 		}
-		refresh();
+	}
+
+	/**
+	 * metodo che apre una finestra di dialogo in cui visualizza un messaggio di
+	 * errore nel caso di password errata
+	 */
+	private void wrongPwd() {
+		view.errorDialog("Password Errata", "Attenzione! La password inserita è errata. riprovare.");
 	}
 
 }

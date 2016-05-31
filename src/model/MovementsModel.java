@@ -3,12 +3,13 @@ package model;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
-import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 
+import dataEnum.Natures;
+import dataEnum.Sections;
+import dataModel.Account;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 import dataModel.Movement;
@@ -20,52 +21,121 @@ import dataModel.Operation;
  * @author niky
  *
  */
-public class MovementsModel extends AbstractModel {
+public class MovementsModel implements ModelInterface {
 
 	private final static String DATA = "Data Movimento";
 	private final static String LISTA = "Lista Conti Mossi";
+	private final static String DA = "Data da cui iniziare a cercare";
+	private final static String A = "Data fino a cui cercare";
 	private DBDataModel db;
-	LinkedList<Movement> listaMovimenti;
+	private LinkedList<Movement> listaMovimenti;
 
 	public MovementsModel(DBDataModel db) {
 		this.db = db;
+		listaMovimenti = db.getMoviments();
 	}
 
 	@Override
-	protected void addElem(Map<String, Object> elem) throws InstanceAlreadyExistsException {
+	public void add(Map<String, Object> elem) throws InstanceNotFoundException {
+		float totAvere = 0;
+		float totDare = 0;
+		// controllare qui e nella edit che il movimento abbia il saldo dare e
+		// avere uguali
+		// una riga del movimento non può avere dare e avere insieme
+		if (!(elem.get(DATA) instanceof Date)) {
+			throw new IllegalArgumentException("data inserita non valida");
+		}
+		if (!(elem.get(LISTA) instanceof LinkedList)) {
+			throw new IllegalArgumentException("lista inserita non valida");
+		}
+		@SuppressWarnings("unchecked")
 		Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
-		// chiedere a fede se va bene il cast
-		if (listaMovimenti.contains(m)) {
-			throw new InstanceAlreadyExistsException("elemento già esistente");
-		}
-		if (m.getData().equals(null) || m.getListaConti().isEmpty()) {
-			throw new IllegalArgumentException("elemento da inserire non valido");
-		}
-		listaMovimenti.add(m);
+		// per ogni operazione in m.getList:
+		// 1) dare e avere != 0 -> NO
+		// 2) dare e avere ==0 -> NO
+		// in m tot dare e tot avere devono essere uguali
 		for (Operation op : m.getListaConti()) {
-			// a.updateAccounts(op);
-		}
-	}
-
-	@Override
-	public void editElem(IDataTableModel obj, Map<String, Object> elemDaModificare)
-			throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException {
-		if (obj.getClass().equals(Movement.class)) {
-			Movement m = new Movement(null, null);
-			m.setData((Date) elemDaModificare.get(DATA));
-			m.setListaConti((List<Operation>) elemDaModificare.get(LISTA));
-			for (Movement mov : listaMovimenti) {
-				if (mov.equals(obj)) {
-					remove(mov);
-					add(elemDaModificare);
-				}
+			if (op.getAvere() != 0) {
+				if (op.getDare() == 0)
+					totAvere = totAvere + op.getAvere();
+				else
+					throw new IllegalArgumentException("in un'operazione non possono esserci 2 valori > 0");
+			} else if (op.getAvere() == 0) {
+				if (op.getDare() != 0)
+					totDare = totDare + op.getDare();
+				else
+					throw new IllegalArgumentException("in un'operazione non possono esserci 2 valori = 0");
 			}
 		}
+		System.out.println(Float.toString(totDare));
+		System.out.println(Float.toString(totAvere));
+		if (totAvere != totDare) {
+			throw new IllegalArgumentException("totale dare diverso da totale avere");
+		}
+		listaMovimenti.add(m);
+		LinkedList<Account> accountList = db.getAccounts();
+		for (Operation op : m.getListaConti()) {
+			if (accountList.contains(op.getConto())) {
+				for (Account a : accountList) {
+					if (a == op.getConto()) {
+						if (a.getNatura() == Natures.ATTIVITA || a.getNatura() == Natures.COSTO) {
+							a.incrSaldo(op.getDare());
+							a.decrSaldo(op.getAvere());
+						} else if (a.getNatura() == Natures.PASSIVITA || a.getNatura() == Natures.RICAVO) {
+							a.incrSaldo(op.getAvere());
+							a.decrSaldo(op.getDare());
+						}
+					}
+				}
+			} else {
+				throw new InstanceNotFoundException("il conto cercato non è presente in lista");
+			}
+		}
+		db.setAccounts(accountList);
 	}
 
 	@Override
-	public Map<String, Object> getMap(IDataTableModel obj) {
-		if (obj==null) {
+	public void edit(IDataTableModel obj, Map<String, Object> elemDaModificare)
+			throws IllegalArgumentException, InstanceNotFoundException {
+		// modifica un movimento e aggiorna i conti inerenti ad esso
+		if (!(elemDaModificare.get(DATA) instanceof Date)) {
+			throw new IllegalArgumentException("data non valida");
+		} else if (!(elemDaModificare.get(LISTA) instanceof LinkedList)) {
+			throw new IllegalArgumentException("lista non valida");
+		}
+		if (obj instanceof Movement) {
+			if (listaMovimenti.contains(obj)) {
+				for (Movement mov : listaMovimenti) {
+					if (mov == obj) {
+						remove(mov);
+						add(elemDaModificare);
+					}
+				}
+			} else {
+				throw new InstanceNotFoundException("l'oggetto da modificare non è in lista");
+			}
+		} else {
+			throw new IllegalArgumentException("l'oggetto passato come paramentro non è un movimento");
+		}
+	}
+
+	public LinkedList<Account> getAllAccounts() {
+		LinkedList<Account> accounts = db.getAccounts();
+		accounts.add(0, new Account("", Natures.NESSUNO, Sections.NESSUNO, 0));
+		return accounts;
+	}
+
+	@Override
+	public Map<String, Object> getFilterMap() {
+		Map<String, Object> mappaFiltro = new HashMap<>();
+		mappaFiltro.put(DA, new Date());
+		mappaFiltro.put(A, new Date());
+		return mappaFiltro;
+	}
+
+	@Override
+	public Map<String, Object> getMap(IDataTableModel obj) throws IllegalArgumentException {
+		if (obj == null) {
 			Map<String, Object> mappaVuota = new HashMap<>();
 			mappaVuota.put(DATA, new Date());
 			mappaVuota.put(LISTA, new LinkedList<Operation>());
@@ -74,55 +144,94 @@ public class MovementsModel extends AbstractModel {
 			if (obj instanceof Movement) {
 				Map<String, Object> mappaPiena = new HashMap<>();
 				mappaPiena.put(DATA, ((Movement) obj).getData());
-				mappaPiena.put(LISTA, ((Movement) obj).getListaConti());
+				LinkedList<Operation> lista = new LinkedList<Operation>();
+				for (Operation op : ((Movement) obj).getListaConti()) {
+					lista.add(new Operation(op.getConto(), op.getDare(), op.getAvere()));
+				}
+				mappaPiena.put(LISTA, lista);
+				System.out.println("sono la getMap" + mappaPiena);
 				return mappaPiena;
 			} else
-				throw new IllegalArgumentException("valori non validi");
+				throw new IllegalArgumentException("l'oggetto inserito non è un movimento");
 		}
 	}
 
 	@Override
 	public LinkedList<Movement> load() {
-		return new LinkedList<Movement>(db.getMoviments());
-	}
-
-	LinkedList<Movement> load(Date da, Date a) throws IllegalArgumentException {
-		LinkedList<Movement> filtroData = new LinkedList<>();
-		if (da == null && a == null) {
-			throw new IllegalArgumentException("date non valide");
-		} else
-			for (Movement m : db.getMoviments()) {
-				if (m.getData().equals(da) || m.getData().equals(a) || m.getData().after(da) && m.getData().before(a)) {
-					filtroData.add(m);
-				}
-			}
-		return filtroData;
+		return listaMovimenti;
 	}
 
 	@Override
-	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException {
-		if (elemDaEliminare.getClass().equals(Movement.class)) {
+	public LinkedList<Movement> load(Map<String, Object> mappaFiltro) throws IllegalArgumentException {
+		// carica dati utilizzando filtri
+		LinkedList<Movement> listaFiltrata = new LinkedList<>();
+		Date da = (Date) mappaFiltro.get(DA);
+		Date a = (Date) mappaFiltro.get(A);
+		if (da != null && a != null) {
+			for (Movement m : listaMovimenti) {
+				if (m.getData().after(da) && m.getData().before(a)) {
+					listaFiltrata.add(m);
+				}
+			}
+		} else if (da != null && a == null) {
+			for (Movement m : listaMovimenti) {
+				if (m.getData().after(da)) {
+					listaFiltrata.add(m);
+				}
+			}
+		} else if (da == null && a != null) {
+			for (Movement m : listaMovimenti) {
+				if (m.getData().before(a)) {
+					listaFiltrata.add(m);
+				}
+			}
+		} else if (da == null && a == null) {
+			throw new IllegalArgumentException("le date inserite non sono valide");
+		}
+
+		return listaFiltrata;
+	}
+
+	@Override
+	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException, IllegalArgumentException {
+		// rimuove movimento
+		if (elemDaEliminare instanceof Movement) {
 			Movement m = (Movement) elemDaEliminare;
-			if (m.getData() == null || m.getListaConti().isEmpty()) {
-				throw new IllegalArgumentException("elemento non valido");
+			if (!(m.getData() instanceof Date) || m.getListaConti().isEmpty()) {
+				throw new IllegalArgumentException("data non valida o lista vuota");
 			} else {
 				if (listaMovimenti.contains(m)) {
 					listaMovimenti.remove(m);
 					for (Operation op : m.getListaConti()) {
-						/*
-						 * temp = op.getAvere(); op.setAvere(op.getDare());
-						 * op.setDare(temp); a.updateAccounts(op);
-						 */
+						for (Account acc : db.getAccounts()) {
+							if (acc == op.getConto()) {
+								if (acc.getNatura() == Natures.ATTIVITA || acc.getNatura() == Natures.COSTO) {
+									if (op.getDare() > 0) {
+										acc.decrSaldo(op.getDare());
+									} else
+										acc.incrSaldo(op.getAvere());
+								} else if (acc.getNatura() == Natures.PASSIVITA || acc.getNatura() == Natures.RICAVO) {
+
+									if (op.getDare() > 0) {
+										acc.incrSaldo(op.getDare());
+									} else
+										acc.decrSaldo(op.getAvere());
+								}
+							}
+						}
 					}
 				} else {
-					throw new InstanceNotFoundException("elemento da eliminare non trovato");
+					throw new InstanceNotFoundException("elemento da eliminarenon è presente in lista");
 				}
 			}
+		} else {
+			throw new IllegalArgumentException("l'oggetto da rimuovere non è un movimento");
 		}
 	}
 
 	@Override
 	public DBDataModel saveDBAndClose() {
+		// salva l'anagrafica movimenti sul DB
 		db.setMoviments(listaMovimenti);
 		return db;
 	}

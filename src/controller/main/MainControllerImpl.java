@@ -15,7 +15,6 @@ import controller.dbController.DBLoader;
 import controller.dbController.DBSaver;
 import controller.movimenti.MovimentiControllerImpl;
 import controller.situazAziendale.SitAzControllerImpl;
-import controller.situazCreditiDebiti.SitCredDebControllerImpl;
 import dataModel.DBDataModel;
 import view.main.MainView;
 
@@ -25,24 +24,31 @@ import view.main.MainView;
  * @author Pentolo
  *
  */
-public class MainControllerImpl implements IViewObserver {
+public class MainControllerImpl implements IViewObserver, IMainMenuController {
 
 	private final DBDataModel db;
 	private final MainView view;
 
-	public MainControllerImpl(DBDataModel db) {
+	/**
+	 * @param db
+	 *            il database
+	 */
+	public MainControllerImpl(final DBDataModel db) {
 		this.view = new MainView();
 		this.db = db;
 		this.view.setObserver(this);
 		view.start();
 	}
 
+	@Override
 	public void btn0(final String title) {
 		view.close();
 		new CreaFatturaControllerImpl(db, title);
 	}
 
+	@Override
 	public void btn1(final String title) {
+		new DBSaver(db.getPath(), view, db).start();
 		view.close();
 		try {
 			new AnaAziendeControllerImpl(DBLoader.loadCompanys());
@@ -51,31 +57,38 @@ public class MainControllerImpl implements IViewObserver {
 		}
 	}
 
+	@Override
 	public void btn2(final String title) {
 		view.close();
 		new AnaCliForControllerImpl(db, title);
 	}
 
+	@Override
 	public void btn3(final String title) {
 		view.close();
 		new AnaContiControllerImpl(db, title);
 	}
 
+	@Override
 	public void btn4(final String title) {
 		view.close();
 		new MovimentiControllerImpl(db, title);
 	}
 
+	@Override
 	public void btn5(final String title) {
 		view.close();
 		new AnaProdControllerImpl(db, title);
 	}
 
+	@Override
 	public void btn6(final String title) {
-		view.close();
-		new SitCredDebControllerImpl(db, title);
+		view.errorDialog("Funzione presto disponibile", "Questa funzione non è ancora disponibile.");
+		// view.close();
+		// new SitCredDebControllerImpl(db, title);
 	}
 
+	@Override
 	public void btn7(final String title) {
 		view.close();
 		new SitAzControllerImpl(db, title);

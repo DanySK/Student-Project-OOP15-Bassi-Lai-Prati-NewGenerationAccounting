@@ -23,9 +23,8 @@ public class DBDataModel {
 	private boolean productsModified = false;
 	private String path;
 
-	public DBDataModel(final LinkedList<Account> accounts, final LinkedList<Company> companys,
-			final LinkedList<Customers_Suppliers> customersSuppliers, final LinkedList<Movement> moviments,
-			final LinkedList<Product> products, final String path) {
+	public DBDataModel(final LinkedList<Account> accounts, final LinkedList<Customers_Suppliers> customersSuppliers,
+			final LinkedList<Movement> moviments, final LinkedList<Product> products, final String path) {
 		super();
 		this.path = path;
 		this.accounts = accounts;

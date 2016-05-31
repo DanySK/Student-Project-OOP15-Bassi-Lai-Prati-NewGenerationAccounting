@@ -26,20 +26,22 @@ public abstract class AbstractWideView extends AbstractFrame {
 	 */
 	private static final long serialVersionUID = -8661356282182241245L;
 
-	protected IViewObserver observer;
+	private IViewObserver observer;
 
 	/**
 	 * @param title
+	 *            of the view
 	 * @param dimension
+	 *            of the view
 	 */
 	public AbstractWideView(final String title, final Dimension dimension) {
 		super(title, dimension);
-		JButton chiudi = new JButton("Chiudi");
-		JPanel footer = new JPanel(new FlowLayout());
+		final JButton chiudi = new JButton("Chiudi");
+		final JPanel footer = new JPanel(new FlowLayout());
 		footer.add(chiudi);
-		MyFrame.getContentPane().add(footer, BorderLayout.SOUTH);
+		getMyFrame().getContentPane().add(footer, BorderLayout.SOUTH);
 		chiudi.addActionListener(e -> {
-			chiusura();
+			observer.chiusura();
 		});
 	}
 
@@ -49,10 +51,19 @@ public abstract class AbstractWideView extends AbstractFrame {
 	}
 
 	/**
+	 * restituisce il controller
+	 * 
+	 * @return the observer
+	 */
+	protected IViewObserver getObserver() {
+		return observer;
+	}
+
+	/**
 	 * @param observer
 	 *            the observer to set
 	 */
-	public void setObserver(IViewObserver observer) {
+	public void setObserver(final IViewObserver observer) {
 		this.observer = observer;
 	}
 }

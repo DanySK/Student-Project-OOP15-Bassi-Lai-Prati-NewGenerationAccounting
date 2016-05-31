@@ -19,7 +19,9 @@ public class SitCredDebView extends AbstractWideView {
 
 	/**
 	 * @param title
-	 * @param dimension
+	 *            titolo della finestra
+	 * @param Dimension
+	 *            dimensione della finestra
 	 */
 	public SitCredDebView(final String title, final Dimension dimension) {
 		super(title, dimension);

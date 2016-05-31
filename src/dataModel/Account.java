@@ -1,6 +1,7 @@
 package dataModel;
 
 import dataEnum.Natures;
+import dataEnum.Sections;
 
 /**
  * classe per la gestione del singolo conto
@@ -10,7 +11,7 @@ import dataEnum.Natures;
  */
 public class Account implements IDataTableModel {
 
-	private static final String[] INTESTAZIONE = { "Natura", "Nome" };
+	private static final String[] INTESTAZIONE = { "Natura", "Sezione", "Nome", "Saldo" };
 
 	/**
 	 * 
@@ -24,14 +25,16 @@ public class Account implements IDataTableModel {
 	private Natures natura;
 	private String nome;
 	private float saldo;
+	private Sections sezione;
 
-	public Account(String nome, Natures natura, float saldo) {
+	public Account(String nome, Natures natura, Sections sezione, float saldo) {
 		this.nome = nome;
 		this.natura = natura;
 		this.saldo = saldo;
+		this.sezione = sezione;
 	}
 
-	public float decrSaldo(float variazione) {
+	public float decrSaldo(Float variazione) {
 		return this.saldo -= variazione;
 	}
 
@@ -66,13 +69,21 @@ public class Account implements IDataTableModel {
 		return saldo;
 	}
 
+	public Sections getSezione() {
+		return sezione;
+	}
+
 	@Override
 	public String getValueAt(int column) {
 		switch (column) {
 		case 0:
 			return getNatura().toString();
 		case 1:
+			return getSezione().toString();
+		case 2:
 			return getName();
+		case 3:
+			return Float.toString(getSaldo());
 		default:
 			return "";
 		}
@@ -90,13 +101,17 @@ public class Account implements IDataTableModel {
 		this.natura = natura;
 	}
 
-	public void setSaldo(long saldo) {
+	public void setSaldo(float saldo) {
 		this.saldo = saldo;
+	}
+
+	public void setSezione(Sections sezione) {
+		this.sezione = sezione;
 	}
 
 	@Override
 	public String toString() {
-		return "Account [natura=" + natura + ", nome=" + nome + ", saldo=" + saldo + "]";
+		return nome;
 	}
 
 }
