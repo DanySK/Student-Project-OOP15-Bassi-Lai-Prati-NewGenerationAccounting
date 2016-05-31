@@ -41,62 +41,65 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 	@Override
 	public String AnalisiFinanziaria() {
 		calcolaIndici_Margini();
-		String commento = new String();
+		String commento = "";
 		// controllo ROI
 		if (indiciMargini.get(ROI) >= 4) {
-			commento += "Buona redditività del capitale invesitito \n";
+			commento += "<b>Tasso di redditività del capitale investito</B> = " + indiciMargini.get(ROI)+ "%."
+			                +" Indica buona redditività del capitale invesitito <br/>";
 		} else {
-			commento += "Pessima redditività del capitale investito \n";
+			commento += "<b>Tasso di redditività del capitale investito</B> = " + indiciMargini.get(ROI)+ "%."
+			                +" Indica pessima redditività del capitale investito <br/>";
 		}
 		// controllo ROS
 		if (indiciMargini.get(ROS) > 0) {
-			commento += "i ricavi sono in grado di coprire tutte le spese ordinarie e anche quelle extra\n";
+			commento += "<b>Tasso di redditività delle vendite</B> = " + indiciMargini.get(ROS)+ "%."
+                                        +" Indica che i ricavi sono in grado di coprire tutte le spese ordinarie e anche quelle extra<br/>";
 		} else if (indiciMargini.get(ROS) == 0) {
-			commento += "i ricavi coprono solo le spese ordinarie\n";
+			commento += "<b>Tasso di redditività delle vendite</B> = " + indiciMargini.get(ROS)+ "%."+" Indica che i ricavi coprono solo le spese ordinarie<br/>";
 		} else {
-			commento += " i ricavi non riescono a coprire nemmeno le spese ordinarie\n";
+			commento += "<b>Tasso di redditività delle vendite</B> = " + indiciMargini.get(ROS)+ "%."+" Indica che i ricavi non riescono a coprire nemmeno le spese ordinarie<br/>";
 		}
 		// controllo ROT
 		if (indiciMargini.get(ROT) > 12) {
-			commento += "Alta capacità di ritorno del capitale investito tramite le vendite\n";
+			commento += "<b>Indice di rotazione degli impieghi</B> = "+indiciMargini.get(ROT)+ "%."+" Indica alta capacità di ritorno del capitale investito tramite le vendite<br/>";
 		} else {
-			commento += "Bassa capacità di ritorno del capitale investito tramite le vendite\n";
+			commento += "<b>Indice di rotazione degli impieghi</B> = "+indiciMargini.get(ROT)+ "%."+" Indica bassa capacità di ritorno del capitale investito tramite le vendite<br/>";
 		}
 		// controllo ROE
 		if (indiciMargini.get(ROE) > 6) {
-			commento += "Buona redditività del capitale proprio\n";
+			commento += "<b>Tasso di redditività del capitale proprio</B> = "+indiciMargini.get(ROE)+ "%."+" Indica buona redditività del capitale proprio<br/>";
 		} else {
-			commento += "Cattiva redditività del capitale proprio\n";
+			commento += "<b>Tasso di redditività del capitale proprio</B> = "+indiciMargini.get(ROE)+ "%."+" Indica cattiva redditività del capitale proprio<br/>";
 		}
 		// controllo Leverage
 		if (indiciMargini.get(leverage) == 1) {
-			commento += "investimenti finanziati dal Capitale Proprio\n";
+			commento += "<b>Indice di indebitamento </B> = "+indiciMargini.get(leverage)+"%"+" Indica che gli investimenti sono finanziati dal Capitale Proprio<br/>";
 		} else if (indiciMargini.get(leverage) > 1 && indiciMargini.get(leverage) < 2) {
-			commento += "Buon rapporto tra capitale Proprio e capitale di terzi \n";
+			commento += "<b>Indice di indebitamento </B> = "+indiciMargini.get(leverage)+"%"+" Indica che esiste un buon rapporto tra capitale Proprio e capitale di terzi <br/>";
 		} else if (indiciMargini.get(leverage) > 2) {
-			commento += "Indebitamento \n";
+			commento += "<b>Indice di indebitamento </B> = "+indiciMargini.get(leverage)+"%"+" Indica un indebitamento <br/>";
 		}
 		// controllo margine di struttura primario
 		if (indiciMargini.get(margineStrutturaPrimario) > 0) {
-			commento += "il capitale permanente finanzia anche una parte delle attività circolanti. \n";
+			commento += "<b>Margine di struttura primario </B> = "+indiciMargini.get(margineStrutturaPrimario)+"%"+" Indica che il capitale permanente finanzia anche una parte delle attività circolanti. <br/>";
 		} else if (indiciMargini.get(margineStrutturaPrimario) == 0) {
-			commento += "Le attività immobilizzate sono coperte dal capitale proprio, ma senza extra. \n";
+			commento += "<b>Margine di struttura primario </B> = "+indiciMargini.get(margineStrutturaPrimario)+"%"+" Indica che le attività immobilizzate sono coperte dal capitale proprio, ma senza extra. <br/>";
 		} else {
-			commento += "L'impresa si trova in una situazione di dipendenza finanziaria,"
-					+ "la parte mancante dovrà essere coperta anche con risorse di terzi\n";
+			commento += "<b>Margine di struttura primario </B> = "+indiciMargini.get(margineStrutturaPrimario)+"%"+" Indica che l'impresa si trova in una situazione di dipendenza finanziaria,"
+					+ "la parte mancante dovrà essere coperta anche con risorse di terzi<br/>";
 		}
 		// controllo margine di struttura secondario
 		if (indiciMargini.get(margineStrutturaSecondario) > 0) {
-			commento += "La struttura fonti-impieghi risulta equilibrata,"
-					+ "i capitali permanenti risultano superiori alle attività fisse \n";
+			commento += "<b>Margine di struttura secondario </B> = "+indiciMargini.get(margineStrutturaSecondario)+"%"+" Indica che la struttura fonti-impieghi risulta equilibrata,"
+					+ "i capitali permanenti risultano superiori alle attività fisse <br/>";
 		} else {
-			commento += "Il Capitale permanente non finanzia interamente le attività immobilizzate \n";
+			commento += "<b>Margine di struttura secondario </B> = "+indiciMargini.get(margineStrutturaSecondario)+"%"+ " Indica che il Capitale permanente non finanzia interamente le attività immobilizzate <br/>";
 		}
 		// controllo margine di tesoreria
 		if (indiciMargini.get(margineTesoreria) > 0) {
-			commento += "Equilibrio finanziario per quello che riguarda le liquidità a breve termine \n";
+			commento += "<b>Margine di tesoreria </B> = "+indiciMargini.get(margineTesoreria)+"%"+" Indica equilibrio finanziario per quello che riguarda le liquidità a breve termine <br/>";
 		} else {
-			commento += "Squilibrio finanziario per quello che riguarda le liquidità a breve termine \n";
+			commento += "<b>Margine di tesoreria </B> = "+indiciMargini.get(margineTesoreria)+"%"+" Indica squilibrio finanziario per quello che riguarda le liquidità a breve termine <br/>";
 		}
 		return commento;
 	}
@@ -105,17 +108,18 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 	public String Attivita() {
 		String Attivita = "";
 		for (Sections s : Sections.getAttivita()) {
-			Attivita += "<b>" + s + "</B>\n";
-			for (int j = 0; j < contiRegistrati.size(); j++) {
-				// scorro gli elementi della lista originale
-				if (contiRegistrati.get(j).getNatura() == Natures.ATTIVITA
-						&& contiRegistrati.get(j).getSezione() == s) {
-					Attivita += "\n" + contiRegistrati.get(j).getName();
-				}
+		    Attivita += "</br><b>" + s + "</B><br/>"; 
+		    for (int j = 0; j < contiRegistrati.size(); j++) {
+			// scorro gli elementi della lista originale
+			if (contiRegistrati.get(j).getNatura() == Natures.ATTIVITA
+					&& contiRegistrati.get(j).getSezione() == s) {
+				Attivita += contiRegistrati.get(j).getName()+"<br/>";
 			}
 		}
-		return Attivita;
+		    Attivita += "<b>totale</B><br/>";
 	}
+		return Attivita;
+}
 
 	private Map<String, Float> calcolaIndici_Margini() {
 		indiciMargini.put(ROS, getROS());
@@ -136,8 +140,9 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		for (Sections s : Sections.getCosti()) {
 			Costi += "<b>" + s + "</B>\n";
 			for (int j = 0; j < contiRegistrati.size(); j++) {
-				if (contiRegistrati.get(j).getNatura() == Natures.COSTO && contiRegistrati.get(j).getSezione() == s) {
-					Costi += "\n" + contiRegistrati.get(j).getName();
+				if (contiRegistrati.get(j).getNatura() == Natures.COSTO
+					&& contiRegistrati.get(j).getSezione() == s) {
+				    Costi += contiRegistrati.get(j).getName() + "<br/>";
 				}
 			}
 		}
@@ -305,12 +310,12 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 	public String Passivita() {
 		String Passivita = "";
 		for (Sections s : Sections.getPassivita()) {
-			Passivita += "<b>" + s + "</B>\n";
-			for (int j = 0; j < contiRegistrati.size(); j++) {
-				// scorro gli elementi della lista principale
-				if (contiRegistrati.get(j).getNatura() == Natures.PASSIVITA
-						&& contiRegistrati.get(j).getSezione() == s) {
-					Passivita += "\n" + contiRegistrati.get(j).getName();
+		    Passivita += "<b>"+ s +"</B><br/>";
+			for (int j = 0; j < contiRegistrati.size(); j++) { 
+			 // scorro gli elementi della lista principale
+                           if (contiRegistrati.get(j).getNatura() == Natures.PASSIVITA
+					&& contiRegistrati.get(j).getSezione() == s) {
+					Passivita += contiRegistrati.get(j).getName()+ "<br/>";
 				}
 			}
 		}
@@ -323,8 +328,9 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		for (Sections s : Sections.getRicavi()) {
 			Ricavi += "<b>" + s + "</B>\n";
 			for (int j = 0; j < contiRegistrati.size(); j++) {
-				if (contiRegistrati.get(j).getNatura() == Natures.RICAVO && contiRegistrati.get(j).getSezione() == s) {
-					Ricavi += "\n" + contiRegistrati.get(j).getName();
+				if (contiRegistrati.get(j).getNatura() == Natures.RICAVO
+						&& contiRegistrati.get(j).getSezione() == s) {
+					Ricavi += contiRegistrati.get(j).getName()+ "<br/>";
 				}
 			}
 		}
@@ -336,13 +342,15 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		float totSezione = 0;
 		String saldi_attivita = "";
 		for (Sections elem : Sections.getAttivita()) {
-			saldi_attivita = "<b>" + Float.toString(totSezione) + "</B>\n";
+			saldi_attivita = "<br/>";
+			System.out.println(totSezione);
 			for (Account a : contiRegistrati) {
 				if (a.getNatura() == Natures.ATTIVITA && a.getSezione() == elem) {
 					totSezione += a.getSaldo();
-					saldi_attivita += "\n" + a.getSaldo();
+					saldi_attivita += a.getSaldo()+ "<br/>";
 				}
 			}
+			saldi_attivita += "<b>"+totSezione+"</B>";
 			totSezione = 0;
 		}
 		return saldi_attivita;
@@ -353,11 +361,11 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		float totSezione = 0;
 		String saldi_Costi = "";
 		for (Sections elem : Sections.getCosti()) {
-			saldi_Costi = "<b>" + Float.toString(totSezione) + "</B>\n";
+			saldi_Costi = "<b>" + Float.toString(totSezione) + "</B><br/>";
 			for (Account a : contiRegistrati) {
 				if (a.getNatura() == Natures.COSTO && a.getSezione() == elem) {
 					totSezione += a.getSaldo();
-					saldi_Costi += "\n" + a.getSaldo();
+					saldi_Costi += a.getSaldo() + "<br/>";
 				}
 			}
 			totSezione = 0;
@@ -370,14 +378,15 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		float totSezione = 0;
 		String saldi_passivita = "";
 		for (Sections elem : Sections.getPassivita()) {
-			saldi_passivita = "<b>" + Float.toString(totSezione) + "</B>\n";
+			saldi_passivita = "<b>" + Float.toString(totSezione) + "</B><br/>";
+			totSezione = 0;
 			for (Account a : contiRegistrati) {
 				if (a.getNatura() == Natures.PASSIVITA && a.getSezione() == elem) {
 					totSezione += a.getSaldo();
-					saldi_passivita += "\n" + a.getSaldo();
+					saldi_passivita += a.getSaldo() + "<br/>";
 				}
 			}
-			totSezione = 0;
+			
 		}
 		return saldi_passivita;
 	}
@@ -387,11 +396,11 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		float totSezione = 0;
 		String saldi_Ricavi = "";
 		for (Sections elem : Sections.getRicavi()) {
-			saldi_Ricavi = "<b>" + Float.toString(totSezione) + "</B>\n";
+			saldi_Ricavi = "<b>" + Float.toString(totSezione) + "</B><br/>";
 			for (Account a : contiRegistrati) {
 				if (a.getNatura() == Natures.RICAVO && a.getSezione() == elem) {
 					totSezione += a.getSaldo();
-					saldi_Ricavi += "\n" + a.getSaldo();
+					saldi_Ricavi += a.getSaldo() + "<br/>";
 				}
 			}
 			totSezione = 0;
