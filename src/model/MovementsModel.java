@@ -48,7 +48,8 @@ public class MovementsModel implements ModelInterface {
 		if (!(elem.get(LISTA) instanceof LinkedList)) {
 			throw new IllegalArgumentException("lista inserita non valida");
 		}
-		Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
+		@SuppressWarnings("unchecked")
+                Movement m = new Movement((Date) elem.get(DATA), (LinkedList<Operation>) elem.get(LISTA));
 		// per ogni operazione in m.getList:
 		// 1) dare e avere != 0 -> NO
 		// 2) dare e avere ==0 -> NO
@@ -94,10 +95,8 @@ public class MovementsModel implements ModelInterface {
 	}
 
 	@Override
-	public void edit(IDataTableModel obj, Map<String, Object> elemDaModificare)
-			throws IllegalArgumentException, InstanceNotFoundException {
-		System.out.println("\n" + "sono obj" + obj + "\n");
-		System.out.println("sono elemDamoficare" + elemDaModificare.toString());
+	public void edit(IDataTableModel obj, Map<String, Object> elemDaModificare) throws IllegalArgumentException, InstanceNotFoundException {
+	    //modifica un movimento e aggiorna i conti inerenti ad esso
 		if (!(elemDaModificare.get(DATA) instanceof Date)) {
 			throw new IllegalArgumentException("data non valida");
 		} else if (!(elemDaModificare.get(LISTA) instanceof LinkedList)) {
@@ -163,6 +162,7 @@ public class MovementsModel implements ModelInterface {
 
 	@Override
 	public LinkedList<Movement> load(Map<String, Object> mappaFiltro) throws IllegalArgumentException {
+	    //carica dati utilizzando filtri
 		LinkedList<Movement> listaFiltrata = new LinkedList<>();
 		Date da = (Date) mappaFiltro.get(DA);
 		Date a = (Date) mappaFiltro.get(A);
@@ -193,6 +193,7 @@ public class MovementsModel implements ModelInterface {
 
 	@Override
 	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException, IllegalArgumentException {
+	    //rimuove movimento
 		if (elemDaEliminare instanceof Movement) {
 			Movement m = (Movement) elemDaEliminare;
 			if (!(m.getData() instanceof Date) || m.getListaConti().isEmpty()) {
@@ -229,6 +230,7 @@ public class MovementsModel implements ModelInterface {
 
 	@Override
 	public DBDataModel saveDBAndClose() {
+	    //salva l'anagrafica movimenti sul DB
 		db.setMoviments(listaMovimenti);
 		return db;
 	}

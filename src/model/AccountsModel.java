@@ -52,7 +52,7 @@ public class AccountsModel implements ModelInterface {
 		}
 	}
 
-	private boolean checkSection(Natures nat, Sections sez) { // bool
+	private boolean checkSection(Natures nat, Sections sez) {
 		switch (nat) {
 		case ATTIVITA:
 			return Sections.getAttivita().contains(sez);
@@ -70,8 +70,7 @@ public class AccountsModel implements ModelInterface {
 
 	@Override
 	public void edit(IDataTableModel obj, Map<String, Object> elemDaModificare)
-			throws InstanceNotFoundException, IllegalArgumentException { // modifica
-		// elementi
+			throws InstanceNotFoundException, IllegalArgumentException { // modifica elementi
 		trovato = false;
 		if (obj instanceof Account) {
 			Account a = (Account) obj;
@@ -125,12 +124,10 @@ public class AccountsModel implements ModelInterface {
 	public LinkedList<Account> load() { // carica tutti i dati
 		return new LinkedList<Account>(listaaccount);
 	}
-
+	
 	@Override
-	public LinkedList<Account> load(Map<String, Object> mappaFiltro)
-			throws InstanceNotFoundException, IllegalArgumentException {// carica
-		// //
-		// filtri
+	public LinkedList<Account> load(Map<String, Object> mappaFiltro)throws InstanceNotFoundException, IllegalArgumentException {// carica
+	    //carica dati in base ai filtri
 		LinkedList<Account> listaFiltrata = new LinkedList<>();
 		if (!mappaFiltro.get(NOME).toString().isEmpty()) { // controllo il nome
 			for (Account a : listaaccount) {
@@ -140,8 +137,6 @@ public class AccountsModel implements ModelInterface {
 		}
 		// nome = null o nome != null
 		if (mappaFiltro.get(NATURA) instanceof Natures && mappaFiltro.get(NATURA) != Natures.NESSUNO) { // controllo
-																										// la
-																										// natura
 			if (listaFiltrata.isEmpty()) {
 				for (Account a : listaaccount) { // singolo filtro su natura
 					if (a.getNatura() == mappaFiltro.get(NATURA))
@@ -189,11 +184,7 @@ public class AccountsModel implements ModelInterface {
 	}
 
 	@Override
-	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException, IllegalArgumentException { // elimina
-		// dati
-		if (elemDaEliminare == null) {
-			throw new IllegalArgumentException("l'elemento da eliminare non si riferisce a nessun oggetto");
-		} else {
+	public void remove(IDataTableModel elemDaEliminare) throws InstanceNotFoundException, IllegalArgumentException { // elimina dati
 			if (elemDaEliminare instanceof Account) {
 				Account a = (Account) elemDaEliminare;
 				for (Account elem : listaaccount) {
@@ -214,7 +205,6 @@ public class AccountsModel implements ModelInterface {
 				throw new IllegalArgumentException("l'elemento da eliminare NON è un conto");
 			}
 		}
-	}
 
 	@Override
 	public DBDataModel saveDBAndClose() { // salva i dati sul database
