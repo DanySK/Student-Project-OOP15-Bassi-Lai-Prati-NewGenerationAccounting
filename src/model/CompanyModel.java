@@ -13,6 +13,7 @@ import dataModel.Company;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 
+
 /**
  * Classe implementativa per la gestione dell'anagrafica aziende e la creazione
  * di quest'ultime.
@@ -131,7 +132,7 @@ public class CompanyModel implements ModelInterface {
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
 		mappaFiltro.put(ragione_sociale, new String(""));
-		// mappaFiltro.put(p_iva, new String(""));
+	
 		return mappaFiltro;
 	}
 
@@ -233,67 +234,21 @@ public class CompanyModel implements ModelInterface {
 	@Override
 	public LinkedList<Company> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {
 
-		LinkedList<Company> listaFiltrata = new LinkedList<Company>();
-		// Continua ad escludere ciò che cerco di filtrare.
-
-		// if (mappaFiltro.get(ragione_sociale) instanceof String) {
-		if (listaAziende == null)
-			throw new InstanceNotFoundException("Non funziona"); // controllato
-																	// anche con
-																	// !=,
-																	// listaAziende
-																	// arriva
-																	// qui già
-																	// piena
-		// if (!((String) mappaFiltro.get(ragione_sociale)).isEmpty()) {
-		if (!((String) mappaFiltro.get(ragione_sociale)).isEmpty()) {
-			for (Company a : listaAziende) {
-				if (a.getRagione_sociale().equals(mappaFiltro.get(ragione_sociale))) { // l'errore
-																						// è
-																						// qui!
-					listaFiltrata.add(a);// qui non entra nulla, a=null, da
-											// fixare
+			LinkedList<Company> listaFiltrata = new LinkedList<>();
+	
+			if (mappaFiltro.get(ragione_sociale) != null) {
+				for (Company controllofiltro : listaAziende) {
+					if (controllofiltro.getRagione_sociale().equals(mappaFiltro.get(ragione_sociale))) {
+						listaFiltrata.add(controllofiltro);
+					}
 				}
-
 			}
-		} else {
-			throw new InstanceNotFoundException("Non funziona");
-
+			if (listaFiltrata.isEmpty()) {
+				throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri.");
+			}
+			return listaFiltrata;
 		}
-		// if (mappaFiltro.get(p_iva) instanceof Company) {
-		//
-		// if (listaFiltrata.isEmpty()) {
-		// for (Company a : listaAziende) { // singolo filtro su
-		// // p_iva
-		// if (a.getPartita_iva() == mappaFiltro.get(p_iva)) {
-		// listaFiltrata.add(a);
-		// }
-		// }
-		// } else { // doppio filtro tra ragione sociale e p_iva
-		// for (Company a : listaFiltrata) {
-		// if (a.getPartita_iva() != mappaFiltro.get(p_iva)) {
-		// listaFiltrata.remove(a);
-		// }
-		// }
-		//
-		// } // parentesi ultimo else
-		// }
-		// }
-		// }else{
-
-		// throw new InstanceNotFoundException("In listaFiltrata non sta
-		// entrando nulla");
-		// }
-
-		// if (listaFiltrata.isEmpty()) {
-		// throw new InstanceNotFoundException("Nella lista non sono presenti
-		// elementi che soddisfano i filtri");
-		// } else
-
-		return listaFiltrata;
-
-	}
-
+		
 	/**
 	 * Metodo che permette l'eliminazione di una azienda già esistente.
 	 * 

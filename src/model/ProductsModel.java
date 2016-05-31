@@ -29,7 +29,6 @@ public class ProductsModel implements ModelInterface {
 	private final static String descrizione = "Descrizione";
 	private final static String prezzo = "Prezzo";
 	private final static String rimanenze = "Rimanenze"; // string di scorta
-	// private boolean trovato = false;
 	private int scorta;
 	LinkedList<Product> listaProdotti;
 
@@ -120,9 +119,6 @@ public class ProductsModel implements ModelInterface {
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
 		mappaFiltro.put(nome, new String(""));
-		mappaFiltro.put(codiceA, new Integer(0));
-		mappaFiltro.put(codiceV, new Integer(0));
-		mappaFiltro.put(categoria, new String(""));
 		return mappaFiltro;
 	}
 
@@ -192,52 +188,16 @@ public class ProductsModel implements ModelInterface {
 			throws InstanceNotFoundException {
 
 		LinkedList<Product> listaFiltrata = new LinkedList<>();
+	
 
 		if (mappaFiltro.get(nome) != null) {
 			for (Product controllofiltro : listaProdotti) {
-				if (controllofiltro.getNome().contentEquals(nome)) {
+				if (controllofiltro.getNome().equals(mappaFiltro.get(nome))) {
 					listaFiltrata.add(controllofiltro);
+				
 				}
 			}
 		}
-
-		if (mappaFiltro.get(codiceA) != null) {
-			for (Product controllofiltro : listaProdotti) {
-				if (controllofiltro.getCod_acquisto() == Integer.parseInt(mappaFiltro.get(codiceV).toString())) {
-					listaFiltrata.add(controllofiltro);
-				} else {
-					for (Product doppiofiltro : listaFiltrata) {
-						if (doppiofiltro.getCod_acquisto() != Integer.parseInt(mappaFiltro.get(codiceV).toString())) {
-							listaFiltrata.remove(doppiofiltro);
-						}
-					}
-				}
-			}
-
-		}
-		if (mappaFiltro.get(codiceV) != null) {
-			for (Product controllofiltro : listaProdotti) {
-				if (controllofiltro.getCod_vendita() == Integer.parseInt(mappaFiltro.get(codiceV).toString())) {
-					listaFiltrata.add(controllofiltro);
-				} else {
-					for (Product doppiofiltro : listaFiltrata) {
-						if (doppiofiltro.getCod_vendita() != Integer.parseInt(mappaFiltro.get(codiceV).toString())) {
-							listaFiltrata.remove(doppiofiltro);
-						}
-					}
-				}
-			}
-
-		}
-
-		if (mappaFiltro.get(categoria) != null) {
-			for (Product controllofiltro : listaProdotti) {
-				if (controllofiltro.getCategoria().contentEquals(categoria)) {
-					listaFiltrata.add(controllofiltro);
-				}
-			}
-		}
-
 		if (listaFiltrata.isEmpty()) {
 			throw new InstanceNotFoundException("Nella lista non sono presenti elementi che soddisfano i filtri.");
 		}
