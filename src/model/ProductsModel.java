@@ -29,7 +29,7 @@ public class ProductsModel implements ModelInterface {
 	private final static String prezzo = "Prezzo";
 	private final static String rimanenze = "Rimanenze"; // string di scorta
 	private int scorta;
-	private boolean trovato = false;
+	//private boolean trovato = false;
 
 	private LinkedList<Product> listaProdotti = new LinkedList<Product>();
 	
@@ -102,9 +102,6 @@ public class ProductsModel implements ModelInterface {
 		((Product) obj).setPrezzovendita((Integer) infoDaModificare.get(prezzo));
 		((Product) obj).setScorta((Integer) infoDaModificare.get(rimanenze));
 
-		if (trovato == false) {
-			throw new InstanceNotFoundException("Elemento da modificare non presente.");
-		}
 	}
 
 	/*
@@ -117,8 +114,8 @@ public class ProductsModel implements ModelInterface {
 	public Map<String, Object> getFilterMap() {
 		Map<String, Object> mappaFiltro = new HashMap<>();
 		mappaFiltro.put(nome, new String(""));
-		mappaFiltro.put(codiceA, new String(""));
-		mappaFiltro.put(codiceV, new String(""));
+		mappaFiltro.put(codiceA, new Integer(0));
+		mappaFiltro.put(codiceV, new Integer(0));
 		mappaFiltro.put(categoria, new String(""));
 		return mappaFiltro;
 	}
