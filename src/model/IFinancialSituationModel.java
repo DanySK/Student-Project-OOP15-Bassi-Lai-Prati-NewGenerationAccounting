@@ -27,31 +27,6 @@ public interface IFinancialSituationModel {
 	public String Attivita();
 
 	/**
-	 * funzione per inserire saldi singoli e totali sezione al fianco di ogni
-	 * voce dello stato patrimoniale dalla parte delle attività
-	 * 
-	 * @return la stringa con i saldi
-	 */
-	public String Saldi_Attivita();
-
-	/**
-	 * funzione per popolare la colonna di nomi e sezioni dello stato
-	 * patrimoniale dalla parte delle passività
-	 * 
-	 * @return la stringa da inserire nel prospetto dello stato patrimoniale per
-	 *         le passività
-	 */
-	public String Passivita();
-
-	/**
-	 * funzione per inserire saldi singoli e totali sezione al fianco di ogni
-	 * voce dello stato patrimoniale dalla parte delle passività
-	 * 
-	 * @return la stringa con i saldi
-	 */
-	public String Saldi_Passivita();
-
-	/**
 	 * funzione per popolare la colonna di nomi e sezioni del Conto Economico
 	 * dalla parte dei Costi
 	 * 
@@ -61,12 +36,27 @@ public interface IFinancialSituationModel {
 	public String Costi();
 
 	/**
-	 * funzione per inserire saldi singoli e totali sezione al fianco di ogni
-	 * voce del Conto Economico dalla parte dei costi
+	 * funzione per calcolare il totale del Conto Economico
 	 * 
-	 * @return la stringa con i saldi
+	 * @return la stringa con il saldo
 	 */
-	public String Saldi_Costi();
+	public Float getSaldo_Conto_Ec();
+
+	/**
+	 * funzione per calcolare il totale dello stato patrimoniale
+	 * 
+	 * @return la stringa con il saldo
+	 */
+	public Float getSaldo_Stato_Patr();
+
+	/**
+	 * funzione per popolare la colonna di nomi e sezioni dello stato
+	 * patrimoniale dalla parte delle passività
+	 * 
+	 * @return la stringa da inserire nel prospetto dello stato patrimoniale per
+	 *         le passività
+	 */
+	public String Passivita();
 
 	/**
 	 * funzione per popolare la colonna di nomi e sezioni del Conto Economico
@@ -79,24 +69,34 @@ public interface IFinancialSituationModel {
 
 	/**
 	 * funzione per inserire saldi singoli e totali sezione al fianco di ogni
+	 * voce dello stato patrimoniale dalla parte delle attività
+	 * 
+	 * @return la stringa con i saldi
+	 */
+	public String Saldi_Attivita();
+
+	/**
+	 * funzione per inserire saldi singoli e totali sezione al fianco di ogni
+	 * voce del Conto Economico dalla parte dei costi
+	 * 
+	 * @return la stringa con i saldi
+	 */
+	public String Saldi_Costi();
+
+	/**
+	 * funzione per inserire saldi singoli e totali sezione al fianco di ogni
+	 * voce dello stato patrimoniale dalla parte delle passività
+	 * 
+	 * @return la stringa con i saldi
+	 */
+	public String Saldi_Passivita();
+
+	/**
+	 * funzione per inserire saldi singoli e totali sezione al fianco di ogni
 	 * voce del Conto Economico dalla parte dei Ricavi
 	 * 
 	 * @return la stringa con i saldi
 	 */
 	public String Saldi_Ricavi();
-
-	/**
-	 * funzione per calcolare il totale dello stato patrimoniale
-	 * 
-	 * @return la stringa con il saldo
-	 */
-	public Float getSaldo_Stato_Patr();
-
-	/**
-	 * funzione per calcolare il totale del Conto Economico
-	 * 
-	 * @return la stringa con il saldo
-	 */
-	public Float getSaldo_Conto_Ec();
 
 }

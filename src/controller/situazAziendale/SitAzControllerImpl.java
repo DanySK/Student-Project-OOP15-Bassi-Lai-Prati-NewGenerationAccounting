@@ -30,17 +30,14 @@ public class SitAzControllerImpl implements IViewObserver {
 	 *            il titolo della finestra
 	 */
 	public SitAzControllerImpl(final DBDataModel db, final String title) {
-		this.view = new SitAzView(title, new Dimension(400, 500));
 		this.model = new FinancialSituationModelImpl(db);
+		this.view = new SitAzView(title, new Dimension(400, 500), model.AnalisiFinanziaria(), model.Attivita(),
+				model.Saldi_Attivita(), model.Passivita(), model.Saldi_Attivita(), model.Costi(), model.Saldi_Costi(),
+				model.Ricavi(), model.Saldi_Ricavi(), model.getSaldo_Stato_Patr(), model.getSaldo_Conto_Ec());
 		this.view.setObserver(this);
 		view.start();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see controller.AbstractViewObserver#chiusura()
-	 */
 	@Override
 	public void chiusura() {
 		view.close();

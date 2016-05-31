@@ -101,8 +101,22 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		return commento;
 	}
 
-	public DBDataModel saveDBAndClose() {
-		return db;
+	@Override
+	public String Attivita() {
+		String Attivita = "<b>CREDITI_VS_SOCI</B>\n";
+		for (int i = 1; i <= 9; i++) {
+			for (int j = 0; j < contiRegistrati.size(); j++) { // scorro gli
+																// elementi
+																// della lista
+																// originale
+				if (contiRegistrati.get(j).getNatura() == Natures.ATTIVITA
+						&& contiRegistrati.get(j).getSezione() == Sections.valueOf(Integer.toString(i))) {
+					Attivita += "\n" + contiRegistrati.get(j).getName();
+				}
+			}
+			Attivita += "\n <b>" + Sections.valueOf(Integer.toString(i + 1)) + "</B>\n";
+		}
+		return Attivita;
 	}
 
 	private Map<String, Float> calcolaIndici_Margini() {
@@ -116,6 +130,21 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 		indiciMargini.put(margineTesoreria, getMargineTesoreria());
 		return indiciMargini;
 
+	}
+
+	@Override
+	public String Costi() {
+		String Costi = "<b>COSTI_DELLA_PRODUZIONE</B>\n";
+		for (int i = 15; i <= 19; i++) {
+			for (int j = 0; j < contiRegistrati.size(); j++) {
+				if (contiRegistrati.get(j).getNatura() == Natures.COSTO
+						&& contiRegistrati.get(j).getSezione() == Sections.valueOf(Integer.toString(i))) {
+					Costi += "\n" + contiRegistrati.get(j).getName();
+				}
+			}
+			Costi += "\n <b>" + Sections.valueOf(Integer.toString(i + 1)) + "</B>\n";
+		}
+		return Costi;
 	}
 
 	private Float getLeverage() {
@@ -243,137 +272,17 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 	}
 
 	@Override
-	public String Attivita() {
-		String Attivita = "<b>CREDITI_VS_SOCI</B>\n";
-		for (int i = 1; i <= 9; i++) {
-			for (int j = 0; j < contiRegistrati.size(); j++) { // scorro gli
-																// elementi
-																// della lista
-																// originale
-				if (contiRegistrati.get(j).getNatura() == Natures.ATTIVITA
-						&& contiRegistrati.get(j).getSezione() == Sections.valueOf(Integer.toString(i))) {
-					Attivita += "\n" + contiRegistrati.get(j).getName();
-				}
+	public Float getSaldo_Conto_Ec() {
+		float totCosti = 0;
+		float totRicavi = 0;
+		for (Account a : contiRegistrati) {
+			if (a.getNatura() == Natures.COSTO && Sections.getCosti().contains(a.getSezione())) {
+				totCosti += a.getSaldo();
+			} else if (a.getNatura() == Natures.PASSIVITA && Sections.getRicavi().contains(a.getSezione())) {
+				totRicavi += a.getSaldo();
 			}
-			Attivita += "\n <b>" + Sections.valueOf(Integer.toString(i + 1)) + "</B>\n";
 		}
-		return Attivita;
-	}
-
-	@Override
-	public String Saldi_Attivita() {
-		float totSezione = 0;
-		String saldi_attivita = "";
-		for (Sections elem : Sections.getAttivita()) {
-			saldi_attivita = "<b>" + Float.toString(totSezione) + "</B>\n";
-			for (Account a : contiRegistrati) {
-				if (a.getNatura() == Natures.ATTIVITA && a.getSezione() == elem) {
-					totSezione += a.getSaldo();
-					saldi_attivita += "\n" + a.getSaldo();
-				}
-			}
-			totSezione = 0;
-		}
-		return saldi_attivita;
-	}
-
-	@Override
-	public String Passivita() {
-		String Passivita = "<b>PATRIMONIO_NETTO</B>\n";
-		for (int i = 10; i <= 14; i++) {
-			for (int j = 0; j < contiRegistrati.size(); j++) { // scorro gli
-																// elementi
-																// della lista
-																// originale
-				if (contiRegistrati.get(j).getNatura() == Natures.PASSIVITA
-						&& contiRegistrati.get(j).getSezione() == Sections.valueOf(Integer.toString(i))) {
-					Passivita += "\n" + contiRegistrati.get(j).getName();
-				}
-			}
-			Passivita += "\n <b>" + Sections.valueOf(Integer.toString(i + 1)) + "</B>\n";
-		}
-		return Passivita;
-	}
-
-	@Override
-	public String Saldi_Passivita() {
-		float totSezione = 0;
-		String saldi_passivita = "";
-		for (Sections elem : Sections.getPassivita()) {
-			saldi_passivita = "<b>" + Float.toString(totSezione) + "</B>\n";
-			for (Account a : contiRegistrati) {
-				if (a.getNatura() == Natures.PASSIVITA && a.getSezione() == elem) {
-					totSezione += a.getSaldo();
-					saldi_passivita += "\n" + a.getSaldo();
-				}
-			}
-			totSezione = 0;
-		}
-		return saldi_passivita;
-	}
-
-	@Override
-	public String Costi() {
-		String Costi = "<b>COSTI_DELLA_PRODUZIONE</B>\n";
-		for (int i = 15; i <= 19; i++) {
-			for (int j = 0; j < contiRegistrati.size(); j++) {
-				if (contiRegistrati.get(j).getNatura() == Natures.COSTO
-						&& contiRegistrati.get(j).getSezione() == Sections.valueOf(Integer.toString(i))) {
-					Costi += "\n" + contiRegistrati.get(j).getName();
-				}
-			}
-			Costi += "\n <b>" + Sections.valueOf(Integer.toString(i + 1)) + "</B>\n";
-		}
-		return Costi;
-	}
-
-	@Override
-	public String Saldi_Costi() {
-		float totSezione = 0;
-		String saldi_Costi = "";
-		for (Sections elem : Sections.getCosti()) {
-			saldi_Costi = "<b>" + Float.toString(totSezione) + "</B>\n";
-			for (Account a : contiRegistrati) {
-				if (a.getNatura() == Natures.COSTO && a.getSezione() == elem) {
-					totSezione += a.getSaldo();
-					saldi_Costi += "\n" + a.getSaldo();
-				}
-			}
-			totSezione = 0;
-		}
-		return saldi_Costi;
-	}
-
-	@Override
-	public String Ricavi() {
-		String Ricavi = "<b>VALORE_DELLA_PRODUZIONE</B>\n";
-		for (int i = 20; i <= 23; i++) {
-			for (int j = 0; j < contiRegistrati.size(); j++) {
-				if (contiRegistrati.get(j).getNatura() == Natures.RICAVO
-						&& contiRegistrati.get(j).getSezione() == Sections.valueOf(Integer.toString(i))) {
-					Ricavi += "\n" + contiRegistrati.get(j).getName();
-				}
-			}
-			Ricavi += "\n <b>" + Sections.valueOf(Integer.toString(i + 1)) + "</B>\n";
-		}
-		return Ricavi;
-	}
-
-	@Override
-	public String Saldi_Ricavi() {
-		float totSezione = 0;
-		String saldi_Ricavi = "";
-		for (Sections elem : Sections.getRicavi()) {
-			saldi_Ricavi = "<b>" + Float.toString(totSezione) + "</B>\n";
-			for (Account a : contiRegistrati) {
-				if (a.getNatura() == Natures.RICAVO && a.getSezione() == elem) {
-					totSezione += a.getSaldo();
-					saldi_Ricavi += "\n" + a.getSaldo();
-				}
-			}
-			totSezione = 0;
-		}
-		return saldi_Ricavi;
+		return totRicavi - totCosti;
 	}
 
 	@Override
@@ -396,17 +305,108 @@ public class FinancialSituationModelImpl implements IFinancialSituationModel {
 	}
 
 	@Override
-	public Float getSaldo_Conto_Ec() {
-		float totCosti = 0;
-		float totRicavi = 0;
-		for (Account a : contiRegistrati) {
-			if (a.getNatura() == Natures.COSTO && Sections.getCosti().contains(a.getSezione())) {
-				totCosti += a.getSaldo();
-			} else if (a.getNatura() == Natures.PASSIVITA && Sections.getRicavi().contains(a.getSezione())) {
-				totRicavi += a.getSaldo();
+	public String Passivita() {
+		String Passivita = "<b>PATRIMONIO_NETTO</B>\n";
+		for (int i = 10; i <= 14; i++) {
+			for (int j = 0; j < contiRegistrati.size(); j++) { // scorro gli
+																// elementi
+																// della lista
+																// originale
+				if (contiRegistrati.get(j).getNatura() == Natures.PASSIVITA
+						&& contiRegistrati.get(j).getSezione() == Sections.valueOf(Integer.toString(i))) {
+					Passivita += "\n" + contiRegistrati.get(j).getName();
+				}
 			}
+			Passivita += "\n <b>" + Sections.valueOf(Integer.toString(i + 1)) + "</B>\n";
 		}
-		return totRicavi - totCosti;
+		return Passivita;
+	}
+
+	@Override
+	public String Ricavi() {
+		String Ricavi = "<b>VALORE_DELLA_PRODUZIONE</B>\n";
+		for (int i = 20; i <= 23; i++) {
+			for (int j = 0; j < contiRegistrati.size(); j++) {
+				if (contiRegistrati.get(j).getNatura() == Natures.RICAVO
+						&& contiRegistrati.get(j).getSezione() == Sections.valueOf(Integer.toString(i))) {
+					Ricavi += "\n" + contiRegistrati.get(j).getName();
+				}
+			}
+			Ricavi += "\n <b>" + Sections.valueOf(Integer.toString(i + 1)) + "</B>\n";
+		}
+		return Ricavi;
+	}
+
+	@Override
+	public String Saldi_Attivita() {
+		float totSezione = 0;
+		String saldi_attivita = "";
+		for (Sections elem : Sections.getAttivita()) {
+			saldi_attivita = "<b>" + Float.toString(totSezione) + "</B>\n";
+			for (Account a : contiRegistrati) {
+				if (a.getNatura() == Natures.ATTIVITA && a.getSezione() == elem) {
+					totSezione += a.getSaldo();
+					saldi_attivita += "\n" + a.getSaldo();
+				}
+			}
+			totSezione = 0;
+		}
+		return saldi_attivita;
+	}
+
+	@Override
+	public String Saldi_Costi() {
+		float totSezione = 0;
+		String saldi_Costi = "";
+		for (Sections elem : Sections.getCosti()) {
+			saldi_Costi = "<b>" + Float.toString(totSezione) + "</B>\n";
+			for (Account a : contiRegistrati) {
+				if (a.getNatura() == Natures.COSTO && a.getSezione() == elem) {
+					totSezione += a.getSaldo();
+					saldi_Costi += "\n" + a.getSaldo();
+				}
+			}
+			totSezione = 0;
+		}
+		return saldi_Costi;
+	}
+
+	@Override
+	public String Saldi_Passivita() {
+		float totSezione = 0;
+		String saldi_passivita = "";
+		for (Sections elem : Sections.getPassivita()) {
+			saldi_passivita = "<b>" + Float.toString(totSezione) + "</B>\n";
+			for (Account a : contiRegistrati) {
+				if (a.getNatura() == Natures.PASSIVITA && a.getSezione() == elem) {
+					totSezione += a.getSaldo();
+					saldi_passivita += "\n" + a.getSaldo();
+				}
+			}
+			totSezione = 0;
+		}
+		return saldi_passivita;
+	}
+
+	@Override
+	public String Saldi_Ricavi() {
+		float totSezione = 0;
+		String saldi_Ricavi = "";
+		for (Sections elem : Sections.getRicavi()) {
+			saldi_Ricavi = "<b>" + Float.toString(totSezione) + "</B>\n";
+			for (Account a : contiRegistrati) {
+				if (a.getNatura() == Natures.RICAVO && a.getSezione() == elem) {
+					totSezione += a.getSaldo();
+					saldi_Ricavi += "\n" + a.getSaldo();
+				}
+			}
+			totSezione = 0;
+		}
+		return saldi_Ricavi;
+	}
+
+	public DBDataModel saveDBAndClose() {
+		return db;
 	}
 
 }

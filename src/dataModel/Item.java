@@ -32,12 +32,12 @@ public class Item implements IDataTableModel {
 
 	}
 
-	public Product getProdotto() {
-		return prodotto;// .getNome();
-	}
-
 	public int getPrezzo() {// prova, non sarebbe necessario
 		return prodotto.getPrezzovendita();
+	}
+
+	public Product getProdotto() {
+		return prodotto;// .getNome();
 	}
 
 	public int getQuantita() {
@@ -58,11 +58,11 @@ public class Item implements IDataTableModel {
 		}
 	}
 
-	public void setProdotto(Product prodotto) {
+	public void setPrezzo(Product prodotto) {
 		this.prodotto = prodotto;
 	}
 
-	public void setPrezzo(Product prodotto) {
+	public void setProdotto(Product prodotto) {
 		this.prodotto = prodotto;
 	}
 
