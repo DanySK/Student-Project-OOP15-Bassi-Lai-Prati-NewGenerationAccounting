@@ -12,7 +12,6 @@ import dataEnum.Sections;
 import dataModel.Account;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
-import dataModel.Operation;
 
 /**
  * classe implementativa per la gestione dell'anagrafica dei conti
@@ -37,7 +36,7 @@ public class AccountsModel implements ModelInterface {
 	}
 
 	@Override
-	public void add(Map<String, Object> elem) throws InstanceAlreadyExistsException {
+	public void add(Map<String, Object> elem) throws InstanceAlreadyExistsException,IllegalArgumentException {
 		if (elem.get(NOME) == "" || elem.get(NATURA) == Natures.NESSUNO
 				|| (Sections) elem.get(SEZIONE) == Sections.NESSUNO) {
 			throw new IllegalArgumentException("nome, natura o sezione non valide");
@@ -70,7 +69,7 @@ public class AccountsModel implements ModelInterface {
 	}
 
 	@Override
-	public void edit(IDataTableModel obj, Map<String, Object> elemDaModificare) throws InstanceNotFoundException { // modifica
+	public void edit(IDataTableModel obj, Map<String, Object> elemDaModificare) throws InstanceNotFoundException,IllegalArgumentException { // modifica
 																													// elementi
 		trovato = false;
 		if (obj instanceof Account) {
@@ -127,7 +126,7 @@ public class AccountsModel implements ModelInterface {
 	}
 
 	@Override
-	public LinkedList<Account> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException {// carica
+	public LinkedList<Account> load(Map<String, Object> mappaFiltro) throws InstanceNotFoundException,IllegalArgumentException {// carica
 																										// //
 																										// filtri
 		LinkedList<Account> listaFiltrata = new LinkedList<>();
@@ -221,27 +220,4 @@ public class AccountsModel implements ModelInterface {
 		return db;
 	}
 
-	public void updateAccounts(Operation op) { // aggiorna i conti dopo
-		if (listaaccount.contains(op.getConto())) { // l'aggiunta/modifica/eliminazione
-			for (Account elem : listaaccount) { // di un movimento
-				if (elem.equals(op.getConto())) {
-					if (elem.getNatura().equals(Natures.COSTO) || elem.getNatura().equals(Natures.ATTIVITA)) {
-						if (op.getDare() > 0)
-							elem.incrSaldo(op.getDare());// Costo e Attività
-															// aumentano in dare
-						else if (op.getAvere() > 0)
-							elem.decrSaldo(op.getAvere());// e calano in avere
-					} else {
-						if (op.getAvere() > 0)
-							elem.incrSaldo(op.getAvere()); // Ricavi e
-															// Passività
-															// aumentano in
-															// avere
-						else if (op.getDare() > 0)
-							elem.decrSaldo(op.getDare());// e calano in dare
-					}
-				}
-			}
-		}
-	}
 }

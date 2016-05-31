@@ -1,6 +1,7 @@
 package model;
 
 import java.util.LinkedList;
+
 import java.util.Map;
 
 import javax.management.InstanceAlreadyExistsException;
@@ -9,12 +10,19 @@ import javax.management.InstanceNotFoundException;
 import dataModel.DBDataModel;
 import dataModel.IDataTableModel;
 
+/**
+ * interfaccia che elenca i metodi comuni alle classi AccountsModel, CompanyModel,CreaFattureModel,CostumersSuppliers,
+ * MovementsModel, ProductsModel,ReceivablesPayablesModel
+ * 
+ * @author niky
+ *
+ */
+
 public interface ModelInterface {
 
 	/**
 	 * operazione di aggiunta di un nuovo oggetto al dataBase del programma
 	 * 
-	 * @author niky
 	 * @param elem
 	 *            mappa contenente le informazioni sull'elemento da aggiungere
 	 * @throws InstanceNotFoundException
@@ -27,8 +35,6 @@ public interface ModelInterface {
 	/**
 	 * operazione per cercare e modificare un oggetto all'interno del dataBase
 	 * 
-	 * @author niky
-	 * 
 	 * @param obj,
 	 *            infoDaModificare l'oggetto da modificare e le nuove
 	 *            informazioni
@@ -39,8 +45,17 @@ public interface ModelInterface {
 	public void edit(IDataTableModel obj, Map<String, Object> infoDaModificare)
 			throws InstanceNotFoundException, InstanceAlreadyExistsException, IllegalArgumentException;
 
+	/**
+	 * funzione per creare la mappa da passare alla load e applicare dei filtri alla ricerca
+	 * @return la mappa con le informazioni dei filtri
+	 */
 	public abstract Map<String, Object> getFilterMap();
 
+	/**
+	 * funzione che crea la mappa da far compilare all'utente per aggiungere / modificare un'oggetto della lista
+	 * @param obj
+	 * @return mappa con le informazioni per le funzioni
+	 */
 	public abstract Map<String, Object> getMap(IDataTableModel obj);
 
 	/**
@@ -49,7 +64,6 @@ public interface ModelInterface {
 	 * 
 	 * @return ritorna i dati richiesti
 	 * 
-	 * @author niky
 	 */
 	public abstract LinkedList<? extends IDataTableModel> load();
 
@@ -58,8 +72,6 @@ public interface ModelInterface {
 
 	/**
 	 * operazione per rimuovere un oggetto dal dataBase
-	 * 
-	 * @author niky
 	 * 
 	 * @param elem
 	 *            elemento da modificare
@@ -71,7 +83,6 @@ public interface ModelInterface {
 	/**
 	 * funzione di salvataggio dei dati del database
 	 * 
-	 * @author niky
 	 */
 	public abstract DBDataModel saveDBAndClose();
 
